@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "ConnectionString" :  "server=(localdb)\\MSSQLLocalDB;Database=TransportDb;Integrated Security=true;MultipleActiveResultSets=true;"
+  }
+}
