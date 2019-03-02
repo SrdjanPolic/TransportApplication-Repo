@@ -7,6 +7,7 @@ namespace DBLayerPOC.Models
     /// <summary>
     /// Comment this line of code..
     /// TODO - Define table relations
+    /// Review Access file
     /// </summary>
     public class Entity
     {
