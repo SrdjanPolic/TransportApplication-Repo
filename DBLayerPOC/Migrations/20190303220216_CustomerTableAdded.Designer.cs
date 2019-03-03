@@ -3,14 +3,16 @@ using DBLayerPOC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBLayerPOC.Migrations
 {
     [DbContext(typeof(QuoteHeaderDbContext))]
-    partial class TransportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190303220216_CustomerTableAdded")]
+    partial class CustomerTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,16 +105,16 @@ namespace DBLayerPOC.Migrations
                         .HasColumnName("From")
                         .HasMaxLength(256);
 
-                    b.Property<int>("QuoteHeaderId");
-
                     b.Property<string>("To")
                         .IsRequired()
                         .HasColumnName("To")
                         .HasMaxLength(256);
 
+                    b.Property<int>("TransportOfferId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("QuoteHeaderId");
+                    b.HasIndex("TransportOfferId");
 
                     b.ToTable("QuoteLine");
                 });
@@ -127,9 +129,9 @@ namespace DBLayerPOC.Migrations
 
             modelBuilder.Entity("DBLayerPOC.Models.QuoteLine", b =>
                 {
-                    b.HasOne("DBLayerPOC.Models.QuoteHeader", "QuoteHeader")
-                        .WithMany("QuoteLines")
-                        .HasForeignKey("QuoteHeaderId")
+                    b.HasOne("DBLayerPOC.Models.QuoteHeader", "TransportOffer")
+                        .WithMany("TransportRoutes")
+                        .HasForeignKey("TransportOfferId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace DBLayerPOC.Models
 {
-    public class TransportRoute : Entity
+    public class QuoteLine : Entity
     {
         public string From { get; set; }
         public string To { get; set; }
-        public int TransportOfferId { get; set; }
-        public TransportOffer TransportOffer { get; set; }
+        public int QuoteHeaderId { get; set; }
+        public QuoteHeader QuoteHeader { get; set; }
     }
 }

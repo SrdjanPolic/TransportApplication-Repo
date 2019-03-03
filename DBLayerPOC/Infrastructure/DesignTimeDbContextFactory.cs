@@ -4,18 +4,18 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace DBLayerPOC.Infrastructure
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<TransportDbContext>
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<QuoteHeaderDbContext>
     {
-        TransportDbContext IDesignTimeDbContextFactory<TransportDbContext>.CreateDbContext(string[] args)
+        QuoteHeaderDbContext IDesignTimeDbContextFactory<QuoteHeaderDbContext>.CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<TransportDbContext>();
+            var builder = new DbContextOptionsBuilder<QuoteHeaderDbContext>();
 
             //var connectionString = Configuration.GetConnectionString("ConnectionString");
             var connectionString = "server=(localdb)\\MSSQLLocalDB;Database=TransportDb;Integrated Security=true;MultipleActiveResultSets=true;";
 
             builder.UseSqlServer(connectionString);
 
-            return new TransportDbContext(builder.Options);
+            return new QuoteHeaderDbContext(builder.Options);
         }
     }
 }

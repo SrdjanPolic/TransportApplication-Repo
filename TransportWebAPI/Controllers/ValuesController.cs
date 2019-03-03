@@ -16,8 +16,8 @@ namespace TransportWebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private IUnitOfWork<TransportDbContext> _unitOfWork;
-        public ValuesController(IUnitOfWork<TransportDbContext> unitOfWork)
+        private IUnitOfWork< QuoteHeaderDbContext> _unitOfWork;
+        public ValuesController(IUnitOfWork<QuoteHeaderDbContext> unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -31,16 +31,16 @@ namespace TransportWebAPI.Controllers
             //    GetList(predicate: x => x.Id >= 3452 && x.Id <= 9744,
             //    size: 9999999).Items;
 
-            var items = _unitOfWork.GetRepository<TransportOffer>().
+            var items = _unitOfWork.GetRepository<QuoteHeader>().
                GetList(include: source =>
-                    source.Include(x => x.TransportRoutes), size: 99999999, predicate: x => x.Id >= 0 && x.Id <= 9744).Items;
+                    source.Include(x => x.QuoteLines).Include(header => header.Customer), size: 99999999, predicate: x => x.Id >= 0 && x.Id <= 9744).Items;
 
 
             List<string> strings = new List<string>();
-            foreach (TransportOffer offer in items)
+            foreach (QuoteHeader offer in items)
             {
                 strings.Add(offer.Header + "\n");
-                foreach (TransportRoute route in offer.TransportRoutes)
+                foreach (QuoteLine route in offer.QuoteLines)
                 {
                     strings.Add("   " + route.From + "    " + route.To);
                 }
@@ -58,62 +58,62 @@ namespace TransportWebAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post(TransportOffer offer)
+        public void Post(QuoteHeader header)
         {
-            _unitOfWork.GetRepository<TransportOffer>().Add(offer);
-            var routeList = new List<TransportRoute>
+            _unitOfWork.GetRepository<QuoteHeader>().Add(header);
+            var routeList = new List<QuoteLine>
             {
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 },
-                new TransportRoute
+                new QuoteLine
                 {
                     From = Path.GetRandomFileName(),
                     To = Path.GetRandomFileName(),
-                    TransportOffer = offer
+                    QuoteHeader = header
                 }
             };
 
-            _unitOfWork.GetRepository<TransportRoute>().Add(routeList);
+            _unitOfWork.GetRepository<QuoteLine>().Add(routeList);
 
             _unitOfWork.SaveChanges();
 

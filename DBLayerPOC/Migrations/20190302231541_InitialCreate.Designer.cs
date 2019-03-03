@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBLayerPOC.Migrations
 {
-    [DbContext(typeof(TransportDbContext))]
-    [Migration("20190218140938_SeedData")]
-    partial class SeedData
+    [DbContext(typeof(QuoteHeaderDbContext))]
+    [Migration("20190302231541_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace DBLayerPOC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DBLayerPOC.Models.TransportOffer", b =>
+            modelBuilder.Entity("DBLayerPOC.Models.QuoteHeader", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,10 +35,10 @@ namespace DBLayerPOC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransportOffers");
+                    b.ToTable("QuoteHeader");
                 });
 
-            modelBuilder.Entity("DBLayerPOC.Models.TransportRoute", b =>
+            modelBuilder.Entity("DBLayerPOC.Models.QuoteLine", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,12 +61,12 @@ namespace DBLayerPOC.Migrations
 
                     b.HasIndex("TransportOfferId");
 
-                    b.ToTable("TransportRoutes");
+                    b.ToTable("QuoteLine");
                 });
 
-            modelBuilder.Entity("DBLayerPOC.Models.TransportRoute", b =>
+            modelBuilder.Entity("DBLayerPOC.Models.QuoteLine", b =>
                 {
-                    b.HasOne("DBLayerPOC.Models.TransportOffer", "TransportOffer")
+                    b.HasOne("DBLayerPOC.Models.QuoteHeader", "TransportOffer")
                         .WithMany("TransportRoutes")
                         .HasForeignKey("TransportOfferId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -38,7 +38,7 @@ namespace TransportWebAPI
             services.AddMvc();
  
             services.AddEntityFrameworkSqlServer()
-              .AddDbContext<TransportDbContext>(options =>
+              .AddDbContext<QuoteHeaderDbContext>(options =>
               {
                   options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
                                        sqlOptions => sqlOptions.MigrationsAssembly("WebApplication"));

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace DBLayerPOC.Infrastructure
 {
-    internal class TransportRouteEntityTypeConfiguration : IEntityTypeConfiguration<TransportRoute>
+    internal class QuoteLineEntityTypeConfiguration : IEntityTypeConfiguration<QuoteLine>
     {
-        public void Configure(EntityTypeBuilder<TransportRoute> builder)
+        public void Configure(EntityTypeBuilder<QuoteLine> builder)
         {
-            builder.ToTable("TransportRoutes");
+            builder.ToTable("QuoteLine");
             builder.HasKey("Id");
 
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
