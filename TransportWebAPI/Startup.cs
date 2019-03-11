@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace TransportWebAPI
 {
@@ -27,16 +28,13 @@ namespace TransportWebAPI
 
         public IConfiguration Configuration { get; }
 
-        //// This method gets called by the runtime. Use this method to add services to the container.
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-        //}
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
- 
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); ;
+
             services.AddEntityFrameworkSqlServer()
               .AddDbContext<QuoteHeaderDbContext>(options =>
               {
@@ -46,6 +44,14 @@ namespace TransportWebAPI
               ServiceLifetime.Scoped // Note that Scoped is the default choice
               // in AddDbContext. It is shown here only for
                 // pedagogic purposes.
+              ).AddDbContext<CurrencyDbContext>(options =>
+              {
+                  options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
+                                       sqlOptions => sqlOptions.MigrationsAssembly("WebApplication"));
+              },
+              ServiceLifetime.Scoped // Note that Scoped is the default choice
+                                     // in AddDbContext. It is shown here only for
+                                     // pedagogic purposes.
               );
 
             services.AddTransient<Seeder>();

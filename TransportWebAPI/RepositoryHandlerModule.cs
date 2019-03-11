@@ -8,9 +8,6 @@ namespace TransportWebAPI
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType <Repository<T>>()
-            //    .As<IRepository<T>>()
-            //    .InstancePerLifetimeScope()  where T : class;
             builder.RegisterGeneric(typeof(Repository<>))
                     .As(typeof(IRepository<>)).InstancePerLifetimeScope();
 

@@ -10,6 +10,8 @@ namespace DBLayerPOC.Models
         public ICollection<QuoteLine> QuoteLines => _quoteLines;
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+        public string CurrencyCode { get; set; }
+        public float CurrencyExchangeRate { get; set; }
 
         public QuoteHeader()
         {

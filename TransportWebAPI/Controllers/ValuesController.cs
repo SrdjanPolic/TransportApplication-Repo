@@ -24,7 +24,7 @@ namespace TransportWebAPI.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<QuoteHeader>> Get()
         {
             //return new string[] { "value1", "value2" };
             //var items = _unitOfWork.GetRepository<TransportOffer>().
@@ -35,25 +35,39 @@ namespace TransportWebAPI.Controllers
                GetList(include: source =>
                     source.Include(x => x.QuoteLines).Include(header => header.Customer), size: 99999999, predicate: x => x.Id >= 0 && x.Id <= 9744).Items;
 
+            return Ok(items);
 
-            List<string> strings = new List<string>();
-            foreach (QuoteHeader offer in items)
-            {
-                strings.Add(offer.Header + "\n");
-                foreach (QuoteLine route in offer.QuoteLines)
-                {
-                    strings.Add("   " + route.From + "    " + route.To);
-                }
-            }
-            return strings;
+            //List<string> strings = new List<string>();
+            //foreach (QuoteHeader offer in items)
+            //{
+            //    strings.Add(offer.Header + "\n");
+            //    foreach (QuoteLine route in offer.QuoteLines)
+            //    {
+            //        strings.Add("   " + route.From + "    " + route.To);
+            //    }
+            //}
+            //return strings;
 
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("{id:int}")]
+        public ActionResult<QuoteHeader> Get(int id)
         {
-            return "value";
+            try
+            {
+                var quoteHeader = _unitOfWork.GetRepository<QuoteHeader>().Single(include: source =>
+                    source.Include(x => x.QuoteLines).Include(header => header.Customer), predicate: x => x.Id == id);
+
+                if (quoteHeader != null)
+                    return Ok(quoteHeader);
+                else
+                    return NotFound();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Failed to obtain Quote");
+            }
         }
 
         // POST api/values

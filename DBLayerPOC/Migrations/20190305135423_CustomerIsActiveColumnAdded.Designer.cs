@@ -3,14 +3,16 @@ using DBLayerPOC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBLayerPOC.Migrations
 {
     [DbContext(typeof(QuoteHeaderDbContext))]
-    partial class TransportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190305135423_CustomerIsActiveColumnAdded")]
+    partial class CustomerIsActiveColumnAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,15 +79,6 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CurrencyCode")
-                        .HasColumnName("CurrencyCode")
-                        .HasMaxLength(10);
-
-                    b.Property<float>("CurrencyExchangeRate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("CurrencyExchangeRate")
-                        .HasDefaultValue(1f);
 
                     b.Property<int>("CustomerId")
                         .HasColumnName("CustomerId");

@@ -14,5 +14,6 @@ namespace DBLayerPOC.Models
         public string Email { get; set; }
         public string PaymentTermsCode { get; set; }
         public int VatGroup { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -1,21 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
+using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace DBLayerPOC.Infrastructure
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<QuoteHeaderDbContext>
+    public class DesignTimeDbContextFactory<T> : IDesignTimeDbContextFactory<T> where T : DbContext
     {
-        QuoteHeaderDbContext IDesignTimeDbContextFactory<QuoteHeaderDbContext>.CreateDbContext(string[] args)
+        public T CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<QuoteHeaderDbContext>();
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+           .SetBasePath(Directory.GetCurrentDirectory())
+           .AddJsonFile("config.json")
+           .Build();
+
+            var builder = new DbContextOptionsBuilder<T>();
 
             //var connectionString = Configuration.GetConnectionString("ConnectionString");
-            var connectionString = "server=(localdb)\\MSSQLLocalDB;Database=TransportDb;Integrated Security=true;MultipleActiveResultSets=true;";
+            //var connectionString = configuration.GetConnectionString("ConnectionString");
+            var connectionString = "server=.\\SQLExpress;Database=TransportDb;Integrated Security=true;MultipleActiveResultSets=true;";
 
             builder.UseSqlServer(connectionString);
 
-            return new QuoteHeaderDbContext(builder.Options);
+            var dbContext = (T)Activator.CreateInstance(typeof(T), builder.Options);
+
+            return dbContext;
+            // return new QuoteHeaderDbContext(builder.Options);
         }
     }
 }
+
+
+

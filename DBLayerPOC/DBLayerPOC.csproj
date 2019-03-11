@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,12 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
