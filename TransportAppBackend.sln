@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransportWebAPI", "Transpor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "DomainModel\Repository.csproj", "{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularClientApp", "AngularClientApp\AngularClientApp.csproj", "{309DBD66-5014-4C2B-BC2F-AB28C04D6023}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularClientApp", "AngularClientApp\AngularClientApp.csproj", "{069776B2-8933-450D-BEFD-02279F17CAA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{309DBD66-5014-4C2B-BC2F-AB28C04D6023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{309DBD66-5014-4C2B-BC2F-AB28C04D6023}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{309DBD66-5014-4C2B-BC2F-AB28C04D6023}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{309DBD66-5014-4C2B-BC2F-AB28C04D6023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069776B2-8933-450D-BEFD-02279F17CAA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069776B2-8933-450D-BEFD-02279F17CAA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069776B2-8933-450D-BEFD-02279F17CAA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069776B2-8933-450D-BEFD-02279F17CAA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
