@@ -18,7 +18,6 @@ namespace DBLayerPOC.Infrastructure
             builder.Property(x => x.Country).HasColumnName("Country").HasMaxLength(50).IsRequired();
             builder.Property(x => x.PhoneNo).HasColumnName("PhoneNo").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Email).HasColumnName("Email").HasMaxLength(50).IsRequired();
-            builder.Property(x => x.PaymentTermsCode).HasColumnName("PaymentTermsCode").HasMaxLength(50).IsRequired();
             builder.Property(x => x.VatGroup).HasColumnName("VatGroup").IsRequired();
         }
     }
