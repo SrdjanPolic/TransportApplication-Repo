@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBLayerPOC.Infrastructure;
+using DBLayerPOC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,21 +26,41 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Customer
         [HttpGet]
-        public IEnumerable<string> Get()
+        [ProducesResponseType(typeof(List<Customer>), 200)]
+        public async Task<ActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var customers = _unitOfWork.GetRepository<Customer>().GetList(size:99999999).Items;
+                return Ok(customers);
+            }
+            catch(Exception ex)
+            {
+                _Logger.LogError(ex.Message);
+                return BadRequest();
+            }
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [ProducesResponseType(typeof(List<Customer>), 200)]
+        public async Task<ActionResult> Get(int id)
         {
-            return "value";
+            try
+            {
+                var customer = _unitOfWork.GetRepository<Customer>().Single(x => x.Id == id);
+                return Ok(customer);
+            }
+            catch (Exception exp)
+            {
+                _Logger.LogError(exp.Message);
+                return BadRequest();
+            }
         }
 
         // POST: api/Customer
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Customer value)
         {
         }
 
