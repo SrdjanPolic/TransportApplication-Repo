@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Service.Data
@@ -14,31 +13,31 @@ namespace Service.Data
         {
         }
 
-        public async void Add(T entity)
+        public void Add(T entity)
         {
-           _dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
-        public async void Add(params T[] entities)
-        {
-            _dbSet.AddRange(entities);
-        }
-
-
-        public async void Add(IEnumerable<T> entities)
+        public void Add(params T[] entities)
         {
             _dbSet.AddRange(entities);
         }
 
 
-        public async void Delete(T entity)
+        public void Add(IEnumerable<T> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
+
+        public void Delete(T entity)
         {
             var existing = _dbSet.Find(entity);
             if (existing != null) _dbSet.Remove(existing);
         }
 
 
-        public async void Delete(object id)
+        public void Delete(object id)
         {
             var typeInfo = typeof(T).GetTypeInfo();
             var key = _dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
@@ -56,46 +55,46 @@ namespace Service.Data
             }
         }
 
-        public async void Delete(params T[] entities)
+        public void Delete(params T[] entities)
         {
             _dbSet.RemoveRange(entities);
         }
 
-        public async void Delete(IEnumerable<T> entities)
+        public void Delete(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
         }
 
 
         [Obsolete("Method is replaced by GetList")]
-        public async Task<IEnumerable<T>> Get()
+        public IEnumerable<T> Get()
         {
-            return await (from n in _dbSet select n).ToListAsync();
+            return _dbSet.AsEnumerable();
         }
 
         [Obsolete("Method is replaced by GetList")]
-        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate)
+        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return await (from n in _dbSet.Where(predicate) select n).ToListAsync();
+            return _dbSet.Where(predicate).AsEnumerable();
         }
 
-        public async void Update(T entity)
+        public void Update(T entity)
         {
             _dbSet.Update(entity);
         }
 
-        public async void Update(params T[] entities)
+        public void Update(params T[] entities)
         {
             _dbSet.UpdateRange(entities);
         }
 
 
-        public async void Update(IEnumerable<T> entities)
+        public void Update(IEnumerable<T> entities)
         {
             _dbSet.UpdateRange(entities);
         }
 
-        public async void Dispose()
+        public void Dispose()
         {
             _dbContext?.Dispose();
         }
