@@ -13,7 +13,7 @@ namespace DBLayerPOC.Infrastructure
 
         }
 
-        public virtual DbSet<Customer> Currencies { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
