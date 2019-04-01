@@ -18,7 +18,26 @@ namespace DBLayerPOC.Infrastructure
 
         public void Seed()
         {
-            //_ctx.Database.EnsureCreated();
+            _ctx.Database.EnsureCreated();
+            for (int i = 0; i < 5000; i++)
+            {
+                var customer = new Customer
+                {
+                    Name = "Korisnik " + i,
+                    Address = "Adresa korisnika " + i,
+                    City = "City " + i,
+                    Country = "Country " + i,
+                    PhoneNo = "Telefon " + i,
+                    Email = "Email " + i,
+                    VatGroup = 3,
+                    IsActive = true
+
+                };
+
+                _ctx.Customers.Add(customer);
+            }
+
+            _ctx.SaveChanges();
 
             //if (!_ctx.Customers.Any())
             //{
