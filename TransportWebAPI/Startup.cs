@@ -55,7 +55,7 @@ namespace TransportWebAPI
               );
 
             services.AddTransient<Seeder>();
-
+ 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new RepositoryHandlerModule());
             builder.Populate(services);
