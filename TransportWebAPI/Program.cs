@@ -24,14 +24,18 @@ namespace TransportWebAPI
 
         private static void RunSeeding(IWebHost host)
         {
-            var seeder = host.Services.GetService<Seeder>();
-            seeder.Seed();
+            //var seeder = host.Services.GetService<Seeder>();
+            //seeder.Seed();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(SetupConfiguration)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>().ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                });
 
         private static void SetupConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
         {
