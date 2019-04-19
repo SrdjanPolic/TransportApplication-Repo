@@ -1,0 +1,57 @@
+<div class="search-div">
+  <button mat-raised-button (click) ="onCreate()">
+    <mat-icon>add</mat-icon>Kreiraj novi
+  </button>
+  <mat-form-field class="search-form-field" floatlabel="never">
+    <input matInput [(ngModel)]="searchKey" placeholder="Pretraga" autocomplete="off" (keyup)="applyFilter()">  
+    <button mat-button matSuffix mat-icon-button aria-label="Očisti" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="listData" matSort>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ime Kupca</mat-header-cell>
+      <mat-cell *matCellDef ="let element">{{element.Name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="City">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Grad</mat-header-cell>
+      <mat-cell *matCellDef ="let element">{{element.City}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Država</mat-header-cell>
+      <mat-cell *matCellDef ="let element">{{element.Country}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="VATNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>PDV Broj</mat-header-cell>
+      <mat-cell *matCellDef ="let element">{{element.VATNumber}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Disabled">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Blokiran</mat-header-cell>
+      <mat-cell *matCellDef ="let element">{{element.Disabled}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef ="let row">
+        <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color = "warn" (click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Učitavanje podataka...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="nodata">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Nema podataka.
+      </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef= "displayedColumns"></mat-header-row>
+    <mat-row *matRowDef= "let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['nodata']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions] = "[5,10,25,100]" [pageSize] = "10" showFirstLastButtons></mat-paginator>
+</div>

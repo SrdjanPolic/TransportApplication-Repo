@@ -6,12 +6,12 @@
 
 
 		<ul class="list-unstyled components">
-			<p>Ponude po statusima:</p>
+			<p >Ponude po statusima:</p>
 			<li class="active">
 				<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a>
 				<ul class="collapse list-unstyled" id="homeSubmenu">
 					<li>
-						<a href="#">Zahtev za ponudu</a>
+						<a [routerLink]='["/counter"]'>Zahtev za ponudu</a>
 					</li>
 					<li>
 						<a href="#">Ponuda</a>
@@ -46,7 +46,7 @@
 				<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Šifarnici</a>
 				<ul class="collapse list-unstyled" id="pageSubmenu">
 					<li>
-						<a href="#">Kupci</a>
+						<a [routerLink]='["/customers"]'>Kupci</a>
 					</li>
 					<li>
 						<a href="#">Dobavljači</a>
@@ -109,7 +109,7 @@
 						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Llink 2</a>
+						<a class="nav-link" href="#">Link 2</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Link 3</a>
@@ -121,10 +121,10 @@
 			</div>
 		</nav>
 
-		<div class="jumbotron jumbtron-fluid">
+		<!--div class="jumbotron jumbtron-fluid">
 			<h3 class="display-4 text-center"><img src="./assets/img/Atomic.jpg"></h3>
 			<h3 class="display-4 text-center">Transport Company</h3>
-		</div>
+		</div>-->
 
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->

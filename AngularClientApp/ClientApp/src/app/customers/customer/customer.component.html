@@ -1,0 +1,61 @@
+<mat-toolbar>
+  <span>{{service.form.controls['$key'].value?"Izmeni kupca": "Kreiraj novi"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]= "service.form" class="normal-form" (submit)="onSubmit()">
+ <mat-grid-list cols="2" rowHeight="400px">
+   <mat-grid-tile>
+     <div class="controles-container">
+       <input type="hidden" formControlName = "$key">
+       <mat-form-field>
+         <input formControlName="Name" matInput placeholder="Ime*">
+         <mat-error>Obavezno polje.</mat-error>
+       </mat-form-field>
+       <mat-form-field>
+          <input formControlName="Address" matInput placeholder="Adresa">
+       </mat-form-field>
+       <mat-form-field>
+          <input formControlName="City" matInput placeholder="Grad">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="Country" matInput placeholder="Zemlja">
+        </mat-form-field>
+        <mat-form-field>
+            <input formControlName="PhoneNo" matInput placeholder="Broj Telefona">
+            <mat-error *ngIf="service.form.controls['PhoneNo'].errors?.minleght">Minimalno 6 brojeva.</mat-error>
+          </mat-form-field>
+     </div>
+   </mat-grid-tile>
+   <mat-grid-tile>
+      <div class="controles-container">
+       <mat-form-field>
+         <mat-select formControlName="VATGroup" placeholder="PDV Procenat">
+           <mat-option>Nedefinisano</mat-option>
+           <ng-container *ngFor="let VAT of VATGroups">
+             <mat-option value="{{VAT.id}}">{{VAT.value}}</mat-option>
+           </ng-container>
+         </mat-select>
+       </mat-form-field>
+       <div class="add-bottom-padding">
+         <mat-checkbox formControlName="Disabled">Nije aktivan</mat-checkbox>
+       </div>
+       <div class="add-bottom-padding">
+        <mat-form-field>
+          <input formControlName="VATNumber" matInput placeholder="PDV Broj*">
+        </mat-form-field>
+       </div>
+       <div class="add-bottom-padding">
+        <mat-form-field>
+          <input formControlName="EMail" matInput placeholder="EMail">
+          <mat-error>Neispravan E-Mail format.</mat-error>
+        </mat-form-field>
+       </div>
+       <div class="button-row">
+         <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Snimi</button>
+         <button mat-raised-button color="warn" (click)="OnClear()">Očisti formu</button>
+       </div>
+      </div>
+    </mat-grid-tile>
+ </mat-grid-list>
+</form>
