@@ -7,24 +7,17 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { EmployeesComponent } from './employees/employees.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CounterComponent } from './counter/counter.component';
 import { NavMenu2Component } from './nav-menu2/nav-menu2.component';
-
-import {MaterialModule} from './material/material.module';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { MaterialModule } from './material/material.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
-import { CustomersComponent } from './customers/customers.component';
-import {CustomerService} from './shared/customer.service';
-import { CustomerComponent } from './customers/customer/customer.component';
 import {environment} from '../environments/environment';
-import { CustomerListComponent } from './customers/customer-list/customer-list.component';
-
+import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,33 +27,31 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    CustomersComponent,
-    CustomerComponent,
-    CustomerListComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-
+    MaterialModule,
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
+    FlexLayoutModule,
 
     ToastrModule.forRoot(),
+    /*
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      {path: 'customers', component: CustomersComponent}
+      {path: '**', redirectTo : '/404', pathMatch: 'full'}
     ])
+    */
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [CustomerComponent]
+  entryComponents: []
 })
 export class AppModule { }

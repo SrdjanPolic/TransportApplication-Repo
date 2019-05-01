@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  urlAddress: 'https://localhost:5001',
   firebaseConfig: {
     apiKey: 'AIzaSyCG5n_rzmmfbrATrB9ec_KX8i4S3UYeG5Q',
     authDomain: 'atomicsped-15940.firebaseapp.com',
