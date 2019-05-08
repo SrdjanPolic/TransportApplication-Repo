@@ -31,7 +31,7 @@ namespace TransportWebAPI.Controllers
         {
             try
             {
-                var customers = _unitOfWork.GetRepository<Customer>().GetList(size:10).Items;
+                var customers = _unitOfWork.GetRepository<Customer>().GetList(size:10000).Items;
                 return Ok(customers);
             }
             catch(Exception ex)
@@ -91,7 +91,9 @@ namespace TransportWebAPI.Controllers
                 _unitOfWork.GetRepository<Customer>().Add(customer);
                 _unitOfWork.SaveChanges();
 
-                return CreatedAtRoute("GetCustomerRoute", new { id = customer.Id });
+                return CreatedAtRoute(routeName: "Get",
+                                      routeValues: new { id = customer.Id },
+                                      value: customer);
             }
             catch(Exception ex)
             {
