@@ -1,0 +1,19 @@
+<section fxLayout="column wrap">
+  <div fxFlexAlign="center">
+    <p>Atomic Sped Web Aplikacija</p>
+  </div>
+
+  <p>Aplikacija će omogućiti pregled:</p>
+
+  <mat-tab-group (selectedTabChange)="executeSelectedChange($event)">
+    <mat-tab label="Šifarnika"> 
+      <p>Šifarnika kupaca, dobavljača, vozila, zaposlenih.</p> 
+    </mat-tab>
+    <mat-tab label="Dokumenata">
+       <p>Naloga za transport, putnih naloga, ulaznih i izlaznih faktura.</p>
+      </mat-tab>
+    <mat-tab label="Izveštaja">
+       <p>Pregled finansijskih pokazatelja, štampa dokumenata.</p>
+      </mat-tab>
+  </mat-tab-group>
+</section>
