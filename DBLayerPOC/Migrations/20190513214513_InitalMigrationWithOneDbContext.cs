@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DBLayerPOC.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitalMigrationWithOneDbContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,9 @@ namespace DBLayerPOC.Migrations
                     PhoneNo = table.Column<string>(maxLength: 50, nullable: false),
                     Email = table.Column<string>(maxLength: 50, nullable: false),
                     VatGroup = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false)
+                    VatNumber = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false, defaultValue: true),
+                    LastChangeDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 5, 13, 23, 45, 12, 415, DateTimeKind.Local).AddTicks(9847))
                 },
                 constraints: table =>
                 {

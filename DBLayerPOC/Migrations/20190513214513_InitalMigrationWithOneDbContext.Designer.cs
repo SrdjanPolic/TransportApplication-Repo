@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DBLayerPOC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190513202546_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20190513214513_InitalMigrationWithOneDbContext")]
+    partial class InitalMigrationWithOneDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,7 +96,15 @@ namespace DBLayerPOC.Migrations
                         .HasColumnName("Email")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsActive");
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsActive")
+                        .HasDefaultValue(true);
+
+                    b.Property<DateTime>("LastChangeDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("LastChangeDate")
+                        .HasDefaultValue(new DateTime(2019, 5, 13, 23, 45, 12, 415, DateTimeKind.Local).AddTicks(9847));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -110,6 +118,9 @@ namespace DBLayerPOC.Migrations
 
                     b.Property<int>("VatGroup")
                         .HasColumnName("VatGroup");
+
+                    b.Property<int>("VatNumber")
+                        .HasColumnName("VatNumber");
 
                     b.HasKey("Id");
 

@@ -13,6 +13,8 @@ namespace DBLayerPOC.Models
         public string PhoneNo { get; set; }
         public string Email { get; set; }
         public int VatGroup { get; set; }
+        public int VatNumber { get; set; }
         public bool IsActive { get; set; }
+        public DateTime LastChangeDate { get; set; }
     }
 }

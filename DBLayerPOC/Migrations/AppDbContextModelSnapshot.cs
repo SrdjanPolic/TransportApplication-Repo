@@ -94,7 +94,15 @@ namespace DBLayerPOC.Migrations
                         .HasColumnName("Email")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsActive");
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsActive")
+                        .HasDefaultValue(true);
+
+                    b.Property<DateTime>("LastChangeDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("LastChangeDate")
+                        .HasDefaultValue(new DateTime(2019, 5, 13, 23, 45, 12, 415, DateTimeKind.Local).AddTicks(9847));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -108,6 +116,9 @@ namespace DBLayerPOC.Migrations
 
                     b.Property<int>("VatGroup")
                         .HasColumnName("VatGroup");
+
+                    b.Property<int>("VatNumber")
+                        .HasColumnName("VatNumber");
 
                     b.HasKey("Id");
 
