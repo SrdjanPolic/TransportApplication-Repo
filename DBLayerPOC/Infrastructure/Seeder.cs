@@ -9,9 +9,9 @@ namespace DBLayerPOC.Infrastructure
 {
     public class Seeder
     {
-        private readonly QuoteHeaderDbContext _ctx;
+        private readonly AppDbContext _ctx;
 
-        public Seeder(QuoteHeaderDbContext ctx)
+        public Seeder(AppDbContext ctx)
         {
             _ctx = ctx;
         }
