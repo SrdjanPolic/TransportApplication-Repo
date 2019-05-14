@@ -31,6 +31,7 @@ namespace TransportWebAPI.Controllers
         {
             try
             {
+                _Logger.LogError("log enter");
                 var customers = _unitOfWork.GetRepository<Customer>().GetList(size:10000).Items;
                 return Ok(customers);
             }

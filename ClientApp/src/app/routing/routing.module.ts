@@ -8,6 +8,7 @@ import { ServerErrorComponent } from '../error-pages/server-error/server-error.c
 const ownerRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'customer', loadChildren: "./../customer/customer.module#CustomerModule" },
+  { path: 'vendor', loadChildren: "./../vendor/vendor.module#VendorModule" },
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

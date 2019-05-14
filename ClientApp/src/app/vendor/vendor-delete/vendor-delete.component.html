@@ -1,0 +1,29 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%">
+
+    <mat-card-title>Izbriši dobavljača</mat-card-title>
+    <mat-card-content>
+      <div fxLayout="column wrap" fxLayoutGap="40px">
+        <div fxLayout="row wrap" fxFlex>
+          <div fxFlex><strong>Ime dobavljača</strong></div>
+          <div fxFlex>{{vendor?.name}}</div>
+        </div>
+
+        <div fxLayout="row wrap" fxFlex>
+          <div fxFlex><strong>Adresa dobavljača</strong></div>
+          <div fxFlex>{{vendor?.address}}</div>
+        </div>
+
+        <div fxLayout="row wrap" fxFlex>
+          <div fxFlex><strong>Grad dobavljača</strong></div>
+          <div fxFlex>{{vendor?.city}}</div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" (click)="deleteVendor()">Izbriši</button>
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>
+    </mat-card-actions>
+
+  </mat-card>
+</section>
