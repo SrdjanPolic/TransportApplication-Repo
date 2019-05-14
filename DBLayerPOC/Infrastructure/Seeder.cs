@@ -30,7 +30,7 @@ namespace DBLayerPOC.Infrastructure
                     PhoneNo = "Telefon " + i,
                     Email = "Email " + i,
                     VatGroup = 3,
-                    IsActive = true
+                    IsInactive = false
 
                 };
 

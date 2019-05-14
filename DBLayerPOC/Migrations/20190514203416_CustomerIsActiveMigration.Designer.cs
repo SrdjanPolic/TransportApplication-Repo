@@ -4,14 +4,16 @@ using DBLayerPOC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBLayerPOC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190514203416_CustomerIsActiveMigration")]
+    partial class CustomerIsActiveMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +104,7 @@ namespace DBLayerPOC.Migrations
                     b.Property<DateTime>("LastChangeDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("LastChangeDate")
-                        .HasDefaultValue(new DateTime(2019, 5, 14, 22, 49, 0, 292, DateTimeKind.Local).AddTicks(626));
+                        .HasDefaultValue(new DateTime(2019, 5, 14, 22, 34, 15, 293, DateTimeKind.Local).AddTicks(7240));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -117,7 +119,7 @@ namespace DBLayerPOC.Migrations
                     b.Property<int>("VatGroup")
                         .HasColumnName("VatGroup");
 
-                    b.Property<string>("VatNumber")
+                    b.Property<int>("VatNumber")
                         .HasColumnName("VatNumber");
 
                     b.HasKey("Id");
