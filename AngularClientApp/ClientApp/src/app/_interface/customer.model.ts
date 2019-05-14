@@ -1,11 +1,14 @@
-export class Customer {
+import { Account } from './account.model';
+export interface Customer{
     id: string;
-    Name: string;
-    Address: string;
-    City: string;
-    Country: string;
-    PhoneNo: string;
-    Email: string;
-    VatGroup: number;
-    IsActive: boolean;
+    name: string;
+    address: string;
+    city: string;
+    country: string;
+    phoneNo: string;
+    eMail: string;
+    vatGroup: number;
+    isActive: boolean;
+
+    accounts?: Account
 }

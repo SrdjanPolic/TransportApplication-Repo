@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransportWebAPI", "Transpor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "DomainModel\Repository.csproj", "{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularClientApp", "AngularClientApp\AngularClientApp.csproj", "{44D47F38-33DE-40D3-AE78-1544E52DCA9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

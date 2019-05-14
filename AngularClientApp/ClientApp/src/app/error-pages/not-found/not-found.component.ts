@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit {
 
-    public notFoundText: string = `Greška 404 - Stranica ne postoji`
-
   constructor() { }
 
   ngOnInit() {

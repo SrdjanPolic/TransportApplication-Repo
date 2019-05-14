@@ -1,0 +1,76 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%">
+    <mat-card-title>Kreiraj novog dobavljača</mat-card-title>
+    <form [formGroup]="customerForm" autocomplete="off" novalidate (ngSubmit)="createVendor(vendorForm.value)" fxLayout="column wrap"
+      fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-card-content>
+
+          <mat-form-field>
+            <input matInput type="text" placeholder="Ime dobavljača" formControlName="name" id="name">
+            <mat-hint align="end">Max. 60 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('name', 'required')">Ime je neophodno</mat-error>
+            <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 60 karaktera</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+              <input matInput type="text" placeholder="Adresa dobavljača" formControlName="address">
+              <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+              <mat-error *ngIf="hasError('address', 'required')">Adresa je neophodna</mat-error>
+              <mat-error *ngIf="hasError('address', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
+            </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="text" placeholder="Grad dobavljača" formControlName="city">
+            <mat-hint align="end">Max. 40 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('city', 'required')">Grad je neophodan</mat-error>
+            <mat-error *ngIf="hasError('city', 'maxlength')">Prekoračeno 40 karaktera</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="text" placeholder="Zemlja dobavljača" formControlName="country">
+            <mat-hint align="end">Max. 40 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('country', 'required')">Zemlja je neophodna</mat-error>
+            <mat-error *ngIf="hasError('country', 'maxlength')">Prekoračeno 40 karaktera</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="text" placeholder="Telefon dobavljača" formControlName="phoneNo">
+            <mat-hint align="end">Max. 40 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('phoneNo', 'required')">Telefon je neophodan</mat-error>
+            <mat-error *ngIf="hasError('phoneNo', 'maxlength')">Prekoračeno 40 karaktera</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="text" placeholder="EMail dobavljača" formControlName="eMail">
+            <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('eMail', 'required')">EMail je neophodan</mat-error>
+            <mat-error *ngIf="hasError('eMail', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="number" placeholder="PDV Grupa" formControlName="vatGroup">
+            <mat-hint align="end">0 ili 20.</mat-hint>
+            <mat-error *ngIf="hasError('vatGroup', 'required')">PDV Grupa je neophodna</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="text" placeholder="PDV broj" formControlName="vatNumber">
+            <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('vatNumber', 'required')">PDV broj je neophodan</mat-error>
+            <mat-error *ngIf="hasError('vatNubmer', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="text" placeholder="Aktivan dobavljač" formControlName="isActive">
+            <mat-hint align="end">Aktivan/Neaktivan.</mat-hint>
+          </mat-form-field>
+          
+  
+        </mat-card-content>
+        <mat-card-actions align="center">
+          <button mat-raised-button color="primary" [disabled]="!vendorForm.valid">Kreiraj</button>
+          <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>
+        </mat-card-actions>
+    </form>
+  </mat-card>
+</section>
