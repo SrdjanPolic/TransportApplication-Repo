@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DBLayerPOC.Models
+namespace DBLayerPOC.ModelBase
 {
     /// <summary>
     /// Comment this line of code..

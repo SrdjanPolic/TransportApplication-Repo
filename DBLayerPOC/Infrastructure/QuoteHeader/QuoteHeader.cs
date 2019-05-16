@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DBLayerPOC.ModelBase;
+using System.Collections.Generic;
 
 
 namespace DBLayerPOC.Models
