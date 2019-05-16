@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.Models;
+﻿using DBLayerPOC.Infrastructure.Vendor;
+using DBLayerPOC.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,6 +16,8 @@ namespace DBLayerPOC.Infrastructure
         public virtual DbSet<QuoteLine> QuoteLines { get; set; }
 
         public virtual DbSet<Customer> Customers { get; set; }
+
+        public virtual DbSet<Vendor.Vendor> Vendors { get; set; }
 
         public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<CurrencyExchangeRate> CurrencyExchangeRates { get; set; }
@@ -34,6 +37,9 @@ namespace DBLayerPOC.Infrastructure
             //Currency
             modelBuilder.ApplyConfiguration(new CurrencyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CurrencyExchangeRateEntityTypeConfiguration());
+
+            //Vendor
+            modelBuilder.ApplyConfiguration(new VendorEntityTypeConfiguration());
         }
     }
 }
