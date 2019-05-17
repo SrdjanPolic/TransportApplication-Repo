@@ -20,19 +20,19 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            for (int i = 0; i < 30; i++)
-            {
-                var exRate = new CurrencyExchangeRate
-                {
-                    ExchangeRateAmount = 117.87F + 0.1F * i,
-                    StartingDate = DateTime.Now.AddDays(-i),
-                    CurrencyId = 1
-                };
+            //for (int i = 0; i < 30; i++)
+            //{
+            //    var exRate = new CurrencyExchangeRate
+            //    {
+            //        ExchangeRateAmount = 117.87F + 0.1F * i,
+            //        StartingDate = DateTime.Now.AddDays(-i),
+            //        CurrencyId = 12
+            //    };
 
-                _ctx.CurrencyExchangeRates.Add(exRate);
-            }
+            //    _ctx.CurrencyExchangeRates.Add(exRate);
+            //}
 
-            _ctx.SaveChanges();
+            //_ctx.SaveChanges();
 
             for (int i = 0; i < 30; i++)
             {
@@ -49,7 +49,7 @@ namespace DBLayerPOC.Infrastructure
                     VatNumber = "PDV Broj" + i,
                     LastChangeDate = DateTime.Now.AddDays(-i),
                     IsInactive = false,
-                    CurrencyId = i + 1,
+                    CurrencyId = 12,
                 };
 
                 _ctx.Vendors.Add(vendor);
