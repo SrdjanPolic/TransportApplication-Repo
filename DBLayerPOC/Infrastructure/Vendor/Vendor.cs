@@ -18,7 +18,7 @@ namespace DBLayerPOC.Infrastructure.Vendor
         public bool? IsInactive { get; set; }
         public DateTime LastChangeDate { get; set; }
 
-        public int CurrencyExchangeRateId { get; set; }
-        public CurrencyExchangeRate CurrencyExchangeRate { get; set; }
+        public int CurrencyId { get; set; }
+        public Currency Currency { get; set; }
     }
 }

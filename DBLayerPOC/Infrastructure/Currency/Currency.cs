@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.ModelBase;
+﻿using DBLayerPOC.Infrastructure.Vendor;
+using DBLayerPOC.ModelBase;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,12 +10,13 @@ namespace DBLayerPOC.Models
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        private ICollection<CurrencyExchangeRate> _currencyExchangeRates;
-        public ICollection<CurrencyExchangeRate> CurrencyExchangeRates => _currencyExchangeRates;
+        public ICollection<Vendor> Vendors { get; }
+        public ICollection<CurrencyExchangeRate> CurrencyExchangeRates { get; }
 
         public Currency()
         {
-            _currencyExchangeRates = new HashSet<CurrencyExchangeRate>();
+            CurrencyExchangeRates = new HashSet<CurrencyExchangeRate>();
+            Vendors = new HashSet<Vendor>();
         }
     }
 }

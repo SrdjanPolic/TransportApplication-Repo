@@ -7,8 +7,7 @@ namespace DBLayerPOC.Models
     public class QuoteHeader : Entity
     {
         public string Header { get; set; }
-        private readonly ICollection<QuoteLine> _quoteLines;
-        public ICollection<QuoteLine> QuoteLines => _quoteLines;
+        public ICollection<QuoteLine> QuoteLines { get; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public string CurrencyCode { get; set; }
@@ -16,7 +15,7 @@ namespace DBLayerPOC.Models
 
         public QuoteHeader()
         {
-            _quoteLines = new HashSet<QuoteLine>();
+            QuoteLines = new HashSet<QuoteLine>();
         }
     }
 }

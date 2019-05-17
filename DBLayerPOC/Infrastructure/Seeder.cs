@@ -20,16 +20,6 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            var euro = new Currency
-            {
-                Code = "EUR",
-                Name = "Evro",
-            };
-
-            _ctx.Currencies.Add(euro);
-
-            _ctx.SaveChanges();
-
             for (int i = 0; i < 30; i++)
             {
                 var exRate = new CurrencyExchangeRate
@@ -59,7 +49,7 @@ namespace DBLayerPOC.Infrastructure
                     VatNumber = "PDV Broj" + i,
                     LastChangeDate = DateTime.Now.AddDays(-i),
                     IsInactive = false,
-                    CurrencyExchangeRateId = i + 1,
+                    CurrencyId = i + 1,
                 };
 
                 _ctx.Vendors.Add(vendor);
