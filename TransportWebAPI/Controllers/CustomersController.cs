@@ -26,8 +26,7 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Customers
         [HttpGet]
-        [ProducesResponseType(typeof(List<Customer>), 200)]
-        public async Task<ActionResult> Get()
+        public IActionResult Get()
         {
             try
             {
@@ -44,8 +43,7 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
-        [ProducesResponseType(typeof(List<Customer>), 200)]
-        public async Task<ActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
             try
             {
@@ -61,8 +59,7 @@ namespace TransportWebAPI.Controllers
 
         // GET api/customers/page/10/10
         [HttpGet("page/{skip}/{take}")]
-        [ProducesResponseType(typeof(List<Customer>), 200)]
-        public async Task<ActionResult> CustomersPage(int skip, int take)
+        public IActionResult CustomersPage(int skip, int take)
         {
             try
             {
@@ -80,7 +77,7 @@ namespace TransportWebAPI.Controllers
 
         // POST: api/Customers
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody]Customer customer)
+        public IActionResult Post([FromBody]Customer customer)
         {
             if (!ModelState.IsValid)
             {
@@ -105,7 +102,7 @@ namespace TransportWebAPI.Controllers
 
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] Customer customer)
+        public  IActionResult Put(int id, [FromBody] Customer customer)
         {
             if (!ModelState.IsValid)
             {

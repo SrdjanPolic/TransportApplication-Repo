@@ -1,0 +1,2 @@
+<app-vendor-data [vendor]='vendor' (selectEmitt)='showAccounts = $event'></app-vendor-data>
+<app-account-data *ngIf='showAccounts' [accounts]='vendor?.accounts'></app-account-data>

@@ -20,6 +20,141 @@ namespace DBLayerPOC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("CreditMemo");
+
+                    b.Property<int>("CurrencyId");
+
+                    b.Property<DateTime>("DueDate");
+
+                    b.Property<string>("ExternalReferenceNo");
+
+                    b.Property<string>("InvoiceNo");
+
+                    b.Property<bool>("Invoiced");
+
+                    b.Property<bool>("Paid");
+
+                    b.Property<DateTime>("PaymentDate");
+
+                    b.Property<DateTime>("PostingDate");
+
+                    b.Property<float>("TotalAmount");
+
+                    b.Property<int>("VendorId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("PurchaseInvoiceHeader");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<float>("DiscountPercent");
+
+                    b.Property<int?>("HeaderId");
+
+                    b.Property<float>("LineAmount");
+
+                    b.Property<int>("PurchaseHeaderId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<string>("Remark");
+
+                    b.Property<float>("UnitPrice");
+
+                    b.Property<float>("VatPercent");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HeaderId");
+
+                    b.ToTable("PurchaseInvoiceLine");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.Vendor.Vendor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnName("Address")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnName("City")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnName("Country")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("CurrencyId");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnName("Email")
+                        .HasMaxLength(50);
+
+                    b.Property<bool?>("IsInactive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsInactive")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime>("LastChangeDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("LastChangeDate")
+                        .HasDefaultValue(new DateTime(2019, 5, 18, 1, 9, 7, 808, DateTimeKind.Local).AddTicks(5833));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("Name")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PaymentTermsCode")
+                        .IsRequired()
+                        .HasColumnName("PaymentTermsCode")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PhoneNo")
+                        .IsRequired()
+                        .HasColumnName("PhoneNo")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("VatGroup")
+                        .HasColumnName("VatGroup");
+
+                    b.Property<string>("VatNumber")
+                        .HasColumnName("VatNumber");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("Vendor");
+                });
+
             modelBuilder.Entity("DBLayerPOC.Models.Currency", b =>
                 {
                     b.Property<int>("Id")
@@ -94,15 +229,15 @@ namespace DBLayerPOC.Migrations
                         .HasColumnName("Email")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsInactive")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsActive")
-                        .HasDefaultValue(true);
+                        .HasColumnName("IsInactive")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("LastChangeDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("LastChangeDate")
-                        .HasDefaultValue(new DateTime(2019, 5, 13, 23, 45, 12, 415, DateTimeKind.Local).AddTicks(9847));
+                        .HasDefaultValue(new DateTime(2019, 5, 18, 1, 9, 7, 793, DateTimeKind.Local).AddTicks(5334));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -117,7 +252,7 @@ namespace DBLayerPOC.Migrations
                     b.Property<int>("VatGroup")
                         .HasColumnName("VatGroup");
 
-                    b.Property<int>("VatNumber")
+                    b.Property<string>("VatNumber")
                         .HasColumnName("VatNumber");
 
                     b.HasKey("Id");
@@ -180,6 +315,34 @@ namespace DBLayerPOC.Migrations
                     b.HasIndex("QuoteHeaderId");
 
                     b.ToTable("QuoteLine");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceHeader", b =>
+                {
+                    b.HasOne("DBLayerPOC.Models.Currency", "Currency")
+                        .WithMany("PurchaseInvoiceHeaders")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DBLayerPOC.Infrastructure.Vendor.Vendor", "Vendor")
+                        .WithMany("PurchaseInvoiceHeaders")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceLine", b =>
+                {
+                    b.HasOne("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceHeader", "Header")
+                        .WithMany("Lines")
+                        .HasForeignKey("HeaderId");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.Vendor.Vendor", b =>
+                {
+                    b.HasOne("DBLayerPOC.Models.Currency", "Currency")
+                        .WithMany("Vendors")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DBLayerPOC.Models.CurrencyExchangeRate", b =>

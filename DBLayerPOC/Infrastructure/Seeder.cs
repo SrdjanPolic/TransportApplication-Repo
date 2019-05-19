@@ -19,25 +19,62 @@ namespace DBLayerPOC.Infrastructure
         public void Seed()
         {
             _ctx.Database.EnsureCreated();
-            for (int i = 0; i < 5000; i++)
-            {
-                var customer = new Customer
-                {
-                    Name = "Korisnik " + i,
-                    Address = "Adresa korisnika " + i,
-                    City = "City " + i,
-                    Country = "Country " + i,
-                    PhoneNo = "Telefon " + i,
-                    Email = "Email " + i,
-                    VatGroup = 3,
-                    IsActive = true
 
+            //for (int i = 0; i < 30; i++)
+            //{
+            //    var exRate = new CurrencyExchangeRate
+            //    {
+            //        ExchangeRateAmount = 117.87F + 0.1F * i,
+            //        StartingDate = DateTime.Now.AddDays(-i),
+            //        CurrencyId = 12
+            //    };
+
+            //    _ctx.CurrencyExchangeRates.Add(exRate);
+            //}
+
+            //_ctx.SaveChanges();
+
+            for (int i = 0; i < 30; i++)
+            {
+                var vendor = new Vendor.Vendor
+                {
+                    Name = "Vendor " + i,
+                    Address = "Adresa " + i,
+                    City = "Grad" + i,
+                    Country = "Zemlja" + i,
+                    PhoneNo = "Telefon" + i,
+                    Email = "Email" + i,
+                    PaymentTermsCode = "Valuta" + i,
+                    VatGroup = 20,
+                    VatNumber = "PDV Broj" + i,
+                    LastChangeDate = DateTime.Now.AddDays(-i),
+                    IsInactive = false,
+                    CurrencyId = 12,
                 };
 
-                _ctx.Customers.Add(customer);
+                _ctx.Vendors.Add(vendor);
             }
 
             _ctx.SaveChanges();
+
+            //for (int i = 0; i < 5000; i++)
+            //{
+            //    var customer = new Customer
+            //    {
+            //        Name = "Korisnik " + i,
+            //        Address = "Adresa korisnika " + i,
+            //        City = "City " + i,
+            //        Country = "Country " + i,
+            //        PhoneNo = "Telefon " + i,
+            //        Email = "Email " + i,
+            //        VatGroup = 3,
+            //        IsInactive = false
+
+            //    };
+
+            //    _ctx.Customers.Add(customer);
+            //}
+
 
             //if (!_ctx.Customers.Any())
             //{

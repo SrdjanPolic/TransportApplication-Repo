@@ -16,7 +16,7 @@ namespace TransportWebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private IUnitOfWork<AppDbContext> _unitOfWork;
+        private IUnitOfWork< AppDbContext> _unitOfWork;
         public ValuesController(IUnitOfWork<AppDbContext> unitOfWork)
         {
             _unitOfWork = unitOfWork;
