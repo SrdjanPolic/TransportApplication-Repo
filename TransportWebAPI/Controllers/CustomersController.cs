@@ -26,6 +26,7 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Customers
         [HttpGet]
+        [ProducesResponseType(typeof(List<Customer>), 200)]
         public IActionResult Get()
         {
             try
@@ -43,6 +44,7 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
+        [ProducesResponseType(typeof(List<Customer>), 200)]
         public IActionResult Get(int id)
         {
             try
@@ -59,6 +61,7 @@ namespace TransportWebAPI.Controllers
 
         // GET api/customers/page/10/10
         [HttpGet("page/{skip}/{take}")]
+        [ProducesResponseType(typeof(List<Customer>), 200)]
         public IActionResult CustomersPage(int skip, int take)
         {
             try
