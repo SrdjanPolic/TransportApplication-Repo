@@ -15,10 +15,10 @@ namespace TransportWebAPI.Controllers
     [ApiController]
     public class CustomersController : Controller
     {
-        private IUnitOfWork<QuoteHeaderDbContext> _unitOfWork;
+        private IUnitOfWork<AppDbContext> _unitOfWork;
         ILogger _Logger;
 
-        public CustomersController(IUnitOfWork<QuoteHeaderDbContext> unitOfWork, ILoggerFactory loggerFactory)
+        public CustomersController(IUnitOfWork<AppDbContext> unitOfWork, ILoggerFactory loggerFactory)
         {
             _unitOfWork = unitOfWork;
             _Logger = loggerFactory.CreateLogger(nameof(CustomersController));

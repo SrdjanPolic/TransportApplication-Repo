@@ -44,7 +44,7 @@ namespace TransportWebAPI
             }); ;
 
             services.AddEntityFrameworkSqlServer()
-              .AddDbContext<QuoteHeaderDbContext>(options =>
+              .AddDbContext<AppDbContext>(options =>
               {
                   options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
                                        sqlOptions => sqlOptions.MigrationsAssembly("WebApplication"));
@@ -52,7 +52,7 @@ namespace TransportWebAPI
               ServiceLifetime.Scoped // Note that Scoped is the default choice
               // in AddDbContext. It is shown here only for
                 // pedagogic purposes.
-              ).AddDbContext<CurrencyDbContext>(options =>
+              ).AddDbContext<AppDbContext>(options =>
               {
                   options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
                                        sqlOptions => sqlOptions.MigrationsAssembly("WebApplication"));
@@ -60,7 +60,7 @@ namespace TransportWebAPI
               ServiceLifetime.Scoped // Note that Scoped is the default choice
                                      // in AddDbContext. It is shown here only for
                                      // pedagogic purposes.
-              ).AddDbContext<CustomerDbContext>(options =>
+              ).AddDbContext<AppDbContext>(options =>
               {
                   options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
                                        sqlOptions => sqlOptions.MigrationsAssembly("WebApplication"));
