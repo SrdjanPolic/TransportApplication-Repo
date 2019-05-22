@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.Data;
@@ -51,25 +48,6 @@ namespace TransportWebAPI.Controllers
             {
                 var customer = _unitOfWork.GetRepository<Customer>().Single(x => x.Id == id);
                 return Ok(customer);
-            }
-            catch (Exception exp)
-            {
-                _Logger.LogError(exp.Message);
-                return BadRequest();
-            }
-        }
-
-        // GET api/customers/page/10/10
-        [HttpGet("page/{skip}/{take}")]
-        [ProducesResponseType(typeof(List<Customer>), 200)]
-        public IActionResult CustomersPage(int skip, int take)
-        {
-            try
-            {
-                var customerPage = _unitOfWork.GetRepository<Customer>().GetList(index:skip, size:take).Items;
-                //orderBy: q => q.OrderBy(c => c.Id)
-
-                return Ok(customerPage);
             }
             catch (Exception exp)
             {
