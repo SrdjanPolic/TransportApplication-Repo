@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace TransportWebAPI.Controllers
             try
             {
                 _Logger.LogError("log enter");
-                var customers = _unitOfWork.GetRepository<Customer>().GetList(size:10000).Items;
+                var customers = _unitOfWork.GetRepository<Customer>().GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items;
                 return Ok(customers);
             }
             catch(Exception ex)
@@ -67,6 +68,7 @@ namespace TransportWebAPI.Controllers
 
             try
             {
+                customer.LastChangeDate = DateTime.Now;
                 _unitOfWork.GetRepository<Customer>().Add(customer);
                 _unitOfWork.SaveChanges();
 
@@ -93,6 +95,7 @@ namespace TransportWebAPI.Controllers
             try
             {
                 customer.Id = id;
+                customer.LastChangeDate = DateTime.Now;
                 _unitOfWork.GetRepository<Customer>().Update(customer);
                 _unitOfWork.SaveChanges();
 
