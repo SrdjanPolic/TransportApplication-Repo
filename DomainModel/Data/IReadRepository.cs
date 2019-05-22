@@ -22,7 +22,7 @@ namespace Service.Data
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
-            int size = 20,
+            int size = int.MaxValue,
             bool disableTracking = true);
 
         IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector,
@@ -30,7 +30,7 @@ namespace Service.Data
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
-            int size = 20,
+            int size = int.MaxValue,
             bool disableTracking = true) where TResult : class;
     }
 }
