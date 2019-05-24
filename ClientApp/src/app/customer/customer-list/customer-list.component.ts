@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CustomerListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['name', 'address', 'city', 'country', 'update', 'delete'];
+  public displayedColumns = ['name', 'address', 'city', 'country', 'lastChangeDate', 'update'];
   public dataSource = new MatTableDataSource<Customer>(); 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -50,11 +50,6 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
 
   public redirectToUpdate = (id: string) => {
     let url: string = `/customer/update/${id}`;
-    this.router.navigate([url]);
-  }
-
-  public redirectToDelete = (id: string) => {
-    let url: string = `/customer/delete/${id}`;
     this.router.navigate([url]);
   }
 }

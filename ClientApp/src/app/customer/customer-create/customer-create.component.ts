@@ -61,7 +61,7 @@ export class CustomerCreateComponent implements OnInit {
       phoneNo: customerFormValue.phoneNo,
       eMail : customerFormValue.eMail,
       vatGroup: customerFormValue.vatGroup,
-      isActive: customerFormValue.isActive
+      isInactive: customerFormValue.isInactive
     }
 
     let apiUrl = 'api/Customers';
