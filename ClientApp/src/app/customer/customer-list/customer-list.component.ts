@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CustomerListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['name', 'address', 'city', 'country', 'update', 'delete'];
+  public displayedColumns = ['name', 'address', 'city', 'country', 'eMail', 'update', 'delete'];
   public dataSource = new MatTableDataSource<Customer>(); 
 
   @ViewChild(MatSort) sort: MatSort;

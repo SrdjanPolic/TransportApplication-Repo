@@ -8,7 +8,8 @@ export interface Customer{
     phoneNo: string;
     eMail: string;
     vatGroup: number;
-    isActive: boolean;
+    vatNumber: string;
+    isInactive: boolean;
 
     accounts?: Account
 }

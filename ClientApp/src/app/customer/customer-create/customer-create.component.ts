@@ -27,7 +27,8 @@ export class CustomerCreateComponent implements OnInit {
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
-      isActive: new FormControl(true)
+      vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      isInactive: new FormControl(true)
     });
 
     this.dialogConfig = {
@@ -61,7 +62,8 @@ export class CustomerCreateComponent implements OnInit {
       phoneNo: customerFormValue.phoneNo,
       eMail : customerFormValue.eMail,
       vatGroup: customerFormValue.vatGroup,
-      isActive: customerFormValue.isActive
+      vatNumber : customerFormValue.vatNumber,
+      isInactive: customerFormValue.isInactive
     }
 
     let apiUrl = 'api/Customers';

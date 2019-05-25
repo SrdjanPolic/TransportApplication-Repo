@@ -27,6 +27,11 @@
     <td mat-cell *matCellDef="let element"> {{element.country}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="eMail">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> EMail </th>
+    <td mat-cell *matCellDef="let element"> {{element.eMail}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="details">
     <th mat-header-cell *matHeaderCellDef> Detalji </th>
     <td mat-cell *matCellDef="let element">

@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "ConnectionString": "server=.\\SQLExpress;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;"
+    "ConnectionString": "server=DENUE-AXD4094N1\\NAVDEMO;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;"
   }
 }
