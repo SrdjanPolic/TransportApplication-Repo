@@ -27,8 +27,7 @@ export class CustomerCreateComponent implements OnInit {
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
-      vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      isInactive: new FormControl(true)
+      isActive: new FormControl(true)
     });
 
     this.dialogConfig = {
@@ -62,7 +61,6 @@ export class CustomerCreateComponent implements OnInit {
       phoneNo: customerFormValue.phoneNo,
       eMail : customerFormValue.eMail,
       vatGroup: customerFormValue.vatGroup,
-      vatNumber : customerFormValue.vatNumber,
       isInactive: customerFormValue.isInactive
     }
 

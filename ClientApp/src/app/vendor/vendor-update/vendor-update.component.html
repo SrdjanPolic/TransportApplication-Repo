@@ -60,10 +60,7 @@
           <mat-error *ngIf="hasError('vatNumber', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <input matInput type="text" placeholder="Aktivan dobavljač" formControlName="isActive">
-          <mat-hint align="end">Aktivan/Neaktivan.</mat-hint>
-        </mat-form-field>
+        <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj dobavljača</mat-checkbox>
         
 
       </mat-card-content>

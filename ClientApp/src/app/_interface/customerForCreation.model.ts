@@ -7,6 +7,5 @@ export interface CustomerForCreation {
     phoneNo: string;
     eMail: string;
     vatGroup: number;
-    vatNumber: string;
     isInactive: boolean;
 }

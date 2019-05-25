@@ -8,8 +8,7 @@ export interface Customer{
     phoneNo: string;
     eMail: string;
     vatGroup: number;
-    vatNumber: string;
     isInactive: boolean;
-
+    lastChangeDate : Date
     accounts?: Account
 }

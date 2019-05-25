@@ -26,9 +26,10 @@ export class VendorCreateComponent implements OnInit {
       country: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      paymentTermsCode: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      isActive: new FormControl(true)
+      isInactive: new FormControl(false)
     });
 
     this.dialogConfig = {
@@ -61,9 +62,11 @@ export class VendorCreateComponent implements OnInit {
       country: vendorFormValue.country,
       phoneNo: vendorFormValue.phoneNo,
       eMail : vendorFormValue.eMail,
+      paymentTermsCode : vendorFormValue.paymentTermsCode,
       vatGroup: vendorFormValue.vatGroup,
       vatNumber: vendorFormValue.vatNumber,
-      isActive: vendorFormValue.isActive
+      isInactive: vendorFormValue.isInactive,
+      lastChangeDate: vendorFormValue.lastChangeDate
     }
 
     let apiUrl = 'api/Vendors';
