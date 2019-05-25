@@ -29,8 +29,9 @@ export class CustomerUpdateComponent implements OnInit {
       city: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       country: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
+      vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       isInactive: new FormControl(true)
     });
 
@@ -81,8 +82,9 @@ export class CustomerUpdateComponent implements OnInit {
     this.customer.city = customerFormValue.city;
     this.customer.country = customerFormValue.country;
     this.customer.phoneNo = customerFormValue.phoneNo;
-    this.customer.eMail = customerFormValue.eMail;
+    this.customer.email = customerFormValue.email;
     this.customer.vatGroup = customerFormValue.vatGroup;
+    this.customer.vatNumber = customerFormValue.vatNumber;
     this.customer.isInactive = customerFormValue.isInactive;
    
     let apiUrl = `api/Customers/${this.customer.id}`;

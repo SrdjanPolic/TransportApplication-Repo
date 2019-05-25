@@ -4,7 +4,7 @@ export interface VendorForCreation {
     city: string;
     country: string;
     phoneNo: string;
-    eMail: string;
+    email: string;
     paymentTermsCode: string;
     vatGroup: number;
     vatNumber: string;

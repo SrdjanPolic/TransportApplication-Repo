@@ -41,7 +41,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="email" placeholder="EMail kupca" formControlName="eMail">
+          <input matInput type="text" placeholder="EMail kupca" formControlName="eMail">
           <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
           <mat-error *ngIf="hasError('eMail', 'required')">EMail je neophodan</mat-error>
           <mat-error *ngIf="hasError('eMail', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
@@ -51,6 +51,12 @@
           <input matInput type="number" placeholder="PDV Grupa" formControlName="vatGroup">
           <mat-hint align="end">0 ili 20.</mat-hint>
           <mat-error *ngIf="hasError('vatGroup', 'required')">PDV Grupa je neophodna</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" placeholder="PDV Broj" formControlName="vatNumber">
+          <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('vatNumber', 'required')">PDV Broj je neophodan</mat-error>
         </mat-form-field>
 
         <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj kupca</mat-checkbox>

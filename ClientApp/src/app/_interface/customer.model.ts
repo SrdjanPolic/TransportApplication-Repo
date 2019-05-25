@@ -6,9 +6,9 @@ export interface Customer{
     city: string;
     country: string;
     phoneNo: string;
-    eMail: string;
+    email: string;
     vatGroup: number;
+    vatNumber:string
     isInactive: boolean;
-    lastChangeDate : Date
     accounts?: Account
 }
