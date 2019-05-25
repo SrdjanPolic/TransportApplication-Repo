@@ -59,12 +59,7 @@
             <mat-error *ngIf="hasError('vatNumber', 'required')">PDV broj je neophodan</mat-error>
             <mat-error *ngIf="hasError('vatNubmer', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
           </mat-form-field>
-  
-          <mat-form-field>
-            <input matInput type="text" placeholder="Aktivan dobavljač" formControlName="isActive">
-            <mat-hint align="end">Aktivan/Neaktivan.</mat-hint>
-          </mat-form-field>
-          
+    
   
         </mat-card-content>
         <mat-card-actions align="center">

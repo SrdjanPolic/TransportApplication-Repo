@@ -30,9 +30,10 @@ export class VendorUpdateComponent implements OnInit {
       country: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      paymentTermsCode: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      isActive: new FormControl(true)
+      isInactive: new FormControl(false)
     });
 
     this.dialogConfig = {
@@ -83,9 +84,11 @@ export class VendorUpdateComponent implements OnInit {
     this.vendor.country = vendorFormValue.country;
     this.vendor.phoneNo = vendorFormValue.phoneNo;
     this.vendor.eMail = vendorFormValue.eMail;
+    this.vendor.paymentTermsCode = vendorFormValue.paymentTermsCode,
     this.vendor.vatGroup = vendorFormValue.vatGroup;
     this.vendor.vatNumber = vendorFormValue.vatNumber;
-    this.vendor.isActive = vendorFormValue.isActive;
+    this.vendor.isInactive = vendorFormValue.isInactive;
+    this.vendor.lastChangeDate = vendorFormValue.lastChangeDate
    
     let apiUrl = `api/Vendors/${this.vendor.id}`;
     this.repository.update(apiUrl, this.vendor)

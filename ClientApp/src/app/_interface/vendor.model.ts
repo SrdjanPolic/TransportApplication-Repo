@@ -7,9 +7,11 @@ export interface Vendor{
     country: string;
     phoneNo: string;
     eMail: string;
+    paymentTermsCode: string;
     vatGroup: number;
     vatNumber: string;
-    isActive: boolean;
+    isInactive: boolean;
+    lastChangeDate: Date;
 
     accounts?: Account
 }
