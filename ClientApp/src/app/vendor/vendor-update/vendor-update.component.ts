@@ -29,7 +29,7 @@ export class VendorUpdateComponent implements OnInit {
       city: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       country: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       paymentTermsCode: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -83,7 +83,7 @@ export class VendorUpdateComponent implements OnInit {
     this.vendor.city = vendorFormValue.city;
     this.vendor.country = vendorFormValue.country;
     this.vendor.phoneNo = vendorFormValue.phoneNo;
-    this.vendor.eMail = vendorFormValue.eMail;
+    this.vendor.email = vendorFormValue.email;
     this.vendor.paymentTermsCode = vendorFormValue.paymentTermsCode,
     this.vendor.vatGroup = vendorFormValue.vatGroup;
     this.vendor.vatNumber = vendorFormValue.vatNumber;

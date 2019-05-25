@@ -52,6 +52,12 @@
             <mat-hint align="end">0 ili 20.</mat-hint>
             <mat-error *ngIf="hasError('vatGroup', 'required')">PDV Grupa je neophodna</mat-error>
           </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="text" placeholder="PDV Broj" formControlName="vatNumber">
+            <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('vatGroup', 'required')">PDV Broj je neophodan</mat-error>
+          </mat-form-field>
           
   
         </mat-card-content>

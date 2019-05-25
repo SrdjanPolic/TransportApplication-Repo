@@ -25,9 +25,10 @@ export class CustomerCreateComponent implements OnInit {
       city: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       country: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      eMail: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
-      isActive: new FormControl(true)
+      vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      isInactive: new FormControl(false)
     });
 
     this.dialogConfig = {
@@ -59,8 +60,9 @@ export class CustomerCreateComponent implements OnInit {
       city: customerFormValue.city,
       country: customerFormValue.country,
       phoneNo: customerFormValue.phoneNo,
-      eMail : customerFormValue.eMail,
+      email : customerFormValue.email,
       vatGroup: customerFormValue.vatGroup,
+      vatNumber: customerFormValue.vatNumber,
       isInactive: customerFormValue.isInactive
     }
 
