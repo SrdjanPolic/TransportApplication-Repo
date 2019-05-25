@@ -11,14 +11,12 @@ namespace DBLayerPOC.Models
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public ICollection<Vendor> Vendors { get; }
         public ICollection<PurchaseInvoiceHeader> PurchaseInvoiceHeaders { get; }
         public ICollection<CurrencyExchangeRate> CurrencyExchangeRates { get; }
 
         public Currency()
         {
             CurrencyExchangeRates = new HashSet<CurrencyExchangeRate>();
-            Vendors = new HashSet<Vendor>();
             PurchaseInvoiceHeaders = new HashSet<PurchaseInvoiceHeader>();
         }
     }

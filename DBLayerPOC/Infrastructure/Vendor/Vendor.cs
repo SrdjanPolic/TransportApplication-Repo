@@ -22,9 +22,6 @@ namespace DBLayerPOC.Infrastructure.Vendor
 
         public ICollection<PurchaseInvoiceHeader> PurchaseInvoiceHeaders { get; }
 
-        public int CurrencyId { get; set; }
-        public Currency Currency { get; set; }
-
         public Vendor()
         {
             PurchaseInvoiceHeaders = new HashSet<PurchaseInvoiceHeader>();
