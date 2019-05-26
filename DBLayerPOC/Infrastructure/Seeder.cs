@@ -49,7 +49,7 @@ namespace DBLayerPOC.Infrastructure
                     VatNumber = "PDV Broj" + i,
                     LastChangeDate = DateTime.Now.AddDays(-i),
                     IsInactive = false,
-                    CurrencyId = 12,
+                    //CurrencyId = 12,
                 };
 
                 _ctx.Vendors.Add(vendor);
