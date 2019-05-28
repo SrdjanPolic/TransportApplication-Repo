@@ -22,7 +22,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.Paid).HasColumnName("Paid").HasDefaultValue(false);
             builder.Property(x => x.Invoiced).HasColumnName("Invoiced").HasDefaultValue(false);
             builder.Property(x => x.CreditMemo).HasColumnName("CreditMemo").HasDefaultValue(false);
-            builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate").IsRequired(false);
+            builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate").IsRequired(true);
 
             builder.Metadata.FindNavigation(nameof(PurchaseInvoiceHeader.Lines)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.Lines).WithOne(b => b.Header).HasForeignKey(b => b.PurchaseHeaderId)
