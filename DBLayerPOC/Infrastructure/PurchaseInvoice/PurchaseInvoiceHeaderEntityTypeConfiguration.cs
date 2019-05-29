@@ -18,11 +18,11 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.PostingDate).HasColumnName("PostingDate").HasDefaultValue(DateTime.Now);
             builder.Property(x => x.ExternalReferenceNo).HasColumnName("ExternalReferenceNo").HasMaxLength(50);
             builder.Property(x => x.DueDate).HasColumnName("DueDate").HasDefaultValue(DateTime.Now);
-            builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").HasDefaultValue(0);
-            builder.Property(x => x.Paid).HasColumnName("Paid").HasDefaultValue(false);
-            builder.Property(x => x.Invoiced).HasColumnName("Invoiced").HasDefaultValue(false);
-            builder.Property(x => x.CreditMemo).HasColumnName("CreditMemo").HasDefaultValue(false);
-            builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate").IsRequired(true);
+            builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").HasDefaultValue(0F);
+            builder.Property(x => x.Paid).HasColumnName("Paid").HasDefaultValue(0);
+            builder.Property(x => x.Invoiced).HasColumnName("Invoiced").HasDefaultValue(0);
+            builder.Property(x => x.CreditMemo).HasColumnName("CreditMemo").HasDefaultValue(0);
+            builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate").HasDefaultValue(DateTime.Now);
 
             builder.Metadata.FindNavigation(nameof(PurchaseInvoiceHeader.Lines)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.Lines).WithOne(b => b.Header).HasForeignKey(b => b.PurchaseHeaderId)
