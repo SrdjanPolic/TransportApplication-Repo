@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using Service.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TransportWebAPI.Controllers
 {
@@ -38,19 +36,22 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        //// GET: api/PurchaseInvoiceHeaders/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<PurchaseInvoiceHeader>> GetPurchaseInvoiceHeader(int id)
-        //{
-        //    var purchaseInvoiceHeader = await _context.PurchaseInvoiceHeaders.FindAsync(id);
-
-        //    if (purchaseInvoiceHeader == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return purchaseInvoiceHeader;
-        //}
+        // GET: api/PurchaseInvoiceHeaders/5
+        [HttpGet("{id}")]
+        public IActionResult GetPurchaseInvoiceHeader(int id)
+        {
+            try
+            {
+                var vendors = _unitOfWork.GetRepository<PurchaseInvoiceHeader>()
+                    .Single(include: source => source.Include(x => x.Lines)
+                    .Include(header => header.Vendor).Include(header => header.Currency), predicate: x => x.Id == id);
+                return Ok(vendors);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
 
         //// PUT: api/PurchaseInvoiceHeaders/5
         //[HttpPut("{id}")]
