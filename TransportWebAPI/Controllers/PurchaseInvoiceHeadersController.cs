@@ -71,7 +71,7 @@ namespace TransportWebAPI.Controllers
             //update
             else
             {
-                _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Single(x => x.Id == purchaseInvoiceHeader.Id).
+               // _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Single(x => x.Id == purchaseInvoiceHeader.Id).
             }
 
             foreach(var line in purchaseInvoiceHeader.Lines)
@@ -99,9 +99,9 @@ namespace TransportWebAPI.Controllers
             return null;
         }
 
-        private bool PurchaseInvoiceHeaderExists(int id)
-        {
-            return _context.PurchaseInvoiceHeaders.Any(e => e.Id == id);
-        }
+        //private bool PurchaseInvoiceHeaderExists(int id)
+        //{
+        //    return _context.PurchaseInvoiceHeaders.Any(e => e.Id == id);
+        //}
     }
 }
