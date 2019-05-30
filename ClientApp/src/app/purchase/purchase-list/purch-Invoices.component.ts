@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../shared/order.service';
+import { PurchInvService } from '../../shared/PurchInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
+  selector: 'app-purch-Invoices',
+  templateUrl: './purchInvoices.component.html',
   styles: []
 })
-export class OrdersComponent implements OnInit {
-  orderList;
+export class PurchInvoicesComponent implements OnInit {
+  PurchInvList;
 
-  constructor(private service: OrderService,
+  constructor(private service: PurchInvService,
     private router: Router,
     private toastr: ToastrService) { }
 
@@ -20,14 +20,14 @@ export class OrdersComponent implements OnInit {
   }
 
   refreshList() {
-    this.service.getOrderList().then(res => this.orderList = res);
+    this.service.getOrderList().then(res => this.PurchInvList = res);
   }
 
   openForEdit(orderID: number) {
     this.router.navigate(['/order/edit/' + orderID]);
   }
 
-  onOrderDelete(id: number) {
+  onInvoiceDelete(id: number) {
     if (confirm('Are you sure to delete this record?')) {
       this.service.deleteOrder(id).then(res => {
         this.refreshList();

@@ -1,7 +1,7 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-card fxFlex="500px" fxFlex.xs="100%">
     <mat-card-title>Ažuriraj dobavljača</mat-card-title>
-    <form [formGroup]="customerForm" autocomplete="off" novalidate (ngSubmit)="updateVendor(vendorForm.value)" fxLayout="column wrap"
+    <form [formGroup]="vendorForm" autocomplete="off" novalidate (ngSubmit)="updateVendor(vendorForm.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-card-content>
 
@@ -41,10 +41,10 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="text" placeholder="EMail dobavljača" formControlName="eMail">
+          <input matInput type="text" placeholder="EMail dobavljača" formControlName="email">
           <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('eMail', 'required')">EMail je neophodan</mat-error>
-          <mat-error *ngIf="hasError('eMail', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
+          <mat-error *ngIf="hasError('email', 'required')">EMail je neophodan</mat-error>
+          <mat-error *ngIf="hasError('email', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
         </mat-form-field>
 
         <mat-form-field>
