@@ -2,6 +2,7 @@
 using DBLayerPOC.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DBLayerPOC.Infrastructure.PurchaseInvoice
@@ -18,6 +19,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
         public bool CreditMemo { get; set; }
         public DateTime PaymentDate { get; set; }
         public ICollection<PurchaseInvoiceLine> Lines { get; }
+        [NotMapped]
+        public string DeletedInvoiceLineIds { get; set; }
 
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }

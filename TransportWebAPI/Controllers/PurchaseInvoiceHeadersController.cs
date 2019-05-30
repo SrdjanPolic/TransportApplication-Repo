@@ -53,49 +53,55 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        //// PUT: api/PurchaseInvoiceHeaders/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutPurchaseInvoiceHeader(int id, PurchaseInvoiceHeader purchaseInvoiceHeader)
-        //{
-        //    if (id != purchaseInvoiceHeader.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        // POST: api/PurchaseInvoiceHeaders
+        [HttpPost]
+        public IActionResult PostPurchaseInvoiceHeader([FromBody]PurchaseInvoiceHeader purchaseInvoiceHeader)
+        {
+            //newly created
+            if (purchaseInvoiceHeader.Id == 0)
+            {
+                _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Add(purchaseInvoiceHeader);
 
-        //    _context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
+                _unitOfWork.SaveChanges();
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PurchaseInvoiceHeaderExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+                //return CreatedAtRoute(routeName: "Get",
+                //                      routeValues: new { id = customer.Id },
+                //                      value: customer);
+            }
+            //update
+            else
+            {
+                _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Single(x => x.Id == purchaseInvoiceHeader.Id).
+            }
 
-        //    return NoContent();
-        //}
+            foreach(var line in purchaseInvoiceHeader.Lines)
+            {
+                //lines for newly created Invoice Header
+                if(line.Id == 0)
+                {
+                    _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(line);
+                }
+                else
+                {
 
-        //// POST: api/PurchaseInvoiceHeaders
-        //[HttpPost]
-        //public async Task<ActionResult<PurchaseInvoiceHeader>> PostPurchaseInvoiceHeader(PurchaseInvoiceHeader purchaseInvoiceHeader)
-        //{
-        //    _context.PurchaseInvoiceHeaders.Add(purchaseInvoiceHeader);
-        //    await _context.SaveChangesAsync();
+                }
+            }
 
-        //    return CreatedAtAction("GetPurchaseInvoiceHeader", new { id = purchaseInvoiceHeader.Id }, purchaseInvoiceHeader);
-        //}
+            //Delete for OrderItems
+            foreach (var id in purchaseInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+            {
+                var intId = int.Parse(id);
+                _unitOfWork.GetRepository<PurchaseInvoiceLine>().Delete(intId);
+            }
 
-        //private bool PurchaseInvoiceHeaderExists(int id)
-        //{
-        //    return _context.PurchaseInvoiceHeaders.Any(e => e.Id == id);
-        //}
+            _unitOfWork.SaveChanges();
+
+            return null;
+        }
+
+        private bool PurchaseInvoiceHeaderExists(int id)
+        {
+            return _context.PurchaseInvoiceHeaders.Any(e => e.Id == id);
+        }
     }
 }
