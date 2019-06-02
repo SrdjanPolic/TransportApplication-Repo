@@ -37,7 +37,7 @@ namespace TransportWebAPI.Controllers
         }
 
         // GET: api/PurchaseInvoiceHeaders/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "Get")]
         public IActionResult GetPurchaseInvoiceHeader(int id)
         {
             try
@@ -62,29 +62,15 @@ namespace TransportWebAPI.Controllers
             {
                 _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Add(purchaseInvoiceHeader);
 
-                _unitOfWork.SaveChanges();
-
-                //return CreatedAtRoute(routeName: "Get",
-                //                      routeValues: new { id = customer.Id },
-                //                      value: customer);
+                foreach(var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+                {
+                    _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
+                }
             }
             //update
             else
             {
-               // _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Single(x => x.Id == purchaseInvoiceHeader.Id).
-            }
-
-            foreach(var line in purchaseInvoiceHeader.Lines)
-            {
-                //lines for newly created Invoice Header
-                if(line.Id == 0)
-                {
-                    _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(line);
-                }
-                else
-                {
-
-                }
+                _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
             }
 
             //Delete for OrderItems
@@ -96,12 +82,9 @@ namespace TransportWebAPI.Controllers
 
             _unitOfWork.SaveChanges();
 
-            return null;
+            return CreatedAtRoute(routeName: "Get",
+                                  routeValues: new { id = purchaseInvoiceHeader.Id },
+                                  value: purchaseInvoiceHeader);
         }
-
-        //private bool PurchaseInvoiceHeaderExists(int id)
-        //{
-        //    return _context.PurchaseInvoiceHeaders.Any(e => e.Id == id);
-        //}
     }
 }
