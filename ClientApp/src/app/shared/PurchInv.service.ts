@@ -13,7 +13,7 @@ export class PurchInvService {
 
   constructor(private http: HttpClient) { }
 
-  saveOrUpdateOrder() {
+  saveOrUpdateInvoice() {
     var body = {
       ...this.formData,
       PurchInvLines: this.PurchInvLines
@@ -21,15 +21,15 @@ export class PurchInvService {
     return this.http.post(environment.urlAddress + '/PurchInvoice', body);
   }
 
-  getOrderList() {
+  getInvoiceList() {
     return this.http.get(environment.urlAddress + '/PurchInvoice').toPromise();
   }
 
-  getOrderByID(id:number):any {
+  getInvoiceByID(id:number):any {
     return this.http.get(environment.urlAddress + '/PurchInvoice/' + id).toPromise();
   }
 
-  deleteOrder(id:number) {
+  deleteInvoice(id:number) {
     return this.http.delete(environment.urlAddress + '/PurchInvoice/' + id).toPromise();
   }
 

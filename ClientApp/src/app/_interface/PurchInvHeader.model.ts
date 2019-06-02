@@ -3,7 +3,7 @@ export class PurchInvHeader {
     InvoiceNo: string;
     PostingDate: Date;
     ExternalReferenceNo: string;
-    DueDate: string;
+    DueDate: Date;
     TotalAmount: number;
     Paid: boolean;
     Invoiced: boolean;

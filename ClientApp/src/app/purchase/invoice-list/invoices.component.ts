@@ -3,12 +3,13 @@ import { PurchInvService } from '../../shared/PurchInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
-  selector: 'app-purch-Invoices',
-  templateUrl: './purchInvoices.component.html',
+  selector: 'app-invoices',
+  templateUrl: './invoices.component.html',
   styles: []
 })
-export class PurchInvoicesComponent implements OnInit {
+export class InvoicesComponent implements OnInit {
   PurchInvList;
 
   constructor(private service: PurchInvService,
@@ -20,16 +21,16 @@ export class PurchInvoicesComponent implements OnInit {
   }
 
   refreshList() {
-    this.service.getOrderList().then(res => this.PurchInvList = res);
+    this.service.getInvoiceList().then(res => this.PurchInvList = res);
   }
 
-  openForEdit(orderID: number) {
-    this.router.navigate(['/order/edit/' + orderID]);
+  openForEdit(invoiceID: number) {
+    this.router.navigate(['/invoice/edit/' + invoiceID]);
   }
 
   onInvoiceDelete(id: number) {
     if (confirm('Are you sure to delete this record?')) {
-      this.service.deleteOrder(id).then(res => {
+      this.service.deleteInvoice(id).then(res => {
         this.refreshList();
         this.toastr.warning("Deleted Successfully", "Atomic Sped.");
       });

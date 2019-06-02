@@ -1,0 +1,103 @@
+<form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)">
+  <input type="hidden"  name="invoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Broj ulazne fakture</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">#</div>
+          </div>
+          <input name="InvoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.InvoiceNo" class="form-control" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Dobavljač</label>
+        <select name="VendorId" #VendorId="ngModel" [(ngModel)]="service.formData.VendorId" class="form-control"
+        [class.is-invalid]="!isValid && service.formData.VendorId==0">
+          <option value="0">-Izaberite-</option>
+          <option *ngFor="let item of vendorList" value="{{item.VendorId}}">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Valuta</label>
+        <input type ="text" name="CurrencyId" #CurrencyId="ngModel" [(ngModel)]="service.formData.CurrencyId" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label>Datum dospeća</label>
+        <input type ="date" name="DueDate" #DueDate="ngModel" [(ngModel)]="service.formData.DueDate" class="form-control"/>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Datum knjiženja</label>
+        <input type ="date" name="PostingDate" #PostingDate="ngModel" [(ngModel)]="service.formData.PostingDate" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label>Vaša referenca</label>
+        <input type ="text" name="ExternalReferenceNo" #ExternalReferenceNo="ngModel" [(ngModel)]="service.formData.ExternalReferenceNo" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label>Ukupno</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">EUR/din</div>
+          </div>
+          <input name="TotalAmount" #TotalAmount="ngModel" [(ngModel)]="service.formData.TotalAmount" class="form-control" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Plaćeno</label>
+        <input type ="checkbox" name="Paid" #Paid="ngModel" [(ngModel)]="service.formData.Paid" class="form-control"/>
+      </div>
+    </div>
+  </div>
+  <!-- Invoice line table-->
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Opis</th>
+      <th>Cena</th>
+      <th>Količina</th>
+      <th>Suma</th>
+      <th>
+        <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)"><i class="fa fa-plus"></i> Dodaj stavku</a>
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngIf="service.PurchInvLines.length==0" [class.text-danger]="!isValid && service.PurchInvLines.length==0">
+        <td class="font-italic text-center" colspan="5">
+          Nema stavki za ovu fakturu.
+        </td>
+      </tr>
+
+      <tr *ngFor="let item of service.PurchInvLines;let i=index;">
+        <td>{{item.Description}}</td>
+        <td>{{item.UnitPrice}}</td>
+        <td>{{item.Quantity}}</td>
+        <td>{{item.LineAmount}}</td>
+        <td>
+          <a class="btn btn-sm btn-info text-white" (click)="AddOrEditInvoiceLine(i,service.formData.invoiceNo)"><i class="fa fa-pencil"></i></a>
+          <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteInvoiceLine(item.id,i)"><i class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Proknjiženo</label>
+      <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.Invoiced" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <label>Stornirano</label>
+      <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.CreditMemo" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <label>Datum plaćanja</label>
+      <input type ="date" name="PaymentDate" #PaymentDate="ngModel" [(ngModel)]="service.formData.PaymentDate" class="form-control"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <a class="btn btn-outline-dark ml-1" routerLink="/invoices"><i class="fa fa-table"></i> Pregled ulaznih faktura</a>
+  </div>
+</form>
