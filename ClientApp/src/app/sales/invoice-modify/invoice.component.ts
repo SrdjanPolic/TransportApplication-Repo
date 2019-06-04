@@ -1,12 +1,12 @@
 //import { CustomerService } from './../../shared/customer.service';
-import { PurchInvService } from './../../shared/PurchInv.service';
+import { SalesInvService } from './../../shared/SalesInv.service';
 import {RepositoryService} from './../../shared/repository.service';
 //import { OrderService } from './../../shared/order.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { InvoiceLinesComponent } from '../../purchase/invoice-lines/invoice-lines.component';
-import { Vendor } from '../../_interface/vendor.model';
+import { InvoiceLinesComponent } from '../../sales/invoice-lines/invoice-lines.component';
+import { Customer } from '../../_interface/customer.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -18,12 +18,12 @@ import { environment } from 'src/environments/environment';
   styles: []
 })
 export class InvoiceComponent implements OnInit {
-  vendorList: Vendor[];
+  customerList: Customer[];
   isValid: boolean = true;
 
-  constructor(private service: PurchInvService,
+  constructor(private service: SalesInvService,
     private dialog: MatDialog,
-    private vendorService: RepositoryService,
+    private customerService: RepositoryService,
     private toastr: ToastrService,
     private router: Router,
     private currentRoute: ActivatedRoute) { }
@@ -34,12 +34,12 @@ export class InvoiceComponent implements OnInit {
       this.resetForm();
     else {
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
-        this.service.formData = res.PurchInvHeader;
-        this.service.PurchInvLines = res.PurchInvLines;
+        this.service.formData = res.SalesInvHeader;
+        this.service.SalesInvLines = res.SalesInvLines;
       });
     }
 
-    this.vendorService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
+    this.customerService.getData('api/Customers').subscribe(res => this.customerList = res as Customer[]);
   }
 
   resetForm(form?: NgForm) {
@@ -58,10 +58,10 @@ export class InvoiceComponent implements OnInit {
       CreditMemo: false,
       PaymentDate: new Date(),
       CurrencyId: 0,
-      VendorId: 0,
-      DeletedPurchInvLineIDs: ''
+      CustomerId: 0,
+      DeletedSalesInvLineIDs: ''
     };
-    this.service.PurchInvLines = [];
+    this.service.SalesInvLines = [];
   }
 
   AddOrEditInvoiceLine(invoiceLineIndex, invoiceNo) {
@@ -78,13 +78,13 @@ export class InvoiceComponent implements OnInit {
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
     if (invoiceLineID != null)
-      this.service.formData.DeletedPurchInvLineIDs += invoiceLineID + ",";
-    this.service.PurchInvLines.splice(i, 1);
+      this.service.formData.DeletedSalesInvLineIDs += invoiceLineID + ",";
+    this.service.SalesInvLines.splice(i, 1);
     this.updateGrandTotal();
   }
 
   updateGrandTotal() {
-    this.service.formData.TotalAmount = this.service.PurchInvLines.reduce((prev, curr) => {
+    this.service.formData.TotalAmount = this.service.SalesInvLines.reduce((prev, curr) => {
       return prev + curr.LineAmount;
     }, 0);
     this.service.formData.TotalAmount = parseFloat(this.service.formData.TotalAmount.toFixed(2));
@@ -92,9 +92,9 @@ export class InvoiceComponent implements OnInit {
 
   validateForm() {
     this.isValid = true;
-    if (this.service.formData.VendorId == 0)
+    if (this.service.formData.CustomerId == 0)
       this.isValid = false;
-    else if (this.service.PurchInvLines.length == 0)
+    else if (this.service.SalesInvLines.length == 0)
       this.isValid = false;
     return this.isValid;
   }
@@ -106,7 +106,7 @@ export class InvoiceComponent implements OnInit {
         environment.lastUsedNo += 1;
         this.resetForm();
         this.toastr.success('Submitted Successfully', 'Atomic Sped.');
-        this.router.navigate(['/PurchInvoices']);
+        this.router.navigate(['/SalesInvoices']);
       })
     }
   }

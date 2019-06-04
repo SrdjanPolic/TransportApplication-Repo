@@ -10,6 +10,7 @@ const ownerRoutes: Routes = [
   { path: 'customer', loadChildren: "./../customer/customer.module#CustomerModule" },
   { path: 'vendor', loadChildren: "./../vendor/vendor.module#VendorModule" },
   { path: 'purchase', loadChildren: "./../purchase/purchase.module#PurchaseModule"},
+  { path: 'sales', loadChildren: "./../sales/sales.module#SalesModule"},
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

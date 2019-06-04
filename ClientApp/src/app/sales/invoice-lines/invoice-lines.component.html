@@ -1,0 +1,63 @@
+<h4 class="dispaly-4">Stavka izlazne fakture</h4>
+<hr>
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden"  name="id" #OrderItemID="ngModel" [(ngModel)]="formData.id">
+    <input type="hidden"  name="SalesInvHeaderid" #PurchInvHeaderid="ngModel" [(ngModel)]="formData.SalesInvHeaderid">
+  <input type="hidden"  name="Description" #Description="ngModel" [(ngModel)]="formData.Description">
+
+  <div class="form-group">
+    <label>Opis usluge</label>
+    <input name="Description" #Description= "ngModel" [(ngModel)]="formData.Description" class="form-control">
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Cena</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">EUR/din</div>
+        </div>
+        <input name="UnitPrice" #UnitPrice="ngModel" [(ngModel)]="formData.UnitPrice" class="form-control">
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Količina</label>
+      <input name="Quantity" #Quantity="ngModel" [(ngModel)]="formData.Quantity" class="form-control"
+      (keyup)="updateTotal()" [class.is-invalid]="!isValid && formData.Quantity==0">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>% Popusta</label>
+      <div class="input-group">
+        <input name="DiscountPercent" #DiscountPercent="ngModel" [(ngModel)]="formData.DiscountPercent" class="form-control"
+        (keyup)="updateTotal()">
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label>% PDV</label>
+      <input name="VatPercent" #VatPercent="ngModel" [(ngModel)]="formData.VatPercent" class="form-control"
+      (keyup)="updateTotal()" [class.is-invalid]="!isValid">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Napomena</label>
+    <input name="Remark" #Remark= "ngModel" [(ngModel)]="formData.Remark" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label>Total</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">EUR/din</div>
+      </div>
+      <input name="LineAmount" #LineAmount="ngModel" [(ngModel)]="formData.LineAmount" class="form-control" readonly>
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi</button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Zatvori</button>
+  </div>
+</form>

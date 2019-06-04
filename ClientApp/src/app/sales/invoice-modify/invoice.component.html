@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-3">
       <div class="form-group">
-        <label>Broj ulazne fakture</label>
+        <label>Broj izlazne fakture</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <div class="input-group-text">#</div>
@@ -12,11 +12,11 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Dobavljač</label>
-        <select name="VendorId" #VendorId="ngModel" [(ngModel)]="service.formData.VendorId" class="form-control"
-        [class.is-invalid]="!isValid && service.formData.VendorId==0">
+        <label>Kupac</label>
+        <select name="CustomerId" #CustomerId="ngModel" [(ngModel)]="service.formData.CustomerId" class="form-control"
+        [class.is-invalid]="!isValid && service.formData.CustomerId==0">
           <option value="0">-Izaberite-</option>
-          <option *ngFor="let item of vendorList" value="{{item.VendorId}}">{{item.name}}</option>
+          <option *ngFor="let item of CustomerList" value="{{item.CustomerId}}">{{item.name}}</option>
         </select>
       </div>
       <div class="form-group">
@@ -64,13 +64,13 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngIf="service.PurchInvLines.length==0" [class.text-danger]="!isValid && service.PurchInvLines.length==0">
+      <tr *ngIf="service.SalesInvLines.length==0" [class.text-danger]="!isValid && service.PurchInvLines.length==0">
         <td class="font-italic text-center" colspan="5">
           Nema stavki za ovu fakturu.
         </td>
       </tr>
 
-      <tr *ngFor="let item of service.PurchInvLines;let i=index;">
+      <tr *ngFor="let item of service.SalesInvLines;let i=index;">
         <td>{{item.Description}}</td>
         <td>{{item.UnitPrice}}</td>
         <td>{{item.Quantity}}</td>
@@ -98,6 +98,6 @@
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
-    <a class="btn btn-outline-dark ml-1" routerLink="/purchase/PurchInvoices"><i class="fa fa-table"></i> Pregled ulaznih faktura</a>
+    <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih faktura</a>
   </div>
 </form>

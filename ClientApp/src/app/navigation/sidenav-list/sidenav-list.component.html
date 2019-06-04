@@ -13,7 +13,7 @@
     <a matline>Finansije</a>
   </mat-list-item>
   <mat-menu #finance="matMenu">
-    <button mat-menu-item (click)="onSidenavClose()">Izlazne fakture</button>
+    <button mat-menu-item routerLink="/sales/SalesInvoices" (click)="onSidenavClose()">Izlazne fakture</button>
     <button mat-menu-item routerLink="/purchase/PurchInvoices" (click)="onSidenavClose()">Ulazne fakture</button>
   </mat-menu>
   <mat-list-item [matMenuTriggerFor]="reports">
