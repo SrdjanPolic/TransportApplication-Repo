@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.Models;
+﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+using DBLayerPOC.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +21,46 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
+            for (int i = 0; i < 20; i++)
+            {
+                var invoiceHeader = new PurchaseInvoiceHeader
+                {
+                    InvoiceNo = "Faktura Broj" + i,
+                    PostingDate = DateTime.Now.AddDays(-i - 1),
+                    ExternalReferenceNo = "abc " + i,
+                    DueDate = DateTime.Now.AddDays(i + 1),
+                    Paid = false,
+                    Invoiced = false,
+                    CreditMemo = false,
+                    PaymentDate = DateTime.Now.AddDays(i + 10),
+                    CurrencyId = 12,
+                    VendorId = 100 + i,
+                    TotalAmount = 0F
+                };
+
+                for (int j = 0; j < 3; j++)
+                {
+                    var invoiceLine = new PurchaseInvoiceLine
+                    {
+                        Header = invoiceHeader,
+                        Quantity = 1,
+                        UnitPrice = 250,
+                        DiscountPercent = 0,
+                        LineAmount = 0,
+                        Remark = "bla",
+                        Description = "bla bla",
+                        VatPercent = 18
+                    };
+
+                    _ctx.PurchaseInvoiceLines.Add(invoiceLine);
+                }
+
+                _ctx.PurchaseInvoiceHeaders.Add(invoiceHeader);
+            }
+
+            _ctx.SaveChanges();
+
+
             //for (int i = 0; i < 30; i++)
             //{
             //    var exRate = new CurrencyExchangeRate
@@ -34,28 +75,26 @@ namespace DBLayerPOC.Infrastructure
 
             //_ctx.SaveChanges();
 
-            for (int i = 0; i < 30; i++)
-            {
-                var vendor = new Vendor.Vendor
-                {
-                    Name = "Vendor " + i,
-                    Address = "Adresa " + i,
-                    City = "Grad" + i,
-                    Country = "Zemlja" + i,
-                    PhoneNo = "Telefon" + i,
-                    Email = "Email" + i,
-                    PaymentTermsCode = "Valuta" + i,
-                    VatGroup = 20,
-                    VatNumber = "PDV Broj" + i,
-                    LastChangeDate = DateTime.Now.AddDays(-i),
-                    IsInactive = false,
-                    //CurrencyId = 12,
-                };
+            //for (int i = 0; i < 30; i++)
+            //{
+            //    var vendor = new Vendor.Vendor
+            //    {
+            //        Name = "Vendor " + i,
+            //        Address = "Adresa " + i,
+            //        City = "Grad" + i,
+            //        Country = "Zemlja" + i,
+            //        PhoneNo = "Telefon" + i,
+            //        Email = "Email" + i,
+            //        PaymentTermsCode = "Valuta" + i,
+            //        VatGroup = 20,
+            //        VatNumber = "PDV Broj" + i,
+            //        LastChangeDate = DateTime.Now.AddDays(-i),
+            //        IsInactive = false,
+            //        //CurrencyId = 12,
+            //    };
 
-                _ctx.Vendors.Add(vendor);
-            }
-
-            _ctx.SaveChanges();
+            //    _ctx.Vendors.Add(vendor);
+            //}
 
             //for (int i = 0; i < 5000; i++)
             //{
