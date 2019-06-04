@@ -37,7 +37,7 @@ namespace TransportWebAPI.Controllers
         }
 
         // GET: api/PurchaseInvoiceHeaders/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetInvoices")]
         public IActionResult GetPurchaseInvoiceHeader(int id)
         {
             try
@@ -82,7 +82,7 @@ namespace TransportWebAPI.Controllers
 
             _unitOfWork.SaveChanges();
 
-            return CreatedAtRoute(routeName: "Get",
+            return CreatedAtRoute(routeName: "GetInvoices",
                                   routeValues: new { id = purchaseInvoiceHeader.Id },
                                   value: purchaseInvoiceHeader);
         }
