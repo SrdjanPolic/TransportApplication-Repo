@@ -43,8 +43,7 @@ namespace TransportWebAPI.Controllers
             try
             {
                 var vendors = _unitOfWork.GetRepository<PurchaseInvoiceHeader>()
-                    .Single(include: source => source.Include(x => x.Lines)
-                    .Include(header => header.Vendor).Include(header => header.Currency), predicate: x => x.Id == id);
+                    .Single(include: source => source.Include(x => x.Lines), predicate: x => x.Id == id);
                 return Ok(vendors);
             }
             catch (Exception ex)
