@@ -1,12 +1,12 @@
 export class PurchInvLine {
     id: number;
-    UnitPrice: number;
-    Quantity: number;
-    DiscountPercent: number;
-    LineAmount: number;
-    Remark: string;
-    Description: string;
-    VatPercent: number;
-    PurchInvHeaderid: number;
+    unitPrice: number;
+    quantity: number;
+    discountPercent: number;
+    lineAmount: number;
+    remark: string;
+    description: string;
+    vatPercent: number;
+    purchInvHeaderid: number;
 
 }

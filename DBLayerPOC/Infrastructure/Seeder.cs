@@ -33,8 +33,8 @@ namespace DBLayerPOC.Infrastructure
                     Invoiced = false,
                     CreditMemo = false,
                     PaymentDate = DateTime.Now.AddDays(i + 10),
-                    CurrencyId = 12,
-                    VendorId = 100 + i,
+                    CurrencyId = 1,
+                    VendorId = 10,
                     TotalAmount = 0F
                 };
 

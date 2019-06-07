@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PurchInvHeader } from '../_interface/PurchInvHeader.model';
 import { PurchInvLine } from '../_interface/PurchInvLine.model';
@@ -18,15 +18,16 @@ export class PurchInvService {
       ...this.formData,
       PurchInvLines: this.PurchInvLines
     };
-    return this.http.post(environment.urlAddress + '/PurchInvoice', body);
+    let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    return this.http.post(environment.urlAddress + '/api/PurchaseInvoiceHeaders', body,options);
   }
 
   getInvoiceList() {
-    return this.http.get(environment.urlAddress + '/PurchInvoice').toPromise();
+    return this.http.get(environment.urlAddress + '/api/PurchaseInvoiceHeaders').toPromise();
   }
 
   getInvoiceByID(id:number):any {
-    return this.http.get(environment.urlAddress + '/PurchInvoice/' + id).toPromise();
+    return this.http.get(environment.urlAddress + '/api/PurchaseInvoiceHeaders/' + id).toPromise();
   }
 
   deleteInvoice(id:number) {

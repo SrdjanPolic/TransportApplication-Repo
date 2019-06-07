@@ -16,7 +16,7 @@
         <select name="CustomerId" #CustomerId="ngModel" [(ngModel)]="service.formData.CustomerId" class="form-control"
         [class.is-invalid]="!isValid && service.formData.CustomerId==0">
           <option value="0">-Izaberite-</option>
-          <option *ngFor="let item of CustomerList" value="{{item.CustomerId}}">{{item.name}}</option>
+          <option *ngFor="let item of customerList" value="{{item.CustomerId}}">{{item.name}}</option>
         </select>
       </div>
       <div class="form-group">

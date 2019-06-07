@@ -23,7 +23,7 @@ export class InvoiceComponent implements OnInit {
 
   constructor(private service: PurchInvService,
     private dialog: MatDialog,
-    private vendorService: RepositoryService,
+    private repoService: RepositoryService,
     private toastr: ToastrService,
     private router: Router,
     private currentRoute: ActivatedRoute) { }
@@ -34,12 +34,12 @@ export class InvoiceComponent implements OnInit {
       this.resetForm();
     else {
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
-        this.service.formData = res.PurchInvHeader;
-        this.service.PurchInvLines = res.PurchInvLines;
+        this.service.formData = res;
+        this.service.PurchInvLines = res.lines;
       });
     }
 
-    this.vendorService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
+    this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
   }
 
   resetForm(form?: NgForm) {
@@ -47,19 +47,20 @@ export class InvoiceComponent implements OnInit {
     if (form = null)
       form.resetForm();
     this.service.formData = {
-      id: null,
-      InvoiceNo: (environment.PurchInvoiceNo + environment.lastUsedNo).toString(),
-      PostingDate: newDt,
-      ExternalReferenceNo: '',
-      DueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
-      TotalAmount: 0,
-      Paid: false,
-      Invoiced: false,
-      CreditMemo: false,
-      PaymentDate: new Date(),
-      CurrencyId: 0,
-      VendorId: 0,
-      DeletedPurchInvLineIDs: ''
+      id: 0,
+      invoiceNo: (environment.PurchInvoiceNo + '-' + environment.lastUsedNo).toString(),
+      postingDate: newDt,
+      externalReferenceNo: '',
+      dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
+      totalAmount: 0,
+      paid: false,
+      invoiced: false,
+      creditMemo: false,
+      paymentDate: new Date(),
+      currencyId: 0,
+      vendorId: 0,
+      currency: '',
+      deletedPurchInvLineIDs: ''
     };
     this.service.PurchInvLines = [];
   }
@@ -78,21 +79,21 @@ export class InvoiceComponent implements OnInit {
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
     if (invoiceLineID != null)
-      this.service.formData.DeletedPurchInvLineIDs += invoiceLineID + ",";
+      this.service.formData.deletedPurchInvLineIDs += invoiceLineID + ",";
     this.service.PurchInvLines.splice(i, 1);
     this.updateGrandTotal();
   }
 
   updateGrandTotal() {
-    this.service.formData.TotalAmount = this.service.PurchInvLines.reduce((prev, curr) => {
-      return prev + curr.LineAmount;
+    this.service.formData.totalAmount = this.service.PurchInvLines.reduce((prev, curr) => {
+      return prev + curr.lineAmount;
     }, 0);
-    this.service.formData.TotalAmount = parseFloat(this.service.formData.TotalAmount.toFixed(2));
+    this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
   }
 
   validateForm() {
     this.isValid = true;
-    if (this.service.formData.VendorId == 0)
+    if (this.service.formData.vendorId == 0)
       this.isValid = false;
     else if (this.service.PurchInvLines.length == 0)
       this.isValid = false;
@@ -101,12 +102,13 @@ export class InvoiceComponent implements OnInit {
 
 
   onSubmit(form: NgForm) {
+    
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
         environment.lastUsedNo += 1;
         this.resetForm();
         this.toastr.success('Submitted Successfully', 'Atomic Sped.');
-        this.router.navigate(['/PurchInvoices']);
+        this.router.navigate(['/purchase/PurchInvoices']);
       })
     }
   }

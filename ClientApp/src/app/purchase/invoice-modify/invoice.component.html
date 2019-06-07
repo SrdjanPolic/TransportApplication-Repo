@@ -8,34 +8,34 @@
           <div class="input-group-prepend">
             <div class="input-group-text">#</div>
           </div>
-          <input name="InvoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.InvoiceNo" class="form-control" readonly>
+          <input name="invoiceNo" #invoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo" class="form-control" readonly>
         </div>
       </div>
       <div class="form-group">
         <label>Dobavljač</label>
-        <select name="VendorId" #VendorId="ngModel" [(ngModel)]="service.formData.VendorId" class="form-control"
-        [class.is-invalid]="!isValid && service.formData.VendorId==0">
+        <select name="vendorId" #vendorId="ngModel" [(ngModel)]="service.formData.vendorId" class="form-control"
+        [class.is-invalid]="!isValid && service.formData.vendorId==0">
           <option value="0">-Izaberite-</option>
-          <option *ngFor="let item of vendorList" value="{{item.VendorId}}">{{item.name}}</option>
+          <option *ngFor="let item of vendorList" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
       <div class="form-group">
         <label>Valuta</label>
-        <input type ="text" name="CurrencyId" #CurrencyId="ngModel" [(ngModel)]="service.formData.CurrencyId" class="form-control"/>
+        <input type ="text" name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"/>
       </div>
       <div class="form-group">
         <label>Datum dospeća</label>
-        <input type ="date" name="DueDate" #DueDate="ngModel" [(ngModel)]="service.formData.DueDate" class="form-control"/>
+        <input type ="date" name="dueDate" #dueDate="ngModel" [(ngModel)]="service.formData.dueDate" class="form-control"/>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <label>Datum knjiženja</label>
-        <input type ="date" name="PostingDate" #PostingDate="ngModel" [(ngModel)]="service.formData.PostingDate" class="form-control"/>
+        <input type ="date" name="postingDate" #postingDate="ngModel" [(ngModel)]="service.formData.postingDate" class="form-control"/>
       </div>
       <div class="form-group">
         <label>Vaša referenca</label>
-        <input type ="text" name="ExternalReferenceNo" #ExternalReferenceNo="ngModel" [(ngModel)]="service.formData.ExternalReferenceNo" class="form-control"/>
+        <input type ="text" name="externalReferenceNo" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.externalReferenceNo" class="form-control"/>
       </div>
       <div class="form-group">
         <label>Ukupno</label>
@@ -43,12 +43,12 @@
           <div class="input-group-prepend">
             <div class="input-group-text">EUR/din</div>
           </div>
-          <input name="TotalAmount" #TotalAmount="ngModel" [(ngModel)]="service.formData.TotalAmount" class="form-control" readonly>
+          <input name="totalAmount" #totalAmount="ngModel" [(ngModel)]="service.formData.totalAmount" class="form-control" readonly>
         </div>
       </div>
       <div class="form-group">
         <label>Plaćeno</label>
-        <input type ="checkbox" name="Paid" #Paid="ngModel" [(ngModel)]="service.formData.Paid" class="form-control"/>
+        <input type ="checkbox" name="paid" #paid="ngModel" [(ngModel)]="service.formData.paid" class="form-control"/>
       </div>
     </div>
   </div>
@@ -71,10 +71,10 @@
       </tr>
 
       <tr *ngFor="let item of service.PurchInvLines;let i=index;">
-        <td>{{item.Description}}</td>
-        <td>{{item.UnitPrice}}</td>
-        <td>{{item.Quantity}}</td>
-        <td>{{item.LineAmount}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.unitPrice}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.lineAmount}}</td>
         <td>
           <a class="btn btn-sm btn-info text-white" (click)="AddOrEditInvoiceLine(i,service.formData.invoiceNo)"><i class="fa fa-pencil"></i></a>
           <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteInvoiceLine(item.id,i)"><i class="fa fa-trash"></i></a>
