@@ -22,3 +22,12 @@ mat-toolbar{
         border-radius: 0px;
     }
 }
+.toggleButton{
+    text-decoration: none;
+    color: white;
+    display: flex;
+    background-color:green;
+    align-items: center;
+    align-content: center;
+    
+}
