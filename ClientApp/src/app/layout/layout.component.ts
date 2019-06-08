@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-  isDarkTheme: boolean = false;
+  isDarkTheme: boolean;
   constructor() { }
 
   ngOnInit() {

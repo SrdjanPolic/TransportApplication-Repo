@@ -19,3 +19,11 @@ mat-tab-group {
 mat-tab-group p {
     padding-top: 20px;
 }
+.big-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20%;
+    max-width: 100%;
+    height: auto;
+}
