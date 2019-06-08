@@ -105,7 +105,8 @@ export class InvoiceComponent implements OnInit {
     
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        environment.lastUsedNo += 1;
+        if (this.service.formData.id != 0){
+          environment.lastUsedNo += 1;}
         this.resetForm();
         this.toastr.success('Submitted Successfully', 'Atomic Sped.');
         this.router.navigate(['/purchase/PurchInvoices']);
