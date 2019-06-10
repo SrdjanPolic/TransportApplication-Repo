@@ -73,10 +73,13 @@ namespace TransportWebAPI.Controllers
             }
 
             //Delete for OrderItems
-            foreach (var id in purchaseInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+            if (!string.IsNullOrEmpty(purchaseInvoiceHeader.DeletedInvoiceLineIds))
             {
-                var intId = int.Parse(id);
-                _unitOfWork.GetRepository<PurchaseInvoiceLine>().Delete(intId);
+                foreach (var id in purchaseInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+                {
+                    var intId = int.Parse(id);
+                    _unitOfWork.GetRepository<PurchaseInvoiceLine>().Delete(intId);
+                }
             }
 
             _unitOfWork.SaveChanges();
