@@ -69,6 +69,14 @@ namespace TransportWebAPI.Controllers
             //update
             else
             {
+                foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+                {
+                    if (purchaseInvoiceLine.Id == 0)
+                    {
+                        _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
+                    }
+                }
+
                 _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
             }
 
