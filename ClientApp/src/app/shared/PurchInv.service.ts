@@ -14,9 +14,9 @@ export class PurchInvService {
   constructor(private http: HttpClient) { }
 
   saveOrUpdateInvoice() {
+    this.formData.lines = this.PurchInvLines;
     var body = {
-      ...this.formData,
-      PurchInvLines: this.PurchInvLines
+      ...this.formData
     };
     let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
     return this.http.post(environment.urlAddress + '/api/PurchaseInvoiceHeaders', body,options);

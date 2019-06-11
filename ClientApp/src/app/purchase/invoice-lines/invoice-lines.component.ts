@@ -26,7 +26,7 @@ export class InvoiceLinesComponent implements OnInit {
     //this.itemService.getItemList().then(res => this.itemList = res as Item[]);
     if (this.data.invoiceLineIndex == null)
       this.formData = {
-        id: null,
+        id: 0,
         unitPrice: 0,
         quantity: 0,
         discountPercent: 0,
