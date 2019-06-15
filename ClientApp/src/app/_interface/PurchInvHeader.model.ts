@@ -16,7 +16,7 @@ export class PurchInvHeader {
     vendorId: number;
     vendor?: Vendor;
     deletedPurchInvLineIDs: string;
-    lines?: PurchInvLine;
+    lines?: PurchInvLine[];
 
 
 

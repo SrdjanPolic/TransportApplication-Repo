@@ -10,6 +10,7 @@ import { Vendor } from '../../_interface/vendor.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import {MaterialModule} from './../../material/material.module';
 
 
 @Component({
@@ -105,8 +106,7 @@ export class InvoiceComponent implements OnInit {
     
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        if (this.service.formData.id != 0){
-          environment.lastUsedNo += 1;}
+        environment.lastUsedNo += 1;
         this.resetForm();
         this.toastr.success('Submitted Successfully', 'Atomic Sped.');
         this.router.navigate(['/purchase/PurchInvoices']);

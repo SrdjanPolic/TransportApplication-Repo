@@ -23,16 +23,26 @@
         <label>Valuta</label>
         <input type ="text" name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"/>
       </div>
-      <div class="form-group">
+      <!---<div class="form-group">
         <label>Datum dospeća</label>
         <input type ="date" name="dueDate" #dueDate="ngModel" [(ngModel)]="service.formData.dueDate" class="form-control"/>
-      </div>
+      </div>  -->
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Datum dospeca"  [(ngModel)]= "service.formData.dueDate" name="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </div>
     <div class="col-md-3">
-      <div class="form-group">
+      <!--<div class="form-group">
         <label>Datum knjiženja</label>
         <input type ="date" name="postingDate" #postingDate="ngModel" [(ngModel)]="service.formData.postingDate" class="form-control"/>
-      </div>
+      </div> -->
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerposting" placeholder="Datum Knjizenja"  [(ngModel)]= "service.formData.postingDate" name="postingDate">
+        <mat-datepicker-toggle matSuffix [for]="pickerposting"></mat-datepicker-toggle>
+        <mat-datepicker #pickerposting></mat-datepicker>
+      </mat-form-field>
       <div class="form-group">
         <label>Vaša referenca</label>
         <input type ="text" name="externalReferenceNo" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.externalReferenceNo" class="form-control"/>
@@ -91,10 +101,15 @@
       <label>Stornirano</label>
       <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.CreditMemo" class="form-control"/>
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
       <label>Datum plaćanja</label>
       <input type ="date" name="PaymentDate" #PaymentDate="ngModel" [(ngModel)]="service.formData.PaymentDate" class="form-control"/>
-    </div>
+    </div> -->
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentdate" name="paymentdate">
+      <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
+      <mat-datepicker #pickerpayment></mat-datepicker>
+    </mat-form-field>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
