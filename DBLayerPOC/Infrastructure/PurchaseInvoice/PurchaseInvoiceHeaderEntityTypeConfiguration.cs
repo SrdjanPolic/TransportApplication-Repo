@@ -19,6 +19,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.ExternalReferenceNo).HasColumnName("ExternalReferenceNo").HasMaxLength(50);
             builder.Property(x => x.DueDate).HasColumnName("DueDate").HasDefaultValue(DateTime.Now);
             builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").HasDefaultValue(0F);
+            builder.Property(x => x.TotalAmountLocal).HasColumnName("TotalAmountLocal").HasDefaultValue(0F);
             builder.Property(x => x.Paid).HasColumnName("Paid").HasDefaultValue(0);
             builder.Property(x => x.Invoiced).HasColumnName("Invoiced").HasDefaultValue(0);
             builder.Property(x => x.CreditMemo).HasColumnName("CreditMemo").HasDefaultValue(0);

@@ -14,6 +14,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
         public string ExternalReferenceNo { get; set; }
         public DateTime DueDate { get; set; }
         public float TotalAmount { get; set; }
+        public float TotalAmountLocal { get; set; }
         public bool Paid { get; set; }
         public bool Invoiced { get; set; }
         public bool CreditMemo { get; set; }
