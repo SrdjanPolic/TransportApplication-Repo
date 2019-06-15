@@ -37,6 +37,7 @@ export class InvoiceComponent implements OnInit {
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
         this.service.formData = res;
         this.service.PurchInvLines = res.lines;
+        this.service.formData.deletedInvoiceLineIds = '';
       });
     }
 
@@ -61,7 +62,7 @@ export class InvoiceComponent implements OnInit {
       currencyId: 0,
       vendorId: 0,
       currency: '',
-      deletedPurchInvLineIDs: ''
+      deletedInvoiceLineIds: ''
     };
     this.service.PurchInvLines = [];
   }
@@ -80,7 +81,7 @@ export class InvoiceComponent implements OnInit {
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
     if (invoiceLineID != null)
-      this.service.formData.deletedPurchInvLineIDs += invoiceLineID + ",";
+      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ",";
     this.service.PurchInvLines.splice(i, 1);
     this.updateGrandTotal();
   }

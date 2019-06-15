@@ -106,7 +106,7 @@
       <input type ="date" name="PaymentDate" #PaymentDate="ngModel" [(ngModel)]="service.formData.PaymentDate" class="form-control"/>
     </div> -->
     <mat-form-field>
-      <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentdate" name="paymentdate">
+      <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate">
       <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
       <mat-datepicker #pickerpayment></mat-datepicker>
     </mat-form-field>
