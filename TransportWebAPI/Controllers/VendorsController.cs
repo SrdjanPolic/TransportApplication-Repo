@@ -33,24 +33,28 @@ namespace TransportWebAPI.Controllers
                 return Ok(vendors);
             }
             catch (Exception ex)
-            {        
-                return BadRequest();
+            {
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
         // GET: api/Vendors/5
         [HttpGet("{id}", Name = "GetVendor")]
-        [ProducesResponseType(typeof(List<Vendor>), 200)]
         public IActionResult GetVendor(int id)
         {
             try
             {
                 var vendor = _unitOfWork.GetRepository<Vendor>().Single(x => x.Id == id);
+                if (vendor == null)
+                {
+                    return NotFound();
+                }
+
                 return Ok(vendor);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
@@ -58,28 +62,34 @@ namespace TransportWebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVendor(int id, [FromBody] Vendor vendor)
         {
-            if (id != vendor.Id)
-            {
-                return BadRequest();
-            }
             try
             {
-                _unitOfWork.GetRepository<Vendor>().Update(vendor);
-                _unitOfWork.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VendorExists(id))
+                if(vendor == null)
+                {
+                    return BadRequest("Vendor object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var dbVendor = _unitOfWork.GetRepository<Vendor>().Single(x => x.Id == id);
+                if (dbVendor == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                vendor.Id = id;
+                vendor.LastChangeDate = DateTime.Now;
+                _unitOfWork.GetRepository<Vendor>().Update(vendor);
+                _unitOfWork.SaveChanges();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+            }
         }
 
         // POST: api/Vendors
@@ -88,6 +98,16 @@ namespace TransportWebAPI.Controllers
         {
             try
             {
+                if (vendor == null)
+                {
+                    return BadRequest("Vendor object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                vendor.LastChangeDate = DateTime.Now;
                 _unitOfWork.GetRepository<Vendor>().Add(vendor);
                 _unitOfWork.SaveChanges();
 
@@ -97,13 +117,8 @@ namespace TransportWebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
-        }
-
-        private bool VendorExists(int id)
-        {
-            return _unitOfWork.GetRepository<Vendor>().GetList().Items.Any(e => e.Id == id);
         }
     }
 }

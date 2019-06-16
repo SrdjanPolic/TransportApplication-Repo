@@ -14,46 +14,44 @@ namespace TransportWebAPI.Controllers
     public class CustomersController : Controller
     {
         private IUnitOfWork<AppDbContext> _unitOfWork;
-        ILogger _Logger;
 
-        public CustomersController(IUnitOfWork<AppDbContext> unitOfWork, ILoggerFactory loggerFactory)
+        public CustomersController(IUnitOfWork<AppDbContext> unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _Logger = loggerFactory.CreateLogger(nameof(CustomersController));
         }
 
         // GET: api/Customers
         [HttpGet]
-        //[ProducesResponseType(typeof(List<Customer>), 200)]
         public IActionResult Get()
         {
             try
-            {
-                _Logger.LogError("log enter");
+            { 
                 var customers = _unitOfWork.GetRepository<Customer>().GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items;
                 return Ok(customers);
             }
             catch(Exception ex)
             {
-                _Logger.LogError(ex.Message);
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
-        //[ProducesResponseType(typeof(List<Customer>), 200)]
         public IActionResult Get(int id)
         {
             try
             {
                 var customer = _unitOfWork.GetRepository<Customer>().Single(x => x.Id == id);
+                if(customer == null)
+                {
+                    return NotFound();
+                }
+
                 return Ok(customer);
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                _Logger.LogError(exp.Message);
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
@@ -61,13 +59,18 @@ namespace TransportWebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Customer customer)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             try
             {
+                if (customer == null)
+                {
+                    return BadRequest("Customer object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
                 customer.LastChangeDate = DateTime.Now;
                 _unitOfWork.GetRepository<Customer>().Add(customer);
                 _unitOfWork.SaveChanges();
@@ -76,10 +79,9 @@ namespace TransportWebAPI.Controllers
                                       routeValues: new { id = customer.Id },
                                       value: customer);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                _Logger.LogError(ex.Message);
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
@@ -87,24 +89,34 @@ namespace TransportWebAPI.Controllers
         [HttpPut("{id}")]
         public  IActionResult Put(int id, [FromBody] Customer customer)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             try
             {
+                if(customer == null)
+                {
+                    return BadRequest("Customer object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var dbCustomer = _unitOfWork.GetRepository<Customer>().Single(x => x.Id == id);
+                if(dbCustomer == null)
+                {
+                    return NotFound();
+                }
+
                 customer.Id = id;
                 customer.LastChangeDate = DateTime.Now;
                 _unitOfWork.GetRepository<Customer>().Update(customer);
                 _unitOfWork.SaveChanges();
 
-                return Ok();
+                return NoContent();
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                _Logger.LogError(exp.Message);
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
     }
