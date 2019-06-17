@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InvoiceLinesComponent } from '../../purchase/invoice-lines/invoice-lines.component';
 import { Vendor } from '../../_interface/vendor.model';
+import {Currency} from '../../_interface/Currency.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -21,6 +22,7 @@ import {MaterialModule} from './../../material/material.module';
 export class InvoiceComponent implements OnInit {
   vendorList: Vendor[];
   isValid: boolean = true;
+  currencyList: Currency[];
 
   constructor(private service: PurchInvService,
     private dialog: MatDialog,
@@ -42,6 +44,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
+    this.repoService.getData('api/Currencies').subscribe(res => this.currencyList = res as Currency[]);
   }
 
   resetForm(form?: NgForm) {

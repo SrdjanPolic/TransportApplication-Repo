@@ -28,9 +28,9 @@
   
           <mat-form-field>
             <input matInput type="text" placeholder="Zemlja kupca" formControlName="country">
-            <mat-hint align="end">Max. 40 karaktera dužina.</mat-hint>
+            <mat-hint align="end">2 slova za zemlju.</mat-hint>
             <mat-error *ngIf="hasError('country', 'required')">Zemlja je neophodna</mat-error>
-            <mat-error *ngIf="hasError('country', 'maxlength')">Prekoračeno 40 karaktera</mat-error>
+            <mat-error *ngIf="hasError('country', 'maxlength')">Prekoračeno 2 karaktera</mat-error>
           </mat-form-field>
   
           <mat-form-field>
@@ -41,10 +41,10 @@
           </mat-form-field>
   
           <mat-form-field>
-            <input matInput type="text" placeholder="EMail kupca" formControlName="eMail">
+            <input matInput type="text" placeholder="EMail kupca" formControlName="email">
             <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
-            <mat-error *ngIf="hasError('eMail', 'required')">EMail je neophodan</mat-error>
-            <mat-error *ngIf="hasError('eMail', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
+            <mat-error *ngIf="hasError('email', 'required')">EMail je neophodan</mat-error>
+            <mat-error *ngIf="hasError('email', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
           </mat-form-field>
   
           <mat-form-field>
