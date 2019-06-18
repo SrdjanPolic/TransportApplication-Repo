@@ -21,7 +21,9 @@
       </div>
       <div class="form-group">
         <label>Valuta</label>
-        <input type ="text" name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"/>
+        <select name="currencyId" #currencyId="ngModel" [(ngModel)]= "service.formData.currencyId" class="form-control">
+          <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
+        </select>
       </div>
       <!---<div class="form-group">
         <label>Datum dospeća</label>
@@ -93,7 +95,7 @@
     </tbody>
   </table>
   <div class="col-md-3">
-    <div class="form-group">
+    <div class="form-group">l
       <label>Proknjiženo</label>
       <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.Invoiced" class="form-control"/>
     </div>
@@ -112,7 +114,7 @@
     </mat-form-field>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
     <a class="btn btn-outline-dark ml-1" routerLink="/purchase/PurchInvoices"><i class="fa fa-table"></i> Pregled ulaznih faktura</a>
   </div>
 </form>

@@ -23,7 +23,7 @@ export class CustomerCreateComponent implements OnInit {
       name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       address: new FormControl('',[Validators.required, Validators.maxLength(50)]),
       city: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      country: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      country: new FormControl('', [Validators.required, Validators.pattern('[A-Z]{2}')]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
