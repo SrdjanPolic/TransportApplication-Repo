@@ -21,10 +21,13 @@
       </div>
       <div class="form-group">
         <label>Valuta</label>
-        <select name="currencyId" #currencyId="ngModel" [(ngModel)]= "service.formData.currencyId" class="form-control">
+        <select name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"
+        [class.is-invalid]="!isValid && service.formData.currencyId==0">
+          <option value="0">-Izaberite-</option>
           <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
         </select>
       </div>
+
       <!---<div class="form-group">
         <label>Datum dospeća</label>
         <input type ="date" name="dueDate" #dueDate="ngModel" [(ngModel)]="service.formData.dueDate" class="form-control"/>

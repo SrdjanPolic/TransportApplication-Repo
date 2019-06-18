@@ -44,7 +44,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
-    this.repoService.getData('api/Currencies').subscribe(res => this.currencyList = res as Currency[]);
+    this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
   }
 
   resetForm(form?: NgForm) {
