@@ -24,7 +24,6 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Vendors
         [HttpGet]
-        [ProducesResponseType(typeof(List<Vendor>), 200)]
         public IActionResult GetVendors()
         {
             try
