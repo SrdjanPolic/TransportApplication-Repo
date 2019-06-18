@@ -29,7 +29,8 @@ namespace TransportWebAPI.Controllers
         {
             try
             {
-                var vendors = _unitOfWork.GetRepository<Vendor>().GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items;
+                var vendors = _unitOfWork.GetRepository<Vendor>().
+                    GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items.ToList();
                 return Ok(vendors);
             }
             catch (Exception ex)

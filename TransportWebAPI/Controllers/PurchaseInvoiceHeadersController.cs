@@ -27,8 +27,9 @@ namespace TransportWebAPI.Controllers
         {
             try
             {
-                var vendors = _unitOfWork.GetRepository<PurchaseInvoiceHeader>().GetList(orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items;
-                return Ok(vendors);
+                var purchaseInvoiceHeaders = _unitOfWork.GetRepository<PurchaseInvoiceHeader>().
+                    GetList(orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
+                return Ok(purchaseInvoiceHeaders);
             }
             catch (Exception ex)
             {
@@ -42,9 +43,9 @@ namespace TransportWebAPI.Controllers
         {
             try
             {
-                var vendors = _unitOfWork.GetRepository<PurchaseInvoiceHeader>()
+                var purchaseInvoiceHeader = _unitOfWork.GetRepository<PurchaseInvoiceHeader>()
                     .Single(include: source => source.Include(x => x.Lines), predicate: x => x.Id == id);
-                return Ok(vendors);
+                return Ok(purchaseInvoiceHeader);
             }
             catch (Exception ex)
             {

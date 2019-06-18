@@ -26,7 +26,8 @@ namespace TransportWebAPI.Controllers
         {
             try
             { 
-                var customers = _unitOfWork.GetRepository<Customer>().GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items;
+                var customers = _unitOfWork.GetRepository<Customer>()
+                    .GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items.ToList();
                 return Ok(customers);
             }
             catch(Exception ex)
