@@ -35,7 +35,7 @@ namespace TransportWebAPI.Controllers
                 foreach(var currency in currencies)
                 {
                     var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
-                        .GetList().Items.ToList().OrderByDescending(x => x.StartingDate).FirstOrDefault();
+                        .GetList().Items.ToList().OrderByDescending(x => x.StartingDate).FirstOrDefault(x => x.CurrencyId == currency.Id);
                     currency.CurrencyExchangeRates.Add(currencyExchangeRate);
                 }
 
