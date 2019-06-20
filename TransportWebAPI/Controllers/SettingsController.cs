@@ -31,7 +31,7 @@ namespace TransportWebAPI.Controllers
             try
             {
                 var settings = _unitOfWork.GetRepository<Settings>()
-                    .Single(x => x.ObjectName.ToLower().Equals(objectName.ToLower()));
+                    .Single(x => x.ObjectName.ToLower().Equals(objectName.ToLower()) && x.Year == DateTime.Now.Year);
                 if (settings == null)
                 {
                     return NotFound();
