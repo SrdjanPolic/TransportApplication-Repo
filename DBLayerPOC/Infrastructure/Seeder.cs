@@ -21,14 +21,16 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
+
             if(!_ctx.SettingsTable.Any())
-            {
+            { 
+                var PurchaseInvoiceNumber = _ctx.PurchaseInvoiceHeaders.Count();
                 var settings = new Settings.Settings
                 {
                     ObjectName = "PurchaseInvoice",
                     Prefix = "UF-19",
                     Year = 2019,
-                    LastUsedNumber = 68
+                    LastUsedNumber = PurchaseInvoiceNumber
                 };
 
                 _ctx.SettingsTable.Add(settings);
