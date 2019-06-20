@@ -6,6 +6,7 @@ using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using Service.Data;
 using Microsoft.EntityFrameworkCore;
+using DBLayerPOC.Infrastructure.Settings;
 
 namespace TransportWebAPI.Controllers
 {
@@ -22,18 +23,18 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/PurchaseInvoiceHeaders
         [HttpGet]
-        [ProducesResponseType(typeof(List<PurchaseInvoiceHeader>), 200)]
         public IActionResult GetPurchaseInvoiceHeaders()
         {
             try
             {
                 var purchaseInvoiceHeaders = _unitOfWork.GetRepository<PurchaseInvoiceHeader>().
                     GetList(orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
+
                 return Ok(purchaseInvoiceHeaders);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
@@ -45,11 +46,17 @@ namespace TransportWebAPI.Controllers
             {
                 var purchaseInvoiceHeader = _unitOfWork.GetRepository<PurchaseInvoiceHeader>()
                     .Single(include: source => source.Include(x => x.Lines), predicate: x => x.Id == id);
+
+                if (purchaseInvoiceHeader == null)
+                {
+                    return NotFound();
+                }
+
                 return Ok(purchaseInvoiceHeader);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
         }
 
@@ -57,45 +64,72 @@ namespace TransportWebAPI.Controllers
         [HttpPost]
         public IActionResult PostPurchaseInvoiceHeader([FromBody]PurchaseInvoiceHeader purchaseInvoiceHeader)
         {
-            //newly created
-            if (purchaseInvoiceHeader.Id == 0)
+            try
             {
-                _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Add(purchaseInvoiceHeader);
-
-                foreach(var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+                if (purchaseInvoiceHeader == null)
                 {
-                    _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
+                    return BadRequest("PurchaseInvoiceHeader object is null");
                 }
-            }
-            //update
-            else
-            {
-                foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+
+                if (!ModelState.IsValid)
                 {
-                    if (purchaseInvoiceLine.Id == 0)
+                    return BadRequest("Invalid model object");
+                }
+
+                Settings settingsObject = null; 
+                //newly created
+                if (purchaseInvoiceHeader.Id == 0)
+                {
+                    _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Add(purchaseInvoiceHeader);
+
+                    foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
                     {
                         _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
                     }
+
+                    settingsObject = _unitOfWork.GetRepository<Settings>()
+                    .Single(x => x.ObjectName.ToLower().Equals("PurchaseInvoice") && x.Year == DateTime.Now.Year);
                 }
-
-                _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
-            }
-
-            //Delete for OrderItems
-            if (!string.IsNullOrEmpty(purchaseInvoiceHeader.DeletedInvoiceLineIds))
-            {
-                foreach (var id in purchaseInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+                //update
+                else
                 {
-                    var intId = int.Parse(id);
-                    _unitOfWork.GetRepository<PurchaseInvoiceLine>().Delete(intId);
+                    foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+                    {
+                        if (purchaseInvoiceLine.Id == 0)
+                        {
+                            _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
+                        }
+                    }
+
+                    _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
                 }
+
+                //Delete for OrderItems
+                if (!string.IsNullOrEmpty(purchaseInvoiceHeader.DeletedInvoiceLineIds))
+                {
+                    foreach (var id in purchaseInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+                    {
+                        var intId = int.Parse(id);
+                        _unitOfWork.GetRepository<PurchaseInvoiceLine>().Delete(intId);
+                    }
+                }
+
+                if(settingsObject != null)
+                {
+                    settingsObject.LastUsedNumber++;
+                    _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
+                }
+
+                _unitOfWork.SaveChanges();
+
+                return CreatedAtRoute(routeName: "GetInvoices",
+                                      routeValues: new { id = purchaseInvoiceHeader.Id },
+                                      value: purchaseInvoiceHeader);
             }
-
-            _unitOfWork.SaveChanges();
-
-            return CreatedAtRoute(routeName: "GetInvoices",
-                                  routeValues: new { id = purchaseInvoiceHeader.Id },
-                                  value: purchaseInvoiceHeader);
+            catch (Exception ex)
+            {
+                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+            }
         }
     }
 }

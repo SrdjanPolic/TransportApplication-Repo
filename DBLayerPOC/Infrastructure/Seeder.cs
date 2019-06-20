@@ -21,42 +21,55 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            for (int i = 0; i < 20; i++)
+            if(!_ctx.SettingsTable.Any())
             {
-                var invoiceHeader = new PurchaseInvoiceHeader
+                var settings = new Settings.Settings
                 {
-                    InvoiceNo = "Faktura Broj" + i,
-                    PostingDate = DateTime.Now.AddDays(-i - 1),
-                    ExternalReferenceNo = "abc " + i,
-                    DueDate = DateTime.Now.AddDays(i + 1),
-                    Paid = false,
-                    Invoiced = false,
-                    CreditMemo = false,
-                    PaymentDate = DateTime.Now.AddDays(i + 10),
-                    CurrencyId = 1,
-                    VendorId = 10,
-                    TotalAmount = 0F
+                    ObjectName = "PurchaseInvoice",
+                    Prefix = "UF-19",
+                    Year = 2019,
+                    LastUsedNumber = 68
                 };
 
-                for (int j = 0; j < 3; j++)
-                {
-                    var invoiceLine = new PurchaseInvoiceLine
-                    {
-                        Header = invoiceHeader,
-                        Quantity = 1,
-                        UnitPrice = 250,
-                        DiscountPercent = 0,
-                        LineAmount = 0,
-                        Remark = "bla",
-                        Description = "bla bla",
-                        VatPercent = 18
-                    };
-
-                    _ctx.PurchaseInvoiceLines.Add(invoiceLine);
-                }
-
-                _ctx.PurchaseInvoiceHeaders.Add(invoiceHeader);
+                _ctx.SettingsTable.Add(settings);
             }
+
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    var invoiceHeader = new PurchaseInvoiceHeader
+            //    {
+            //        InvoiceNo = "Faktura Broj" + i,
+            //        PostingDate = DateTime.Now.AddDays(-i - 1),
+            //        ExternalReferenceNo = "abc " + i,
+            //        DueDate = DateTime.Now.AddDays(i + 1),
+            //        Paid = false,
+            //        Invoiced = false,
+            //        CreditMemo = false,
+            //        PaymentDate = DateTime.Now.AddDays(i + 10),
+            //        CurrencyId = 1,
+            //        VendorId = 10,
+            //        TotalAmount = 0F
+            //    };
+
+            //    for (int j = 0; j < 3; j++)
+            //    {
+            //        var invoiceLine = new PurchaseInvoiceLine
+            //        {
+            //            Header = invoiceHeader,
+            //            Quantity = 1,
+            //            UnitPrice = 250,
+            //            DiscountPercent = 0,
+            //            LineAmount = 0,
+            //            Remark = "bla",
+            //            Description = "bla bla",
+            //            VatPercent = 18
+            //        };
+
+            //        _ctx.PurchaseInvoiceLines.Add(invoiceLine);
+            //    }
+
+            //    _ctx.PurchaseInvoiceHeaders.Add(invoiceHeader);
+            //}
 
             _ctx.SaveChanges();
 

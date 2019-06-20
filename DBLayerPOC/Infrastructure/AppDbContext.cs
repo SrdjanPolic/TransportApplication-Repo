@@ -1,4 +1,5 @@
 ﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Infrastructure.Vendor;
 using DBLayerPOC.Models;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace DBLayerPOC.Infrastructure
         public virtual DbSet<PurchaseInvoiceHeader> PurchaseInvoiceHeaders { get; set; }
         public virtual DbSet<PurchaseInvoiceLine> PurchaseInvoiceLines { get; set; }
 
-
+        public virtual DbSet<Settings.Settings> SettingsTable { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,6 +51,9 @@ namespace DBLayerPOC.Infrastructure
             //Purchase Invoice
             modelBuilder.ApplyConfiguration(new PurchaseInvoiceHeaderEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseInvoiceLineEntityTypeConfiguration());
+
+            //Settings
+            modelBuilder.ApplyConfiguration(new SettingsEntityTypeConfiguration());
         }
     }
 }
