@@ -19,7 +19,7 @@ namespace DBLayerPOC.Infrastructure
 
             //var connectionString = Configuration.GetConnectionString("ConnectionString");
             //var connectionString = configuration.GetConnectionString("ConnectionString");
-            var connectionString = "server=.\\SQLEXPRESS;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;";
+            var connectionString = "server=DENUE-AXD4094N1\\NAVDEMO;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;";
 
             builder.UseSqlServer(connectionString);
 

@@ -1,0 +1,22 @@
+<div class="signin-content">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+       <p>Molimo prijavite se</p>
+       <mat-form-field  class="full-width-input">
+         <input matInput placeholder="Korisnik" formControlName="username" required>
+         <mat-error *ngIf="isFieldInvalid('username')">
+           Molimo unesite korisnično ime
+         </mat-error>
+       </mat-form-field>
+       <mat-form-field class="full-width-input">
+         <input matInput type="password" placeholder="Šifra" formControlName="password" required>
+         <mat-error *ngIf="isFieldInvalid('password')">
+           Molimo unesite korisničku šifru
+         </mat-error>
+       </mat-form-field>
+       <button mat-raised-button color="primary">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

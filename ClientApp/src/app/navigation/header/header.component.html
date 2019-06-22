@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async">
   <div>
       <button mat-icon-button (click)="onToggleSidenav()">
           <mat-icon>menu</mat-icon>
@@ -21,8 +21,12 @@
           <li>
               <a routerLink="/vendor/vendors">Dobavljači</a>
           </li>
+          
           <li>
-              <button (click)="onToggleTheme()" class="toggleButton" mat-raised-button color="primary">Promeni Temu</button>
+              <button mat-button (click)="onLogout()">Logout</button>
+          </li>
+          <li>
+            <button (click)="onToggleTheme()" class="toggleButton" mat-raised-button color="primary">Promeni Temu</button>
           </li>
           
       </ul>

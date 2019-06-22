@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
+import { AuthService } from './../../auth/auth.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,10 +10,12 @@ export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
   @Output() public toggleTheme = new EventEmitter();
+  isLoggedIn$: Observable<boolean>; 
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
   }
 
   public onToggleSidenav = () => {
@@ -22,6 +25,12 @@ export class HeaderComponent implements OnInit {
   public onToggleTheme = () => {
     this.toggleTheme.emit();
   }
+
+  onLogout() {
+    this.authService.logout();
+  }
+
+
  
 
 }
