@@ -32,7 +32,7 @@
 
   <ng-container matColumnDef="paid">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Plaćeno </th>
-    <td mat-cell input *matCellDef="let element"> {{element.paid}} </td>
+    <td mat-cell input *matCellDef="let element"> {{element.paid |transformboolean}} </td>
   </ng-container>
 
   <ng-container matColumnDef="details">

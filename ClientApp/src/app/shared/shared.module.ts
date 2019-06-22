@@ -4,6 +4,7 @@ import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SuccessDialogComponent } from './dialogs/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
+import { TransformbooleanPipe } from './transformboolean.pipe';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.compon
   ],
   declarations: [
     SuccessDialogComponent, 
-    ErrorDialogComponent
+    ErrorDialogComponent, TransformbooleanPipe
   ],
   entryComponents: [
     SuccessDialogComponent,
