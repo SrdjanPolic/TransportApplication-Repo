@@ -23,6 +23,10 @@ namespace DBLayerPOC.Infrastructure
             builder.Property(x => x.VatNumber).HasColumnName("VatNumber");
             builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
             builder.Property(x => x.LastChangeDate).HasColumnName("LastChangeDate").HasDefaultValue(DateTime.Now);
+
+            builder.Metadata.FindNavigation(nameof(Customer.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Customer).HasForeignKey(b => b.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

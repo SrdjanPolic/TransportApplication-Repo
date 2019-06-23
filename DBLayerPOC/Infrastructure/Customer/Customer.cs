@@ -1,5 +1,7 @@
-﻿using DBLayerPOC.ModelBase;
+﻿using DBLayerPOC.Infrastructure.SalesInvoice;
+using DBLayerPOC.ModelBase;
 using System;
+using System.Collections.Generic;
 
 namespace DBLayerPOC.Models
 {
@@ -15,5 +17,12 @@ namespace DBLayerPOC.Models
         public string VatNumber { get; set; }
         public bool IsInactive { get; set; }
         public DateTime LastChangeDate { get; set; }
+
+        public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
+
+        public Customer()
+        {
+            SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+using DBLayerPOC.Infrastructure.SalesInvoice;
 using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Infrastructure.Vendor;
 using DBLayerPOC.Models;
@@ -23,6 +24,9 @@ namespace DBLayerPOC.Infrastructure
         public virtual DbSet<PurchaseInvoiceHeader> PurchaseInvoiceHeaders { get; set; }
         public virtual DbSet<PurchaseInvoiceLine> PurchaseInvoiceLines { get; set; }
 
+        public virtual DbSet<SalesInvoiceHeader> SalesInvoiceHeaders { get; set; }
+        public virtual DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
+
         public virtual DbSet<Settings.Settings> SettingsTable { get; set; }
 
 
@@ -43,6 +47,10 @@ namespace DBLayerPOC.Infrastructure
             //Purchase Invoice
             modelBuilder.ApplyConfiguration(new PurchaseInvoiceHeaderEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseInvoiceLineEntityTypeConfiguration());
+
+            //Sales Invoice
+            modelBuilder.ApplyConfiguration(new SalesInvoiceHeaderEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SalesInvoiceLineEntityTypeConfiguration());
 
             //Settings
             modelBuilder.ApplyConfiguration(new SettingsEntityTypeConfiguration());
