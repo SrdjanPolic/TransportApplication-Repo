@@ -18,7 +18,7 @@ export class AuthService {
   login(user: User) {
     if (user.username !== '' && user.password !== '') {            //dodati logiku za proveru korisnika
       this.loggedIn.next(true);
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     }
   }
   logout() {
