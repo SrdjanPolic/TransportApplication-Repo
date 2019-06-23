@@ -13,10 +13,6 @@ namespace DBLayerPOC.Infrastructure
         {
         }
 
-
-        public virtual DbSet<QuoteHeader> QuoteHeaders { get; set; }
-        public virtual DbSet<QuoteLine> QuoteLines { get; set; }
-
         public virtual DbSet<Customer> Customers { get; set; }
 
         public virtual DbSet<Vendor.Vendor> Vendors { get; set; }
@@ -33,10 +29,6 @@ namespace DBLayerPOC.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("TransportDbNew");
-            //QuoteHeader and QuoteLine
-            modelBuilder.ApplyConfiguration(new QuoteHeaderEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new QuoteLineEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new CustomerEntityTypeConfiguration());
 
             //Customer
             modelBuilder.ApplyConfiguration(new CustomerEntityTypeConfiguration());
