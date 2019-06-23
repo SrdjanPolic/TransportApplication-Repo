@@ -1,4 +1,5 @@
 ﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Models;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,12 @@ namespace DBLayerPOC.Infrastructure
             _ctx.Database.EnsureCreated();
 
 
-            if(!_ctx.SettingsTable.Any())
+            if(!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.PurchaseInvoiceObjectName)))
             { 
                 var PurchaseInvoiceNumber = _ctx.PurchaseInvoiceHeaders.Count();
                 var settings = new Settings.Settings
                 {
-                    ObjectName = "PurchaseInvoice",
+                    ObjectName = Constants.PurchaseInvoiceObjectName,
                     Prefix = "UF-19",
                     Year = 2019,
                     LastUsedNumber = PurchaseInvoiceNumber
@@ -35,6 +36,22 @@ namespace DBLayerPOC.Infrastructure
 
                 _ctx.SettingsTable.Add(settings);
             }
+
+            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
+            {
+                var PurchaseInvoiceNumber = _ctx.PurchaseInvoiceHeaders.Count();
+                var settings = new Settings.Settings
+                {
+                    ObjectName = Constants.SalesInvoiceObjectName,
+                    Prefix = "IF-19",
+                    Year = 2019,
+                    LastUsedNumber = 0
+                };
+
+                _ctx.SettingsTable.Add(settings);
+            }
+
+
 
             //for (int i = 0; i < 20; i++)
             //{

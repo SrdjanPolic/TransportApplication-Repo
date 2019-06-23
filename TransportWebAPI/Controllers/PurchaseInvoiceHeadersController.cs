@@ -88,7 +88,7 @@ namespace TransportWebAPI.Controllers
                     }
 
                     settingsObject = _unitOfWork.GetRepository<Settings>()
-                    .Single(x => x.ObjectName.ToLower().Equals("PurchaseInvoice") && x.Year == DateTime.Now.Year);
+                    .Single(x => x.ObjectName.ToLower().Equals(Constants.PurchaseInvoiceObjectName) && x.Year == DateTime.Now.Year);
                 }
                 //update
                 else
