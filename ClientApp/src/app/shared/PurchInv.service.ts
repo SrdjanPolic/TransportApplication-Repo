@@ -15,6 +15,9 @@ export class PurchInvService {
 
   saveOrUpdateInvoice() {
     this.formData.lines = this.PurchInvLines;
+    this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
+    this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
+    this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
     var body = {
       ...this.formData
     };
@@ -33,5 +36,10 @@ export class PurchInvService {
   deleteInvoice(id:number) {
     return this.http.delete(environment.urlAddress + '/PurchInvoice/' + id).toPromise();
   }
+
+  adjustDateForTimeOffset(dateToAdjust) {
+    var offsetMs = dateToAdjust.getTimezoneOffset() * 60000;
+    return new Date(dateToAdjust.getTime() - offsetMs);
+    }
 
 }

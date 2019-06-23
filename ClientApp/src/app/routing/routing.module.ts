@@ -13,10 +13,10 @@ const ownerRoutes: Routes = [
   
   {path: 'login', component: LoginComponent},
   { path: 'home', component: HomeComponent },
-  { path: 'customer', loadChildren: "./../customer/customer.module#CustomerModule" },
-  { path: 'vendor', loadChildren: "./../vendor/vendor.module#VendorModule" },
-  { path: 'purchase', loadChildren: "./../purchase/purchase.module#PurchaseModule"},
-  { path: 'sales', loadChildren: "./../sales/sales.module#SalesModule"},
+  { path: 'customer', loadChildren: "./../customer/customer.module#CustomerModule" , canActivate: [AuthGuard]},
+  { path: 'vendor', loadChildren: "./../vendor/vendor.module#VendorModule", canActivate: [AuthGuard]},
+  { path: 'purchase', loadChildren: "./../purchase/purchase.module#PurchaseModule",canActivate: [AuthGuard]},
+  { path: 'sales', loadChildren: "./../sales/sales.module#SalesModule", canActivate: [AuthGuard]},
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -27,7 +27,7 @@ const ownerRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(ownerRoutes)
+    RouterModule.forRoot(ownerRoutes)
   ],
   exports: [
     RouterModule

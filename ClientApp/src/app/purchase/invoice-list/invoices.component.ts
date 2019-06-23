@@ -71,10 +71,10 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   }
 
   onInvoiceDelete(id: number) {
-    if (confirm('Are you sure to delete this record?')) {
+    if (confirm('Hoćete li da obrišete ovaj zapis?')) {
       this.service.deleteInvoice(id).then(res => {
         this.refreshList();
-        this.toastr.warning("Deleted Successfully", "Atomic Sped.");
+        this.toastr.warning("Uspešno obrisano.", "Atomic Sped.");
       });
     }
   }

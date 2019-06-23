@@ -1,3 +1,4 @@
+import { MAT_DATE_LOCALE } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -65,7 +66,8 @@ import { RouterModule } from '@angular/router';
       },
     ])
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard,
+    {provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
