@@ -38,19 +38,7 @@ namespace DBLayerPOC.Infrastructure
                 _ctx.SettingsTable.Add(settings);
             }
 
-            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
-            {
-                var SalesInvoiceNumber = _ctx.SalesInvoiceHeaders.Count();
-                var settings = new Settings.Settings
-                {
-                    ObjectName = Constants.SalesInvoiceObjectName,
-                    Prefix = "IF-19",
-                    Year = 2019,
-                    LastUsedNumber = SalesInvoiceNumber
-                };
 
-                _ctx.SettingsTable.Add(settings);
-            }
 
             for (int i = 0; i < 20; i++)
             {
@@ -149,6 +137,23 @@ namespace DBLayerPOC.Infrastructure
 
             _ctx.SaveChanges();
 
+
+            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
+            {
+                var SalesInvoiceNumber = _ctx.SalesInvoiceHeaders.Count();
+                var settings = new Settings.Settings
+                {
+                    ObjectName = Constants.SalesInvoiceObjectName,
+                    Prefix = "IF-19",
+                    Year = 2019,
+                    LastUsedNumber = SalesInvoiceNumber
+                };
+
+                _ctx.SettingsTable.Add(settings);
+            }
+
+
+            _ctx.SaveChanges();
 
             //for (int i = 0; i < 30; i++)
             //{
