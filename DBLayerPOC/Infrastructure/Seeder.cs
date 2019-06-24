@@ -1,4 +1,5 @@
 ﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+using DBLayerPOC.Infrastructure.SalesInvoice;
 using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Models;
 using System;
@@ -39,19 +40,75 @@ namespace DBLayerPOC.Infrastructure
 
             if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
             {
-                var PurchaseInvoiceNumber = _ctx.PurchaseInvoiceHeaders.Count();
+                var SalesInvoiceNumber = _ctx.SalesInvoiceHeaders.Count();
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.SalesInvoiceObjectName,
                     Prefix = "IF-19",
                     Year = 2019,
-                    LastUsedNumber = 0
+                    LastUsedNumber = SalesInvoiceNumber
                 };
 
                 _ctx.SettingsTable.Add(settings);
             }
 
+            for (int i = 0; i < 20; i++)
+            {
+                var invoiceHeader = new SalesInvoiceHeader
+                {
+                    InvoiceNo = "Faktura Broj" + i,
+                    PostingDate = DateTime.Now.AddDays(-i - 1),
+                    ExternalReferenceNo = "abc " + i,
+                    DueDate = DateTime.Now.AddDays(i + 1),
+                    SalesPerson = "Sales Person " + i,
+                    OrderDate = DateTime.Now,
+                    Paid = false,
+                    Invoiced = false,
+                    CreditMemo = false,
+                    PaymentDate = DateTime.Now.AddDays(i + 10),
+                    CurrencyId = 12,
+                    CustomerId = 10,
+                    TotalAmount = 18F,
+                    TotalAmountLocal = 12.45F,
+                    CommodityType = "bla",
+                    NumberOfPallets = 12,
+                    NumberOfPalletsPlaces = 12,
+                    BruttoWeight = 90F,
+                    AdrNeeded = true,
+                    Remarks = "blabla",
+                    VechicleRegNumber = "NYJ835",
+                    DriverName = "Djoko",
+                    RouteDistance = 1200,
+                    LoadRepresentative = "Vucic",
+                    PricePerKm = 12,
+                    CrmNumber = "lincl"
+                };
 
+                for (int j = 0; j < 3; j++)
+                {
+                    var invoiceLine = new SalesInvoiceLine
+                    {
+                        Header = invoiceHeader,
+                        LoadDate = DateTime.Now,
+                        UnloadDate = DateTime.Now,
+                        LoadAddress = "Adr1",
+                        UnloadAddress = "Adr2",
+                        ExportCustoms = "Cust1",
+                        ImportCustoms = "Cust2",
+                        Quantity = 23,
+                        UnitPrice = 250,
+                        DiscountPercent = 0,
+                        LineAmount = 0,
+                        Remark = "bla",
+                        Description = "bla bla",
+                        VatPercent = 18
+                    };
+
+                    _ctx.SalesInvoiceLines.Add(invoiceLine);
+                }
+
+                _ctx.SalesInvoiceHeaders.Add(invoiceHeader);
+            }
 
             //for (int i = 0; i < 20; i++)
             //{

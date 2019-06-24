@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DBLayerPOC.Infrastructure;
-using DBLayerPOC.Infrastructure.PurchaseInvoice;
+using DBLayerPOC.Infrastructure.SalesInvoice;
 using Service.Data;
 using Microsoft.EntityFrameworkCore;
 using DBLayerPOC.Infrastructure.Settings;
@@ -12,25 +12,25 @@ namespace TransportWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PurchaseInvoiceHeadersController : ControllerBase
+    public class SalesInvoiceHeadersController : ControllerBase
     {
         private IUnitOfWork<AppDbContext> _unitOfWork;
 
-        public PurchaseInvoiceHeadersController(IUnitOfWork<AppDbContext> unitOfWork)
+        public SalesInvoiceHeadersController(IUnitOfWork<AppDbContext> unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/PurchaseInvoiceHeaders
+        // GET: api/SalesInvoiceHeaders
         [HttpGet]
-        public IActionResult GetPurchaseInvoiceHeaders()
+        public IActionResult GetSalesInvoiceHeaders()
         {
             try
             {
-                var purchaseInvoiceHeaders = _unitOfWork.GetRepository<PurchaseInvoiceHeader>().
+                var SalesInvoiceHeaders = _unitOfWork.GetRepository<SalesInvoiceHeader>().
                     GetList(orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
 
-                return Ok(purchaseInvoiceHeaders);
+                return Ok(SalesInvoiceHeaders);
             }
             catch (Exception ex)
             {
@@ -38,21 +38,21 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        // GET: api/PurchaseInvoiceHeaders/5
-        [HttpGet("{id}", Name = "GetPurchaseInvoices")]
-        public IActionResult GetPurchaseInvoiceHeader(int id)
+        // GET: api/SalesInvoiceHeaders/5
+        [HttpGet("{id}", Name = "GetSalesInvoices")]
+        public IActionResult GetSalesInvoiceHeader(int id)
         {
             try
             {
-                var purchaseInvoiceHeader = _unitOfWork.GetRepository<PurchaseInvoiceHeader>()
+                var SalesInvoiceHeader = _unitOfWork.GetRepository<SalesInvoiceHeader>()
                     .Single(include: source => source.Include(x => x.Lines), predicate: x => x.Id == id);
 
-                if (purchaseInvoiceHeader == null)
+                if (SalesInvoiceHeader == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(purchaseInvoiceHeader);
+                return Ok(SalesInvoiceHeader);
             }
             catch (Exception ex)
             {
@@ -60,15 +60,15 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        // POST: api/PurchaseInvoiceHeaders
+        // POST: api/SalesInvoiceHeaders
         [HttpPost]
-        public IActionResult PostPurchaseInvoiceHeader([FromBody]PurchaseInvoiceHeader purchaseInvoiceHeader)
+        public IActionResult PostSalesInvoiceHeader([FromBody]SalesInvoiceHeader SalesInvoiceHeader)
         {
             try
             {
-                if (purchaseInvoiceHeader == null)
+                if (SalesInvoiceHeader == null)
                 {
-                    return BadRequest("PurchaseInvoiceHeader object is null");
+                    return BadRequest("SalesInvoiceHeader object is null");
                 }
 
                 if (!ModelState.IsValid)
@@ -78,39 +78,39 @@ namespace TransportWebAPI.Controllers
 
                 Settings settingsObject = null; 
                 //newly created
-                if (purchaseInvoiceHeader.Id == 0)
+                if (SalesInvoiceHeader.Id == 0)
                 {
-                    _unitOfWork.GetRepository<PurchaseInvoiceHeader>().Add(purchaseInvoiceHeader);
+                    _unitOfWork.GetRepository<SalesInvoiceHeader>().Add(SalesInvoiceHeader);
 
-                    foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+                    foreach (var SalesInvoiceLine in SalesInvoiceHeader.Lines)
                     {
-                        _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
+                        _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
                     }
 
                     settingsObject = _unitOfWork.GetRepository<Settings>()
-                    .Single(x => x.ObjectName.ToLower().Equals(Constants.PurchaseInvoiceObjectName) && x.Year == DateTime.Now.Year);
+                    .Single(x => x.ObjectName.ToLower().Equals(Constants.SalesInvoiceObjectName) && x.Year == DateTime.Now.Year);
                 }
                 //update
                 else
                 {
-                    foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
+                    foreach (var SalesInvoiceLine in SalesInvoiceHeader.Lines)
                     {
-                        if (purchaseInvoiceLine.Id == 0)
+                        if (SalesInvoiceLine.Id == 0)
                         {
-                            _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
+                            _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
                         }
                     }
 
-                    _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
+                    _unitOfWork.Context.Entry(SalesInvoiceHeader).State = EntityState.Modified;
                 }
 
                 //Delete for OrderItems
-                if (!string.IsNullOrEmpty(purchaseInvoiceHeader.DeletedInvoiceLineIds))
+                if (!string.IsNullOrEmpty(SalesInvoiceHeader.DeletedInvoiceLineIds))
                 {
-                    foreach (var id in purchaseInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+                    foreach (var id in SalesInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
                     {
                         var intId = int.Parse(id);
-                        _unitOfWork.GetRepository<PurchaseInvoiceLine>().Delete(intId);
+                        _unitOfWork.GetRepository<SalesInvoiceLine>().Delete(intId);
                     }
                 }
 
@@ -122,9 +122,9 @@ namespace TransportWebAPI.Controllers
 
                 _unitOfWork.SaveChanges();
 
-                return CreatedAtRoute(routeName: "GetPurchaseInvoices",
-                                      routeValues: new { id = purchaseInvoiceHeader.Id },
-                                      value: purchaseInvoiceHeader);
+                return CreatedAtRoute(routeName: "GetSalesInvoices",
+                                      routeValues: new { id = SalesInvoiceHeader.Id },
+                                      value: SalesInvoiceHeader);
             }
             catch (Exception ex)
             {
