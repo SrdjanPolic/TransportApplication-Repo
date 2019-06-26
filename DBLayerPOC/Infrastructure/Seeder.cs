@@ -40,63 +40,63 @@ namespace DBLayerPOC.Infrastructure
 
 
 
-            for (int i = 0; i < 20; i++)
-            {
-                var invoiceHeader = new SalesInvoiceHeader
-                {
-                    InvoiceNo = "Faktura Broj" + i,
-                    PostingDate = DateTime.Now.AddDays(-i - 1),
-                    ExternalReferenceNo = "abc " + i,
-                    DueDate = DateTime.Now.AddDays(i + 1),
-                    SalesPerson = "Sales Person " + i,
-                    OrderDate = DateTime.Now,
-                    Paid = false,
-                    Invoiced = false,
-                    CreditMemo = false,
-                    PaymentDate = DateTime.Now.AddDays(i + 10),
-                    CurrencyId = 12,
-                    CustomerId = 10,
-                    TotalAmount = 18F,
-                    TotalAmountLocal = 12.45F,
-                    CommodityType = "bla",
-                    NumberOfPallets = 12,
-                    NumberOfPalletsPlaces = 12,
-                    BruttoWeight = 90F,
-                    AdrNeeded = true,
-                    Remarks = "blabla",
-                    VechicleRegNumber = "NYJ835",
-                    DriverName = "Djoko",
-                    RouteDistance = 1200,
-                    LoadRepresentative = "Vucic",
-                    PricePerKm = 12,
-                    CrmNumber = "lincl"
-                };
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    var invoiceHeader = new SalesInvoiceHeader
+            //    {
+            //        InvoiceNo = "Faktura Broj" + i,
+            //        PostingDate = DateTime.Now.AddDays(-i - 1),
+            //        ExternalReferenceNo = "abc " + i,
+            //        DueDate = DateTime.Now.AddDays(i + 1),
+            //        SalesPerson = "Sales Person " + i,
+            //        OrderDate = DateTime.Now,
+            //        Paid = false,
+            //        Invoiced = false,
+            //        CreditMemo = false,
+            //        PaymentDate = DateTime.Now.AddDays(i + 10),
+            //        CurrencyId = 1,
+            //        CustomerId = 6,
+            //        TotalAmount = 18F,
+            //        TotalAmountLocal = 12.45F,
+            //        CommodityType = "bla",
+            //        NumberOfPallets = 12,
+            //        NumberOfPalletsPlaces = 12,
+            //        BruttoWeight = 90F,
+            //        AdrNeeded = true,
+            //        Remarks = "blabla",
+            //        VechicleRegNumber = "NYJ835",
+            //        DriverName = "Djoko",
+            //        RouteDistance = 1200,
+            //        LoadRepresentative = "Vucic",
+            //        PricePerKm = 12,
+            //        CrmNumber = "lincl"
+            //    };
 
-                for (int j = 0; j < 3; j++)
-                {
-                    var invoiceLine = new SalesInvoiceLine
-                    {
-                        Header = invoiceHeader,
-                        LoadDate = DateTime.Now,
-                        UnloadDate = DateTime.Now,
-                        LoadAddress = "Adr1",
-                        UnloadAddress = "Adr2",
-                        ExportCustoms = "Cust1",
-                        ImportCustoms = "Cust2",
-                        Quantity = 23,
-                        UnitPrice = 250,
-                        DiscountPercent = 0,
-                        LineAmount = 0,
-                        Remark = "bla",
-                        Description = "bla bla",
-                        VatPercent = 18
-                    };
+            //    for (int j = 0; j < 3; j++)
+            //    {
+            //        var invoiceLine = new SalesInvoiceLine
+            //        {
+            //            Header = invoiceHeader,
+            //            LoadDate = DateTime.Now,
+            //            UnloadDate = DateTime.Now,
+            //            LoadAddress = "Adr1",
+            //            UnloadAddress = "Adr2",
+            //            ExportCustoms = "Cust1",
+            //            ImportCustoms = "Cust2",
+            //            Quantity = 23,
+            //            UnitPrice = 250,
+            //            DiscountPercent = 0,
+            //            LineAmount = 0,
+            //            Remark = "bla",
+            //            Description = "bla bla",
+            //            VatPercent = 18
+            //        };
 
-                    _ctx.SalesInvoiceLines.Add(invoiceLine);
-                }
+            //        _ctx.SalesInvoiceLines.Add(invoiceLine);
+            //    }
 
-                _ctx.SalesInvoiceHeaders.Add(invoiceHeader);
-            }
+            //    _ctx.SalesInvoiceHeaders.Add(invoiceHeader);
+            //}
 
             //for (int i = 0; i < 20; i++)
             //{
@@ -135,7 +135,7 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.PurchaseInvoiceHeaders.Add(invoiceHeader);
             //}
 
-            _ctx.SaveChanges();
+            //_ctx.SaveChanges();
 
 
             if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
