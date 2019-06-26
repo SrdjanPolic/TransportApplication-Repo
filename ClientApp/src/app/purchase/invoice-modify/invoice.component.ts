@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import {MaterialModule} from './../../material/material.module';
+import { Settings } from 'src/app/_interface/Settings.model';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class InvoiceComponent implements OnInit {
   vendorList: Vendor[];
   isValid: boolean = true;
   currencyList: Currency[];
+  settings: Settings;
 
   constructor(private service: PurchInvService,
     private dialog: MatDialog,
@@ -33,8 +35,10 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     let invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    if (invoiceID == null)
+    this.repoService.getData('api/Settings/PurchaseInvoice').subscribe(res => this.settings = res as Settings);
+    if (invoiceID == null) {
       this.resetForm();
+      }
     else {
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
         this.service.formData = res;
@@ -45,6 +49,7 @@ export class InvoiceComponent implements OnInit {
 
     this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
     this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
+    console.log(this.currencyList);
   }
 
   resetForm(form?: NgForm) {
@@ -53,7 +58,7 @@ export class InvoiceComponent implements OnInit {
       form.resetForm();
     this.service.formData = {
       id: 0,
-      invoiceNo: (environment.PurchInvoiceNo + '-' + environment.lastUsedNo).toString(),
+      invoiceNo: ('UF-' + Math.random() * 100 + 1).toString(),
       postingDate: newDt,
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
