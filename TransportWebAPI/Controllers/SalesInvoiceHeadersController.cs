@@ -62,11 +62,11 @@ namespace TransportWebAPI.Controllers
 
         // POST: api/SalesInvoiceHeaders
         [HttpPost]
-        public IActionResult PostSalesInvoiceHeader([FromBody]SalesInvoiceHeader SalesInvoiceHeader)
+        public IActionResult PostSalesInvoiceHeader([FromBody]SalesInvoiceHeader salesInvoiceHeader)
         {
             try
             {
-                if (SalesInvoiceHeader == null)
+                if (salesInvoiceHeader == null)
                 {
                     return BadRequest("SalesInvoiceHeader object is null");
                 }
@@ -78,11 +78,11 @@ namespace TransportWebAPI.Controllers
 
                 Settings settingsObject = null; 
                 //newly created
-                if (SalesInvoiceHeader.Id == 0)
+                if (salesInvoiceHeader.Id == 0)
                 {
-                    _unitOfWork.GetRepository<SalesInvoiceHeader>().Add(SalesInvoiceHeader);
+                    _unitOfWork.GetRepository<SalesInvoiceHeader>().Add(salesInvoiceHeader);
 
-                    foreach (var SalesInvoiceLine in SalesInvoiceHeader.Lines)
+                    foreach (var SalesInvoiceLine in salesInvoiceHeader.Lines)
                     {
                         _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
                     }
@@ -93,7 +93,7 @@ namespace TransportWebAPI.Controllers
                 //update
                 else
                 {
-                    foreach (var SalesInvoiceLine in SalesInvoiceHeader.Lines)
+                    foreach (var SalesInvoiceLine in salesInvoiceHeader.Lines)
                     {
                         if (SalesInvoiceLine.Id == 0)
                         {
@@ -101,13 +101,13 @@ namespace TransportWebAPI.Controllers
                         }
                     }
 
-                    _unitOfWork.Context.Entry(SalesInvoiceHeader).State = EntityState.Modified;
+                    _unitOfWork.Context.Entry(salesInvoiceHeader).State = EntityState.Modified;
                 }
 
                 //Delete for OrderItems
-                if (!string.IsNullOrEmpty(SalesInvoiceHeader.DeletedInvoiceLineIds))
+                if (!string.IsNullOrEmpty(salesInvoiceHeader.DeletedInvoiceLineIds))
                 {
-                    foreach (var id in SalesInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
+                    foreach (var id in salesInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
                     {
                         var intId = int.Parse(id);
                         _unitOfWork.GetRepository<SalesInvoiceLine>().Delete(intId);
@@ -116,6 +116,7 @@ namespace TransportWebAPI.Controllers
 
                 if(settingsObject != null)
                 {
+                    salesInvoiceHeader.InvoiceNo = GetInvoiceNumber(settingsObject);
                     settingsObject.LastUsedNumber++;
                     _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
                 }
@@ -123,13 +124,18 @@ namespace TransportWebAPI.Controllers
                 _unitOfWork.SaveChanges();
 
                 return CreatedAtRoute(routeName: "GetSalesInvoices",
-                                      routeValues: new { id = SalesInvoiceHeader.Id },
-                                      value: SalesInvoiceHeader);
+                                      routeValues: new { id = salesInvoiceHeader.Id },
+                                      value: salesInvoiceHeader);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
+        }
+
+        private string GetInvoiceNumber(Settings settings)
+        {
+            return settings.Prefix + " - " + settings.LastUsedNumber + 1;
         }
     }
 }

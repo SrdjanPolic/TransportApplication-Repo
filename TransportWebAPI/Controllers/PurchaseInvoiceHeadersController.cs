@@ -7,6 +7,7 @@ using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using Service.Data;
 using Microsoft.EntityFrameworkCore;
 using DBLayerPOC.Infrastructure.Settings;
+using System.Text;
 
 namespace TransportWebAPI.Controllers
 {
@@ -116,6 +117,7 @@ namespace TransportWebAPI.Controllers
 
                 if(settingsObject != null)
                 {
+                    purchaseInvoiceHeader.InvoiceNo = GetInvoiceNumber(settingsObject);
                     settingsObject.LastUsedNumber++;
                     _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
                 }
@@ -130,6 +132,11 @@ namespace TransportWebAPI.Controllers
             {
                 return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
             }
+        }
+
+        private string GetInvoiceNumber(Settings settings)
+        {
+            return settings.Prefix + " - " + settings.LastUsedNumber + 1;
         }
     }
 }
