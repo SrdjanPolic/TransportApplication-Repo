@@ -6,6 +6,7 @@ import {RepositoryService} from './../../shared/repository.service';
 import {PurchInvHeader} from './../../_interface/PurchInvHeader.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
+import {Vendor} from './../../_interface/vendor.model';
 
 
 @Component({
@@ -14,9 +15,9 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'paid', 'update'];
-  PurchInvList;
-  public dataSource = new MatTableDataSource<PurchInvHeader>(); 
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'currencyId', 'paid', 'update'];
+  vendorList: Vendor;
+  public dataSource = new MatTableDataSource<PurchInvHeader>();
   
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,7 +34,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
- }
+  }
 
   public refreshList = () => {
     this.Reposervice.getData('api/PurchaseInvoiceHeaders')
@@ -71,7 +72,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   }
 
   onInvoiceDelete(id: number) {
-    if (confirm('Hoćete li da obrišete ovaj zapis?')) {
+    if (confirm('Želite li da obrišete ovaj zapis?')) {
       this.service.deleteInvoice(id).then(res => {
         this.refreshList();
         this.toastr.warning("Uspešno obrisano.", "Atomic Sped.");

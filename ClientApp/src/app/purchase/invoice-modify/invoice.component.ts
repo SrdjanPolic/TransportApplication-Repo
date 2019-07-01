@@ -33,9 +33,16 @@ export class InvoiceComponent implements OnInit {
     private router: Router,
     private currentRoute: ActivatedRoute) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     let invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    this.repoService.getData('api/Settings/PurchaseInvoice').subscribe(res => this.settings = res as Settings);
+    this.service.getSettings().then( res =>{
+      this.settings = res;
+      let x = this.settings;
+      console.log(x);
+    }); 
+    setTimeout(() => {
+      this.getDataFromService() 
+     }, 3000);
     if (invoiceID == null) {
       this.resetForm();
       }
@@ -49,16 +56,16 @@ export class InvoiceComponent implements OnInit {
 
     this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
     this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
-    console.log(this.currencyList);
   }
 
-  resetForm(form?: NgForm) {
+   resetForm(form?: NgForm) {
     let newDt = new Date();
-    if (form = null)
-      form.resetForm();
+     if (form = null)
+       form.resetForm();
+      // this.getDataFromService();
     this.service.formData = {
       id: 0,
-      invoiceNo: ('UF-' + Math.random() * 100 + 1).toString(),
+      invoiceNo: (environment.PurchInvoiceNo + ( environment.lastUsedNo + 1)).toString(),
       postingDate: newDt,
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
@@ -112,7 +119,6 @@ export class InvoiceComponent implements OnInit {
 
 
   onSubmit(form: NgForm) {
-    
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
         environment.lastUsedNo += 1;
@@ -121,6 +127,11 @@ export class InvoiceComponent implements OnInit {
         this.router.navigate(['/purchase/PurchInvoices']);
       })
     }
+  }
+  async getDataFromService () {
+    await this.repoService.getData('api/Settings/PurchaseInvoice').subscribe(res => {
+      this.settings = res as Settings;
+    });
   }
 
 }

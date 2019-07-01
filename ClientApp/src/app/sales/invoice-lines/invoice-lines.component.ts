@@ -24,17 +24,24 @@ export class InvoiceLinesComponent implements OnInit {
 
   ngOnInit() {
     //this.itemService.getItemList().then(res => this.itemList = res as Item[]);
+    let newDt = new Date();
     if (this.data.invoiceLineIndex == null)
       this.formData = {
         id: null,
-        UnitPrice: 0,
-        Quantity: 0,
-        DiscountPercent: 0,
-        LineAmount: 0,
-        Remark: '',
-        Description: '',
-        VatPercent: 0,
-        SalesInvHeaderid: this.data.SalesInvHeaderid,
+        loadDate: newDt,
+        unloadDate: newDt,
+        loadAddress: '',
+        unloadAddress: '',
+        exportCustoms: '',
+        importCustoms: '',
+        quantity: 0,
+        unitPrice: 0,
+        discountPercent: 0,
+        lineAmount: 0,
+        remark: '',
+        description: '',
+        vatPercent: 0,
+        salesHeaderId: 0,
       }
     else
       this.formData = Object.assign({}, this.invoiceService.SalesInvLines[this.data.invoiceLineIndex]);
@@ -53,7 +60,7 @@ export class InvoiceLinesComponent implements OnInit {
   // }
 
   updateTotal() {
-    this.formData.LineAmount = parseFloat((this.formData.Quantity * (this.formData.UnitPrice - this.formData.UnitPrice *(this.formData.DiscountPercent/100))*(1 + this.formData.VatPercent/100)).toFixed(2));
+    this.formData.lineAmount = parseFloat((this.formData.quantity * (this.formData.unitPrice - this.formData.unitPrice *(this.formData.discountPercent/100))*(1 + this.formData.vatPercent/100)).toFixed(2));
   }
 
   onSubmit(form: NgForm) {
@@ -68,9 +75,9 @@ export class InvoiceLinesComponent implements OnInit {
 
   validateForm(formData: SalesInvLine) {
     this.isValid = true;
-    if (formData.UnitPrice == 0)
+    if (formData.unitPrice == 0)
       this.isValid = false;
-    else if (formData.Quantity == 0)
+    else if (formData.quantity == 0)
       this.isValid = false;
     return this.isValid;
   }

@@ -5,9 +5,10 @@
 export const environment = {
   production: false,
   urlAddress: 'https://localhost:5001',
-  quoteNo: 'PN-19',
-  PurchInvoiceNo: 'UF-19',
-  lastUsedNo: 1
+  quoteNo: 'PN-19-',
+  PurchInvoiceNo: 'UF-19-',
+  SalesInvoiceNo: 'IF-19-',
+  lastUsedNo: 100
 };
 
 /*
