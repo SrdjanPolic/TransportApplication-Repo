@@ -16,6 +16,18 @@
     <button mat-menu-item routerLink="/sales/SalesInvoices" (click)="onSidenavClose()">Izlazne fakture</button>
     <button mat-menu-item routerLink="/purchase/PurchInvoices" (click)="onSidenavClose()">Ulazne fakture</button>
   </mat-menu>
+  <mat-list-item [matMenuTriggerFor]="Quotes">
+    <mat-icon>unfold_more</mat-icon>
+    <a matline>Nalozi</a>
+  </mat-list-item>
+  <mat-menu #Quotes="matMenu">
+    <button mat-menu-item routerLink="#" (click)="onSidenavClose()">Nalozi transporta -svi</button>
+    <button mat-menu-item routerLink="#" (click)="onSidenavClose()">Nalozi - ponuda</button>
+    <button mat-menu-item routerLink="#" (click)="onSidenavClose()">Nalozi - realizacija</button>
+    <button mat-menu-item routerLink="#" (click)="onSidenavClose()">Nalozi - odbijeno</button>
+    <button mat-menu-item routerLink="#" (click)="onSidenavClose()">Nalozi - fakturisano</button>
+    <button mat-menu-item routerLink="#" (click)="onSidenavClose()">Nalozi - storno</button>
+  </mat-menu>
   <mat-list-item [matMenuTriggerFor]="reports">
       <mat-icon>unfold_more</mat-icon>
       <a matline>Izveštaji</a>

@@ -5,7 +5,7 @@ import {PurchaseRoutingModule} from './purchase-routing/purchase-routing.module'
 import {InvoiceComponent} from './invoice-modify/invoice.component';
 import {InvoiceLinesComponent} from './invoice-lines/invoice-lines.component';
 import {FormsModule} from '@angular/forms';
-import {TransformbooleanPipe} from './../shared/transformboolean.pipe';
+import {TransformModule} from './../shared/transform/transform.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
@@ -15,10 +15,11 @@ import { SharedModule } from '../shared/shared.module';
     PurchaseRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    TransformModule
   ],
-  declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent,TransformbooleanPipe],
+  declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent],
   entryComponents: [InvoiceLinesComponent],
-  providers: [TransformbooleanPipe],
+  providers: [],
 })
 export class PurchaseModule { }

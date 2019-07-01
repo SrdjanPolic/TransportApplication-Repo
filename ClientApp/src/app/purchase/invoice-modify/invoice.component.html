@@ -33,7 +33,7 @@
         <input type ="date" name="dueDate" #dueDate="ngModel" [(ngModel)]="service.formData.dueDate" class="form-control"/>
       </div>  -->
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Datum dospeca"  [(ngModel)]= "service.formData.dueDate" name="dueDate">
+        <input matInput [matDatepicker]="picker" placeholder="Datum dospeća"  [(ngModel)]= "service.formData.dueDate" name="dueDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -81,7 +81,7 @@
     <tbody>
       <tr *ngIf="service.PurchInvLines.length==0" [class.text-danger]="!isValid && service.PurchInvLines.length==0">
         <td class="font-italic text-center" colspan="5">
-          Nema stavki za ovu fakturu.
+          Nema stavki za ovu ulaznu fakturu.
         </td>
       </tr>
 

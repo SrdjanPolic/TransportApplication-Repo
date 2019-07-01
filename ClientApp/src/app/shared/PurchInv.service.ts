@@ -15,9 +15,9 @@ export class PurchInvService {
 
   saveOrUpdateInvoice() {
     this.formData.lines = this.PurchInvLines;
-    this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
-    this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
-    this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
+    // this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
+    // this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
+    // this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
     var body = {
       ...this.formData
     };
@@ -31,6 +31,9 @@ export class PurchInvService {
 
   getInvoiceByID(id:number):any {
     return this.http.get(environment.urlAddress + '/api/PurchaseInvoiceHeaders/' + id).toPromise();
+  }
+  getSettings():any {
+    return this.http.get(environment.urlAddress + '/api/Settings/PurchaseInvoice').toPromise();
   }
 
   deleteInvoice(id:number) {

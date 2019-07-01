@@ -22,12 +22,17 @@
 
   <ng-container matColumnDef="vendorId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Dobavljač </th>
-    <td mat-cell *matCellDef="let element"> {{element.vendorId}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.vendor.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="totalAmount">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Ukupan iznos </th>
     <td mat-cell *matCellDef="let element"> {{element.totalAmount}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="currencyId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Valuta </th>
+    <td mat-cell *matCellDef="let element"> {{element.currencyId |transformcurrency}} </td>  
   </ng-container>
 
   <ng-container matColumnDef="paid">
@@ -68,48 +73,3 @@
 
 <mat-paginator [pageSize]="50" [pageSizeOptions]="[5, 10, 50, 100, 500]">
 </mat-paginator>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table class="table table-hover" hidden>
-  <thead class="thead-light">
-    <th>Broj fakture</th>
-    <th>Dobavljač</th>
-    <th>Ukupan Iznos</th>
-    <th>Datum knjiženja</th>
-    <th>
-      <a class="btn btn-outline-success" routerLink="/purchase/create"><i class="fa fa-plus-square"></i> Kreiraj novu ulaznu fakturu</a>
-    </th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let invoices of PurchInvList">
-      <th (click)="openForEdit(invoices.id)">{{invoices.invoiceNo}}</th>
-      <td (click)="openForEdit(invoices.id)">{{invoices.vendorId}}</td>
-      <td (click)="openForEdit(invoices.id)">{{invoices.totalAmount}}</td>
-      <td (click)="openForEdit(invoices.id)">{{invoices.postingDate}}</td>
-      <td>
-          <a class="btn text-danger" (click)="onInvoiceDelete(invoices.id)"><i class="fa fa-trash fa-lg"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
