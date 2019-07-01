@@ -136,7 +136,7 @@ namespace TransportWebAPI.Controllers
 
         private string GetInvoiceNumber(Settings settings)
         {
-            return settings.Prefix + " - " + settings.LastUsedNumber + 1;
+            return settings.Prefix + " - " + (settings.LastUsedNumber + 1).ToString();
         }
     }
 }
