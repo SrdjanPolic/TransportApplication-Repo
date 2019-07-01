@@ -28,7 +28,7 @@ namespace TransportWebAPI.Controllers
             try
             {
                 var SalesInvoiceHeaders = _unitOfWork.GetRepository<SalesInvoiceHeader>().
-                    GetList(orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
+                    GetList(include: source => source.Include(x => x.Customer), orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
 
                 return Ok(SalesInvoiceHeaders);
             }
