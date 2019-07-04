@@ -16,7 +16,6 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresa </th>
     <td mat-cell *matCellDef="let element"> {{element.address}} </td>
   </ng-container>
-
   <ng-container matColumnDef="city">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Grad </th>
     <td mat-cell *matCellDef="let element"> {{element.city}} </td>
@@ -31,7 +30,10 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> EMail </th>
     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
   </ng-container>
-
+  <ng-container matColumnDef="vatNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>PDV/VAT broj</th>
+    <td mat-cell *matCellDef="let element">{{element.vatNumber}}</td>
+  </ng-container>
   <ng-container matColumnDef="lastChangeDate">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum poslednje izmene </th>
     <td mat-cell *matCellDef="let element"> {{element.lastChangeDate | date:"medium" }} </td>

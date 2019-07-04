@@ -6,7 +6,7 @@ export class SalesInvHeader {
     postingDate: Date;
     externalReferenceNo: string;
     dueDate: Date;
-    salesPerson:string;
+    salesPerson: string;
     orderDate: Date;
     totalAmount: number;
     totalAmountLocal: number;
@@ -15,9 +15,10 @@ export class SalesInvHeader {
     creditMemo: boolean;
     paymentDate: Date;
     lines?: SalesInvLine[];
-    commoditytype: string;
-    numberofPalletsPlaces: string;
-    bruttoWeight: string;
+    commodityType: string;
+    numberOfPallets: number;
+    numberofPalletsPlaces: number;
+    bruttoWeight: number;
     adrNeeded: boolean;
     remarks: string;
     vechicleRegNumber: string;
@@ -31,5 +32,4 @@ export class SalesInvHeader {
     currency?: string;
     customerId: number;
     customer?: string;
-    
 }

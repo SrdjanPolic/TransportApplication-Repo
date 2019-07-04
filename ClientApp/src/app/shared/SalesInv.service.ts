@@ -18,6 +18,7 @@ export class SalesInvService {
     // this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
     // this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
     // this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
+    // this.formData.orderDate = this.adjustDateForTimeOffset(this.formData.orderDate);
     var body = {
       ...this.formData,
       SalesInvLines: this.SalesInvLines

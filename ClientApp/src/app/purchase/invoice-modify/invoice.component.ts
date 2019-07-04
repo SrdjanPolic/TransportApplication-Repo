@@ -25,6 +25,7 @@ export class InvoiceComponent implements OnInit {
   isValid: boolean = true;
   currencyList: Currency[];
   settings: Settings;
+  invoiceNumber: string;
 
   constructor(private service: PurchInvService,
     private dialog: MatDialog,
@@ -35,14 +36,15 @@ export class InvoiceComponent implements OnInit {
 
   async ngOnInit() {
     let invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    this.service.getSettings().then( res =>{
-      this.settings = res;
-      let x = this.settings;
-      console.log(x);
-    }); 
-    setTimeout(() => {
-      this.getDataFromService() 
-     }, 3000);
+    // this.service.getSettings().then( res =>{
+    //   this.settings = res;
+    //   let x = this.settings;
+    //   console.log(x);
+    //   this.invoiceNumber = this.settings.prefix + '-' + (this.settings.lastUsedNumber + 1).toString();
+    // }); 
+    // setTimeout(() => {
+    //   this.getDataFromService() 
+    //  }, 3000);
     if (invoiceID == null) {
       this.resetForm();
       }
@@ -56,16 +58,16 @@ export class InvoiceComponent implements OnInit {
 
     this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
     this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
+    
   }
 
-   resetForm(form?: NgForm) {
+    resetForm(form?: NgForm) {
     let newDt = new Date();
      if (form = null)
        form.resetForm();
-      // this.getDataFromService();
     this.service.formData = {
       id: 0,
-      invoiceNo: (environment.PurchInvoiceNo + ( environment.lastUsedNo + 1)).toString(),
+      invoiceNo: 'Biće automatski dodeljen',  //will be delt on back end
       postingDate: newDt,
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
@@ -117,11 +119,9 @@ export class InvoiceComponent implements OnInit {
     return this.isValid;
   }
 
-
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        environment.lastUsedNo += 1;
         this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
         this.router.navigate(['/purchase/PurchInvoices']);
@@ -131,6 +131,7 @@ export class InvoiceComponent implements OnInit {
   async getDataFromService () {
     await this.repoService.getData('api/Settings/PurchaseInvoice').subscribe(res => {
       this.settings = res as Settings;
+      console.log(this.settings);
     });
   }
 

@@ -1,203 +1,180 @@
 <form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)">
-  <input type="hidden" name="invoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label>Broj izlazne fakture</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">#</div>
+    <input type="hidden"  name="invoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Broj izlazne fakture</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
+            </div>
+            <input name="invoiceNo" #invoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo" class="form-control" readonly>
           </div>
-          <input name="InvoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo" class="form-control"
-            readonly>
         </div>
-      </div>
-      <div class="form-group">
-        <label>Kupac</label>
-        <select name="customerId" #customerId="ngModel" [(ngModel)]="service.formData.customerId" class="form-control"
+        <div class="form-group">
+          <label>Kupac</label>
+          <select name="customerId" #customerId="ngModel" [(ngModel)]="service.formData.customerId" class="form-control"
           [class.is-invalid]="!isValid && service.formData.customerId==0">
-          <option value="0">-Izaberite-</option>
-          <option *ngFor="let item of customerList" value="{{item.id}}">{{item.name}}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Valuta</label>
-        <select name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"
+            <option value="0">-Izaberite-</option>
+            <option *ngFor="let item of customerList" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Valuta</label>
+          <select name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"
           [class.is-invalid]="!isValid && service.formData.currencyId==0">
-          <option value="0">-Izaberite-</option>
-          <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
-        </select>
+            <option value="0">-Izaberite-</option>
+            <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
+          </select>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Datum dospeća"  [(ngModel)]= "service.formData.dueDate" name="dueDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
       </div>
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Datum dospeća" [(ngModel)]="service.formData.dueDate"
-          name="dueDate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label>Ukupno</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">EUR/din</div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerposting" placeholder="Datum Knjizenja"  [(ngModel)]= "service.formData.postingDate" name="postingDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerposting"></mat-datepicker-toggle>
+          <mat-datepicker #pickerposting></mat-datepicker>
+        </mat-form-field>
+        <div class="form-group">
+          <label>Vaša referenca</label>
+          <input type ="text" name="externalReferenceNo" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.externalReferenceNo" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Ukupno</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">EUR/din</div>
+            </div>
+            <input name="totalAmount" #totalAmount="ngModel" [(ngModel)]="service.formData.totalAmount" class="form-control" readonly>
           </div>
-          <input name="totalAmount" #totalAmount="ngModel" [(ngModel)]="service.formData.totalAmount"
-            class="form-control" readonly>
+        </div>
+        <div class="form-group">
+          <label>Plaćeno</label>
+          <input type ="checkbox" name="paid" #paid="ngModel" [(ngModel)]="service.formData.paid" class="form-control"/>
         </div>
       </div>
-      <div class="form-group">
-        <label>Dužina rute</label>
-        <input type="number" name="routeDistance" #routeDistance="ngModel" [(ngModel)]="service.formData.routeDistance" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Referent za utovar</label>
-        <input type="text" name="loadRepresentative" #loadRepresentative="ngModel" [(ngModel)]="service.formData.loadRepresentative" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Cena po km.</label>
-        <input type="number" name="pricePerKm" #pricePerKm="ngModel" [(ngModel)]="service.formData.pricePerKm" class="form-control" />
-      </div>
-      
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label>Bruto težina</label>
-        <input type="text" name="bruttoWeight" #bruttoWeight="ngModel" [(ngModel)]="service.formData.bruttoWeight"
-          class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>ADR potreban</label>
-        <input type="checkbox" name="adrNeeded" #adrNeeded="ngModel" [(ngModel)]="service.formData.adrNeeded"
-          class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Napomena</label>
-        <input type="text" name="remark" #remark="ngModel" [(ngModel)]="service.formData.remark" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Vozilo Reg.</label>
-        <input type="text" name="vechicleRegNumber" #vechicleRegNumber="ngModel"
-          [(ngModel)]="service.formData.vechicleRegNumber" class="form-control" />
+      <div class="col-md-3">
+        <mat-form-field>
+            <input matInput [matDatepicker]="pickerorderDate" placeholder="Datum ponude"  [(ngModel)]= "service.formData.orderDate" name="orderDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerorderDate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerorderDate></mat-datepicker>
+        </mat-form-field>
+        <div class="form-group">
+          <label>Referent prodaje</label>
+          <input type ="text" name="salesPerson" #salesPerson="ngModel" [(ngModel)]="service.formData.salesPerson" class="form-control"/>
+        </div> 
+        <!-- <div class="form-group">
+          <label>Vozilo</label>
+          <input type ="text" name="vechicleRegNumber" #vechicleRegNumber="ngModel" [(ngModel)]="service.formData.vechicleRegNumber" class="form-control"/>
+        </div> -->
+        <mat-form-field>
+          <mat-label>Vozilo</mat-label>
+          <select matNativeControl required>
+            <option value="Vozač 1">Vozač 1</option>
+            <option value="Vozač 2">Vozač 2</option>
+            <option value="Vozač 3">Vozač 3</option>
+          </select>
+        </mat-form-field>
+        <div class="form-group">
+          <label>Napomena</label>
+          <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control"/>
+        </div> 
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label>Prodavac</label>
-        <input type="text" name="salesperson" #salesperson="ngModel" [(ngModel)]="service.formData.salesperson"
-          class="form-control" />
+    <!-- Invoice line table-->
+    <table class="table table-borderless">
+      <thead class="thead-light">
+        <th>Opis</th>
+        <th>Cena</th>
+        <th>Količina</th>
+        <th>Suma</th>
+        <th>
+          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)"><i class="fa fa-plus"></i> Dodaj stavku</a>
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngIf="service.SalesInvLines.length==0" [class.text-danger]="!isValid && service.SalesInvLines.length==0">
+          <td class="font-italic text-center" colspan="5">
+            Nema stavki za ovu ulaznu fakturu.
+          </td>
+        </tr>
+  
+        <tr *ngFor="let item of service.SalesInvLines;let i=index;">
+          <td>{{item.description}}</td>
+          <td>{{item.unitPrice}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.lineAmount}}</td>
+          <td>
+            <a class="btn btn-sm btn-info text-white" (click)="AddOrEditInvoiceLine(i,service.formData.invoiceNo)"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteInvoiceLine(item.id,i)"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Proknjiženo</label>
+          <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.invoiced" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Stornirano</label>
+          <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.creditMemo" class="form-control"/>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate">
+          <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
+          <mat-datepicker #pickerpayment></mat-datepicker>
+        </mat-form-field>
+        <div class="form-group">
+          <label>Bruto težina</label>
+          <input type ="number" name="bruttoWeight" #bruttoWeight="ngModel" [(ngModel)]="service.formData.bruttoWeight" class="form-control"/>
+        </div>
       </div>
-      <mat-form-field>
-        <input matInput [matDatepicker]="pickerorderdate" placeholder="Datum ponude"
-          [(ngModel)]="service.formData.orderDate" name="orderDate">
-        <mat-datepicker-toggle matSuffix [for]="pickerorderdate"></mat-datepicker-toggle>
-        <mat-datepicker #pickerorderdate></mat-datepicker>
-      </mat-form-field>
-      <div class="form-group">
-        <label>Podaci o robi</label>
-        <input type="text" name="commoditytype" #commoditytype="ngModel" [(ngModel)]="service.formData.commoditytype"
-          class="form-control" />
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Podaci o robi</label>
+          <input type ="text" name="commodityType" #commodityType="ngModel" [(ngModel)]="service.formData.commodityType" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Broj paleta</label>
+          <input type ="number" name="numberOfPallets" #numberOfPallets="ngModel" [(ngModel)]="service.formData.numberOfPallets" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Broj paletnih mesta</label>
+          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberOfPalletsPlaces" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Vozač</label>
+          <input type ="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName" class="form-control"/>
+        </div>
       </div>
-      <div>
-        <label>Broj paletnih mesta</label>
-        <input type="text" name="numberofPalletsPlaces" #numberofPalletsPlaces="ngModel"
-          [(ngModel)]="service.formData.numberofPalletsPlaces" class="form-control" />
-      </div>
-    </div>
-  </div>
-  <!-- Invoice line table-->
-  <table class="table table-borderless">
-    <thead class="thead-light">
-      <th>Opis</th>
-      <th>Cena</th>
-      <th>Količina</th>
-      <th>Suma</th>
-      <th>
-        <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)"><i
-            class="fa fa-plus"></i> Dodaj stavku</a>
-      </th>
-    </thead>
-    <tbody>
-      <tr *ngIf="service.SalesInvLines.length==0" [class.text-danger]="!isValid && service.PurchInvLines.length==0">
-        <td class="font-italic text-center" colspan="5">
-          Nema stavki za ovu izlaznu fakturu.
-        </td>
-      </tr>
-
-      <tr *ngFor="let item of service.SalesInvLines;let i=index;">
-        <td>{{item.description}}</td>
-        <td>{{item.unitPrice}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.lineAmount}}</td>
-        <td>
-          <a class="btn btn-sm btn-info text-white" (click)="AddOrEditInvoiceLine(i,service.formData.invoiceNo)"><i
-              class="fa fa-pencil"></i></a>
-          <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteInvoiceLine(item.id,i)"><i
-              class="fa fa-trash"></i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label>Proknjiženo</label>
-        <input type="checkbox" name="invoiced" #invoiced="ngModel" [(ngModel)]="service.formData.invoiced"
-          class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Stornirano</label>
-        <input type="checkbox" name="creditMemo" #creditMemo="ngModel" [(ngModel)]="service.formData.creditMemo"
-          class="form-control" />
-      </div>
-      <mat-form-field>
-        <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"
-          [(ngModel)]="service.formData.paymentDate" name="paymentdate">
-        <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
-        <mat-datepicker #pickerpayment></mat-datepicker>
-      </mat-form-field>
-      <div class="form-group">
-        <label>Vozač</label>
-        <input type="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName"
-          class="form-control" />
-      </div>
-    </div>
-  </div>
-  <div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label>Proknjiženo</label>
-        <input type="checkbox" name="invoiced" #invoiced="ngModel" [(ngModel)]="service.formData.invoiced"
-          class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Stornirano</label>
-        <input type="checkbox" name="creditMemo" #creditMemo="ngModel" [(ngModel)]="service.formData.creditMemo"
-          class="form-control" />
-      </div>
-      <mat-form-field>
-        <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"
-          [(ngModel)]="service.formData.paymentDate" name="paymentdate">
-        <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
-        <mat-datepicker #pickerpayment></mat-datepicker>
-      </mat-form-field>
-      <div class="form-group">
-        <label>Vozač</label>
-        <input type="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName"
-          class="form-control" />
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>ADR potreban</label>
+          <input type ="checkbox" name="adrNeeded" #adrNeeded="ngModel" [(ngModel)]="service.formData.adrNeeded" class="form-control"/>
+        </div> 
+        <div class="form-group">
+          <label>Dužina rute</label>
+          <input type ="number" name="routeDistance" #routeDistance="ngModel" [(ngModel)]="service.formData.routeDistance" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Cena po km</label>
+          <input type ="number" name="pricePerKm" #pricePerKm="ngModel" [(ngModel)]="service.formData.pricePerKm" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Ref. za utovar</label>
+          <input type ="text" name="loadRepresentative" #loadRepresentative="ngModel" [(ngModel)]="service.formData.loadRepresentative" class="form-control"/>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi fakturu</button>
-    <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih
-      faktura</a>
-  </div>
-</form>
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
+      <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih faktura</a>
+      <button type="button" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa</button>
+    </div>
+  </form>

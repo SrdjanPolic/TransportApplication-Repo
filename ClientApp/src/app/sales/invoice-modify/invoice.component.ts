@@ -1,7 +1,7 @@
 //import { CustomerService } from './../../shared/customer.service';
 import { SalesInvService } from './../../shared/SalesInv.service';
 import { RepositoryService } from './../../shared/repository.service';
-//import { OrderService } from './../../shared/order.service';
+// import { OrderService } from './../../shared/order.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -33,9 +33,9 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     let invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    this.repoService.getData('api/Settings/SalesInvoice').subscribe(res => { 
-      this.settings = res as Settings;
-      });
+    // this.repoService.getData('api/Settings/SalesInvoice').subscribe(res => { 
+    //   this.settings = res as Settings;
+    //   });
     if (invoiceID == null)
       this.resetForm();
     else {
@@ -56,7 +56,7 @@ export class InvoiceComponent implements OnInit {
      form.resetForm();
     this.service.formData = {
       id: null,
-      invoiceNo: (environment.SalesInvoiceNo + (environment.lastUsedNo + 1)).toString(),
+      invoiceNo: 'Biće automatski dodeljen',
       postingDate: newDt,
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
@@ -68,9 +68,10 @@ export class InvoiceComponent implements OnInit {
       invoiced: false,
       creditMemo: false,
       paymentDate: new Date(),
-      commoditytype: '',
-      numberofPalletsPlaces: '',
-      bruttoWeight: '',
+      commodityType: '',
+      numberOfPallets:0,
+      numberofPalletsPlaces: 0,
+      bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',
       vechicleRegNumber: '',
@@ -89,7 +90,7 @@ export class InvoiceComponent implements OnInit {
   AddOrEditInvoiceLine(invoiceLineIndex, invoiceNo) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.width = "50%";
     dialogConfig.data = { invoiceLineIndex, invoiceNo };
     this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
@@ -125,7 +126,6 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        environment.lastUsedNo += 1;
         this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
         this.router.navigate(['/sales/SalesInvoices']);
