@@ -100,6 +100,10 @@ namespace TransportWebAPI.Controllers
                         {
                             _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
                         }
+                        else
+                        {
+                            _unitOfWork.Context.Entry(purchaseInvoiceLine).State = EntityState.Modified;
+                        }
                     }
 
                     _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;

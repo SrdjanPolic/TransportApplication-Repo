@@ -93,11 +93,15 @@ namespace TransportWebAPI.Controllers
                 //update
                 else
                 {
-                    foreach (var SalesInvoiceLine in salesInvoiceHeader.Lines)
+                    foreach (var salesInvoiceLine in salesInvoiceHeader.Lines)
                     {
-                        if (SalesInvoiceLine.Id == 0)
+                        if (salesInvoiceLine.Id == 0)
                         {
-                            _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
+                            _unitOfWork.GetRepository<SalesInvoiceLine>().Add(salesInvoiceLine);
+                        }
+                        else
+                        {
+                            _unitOfWork.Context.Entry(salesInvoiceLine).State = EntityState.Modified;
                         }
                     }
 
