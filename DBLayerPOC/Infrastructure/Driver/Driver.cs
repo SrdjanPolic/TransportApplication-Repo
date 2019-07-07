@@ -15,5 +15,6 @@ namespace DBLayerPOC.Infrastructure.Driver
         public string DriversLicenceNumber { get; set; }
         public DateTime DriversLicenceExpDate { get; set; }
         public string Address { get; set; }
+        public string Remark { get; set; }
     }
 }
