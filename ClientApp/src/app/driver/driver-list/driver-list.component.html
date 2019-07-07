@@ -1,0 +1,54 @@
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+  <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div>
+    <a [routerLink]="['/driver/create']" mat-button color="primary">Kreiraj vozača</a>
+  </div>
+</div>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezime </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresa </th>
+    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="personalId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Broj LK </th>
+    <td mat-cell *matCellDef="let element"> {{element.personalId}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="passportNo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Broj pasoša </th>
+    <td mat-cell *matCellDef="let element"> {{element.passportNo}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="driverLicenceNo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Broj vozačke dozvole </th>
+    <td mat-cell *matCellDef="let element"> {{element.driverLicenceNo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef> Izmena </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+            <mat-icon class="mat-18">system_update</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 50, 100, 500]">
+</mat-paginator>

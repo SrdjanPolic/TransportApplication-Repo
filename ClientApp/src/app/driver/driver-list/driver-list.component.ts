@@ -1,19 +1,19 @@
 import { RepositoryService } from './../../shared/repository.service';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Customer } from '../../_interface/customer.model';
+import { Driver } from '../../_interface/driver.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-customer-list',
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.css']
+  selector: 'app-driver-list',
+  templateUrl: './driver-list.component.html',
+  styleUrls: ['./driver-list.component.css']
 })
-export class CustomerListComponent implements OnInit, AfterViewInit {
+export class DriverListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['name', 'address', 'city', 'country', 'eMail', 'vatNumber', 'lastChangeDate', 'update'];
-  public dataSource = new MatTableDataSource<Customer>();
+  public displayedColumns = ['firstName', 'lastName', 'personalId' , 'passportNo', 'driverLicenceNo', 'update'];
+  public dataSource = new MatTableDataSource<Driver>(); 
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -21,7 +21,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 
   ngOnInit() {
-    this.getAllCustomers();
+    this.getAllDrivers();
   }
 
   ngAfterViewInit(): void {
@@ -29,10 +29,10 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
      this.dataSource.paginator = this.paginator;
   }
 
-  public getAllCustomers = () => {
-    this.repoService.getData('api/Customers')
+  public getAllDrivers = () => {
+    this.repoService.getData('api/Drivers')
     .subscribe(res => {
-      this.dataSource.data = res as Customer[];
+      this.dataSource.data = res as Driver[];
     },
     (error) => {
       this.errorService.handleError(error);
@@ -44,12 +44,12 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    let url: string = `/Customers/${id}`;
+    let url: string = `/Drivers/${id}`;
     this.router.navigate([url]);
   }
 
   public redirectToUpdate = (id: string) => {
-    let url: string = `/customer/update/${id}`;
+    let url: string = `/driver/update/${id}`;
     this.router.navigate([url]);
   }
 }
