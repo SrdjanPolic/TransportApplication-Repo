@@ -32,12 +32,11 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.BruttoWeight).HasColumnName("BruttoWeight").HasDefaultValue(0F);
             builder.Property(x => x.AdrNeeded).HasColumnName("AdrNeeded").HasDefaultValue(0);
             builder.Property(x => x.Remarks).HasColumnName("Remarks").HasMaxLength(50);
-            builder.Property(x => x.VechicleRegNumber).HasColumnName("VechicleRegNumber").HasMaxLength(50);
-            builder.Property(x => x.DriverName).HasColumnName("DriverName").HasMaxLength(50);
             builder.Property(x => x.RouteDistance).HasColumnName("RouteDistance").HasDefaultValue(0F);
             builder.Property(x => x.LoadRepresentative).HasColumnName("LoadRepresentative").HasMaxLength(250);
             builder.Property(x => x.PricePerKm).HasColumnName("PricePerKm").HasDefaultValue(0F);
             builder.Property(x => x.CrmNumber).HasColumnName("CrmNumber").HasMaxLength(50);
+            builder.Property(x => x.PartiallyPayed).HasColumnName("PartiallyPayed").HasDefaultValue(0);
 
             builder.Metadata.FindNavigation(nameof(SalesInvoiceHeader.Lines)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.Lines).WithOne(b => b.Header).HasForeignKey(b => b.SalesHeaderId)

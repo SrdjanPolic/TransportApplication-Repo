@@ -20,6 +20,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
         public bool CreditMemo { get; set; }
         public DateTime PaymentDate { get; set; }
         public ICollection<PurchaseInvoiceLine> Lines { get; }
+        public string PurchaseSupplierNumber { get; set; }
+        public bool PartiallyPayed { get; set; }
         [NotMapped]
         public string DeletedInvoiceLineIds { get; set; }
 

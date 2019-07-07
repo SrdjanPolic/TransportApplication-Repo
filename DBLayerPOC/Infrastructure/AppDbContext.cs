@@ -1,6 +1,8 @@
-﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+﻿using DBLayerPOC.Infrastructure.Driver;
+using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using DBLayerPOC.Infrastructure.SalesInvoice;
 using DBLayerPOC.Infrastructure.Settings;
+using DBLayerPOC.Infrastructure.Vehicle;
 using DBLayerPOC.Infrastructure.Vendor;
 using DBLayerPOC.Models;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,10 @@ namespace DBLayerPOC.Infrastructure
 
         public virtual DbSet<Settings.Settings> SettingsTable { get; set; }
 
+        public virtual DbSet<Driver.Driver> Drivers { get; set; }
+
+        public virtual DbSet<Vehicle.Vehicle> Vehicles { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,6 +60,12 @@ namespace DBLayerPOC.Infrastructure
 
             //Settings
             modelBuilder.ApplyConfiguration(new SettingsEntityTypeConfiguration());
+
+            //Driver
+            modelBuilder.ApplyConfiguration(new DriverEntityTypeConfiguration());
+
+            //Vehicle
+            modelBuilder.ApplyConfiguration(new VehicleEntityTypeConfiguration());
         }
     }
 }

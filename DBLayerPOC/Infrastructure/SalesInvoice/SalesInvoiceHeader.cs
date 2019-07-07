@@ -22,6 +22,7 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public bool CreditMemo { get; set; }
         public DateTime PaymentDate { get; set; }
         public ICollection<SalesInvoiceLine> Lines { get; }
+        public bool PartiallyPayed { get; set; }
 
         public string CommodityType { get; set; }
         public double NumberOfPallets { get; set; }
@@ -29,8 +30,6 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public float BruttoWeight { get; set; }
         public bool AdrNeeded { get; set; }
         public string Remarks { get; set; }
-        public string VechicleRegNumber { get; set; }
-        public string DriverName { get; set; }
         public float RouteDistance { get; set; }
         public string LoadRepresentative { get; set; }
         public float PricePerKm { get; set; }
@@ -45,6 +44,12 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
 
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+
+        public int DriverId { get; set; }
+        public Driver.Driver Driver { get; set; }
+
+        public int VehicleId { get; set; }
+        public Vehicle.Vehicle Vehicle { get; set; }
 
         public SalesInvoiceHeader()
         {

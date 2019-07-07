@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.ModelBase;
+﻿using DBLayerPOC.Infrastructure.SalesInvoice;
+using DBLayerPOC.ModelBase;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,11 @@ namespace DBLayerPOC.Infrastructure.Driver
         public DateTime DriversLicenceExpDate { get; set; }
         public string Address { get; set; }
         public string Remark { get; set; }
+        public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
+
+        public Driver()
+        {
+            SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
+        }
     }
 }

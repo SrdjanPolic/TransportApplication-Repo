@@ -16,5 +16,6 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
         public float VatPercent { get; set; }
         public int PurchaseHeaderId { get; set; }
         public PurchaseInvoiceHeader Header { get; set; }
+        public int? VehicleId { get; set; }
     }
 }

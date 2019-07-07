@@ -24,6 +24,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.Invoiced).HasColumnName("Invoiced").HasDefaultValue(0);
             builder.Property(x => x.CreditMemo).HasColumnName("CreditMemo").HasDefaultValue(0);
             builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate").HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.PurchaseSupplierNumber).HasColumnName("PurchaseSupplierNumber").HasMaxLength(50);
+            builder.Property(x => x.PartiallyPayed).HasColumnName("PartiallyPayed").HasDefaultValue(0);
 
             builder.Metadata.FindNavigation(nameof(PurchaseInvoiceHeader.Lines)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.Lines).WithOne(b => b.Header).HasForeignKey(b => b.PurchaseHeaderId)

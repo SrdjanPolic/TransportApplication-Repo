@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DBLayerPOC.Infrastructure.PurchaseInvoice
 {
-    class PurchaseInvoiceLineEntityTypeConfiguration : IEntityTypeConfiguration<PurchaseInvoiceLine>
+    public class PurchaseInvoiceLineEntityTypeConfiguration : IEntityTypeConfiguration<PurchaseInvoiceLine>
     {
         public void Configure(EntityTypeBuilder<PurchaseInvoiceLine> builder)
         {
@@ -21,6 +21,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.Remark).HasColumnName("Remark").HasMaxLength(250).IsRequired(false);
             builder.Property(x => x.Description).HasColumnName("Description").HasMaxLength(250).IsRequired(true);
             builder.Property(x => x.VatPercent).HasColumnName("VatPercent").IsRequired(true).HasDefaultValue(0);
+            builder.Property(x => x.VehicleId).HasColumnName("VehicleId").IsRequired(false);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.ModelBase;
+﻿using DBLayerPOC.Infrastructure.SalesInvoice;
+using DBLayerPOC.ModelBase;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,5 +13,12 @@ namespace DBLayerPOC.Infrastructure.Vehicle
         public string ChassisNumber { get; set; }
         public string FuelType { get; set; }
         public string VechicleType { get; set; }
+
+        public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
+
+        public Vehicle()
+        {
+            SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
+        }
     }
 }
