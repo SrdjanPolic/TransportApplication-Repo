@@ -1,0 +1,24 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%">
+
+    <mat-card-title>Izbriši vozilo</mat-card-title>
+    <mat-card-content>
+      <div fxLayout="column wrap" fxLayoutGap="40px">
+        <div fxLayout="row wrap" fxFlex>
+          <div fxFlex><strong>Broj tablica</strong></div>
+          <div fxFlex>{{vehicle.name}}</div>
+        </div>
+
+        <div fxLayout="row wrap" fxFlex>
+          <div fxFlex><strong>Napomena</strong></div>
+          <div fxFlex>{{vehicle?.code}}</div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" (click)="deleteVehicle()">Izbriši</button>
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>
+    </mat-card-actions>
+
+  </mat-card>
+</section>

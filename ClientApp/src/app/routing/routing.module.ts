@@ -17,6 +17,8 @@ const ownerRoutes: Routes = [
   { path: 'vendor', loadChildren: "./../vendor/vendor.module#VendorModule", canActivate: [AuthGuard]},
   { path: 'purchase', loadChildren: "./../purchase/purchase.module#PurchaseModule",canActivate: [AuthGuard]},
   { path: 'sales', loadChildren: "./../sales/sales.module#SalesModule", canActivate: [AuthGuard]},
+  { path: 'vehicle', loadChildren: "./../vehicle/vehicle.module#VehicleModule", canActivate: [AuthGuard]},
+  {path: 'driver', loadChildren: "./../driver/driver.module#DriverModule", canActivate: [AuthGuard]},
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},
