@@ -7,8 +7,8 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
 {
     public class SalesInvoiceLine : Entity
     {
-        public DateTime LoadDate { get; set; }
-        public DateTime UnloadDate { get; set; }
+        public DateTime? LoadDate { get; set; }
+        public DateTime? UnloadDate { get; set; }
         public string LoadAddress { get; set; }
         public string UnloadAddress { get; set; }
         public string ExportCustoms { get; set; }
