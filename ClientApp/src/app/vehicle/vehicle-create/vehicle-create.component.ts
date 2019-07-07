@@ -9,8 +9,8 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 
 @Component({
   selector: 'app-vehicle-create',
-  templateUrl: './vendor-create.component.html',
-  styleUrls: ['./vendor-create.component.css']
+  templateUrl: './vehicle-create.component.html',
+  styleUrls: ['./vehicle-create.component.css']
 })
 export class VehicleCreateComponent implements OnInit {
   public vehicleForm: FormGroup;
