@@ -20,6 +20,7 @@ namespace DBLayerPOC.Infrastructure.Vehicle
             builder.Property(x => x.FuelType).HasColumnName("FuelType").HasMaxLength(50).IsRequired();
             builder.Property(x => x.VechicleType).HasColumnName("VechicleType").HasMaxLength(50).IsRequired();
 
+            builder.Metadata.FindNavigation(nameof(Vehicle.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Vehicle).HasForeignKey(b => b.VehicleId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

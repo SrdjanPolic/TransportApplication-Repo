@@ -24,6 +24,7 @@ namespace DBLayerPOC.Infrastructure.Driver
             builder.Property(x => x.Address).HasColumnName("Address").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Remark).HasColumnName("Remark").HasMaxLength(250).IsRequired();
 
+            builder.Metadata.FindNavigation(nameof(Driver.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Driver).HasForeignKey(b => b.DriverId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
