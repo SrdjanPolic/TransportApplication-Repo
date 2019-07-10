@@ -13,6 +13,7 @@ namespace DBLayerPOC.Infrastructure.Vehicle
         public string ChassisNumber { get; set; }
         public string FuelType { get; set; }
         public string VechicleType { get; set; }
+        public bool IsInactive { get; set; }
 
         public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
 

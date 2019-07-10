@@ -19,6 +19,7 @@ namespace DBLayerPOC.Infrastructure.Vehicle
             builder.Property(x => x.ChassisNumber).HasColumnName("ChassisNumber").HasMaxLength(50).IsRequired();
             builder.Property(x => x.FuelType).HasColumnName("FuelType").HasMaxLength(50).IsRequired();
             builder.Property(x => x.VechicleType).HasColumnName("VechicleType").HasMaxLength(50).IsRequired();
+            builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
 
             builder.Metadata.FindNavigation(nameof(Vehicle.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Vehicle).HasForeignKey(b => b.VehicleId)

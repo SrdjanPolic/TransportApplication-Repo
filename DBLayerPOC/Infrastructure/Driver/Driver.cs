@@ -18,6 +18,7 @@ namespace DBLayerPOC.Infrastructure.Driver
         public string Address { get; set; }
         public string Remark { get; set; }
         public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
+        public bool IsInactive { get; set; }
 
         public Driver()
         {
