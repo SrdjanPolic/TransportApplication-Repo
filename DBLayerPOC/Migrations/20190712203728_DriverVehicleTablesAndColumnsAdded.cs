@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DBLayerPOC.Migrations
 {
-    public partial class DriverVehicleTablesAdded : Migration
+    public partial class DriverVehicleTablesAndColumnsAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "Vendor",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 902, DateTimeKind.Local).AddTicks(9592),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 409, DateTimeKind.Local).AddTicks(4842),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 50, DateTimeKind.Local).AddTicks(5472));
 
@@ -32,7 +32,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceLine",
                 nullable: true,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 937, DateTimeKind.Local).AddTicks(7709),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 448, DateTimeKind.Local).AddTicks(451),
                 oldClrType: typeof(DateTime),
                 oldNullable: true,
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 83, DateTimeKind.Local).AddTicks(8185));
@@ -42,7 +42,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceLine",
                 nullable: true,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 937, DateTimeKind.Local).AddTicks(2914),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 447, DateTimeKind.Local).AddTicks(4654),
                 oldClrType: typeof(DateTime),
                 oldNullable: true,
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 83, DateTimeKind.Local).AddTicks(3727));
@@ -52,7 +52,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 927, DateTimeKind.Local).AddTicks(4161),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(159),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 73, DateTimeKind.Local).AddTicks(4182));
 
@@ -61,7 +61,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 928, DateTimeKind.Local).AddTicks(3123),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(9978),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 74, DateTimeKind.Local).AddTicks(2064));
 
@@ -70,7 +70,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 927, DateTimeKind.Local).AddTicks(5643),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(1678),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 73, DateTimeKind.Local).AddTicks(5549));
 
@@ -79,7 +79,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 927, DateTimeKind.Local).AddTicks(5097),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(1103),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 73, DateTimeKind.Local).AddTicks(5036));
 
@@ -87,12 +87,20 @@ namespace DBLayerPOC.Migrations
                 name: "DriverId",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
-                nullable: true);
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
                 name: "VehicleId",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "VehicleId",
+                schema: "TransportDbNew",
+                table: "PurchaseInvoiceLine",
                 nullable: true);
 
             migrationBuilder.AlterColumn<DateTime>(
@@ -100,7 +108,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "PurchaseInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 909, DateTimeKind.Local).AddTicks(535),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 415, DateTimeKind.Local).AddTicks(5235),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 55, DateTimeKind.Local).AddTicks(9345));
 
@@ -109,7 +117,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "PurchaseInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 909, DateTimeKind.Local).AddTicks(8405),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 416, DateTimeKind.Local).AddTicks(3626),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 56, DateTimeKind.Local).AddTicks(6817));
 
@@ -118,7 +126,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "PurchaseInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 909, DateTimeKind.Local).AddTicks(1455),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 415, DateTimeKind.Local).AddTicks(6171),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 56, DateTimeKind.Local).AddTicks(129));
 
@@ -127,7 +135,7 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "Customer",
                 nullable: false,
-                defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 865, DateTimeKind.Local).AddTicks(5863),
+                defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 364, DateTimeKind.Local).AddTicks(195),
                 oldClrType: typeof(DateTime),
                 oldDefaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 15, DateTimeKind.Local).AddTicks(8504));
 
@@ -140,13 +148,14 @@ namespace DBLayerPOC.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     PersonalIdNummber = table.Column<string>(maxLength: 50, nullable: false),
-                    PersonalIdExpDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 946, DateTimeKind.Local).AddTicks(2680)),
+                    PersonalIdExpDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 457, DateTimeKind.Local).AddTicks(8687)),
                     PassNumber = table.Column<string>(maxLength: 50, nullable: false),
-                    PassExpDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 946, DateTimeKind.Local).AddTicks(3411)),
+                    PassExpDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 457, DateTimeKind.Local).AddTicks(9426)),
                     DriversLicenceNumber = table.Column<string>(maxLength: 50, nullable: false),
-                    DriversLicenceExpDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 946, DateTimeKind.Local).AddTicks(1399)),
+                    DriversLicenceExpDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 457, DateTimeKind.Local).AddTicks(7427)),
                     Address = table.Column<string>(maxLength: 50, nullable: false),
-                    Remark = table.Column<string>(maxLength: 250, nullable: false)
+                    Remark = table.Column<string>(maxLength: 250, nullable: false),
+                    IsInactive = table.Column<bool>(nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -164,7 +173,9 @@ namespace DBLayerPOC.Migrations
                     MaxWeight = table.Column<float>(nullable: false, defaultValue: 0f),
                     ChassisNumber = table.Column<string>(maxLength: 50, nullable: false),
                     FuelType = table.Column<string>(maxLength: 50, nullable: false),
-                    VechicleType = table.Column<string>(maxLength: 50, nullable: false)
+                    VechicleType = table.Column<string>(maxLength: 50, nullable: false),
+                    IsInactive = table.Column<bool>(nullable: false, defaultValue: false),
+                    Remark = table.Column<string>(maxLength: 250, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,7 +202,7 @@ namespace DBLayerPOC.Migrations
                 principalSchema: "TransportDbNew",
                 principalTable: "Driver",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_SalesInvoiceHeader_Vehicle_VehicleId",
@@ -201,7 +212,7 @@ namespace DBLayerPOC.Migrations
                 principalSchema: "TransportDbNew",
                 principalTable: "Vehicle",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -244,6 +255,11 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader");
 
+            migrationBuilder.DropColumn(
+                name: "VehicleId",
+                schema: "TransportDbNew",
+                table: "PurchaseInvoiceLine");
+
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LastChangeDate",
                 schema: "TransportDbNew",
@@ -251,7 +267,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 50, DateTimeKind.Local).AddTicks(5472),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 902, DateTimeKind.Local).AddTicks(9592));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 409, DateTimeKind.Local).AddTicks(4842));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UnloadDate",
@@ -261,7 +277,7 @@ namespace DBLayerPOC.Migrations
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 83, DateTimeKind.Local).AddTicks(8185),
                 oldClrType: typeof(DateTime),
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 937, DateTimeKind.Local).AddTicks(7709));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 448, DateTimeKind.Local).AddTicks(451));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LoadDate",
@@ -271,7 +287,7 @@ namespace DBLayerPOC.Migrations
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 83, DateTimeKind.Local).AddTicks(3727),
                 oldClrType: typeof(DateTime),
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 937, DateTimeKind.Local).AddTicks(2914));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 447, DateTimeKind.Local).AddTicks(4654));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PostingDate",
@@ -280,7 +296,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 73, DateTimeKind.Local).AddTicks(4182),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 927, DateTimeKind.Local).AddTicks(4161));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(159));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PaymentDate",
@@ -289,7 +305,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 74, DateTimeKind.Local).AddTicks(2064),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 928, DateTimeKind.Local).AddTicks(3123));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(9978));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "OrderDate",
@@ -298,7 +314,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 73, DateTimeKind.Local).AddTicks(5549),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 927, DateTimeKind.Local).AddTicks(5643));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(1678));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DueDate",
@@ -307,7 +323,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 73, DateTimeKind.Local).AddTicks(5036),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 927, DateTimeKind.Local).AddTicks(5097));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 437, DateTimeKind.Local).AddTicks(1103));
 
             migrationBuilder.AddColumn<string>(
                 name: "DriverName",
@@ -330,7 +346,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 55, DateTimeKind.Local).AddTicks(9345),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 909, DateTimeKind.Local).AddTicks(535));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 415, DateTimeKind.Local).AddTicks(5235));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PaymentDate",
@@ -339,7 +355,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 56, DateTimeKind.Local).AddTicks(6817),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 909, DateTimeKind.Local).AddTicks(8405));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 416, DateTimeKind.Local).AddTicks(3626));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DueDate",
@@ -348,7 +364,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 56, DateTimeKind.Local).AddTicks(129),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 909, DateTimeKind.Local).AddTicks(1455));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 415, DateTimeKind.Local).AddTicks(6171));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LastChangeDate",
@@ -357,7 +373,7 @@ namespace DBLayerPOC.Migrations
                 nullable: false,
                 defaultValue: new DateTime(2019, 7, 7, 22, 58, 13, 15, DateTimeKind.Local).AddTicks(8504),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2019, 7, 9, 23, 2, 12, 865, DateTimeKind.Local).AddTicks(5863));
+                oldDefaultValue: new DateTime(2019, 7, 12, 22, 37, 27, 364, DateTimeKind.Local).AddTicks(195));
         }
     }
 }
