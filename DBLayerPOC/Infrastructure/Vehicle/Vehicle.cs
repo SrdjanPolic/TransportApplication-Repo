@@ -17,11 +17,11 @@ namespace DBLayerPOC.Infrastructure.Vehicle
         public string Remark { get; set; }
 
 
-        //public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
+        public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
 
-        //public Vehicle()
-        //{
-        //    SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
-        //}
+        public Vehicle()
+        {
+            SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
+        }
     }
 }
