@@ -198,7 +198,7 @@ namespace DBLayerPOC.Infrastructure
                         BruttoWeight = 90F,
                         AdrNeeded = true,
                         Remarks = "blabla",
-                        VehicleId = 7,
+                        VehicleId = 2,
                         DriverId = 1,
                         RouteDistance = 1200,
                         LoadRepresentative = "Vucic",
