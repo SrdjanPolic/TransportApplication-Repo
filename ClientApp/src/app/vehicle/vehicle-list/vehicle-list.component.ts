@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class VehicleListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['name', 'code', 'update'];
-  public dataSource = new MatTableDataSource<Vehicle>(); 
+  public displayedColumns = ['registrationNumber', 'remark', 'vechicleType', 'chassisNumber', 'update'];
+  public dataSource = new MatTableDataSource<Vehicle>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

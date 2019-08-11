@@ -4,22 +4,53 @@
     <form [formGroup]="vehicleForm" autocomplete="off" novalidate (ngSubmit)="updateVehicle(vehicleForm.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-card-content>
-
         <mat-form-field>
-          <input matInput type="text" placeholder="Reg. broj" formControlName="name" id="name">
-          <mat-hint align="end">Max. 60 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('name', 'required')">Ime je neophodno</mat-error>
-          <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 60 karaktera</mat-error>
+          <input matInput type="text" placeholder="Registarski broj" formControlName="registrationNumber" id="registrationNumber">
+          <mat-hint align="end">Max. 20 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('registrationNumber', 'required')">Registarski broj je neophodan</mat-error>
+          <mat-error *ngIf="hasError('registrationNumber', 'maxlength')">Prekoračeno 20 karaktera</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput type="text" placeholder="Napomena" formControlName="code">
-            <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
-            <mat-error *ngIf="hasError('code', 'required')">Adresa je neophodna</mat-error>
-            <mat-error *ngIf="hasError('code', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
+            <input matInput type="text" placeholder="Maksimalna nosivost u kg." formControlName="maxWeight">
+            <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('maxWeight', 'required')">Maksimalna nosivost je neophodna</mat-error>
         </mat-form-field>
 
-      </mat-card-content>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Broj šasije" formControlName="chassisNumber">
+            <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('chassisNumber', 'required')">Broj šasije je neophodan</mat-error>
+            <mat-error *ngIf="hasError('chassisNumber', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" placeholder="Tip goriva" formControlName="fuelType">
+          <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('fuelType', 'required')">Vrsta goriva je neophodan</mat-error>
+          <mat-error *ngIf="hasError('fuelType', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" placeholder="Napomena" formControlName="remark">
+          <mat-hint align="end">Max. 250 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('remark', 'maxlength')">Prekoračeno 250 karaktera</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select formControlName="vechicleType" placeholder="Tip vozila" >
+              <mat-option>Izaberite</mat-option>
+              <ng-container *ngFor="let carType of carTypes">
+                <mat-option value="{{carType.value}}">{{carType.viewValue}}</mat-option>
+              </ng-container>
+            </mat-select>
+            <mat-error *ngIf="hasError('vechicleType', 'required')">Tip vozila je neophodan</mat-error>
+            <mat-error *ngIf="hasError('vechicleType', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+          </mat-form-field>
+
+        <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj vozilo</mat-checkbox>
+
+    </mat-card-content>
       <mat-card-actions align="center">
         <button mat-raised-button color="primary" [disabled]="!vehicleForm.valid">Izmeni</button>
         <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>

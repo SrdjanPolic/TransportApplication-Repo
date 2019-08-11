@@ -32,7 +32,7 @@ export class CustomerUpdateComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      isInactive: new FormControl(true)
+      isInactive: new FormControl(false)
     });
 
     this.dialogConfig = {

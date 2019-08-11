@@ -19,20 +19,23 @@ export class DriverUpdateComponent implements OnInit {
   private dialogConfig;
   public driver: Driver;
 
-  constructor(private location: Location, private repository: RepositoryService, private dialog: MatDialog, private errorService: ErrorHandlerService,
+  constructor(private location: Location, private repository: RepositoryService,
+    private dialog: MatDialog, private errorService: ErrorHandlerService,
               private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
     let newDt = new Date();
     this.driverForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      lastName: new FormControl('',[Validators.required, Validators.maxLength(30)]),
-      address: new FormControl('',[Validators.required, Validators.maxLength(80)]),
-      personalId: new FormControl('',[Validators.required, Validators.maxLength(20)]),
-      passportNo: new FormControl('',[Validators.required, Validators.maxLength(20)]),
-      passportValidUntil: new FormControl(newDt,[Validators.required]),
-      driverLicenceNo: new FormControl('',[Validators.required, Validators.maxLength(20)]),
-      driverLicenceValidUntil: new FormControl(newDt,[Validators.required])
+      name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      personalIdNummber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      personalIdExpDate: new FormControl(newDt, Validators.required),
+      passNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      passExpDate: new FormControl(newDt, Validators.required),
+      driversLicenceNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      driversLicenceExpDate: new FormControl(newDt, Validators.required),
+      address: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      remark: new FormControl('', Validators.maxLength(100)),
+      isInactive: new FormControl(false)
     });
 
     this.dialogConfig = {
@@ -76,21 +79,22 @@ export class DriverUpdateComponent implements OnInit {
   }
 
   private executeDriverUpdate = (driverFormValue) => {
- 
-    this.driver.firstName = driverFormValue.firstName;
-    this.driver.lastName = driverFormValue.lastName;
-    this.driver.address = driverFormValue.address;
-    this.driver.personalID = driverFormValue.personalID;
-    this.driver.passportNo = driverFormValue.passportNo;
-    this.driver.passportValidUntil = driverFormValue.passportValidUntil;
-    this.driver.driverLicenceNo = driverFormValue.driverLicenceNo;
-    this.driver.driverLincenceValidUntil = driverFormValue.driverLicenceValidUntil;
-   
+    this.driver.name = driverFormValue.name,
+    this.driver.personalIdNummber = driverFormValue.personalIdNummber,
+    this.driver.personalIdExpDate = driverFormValue.personalIdExpDate,
+    this.driver.passNumber = driverFormValue.passNumber,
+    this.driver.passExpDate = driverFormValue.passExpDate,
+    this.driver.driversLicenceNumber = driverFormValue.driversLicenceNumber,
+    this.driver.driversLicenceExpDate = driverFormValue.driversLicenceExpDate,
+    this.driver.address = driverFormValue.address,
+    this.driver.remark = driverFormValue.remark,
+    this.driver.isInactive = driverFormValue.isInactive;
+    
     let apiUrl = `api/Drivers/${this.driver.id}`;
     this.repository.update(apiUrl, this.driver)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
-        
+
         dialogRef.afterClosed()
           .subscribe(result => {
             this.location.back();
@@ -100,7 +104,7 @@ export class DriverUpdateComponent implements OnInit {
         this.errorService.dialogConfig = this.dialogConfig;
         this.errorService.handleError(error);
       })
-    )
+    );
   }
 
 }

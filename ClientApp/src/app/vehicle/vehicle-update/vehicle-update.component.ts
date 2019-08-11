@@ -8,6 +8,11 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { ActivatedRoute } from '@angular/router';
 import { Vehicle } from '../../_interface/vehicle.model';
 
+export interface CarType {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-vehicle-update',
   templateUrl: './vehicle-update.component.html',
@@ -19,13 +24,24 @@ export class VehicleUpdateComponent implements OnInit {
   private dialogConfig;
   public vehicle: Vehicle;
 
+  carTypes: CarType[] = [
+    {value: 'Kombi', viewValue: 'Kombi'},
+    {value: 'Putničko', viewValue: 'Putničko'},
+    {value: 'Lako teretno', viewValue: 'Lako teretno'},
+  ];
+
   constructor(private location: Location, private repository: RepositoryService, private dialog: MatDialog, private errorService: ErrorHandlerService,
               private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.vehicleForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-      code: new FormControl('',[Validators.required, Validators.maxLength(50)]),
+      registrationNumber: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      maxWeight: new FormControl(0, [Validators.required]),
+      chassisNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      fuelType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      vechicleType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      isInactive: new FormControl(false),
+      remark: new FormControl('', Validators.maxLength(250))
       
     });
 
@@ -71,9 +87,14 @@ export class VehicleUpdateComponent implements OnInit {
 
   private executeVehicleUpdate = (vehicleFormValue) => {
  
-    this.vehicle.name = vehicleFormValue.name;
-    this.vehicle.code = vehicleFormValue.code;
-   
+    this.vehicle.registrationNumber = vehicleFormValue.registrationNumber;
+    this.vehicle.maxWeight = vehicleFormValue.maxWeight;
+    this.vehicle.chassisNumber = vehicleFormValue.chassisNumber;
+    this.vehicle.fuelType = vehicleFormValue.fuelType;
+    this.vehicle.vechicleType = vehicleFormValue.vechicleType;
+    this.vehicle.isInactive = vehicleFormValue.isInactive;
+    this.vehicle.remark = vehicleFormValue.remark;
+
     let apiUrl = `api/Vehicles/${this.vehicle.id}`;
     this.repository.update(apiUrl, this.vehicle)
       .subscribe(res => {

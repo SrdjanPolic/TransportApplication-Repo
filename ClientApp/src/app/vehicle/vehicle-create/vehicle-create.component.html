@@ -7,8 +7,8 @@
           <mat-form-field>
             <input matInput type="text" placeholder="Registarski broj" formControlName="registrationNumber" id="registrationNumber">
             <mat-hint align="end">Max. 20 karaktera dužina.</mat-hint>
-            <mat-error *ngIf="hasError('name', 'required')">Registarski broj je neophodan</mat-error>
-            <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 20 karaktera</mat-error>
+            <mat-error *ngIf="hasError('registrationNumber', 'required')">Registarski broj je neophodan</mat-error>
+            <mat-error *ngIf="hasError('registrationNumber', 'maxlength')">Prekoračeno 20 karaktera</mat-error>
           </mat-form-field>
 
           <mat-form-field>
@@ -18,7 +18,7 @@
           </mat-form-field>
   
           <mat-form-field>
-              <input matInput type="number" placeholder="Broj šasije" formControlName="chassisNumber">
+              <input matInput type="text" placeholder="Broj šasije" formControlName="chassisNumber">
               <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
               <mat-error *ngIf="hasError('chassisNumber', 'required')">Broj šasije je neophodan</mat-error>
               <mat-error *ngIf="hasError('chassisNumber', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
@@ -38,12 +38,11 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput type="text" placeholder="Tip vozila" formControlName="vechicleType">
-            <mat-label>Izaberite tip vozila</mat-label>
-            <mat-select [(value)]= "selected">
-              <mat-option value="Putničko">Putničko</mat-option>
-              <mat-option value="Kombi">Kombi</mat-option>
-              <mat-option value="Lako teretno">Lako teretno</mat-option>
+            <mat-select formControlName="vechicleType" placeholder="Tip vozila" >
+              <mat-option>Izaberite</mat-option>
+              <ng-container *ngFor="let carType of carTypes">
+                <mat-option value="{{carType.value}}">{{carType.viewValue}}</mat-option>
+              </ng-container>
             </mat-select>
             <mat-error *ngIf="hasError('vechicleType', 'required')">Tip vozila je neophodan</mat-error>
             <mat-error *ngIf="hasError('vechicleType', 'maxlength')">Prekoračeno 30 karaktera</mat-error>

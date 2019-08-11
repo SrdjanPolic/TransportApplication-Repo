@@ -67,18 +67,22 @@
           <label>Referent prodaje</label>
           <input type ="text" name="salesPerson" #salesPerson="ngModel" [(ngModel)]="service.formData.salesPerson" class="form-control"/>
         </div> 
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label>Vozilo</label>
-          <input type ="text" name="vechicleRegNumber" #vechicleRegNumber="ngModel" [(ngModel)]="service.formData.vechicleRegNumber" class="form-control"/>
-        </div> -->
-        <mat-form-field>
+          <select name="vehicleId" #vehicleId="ngModel" [(ngModel)]="service.formData.vehicleId" class="form-control"
+          [class.is-invalid]="!isValid && service.formData.vehicleId==0">
+            <option value="0">-Izaberite-</option>
+            <option *ngFor="let item of vehicleList" value="{{item.id}}">{{item.registrationNumber}}</option>
+          </select>
+        </div>
+        <!-- <mat-form-field>
           <mat-label>Vozilo</mat-label>
           <select matNativeControl required>
             <option value="Vozač 1">Vozač 1</option>
             <option value="Vozač 2">Vozač 2</option>
             <option value="Vozač 3">Vozač 3</option>
           </select>
-        </mat-form-field>
+        </mat-form-field> -->
         <div class="form-group">
           <label>Napomena</label>
           <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control"/>
@@ -150,7 +154,11 @@
         </div>
         <div class="form-group">
           <label>Vozač</label>
-          <input type ="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName" class="form-control"/>
+          <select name="driverId" #driverId="ngModel" [(ngModel)]="service.formData.driverId" class="form-control"
+          [class.is-invalid]="!isValid && service.formData.driverId==0">
+            <option value="0">-Izaberite-</option>
+            <option *ngFor="let item of driverList" value="{{item.id}}">{{item.name}}</option>
+          </select>
         </div>
       </div>
       <div class="col-md-3">

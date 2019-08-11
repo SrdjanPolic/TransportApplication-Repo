@@ -7,6 +7,11 @@ import { MatDialog } from '@angular/material';
 import { SuccessDialogComponent } from '../../shared/dialogs/success-dialog/success-dialog.component';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 
+export interface CarType {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-vehicle-create',
   templateUrl: './vehicle-create.component.html',
@@ -15,13 +20,24 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 export class VehicleCreateComponent implements OnInit {
   public vehicleForm: FormGroup;
   private dialogConfig;
-
-  constructor(private location: Location, private repository: RepositoryService, private dialog: MatDialog, private errorService: ErrorHandlerService) { }
+  
+  carTypes: CarType[] = [
+    {value: 'Kombi', viewValue: 'Kombi'},
+    {value: 'Putničko', viewValue: 'Putničko'},
+    {value: 'Lako teretno', viewValue: 'Lako teretno'},
+  ];
+  constructor(private location: Location, private repository: RepositoryService,
+     private dialog: MatDialog, private errorService: ErrorHandlerService) { }
 
   ngOnInit() {
     this.vehicleForm = new FormGroup({
-      code: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-      name: new FormControl('',[Validators.required, Validators.maxLength(50)]),
+      registrationNumber: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      maxWeight: new FormControl(0, [Validators.required]),
+      chassisNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      fuelType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      vechicleType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      isInactive: new FormControl(false),
+      remark: new FormControl('', Validators.maxLength(250))
     });
 
     this.dialogConfig = {
@@ -48,9 +64,15 @@ export class VehicleCreateComponent implements OnInit {
 
   private executeVehicleCreation = (vehicleFormValue) => {
     let vehicle: VehicleForCreation = {
-      name: vehicleFormValue.name,
-      code: vehicleFormValue.code
-    }
+
+      registrationNumber: vehicleFormValue.registrationNumber,
+      maxWeight: vehicleFormValue.maxWeight,
+      chassisNumber: vehicleFormValue.chassisNumber,
+      fuelType: vehicleFormValue.fuelType,
+      vechicleType: vehicleFormValue.vechicleType,
+      isInactive: vehicleFormValue.isInactive,
+      remark: vehicleFormValue.remark
+    };
 
     let apiUrl = 'api/Vehicles';
     this.repository.create(apiUrl, vehicle)

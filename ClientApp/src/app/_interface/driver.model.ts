@@ -1,11 +1,15 @@
-export interface Driver{
+import {SalesInvHeader} from './SalesInvHeader.model';
+export interface Driver {
     id: number;
-    firstName: string;
-    lastName:string;
+    name: string;
+    personalIdNummber: string;
+    personalIdExpDate: Date;
+    passNumber: string;
+    passExpDate: Date;
+    driversLicenceNumber: string;
+    driversLicenceExpDate: Date;
     address: string;
-    personalID: string;
-    passportNo: string;
-    passportValidUntil: Date;
-    driverLicenceNo: string;
-    driverLincenceValidUntil: Date
+    remark: string;
+    salesInvoiceHeaders?: SalesInvHeader;
+    isInactive: boolean;
 }

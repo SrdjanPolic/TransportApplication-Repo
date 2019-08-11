@@ -18,6 +18,7 @@ import { CustomerDeleteComponent } from './customer-delete/customer-delete.compo
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [CustomerListComponent, CustomerDetailsComponent, CustomerDataComponent, AccountDataComponent, CustomerCreateComponent, CustomerUpdateComponent, CustomerDeleteComponent]
+  declarations: [CustomerListComponent, CustomerDetailsComponent, CustomerDataComponent,
+    AccountDataComponent, CustomerCreateComponent, CustomerUpdateComponent, CustomerDeleteComponent]
 })
 export class CustomerModule { }

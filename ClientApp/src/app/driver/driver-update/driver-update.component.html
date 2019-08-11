@@ -4,64 +4,73 @@
     <form [formGroup]="driverForm" autocomplete="off" novalidate (ngSubmit)="updateDriver(driverForm.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-card-content>
-
         <mat-form-field>
-          <input matInput type="text" placeholder="Ime" formControlName="firstName" id="firstName">
-          <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('firstName', 'required')">Ime je neophodno</mat-error>
-          <mat-error *ngIf="hasError('firstName', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+          <input matInput type="text" placeholder="Ime i prezime" formControlName="name" id="name">
+          <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')">Ime je neophodno</mat-error>
+          <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
         </mat-form-field>
-
+        
         <mat-form-field>
-          <input matInput type="text" placeholder="Prezime" formControlName="lastName" id="lastName">
-          <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('lastName', 'required')">Prezime je neophodno</mat-error>
-          <mat-error *ngIf="hasError('lastName', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput type="text" placeholder="Adresa" formControlName="address" id="address">
-          <mat-hint align="end">Max. 80 karaktera dužina.</mat-hint>
+          <input matInput type="text" placeholder="Adresa" formControlName="address">
+          <mat-hint align="end">Max. 60 karaktera dužina.</mat-hint>
           <mat-error *ngIf="hasError('address', 'required')">Adresa je neophodna</mat-error>
-          <mat-error *ngIf="hasError('address', 'maxlength')">Prekoračeno 80 karaktera</mat-error>
+          <mat-error *ngIf="hasError('address', 'maxlength')">Prekoračeno 60 karaktera</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="text" placeholder="Broj LK" formControlName="personalId" id="personalId">
-          <mat-hint align="end">Max. 20 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('personalId', 'required')">Broj lične karte je neophodan</mat-error>
-          <mat-error *ngIf="hasError('personalId', 'maxlength')">Prekoračeno 20 karaktera</mat-error>
+            <input matInput type="text" placeholder="Broj LK" formControlName="personalIdNummber">
+            <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('personalIdNummber', 'required')">Broj lične karte je neophodan</mat-error>
+            <mat-error *ngIf="hasError('personalIdNummber', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="text" placeholder="Broj pasoša" formControlName="passportNo" id="passportNo">
-          <mat-hint align="end">Max. 20 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('passportNo', 'required')">Broj pasoša je neophodan</mat-error>
-          <mat-error *ngIf="hasError('passportNo', 'maxlength')">Prekoračeno 20 karaktera</mat-error>
+          <input matInput [matDatepicker]="pickeridexpirydate" placeholder="Datum važenja LK" formControlName ="personalIdExpDate">
+          <mat-datepicker-toggle matSuffix [for]="pickeridexpirydate"></mat-datepicker-toggle>
+          <mat-error *ngIf="hasError('personalIdExpDate')">Datum važenja lične karte je neophodan</mat-error>
+          <mat-datepicker #pickeridexpirydate></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerpassport" placeholder="Datum važenja pasoša"  [(ngModel)]= "passportValidUntil" name="passportValidUntil">
+          <input matInput type="text" placeholder="Broj pasoša" formControlName="passNumber">
+          <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('passNumber', 'required')">Broj pasoša je neophodan</mat-error>
+          <mat-error *ngIf="hasError('passNumber', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerpassport" placeholder="Datum važenja pasoša" formControlName ="passExpDate">
           <mat-datepicker-toggle matSuffix [for]="pickerpassport"></mat-datepicker-toggle>
+          <mat-error *ngIf="hasError('passExpDate')">Datum važenja pasoša je neophodan</mat-error>
           <mat-datepicker #pickerpassport></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="text" placeholder="Broj vozačke dozvole" formControlName="driverLicenceNo" id="driverLicenceNo">
-          <mat-hint align="end">Max. 20 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('driverLicenceNo', 'required')">Broj vozačke dozvole je neophodan</mat-error>
-          <mat-error *ngIf="hasError('driverLicenceNo', 'maxlength')">Prekoračeno 20 karaktera</mat-error>
+          <input matInput type="text" placeholder="Broj vozačke dozvole" formControlName="driversLicenceNumber">
+          <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('driversLicenceNumber', 'required')">Broj vozačke dozvole je neophodan</mat-error>
+          <mat-error *ngIf="hasError('driversLicenceNumber', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerlicence" placeholder="Datum važenja vozačke dozvole"  [(ngModel)]= "driverLicenceValidUntil" name="driverLicenceValidUntil">
-          <mat-datepicker-toggle matSuffix [for]="pickerlicence"></mat-datepicker-toggle>
-          <mat-datepicker #pickerlicence></mat-datepicker>
+          <input matInput [matDatepicker]="pickerdriverlicence" placeholder="Datum važenja vozačke dozvole" formControlName ="driversLicenceExpDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerdriverlicence"></mat-datepicker-toggle>
+          <mat-error *ngIf="hasError('driversLicenceExpDate')">Datum važenja vozačke dozvole je neophodan</mat-error>
+          <mat-datepicker #pickerdriverlicence></mat-datepicker>
         </mat-form-field>
 
+        <mat-form-field>
+          <input matInput type="text" placeholder="Napomena" formControlName="remark">
+          <mat-hint align="end">Max. 100 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('remark', 'maxlength')">Prekoračeno 100 karaktera</mat-error>
+        </mat-form-field>
+
+        <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj vozača</mat-checkbox>
       </mat-card-content>
+
       <mat-card-actions align="center">
-        <button mat-raised-button color="primary" [disabled]="!vehicleForm.valid">Izmeni</button>
+        <button mat-raised-button color="primary" [disabled]="!driverForm.valid">Izmeni</button>
         <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>
       </mat-card-actions>
     </form>

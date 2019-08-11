@@ -24,7 +24,7 @@ export class SalesInvService {
       SalesInvLines: this.SalesInvLines
     };
     let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post(environment.urlAddress + '/api/SalesInvoiceHeaders', body,options);
+    return this.http.post(environment.urlAddress + '/api/SalesInvoiceHeaders', body, options);
   }
 
   getInvoiceList() {

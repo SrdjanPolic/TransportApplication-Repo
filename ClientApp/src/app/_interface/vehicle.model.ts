@@ -1,5 +1,12 @@
-export interface Vehicle{
+import {SalesInvHeader} from './SalesInvHeader.model';
+export interface Vehicle {
     id: number;
-    code: string;
-    name:string
+    registrationNumber: string;
+    maxWeight: number;
+    chassisNumber: string;
+    fuelType: string;
+    vechicleType: string;
+    isInactive: boolean;
+    remark: string;
+    salesInvoiceHeaders?: SalesInvHeader;
 }

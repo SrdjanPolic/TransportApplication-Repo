@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class DriverListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['firstName', 'lastName', 'personalId' , 'passportNo', 'driverLicenceNo', 'update'];
-  public dataSource = new MatTableDataSource<Driver>(); 
+  public displayedColumns = ['name', 'personalIdNummber', 'address' , 'driversLicenceNumber', 'driversLicenceExpDate', 'update'];
+  public dataSource = new MatTableDataSource<Driver>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

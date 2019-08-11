@@ -21,14 +21,16 @@ export class DriverCreateComponent implements OnInit {
   ngOnInit() {
     let newDt = new Date();
     this.driverForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-      lastName: new FormControl('',[Validators.required, Validators.maxLength(50)]),
-      address: new FormControl('',[Validators.required, Validators.maxLength(50)]),
-      personalId: new FormControl('',[Validators.required, Validators.maxLength(50)]),
-      passportNo: new FormControl('',[Validators.required, Validators.maxLength(50)]),
-      passportValidUntil: new FormControl(newDt,[Validators.required, Validators.maxLength(50)]),
-      driverLicenceNo: new FormControl('',[Validators.required, Validators.maxLength(50)]),
-      driverLicenceValidUntil: new FormControl(newDt,[Validators.required, Validators.maxLength(50)]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      personalIdNummber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      personalIdExpDate: new FormControl(newDt, Validators.required),
+      passNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      passExpDate: new FormControl(newDt, Validators.required),
+      driversLicenceNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      driversLicenceExpDate: new FormControl(newDt, Validators.required),
+      address: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      remark: new FormControl('', Validators.maxLength(100)),
+      isInactive: new FormControl(false)
     });
 
     this.dialogConfig = {
@@ -55,14 +57,16 @@ export class DriverCreateComponent implements OnInit {
 
   private executeDriverCreation = (driverFormValue) => {
     let driver: DriverForCreation = {
-      firstName: driverFormValue.firstName,
-      lastName: driverFormValue.lastName,
+      name: driverFormValue.name,
+      personalIdNummber: driverFormValue.personalIdNummber,
+      personalIdExpDate: driverFormValue.personalIdExpDate,
+      passNumber: driverFormValue.passNumber,
+      passExpDate: driverFormValue.passExpDate,
+      driversLicenceNumber: driverFormValue.driversLicenceNumber,
+      driversLicenceExpDate: driverFormValue.driversLicenceExpDate,
       address: driverFormValue.address,
-      personalId: driverFormValue.personalId,
-      passportNo: driverFormValue.passportNo,
-      passportValidUntil: driverFormValue.passportValidUntil,
-      driverLicenceNo: driverFormValue.driverLicenceNo,
-      driverLincenceValidUntil: driverFormValue.driverLicenceValidUntil
+      remark: driverFormValue.remark,
+      isInactive: driverFormValue.isInactive
     }
 
     let apiUrl = 'api/Drivers';

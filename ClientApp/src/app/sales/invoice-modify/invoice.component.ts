@@ -8,6 +8,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { InvoiceLinesComponent } from '../../sales/invoice-lines/invoice-lines.component';
 import { Customer } from '../../_interface/customer.model';
 import { Currency } from '../../_interface/Currency.model';
+import { Driver } from '../../_interface/driver.model';
+import { Vehicle } from '../../_interface/vehicle.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -20,6 +22,8 @@ import { Settings } from 'src/app/_interface/Settings.model';
 })
 export class InvoiceComponent implements OnInit {
   customerList: Customer[];
+  driverList: Driver[];
+  vehicleList: Vehicle[];
   isValid: boolean = true;
   currencyList: Currency[];
   settings: Settings;
@@ -48,6 +52,8 @@ export class InvoiceComponent implements OnInit {
 
     this.repoService.getData('api/Customers').subscribe(res => this.customerList = res as Customer[]);
     this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
+    this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
+    this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
   }
 
   resetForm(form?: NgForm) {
@@ -69,7 +75,7 @@ export class InvoiceComponent implements OnInit {
       creditMemo: false,
       paymentDate: new Date(),
       commodityType: '',
-      numberOfPallets:0,
+      numberOfPallets: 0,
       numberofPalletsPlaces: 0,
       bruttoWeight: 0,
       adrNeeded: false,
