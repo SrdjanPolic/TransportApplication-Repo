@@ -27,7 +27,7 @@ export class InvoiceLinesComponent implements OnInit {
     let newDt = new Date();
     if (this.data.invoiceLineIndex == null)
       this.formData = {
-        id: null,
+        id: 0,
         loadDate: newDt,
         unloadDate: newDt,
         loadAddress: '',

@@ -67,7 +67,7 @@ export class InvoiceComponent implements OnInit {
      form.resetForm();
     }
     this.service.formData = {
-      id: null,
+      id: 0,
       invoiceNo: 'Biće automatski dodeljen',
       postingDate: newDt,
       externalReferenceNo: '',
