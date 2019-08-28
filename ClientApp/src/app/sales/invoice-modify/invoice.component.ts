@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Settings } from 'src/app/_interface/Settings.model';
+import { ErrorHandlerService } from '../../shared/error-handler.service';
 
 @Component({
   selector: 'app-invoice',
@@ -24,25 +25,29 @@ export class InvoiceComponent implements OnInit {
   customerList: Customer[];
   driverList: Driver[];
   vehicleList: Vehicle[];
-  isValid: boolean = true;
+  isValid = true;
   currencyList: Currency[];
   settings: Settings;
+  private dialogConfig;
 
-  constructor(private service: SalesInvService,
+  constructor(public service: SalesInvService,
     private dialog: MatDialog,
     private repoService: RepositoryService,
     private toastr: ToastrService,
     private router: Router,
+    private errorService: ErrorHandlerService,
     private currentRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    let invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    // this.repoService.getData('api/Settings/SalesInvoice').subscribe(res => { 
+    const invoiceID = this.currentRoute.snapshot.paramMap.get('id');
+    // this.repoService.getData('api/Settings/SalesInvoice').subscribe(res => {
     //   this.settings = res as Settings;
     //   });
-    if (invoiceID == null)
+    if (invoiceID == null) {
       this.resetForm();
+    }
     else {
+      // tslint:disable-next-line: radix
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
         this.service.formData = res;
         this.service.SalesInvLines = res.lines;
@@ -57,9 +62,10 @@ export class InvoiceComponent implements OnInit {
   }
 
   resetForm(form?: NgForm) {
-    let newDt = new Date();
-    if (form = null)
+    const newDt = new Date();
+    if (form = null) {
      form.resetForm();
+    }
     this.service.formData = {
       id: null,
       invoiceNo: 'Biće automatski dodeljen',
@@ -80,8 +86,8 @@ export class InvoiceComponent implements OnInit {
       bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',
-      vechicleRegNumber: '',
-      driverName: '',
+      vehicleId: 0,
+      driverId: 0,
       routeDistance: 0,
       loadRepresentative: '',
       pricePerKm: 0,
@@ -97,7 +103,7 @@ export class InvoiceComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = false;
-    dialogConfig.width = "50%";
+    dialogConfig.width = '50%';
     dialogConfig.data = { invoiceLineIndex, invoiceNo };
     this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
       this.updateGrandTotal();
@@ -106,8 +112,9 @@ export class InvoiceComponent implements OnInit {
 
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
-    if (invoiceLineID != null)
-      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ",";
+    if (invoiceLineID != null) {
+      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ',';
+    }
     this.service.SalesInvLines.splice(i, 1);
     this.updateGrandTotal();
   }
@@ -121,10 +128,11 @@ export class InvoiceComponent implements OnInit {
 
   validateForm() {
     this.isValid = true;
-    if (this.service.formData.customerId == 0)
+    if (this.service.formData.customerId === 0) {
       this.isValid = false;
-    else if (this.service.SalesInvLines.length == 0)
+    } else if (this.service.SalesInvLines.length === 0) {
       this.isValid = false;
+         }
     return this.isValid;
   }
 
@@ -135,7 +143,15 @@ export class InvoiceComponent implements OnInit {
         this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
         this.router.navigate(['/sales/SalesInvoices']);
+      },
+      (error => {
+        this.errorService.dialogConfig = { ...this.dialogConfig};
+        this.errorService.handleError(error);
       })
+      );
+    }
+    else {
+      alert('Proverite obavezna polja na formi.');
     }
   }
   test(value) {

@@ -21,8 +21,8 @@ export class SalesInvHeader {
     bruttoWeight: number;
     adrNeeded: boolean;
     remarks: string;
-    vechicleRegNumber: string;
-    driverName: string;
+    vehicleId: number;
+    driverId: number;
     routeDistance: number;
     loadRepresentative: string;
     pricePerKm: number;

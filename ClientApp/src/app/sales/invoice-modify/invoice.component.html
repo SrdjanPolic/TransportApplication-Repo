@@ -66,10 +66,10 @@
         <div class="form-group">
           <label>Referent prodaje</label>
           <input type ="text" name="salesPerson" #salesPerson="ngModel" [(ngModel)]="service.formData.salesPerson" class="form-control"/>
-        </div> 
+        </div>
         <div class="form-group">
           <label>Vozilo</label>
-          <select name="vehicleId" #vehicleId="ngModel" [(ngModel)]="service.formData.vehicleId" class="form-control"
+          <select name="vechicleId" #vehicleId="ngModel" [(ngModel)]="service.formData.vehicleId" class="form-control"
           [class.is-invalid]="!isValid && service.formData.vehicleId==0">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of vehicleList" value="{{item.id}}">{{item.registrationNumber}}</option>
@@ -86,7 +86,7 @@
         <div class="form-group">
           <label>Napomena</label>
           <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control"/>
-        </div> 
+        </div>
       </div>
     </div>
     <!-- Invoice line table-->
@@ -106,7 +106,7 @@
             Nema stavki za ovu ulaznu fakturu.
           </td>
         </tr>
-  
+
         <tr *ngFor="let item of service.SalesInvLines;let i=index;">
           <td>{{item.description}}</td>
           <td>{{item.unitPrice}}</td>
@@ -150,7 +150,7 @@
         </div>
         <div class="form-group">
           <label>Broj paletnih mesta</label>
-          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberOfPalletsPlaces" class="form-control"/>
+          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberofPalletsPlaces" class="form-control"/>
         </div>
         <div class="form-group">
           <label>Vozač</label>
@@ -165,7 +165,7 @@
         <div class="form-group">
           <label>ADR potreban</label>
           <input type ="checkbox" name="adrNeeded" #adrNeeded="ngModel" [(ngModel)]="service.formData.adrNeeded" class="form-control"/>
-        </div> 
+        </div>
         <div class="form-group">
           <label>Dužina rute</label>
           <input type ="number" name="routeDistance" #routeDistance="ngModel" [(ngModel)]="service.formData.routeDistance" class="form-control"/>

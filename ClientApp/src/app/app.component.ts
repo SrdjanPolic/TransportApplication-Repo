@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Atomic Sped';
-  public isDarkTheme: boolean = false;
+  public isDarkTheme = false;
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;

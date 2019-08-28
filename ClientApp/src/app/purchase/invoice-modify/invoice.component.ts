@@ -13,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import {MaterialModule} from './../../material/material.module';
 import { Settings } from 'src/app/_interface/Settings.model';
+import { ErrorHandlerService } from '../../shared/error-handler.service';
 
 
 @Component({
@@ -26,12 +27,14 @@ export class InvoiceComponent implements OnInit {
   currencyList: Currency[];
   settings: Settings;
   invoiceNumber: string;
+  private dialogConfig;
 
-  constructor(private service: PurchInvService,
+  constructor(public service: PurchInvService,
     private dialog: MatDialog,
     private repoService: RepositoryService,
     private toastr: ToastrService,
     private router: Router,
+    private errorService: ErrorHandlerService,
     private currentRoute: ActivatedRoute) { }
 
   async ngOnInit() {
@@ -41,9 +44,9 @@ export class InvoiceComponent implements OnInit {
     //   let x = this.settings;
     //   console.log(x);
     //   this.invoiceNumber = this.settings.prefix + '-' + (this.settings.lastUsedNumber + 1).toString();
-    // }); 
+    // });
     // setTimeout(() => {
-    //   this.getDataFromService() 
+    //   this.getDataFromService()
     //  }, 3000);
     if (invoiceID == null) {
       this.resetForm();
@@ -58,7 +61,7 @@ export class InvoiceComponent implements OnInit {
 
     this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
     this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
-    
+
   }
 
     resetForm(form?: NgForm) {
@@ -125,9 +128,18 @@ export class InvoiceComponent implements OnInit {
         this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
         this.router.navigate(['/purchase/PurchInvoices']);
+      },
+      (error => {
+        this.errorService.dialogConfig = { ...this.dialogConfig};
+        this.errorService.handleError(error);
       })
+      );
+    }
+    else {
+      alert('Proverite obavezna polja na formi.');
     }
   }
+
   async getDataFromService () {
     await this.repoService.getData('api/Settings/PurchaseInvoice').subscribe(res => {
       this.settings = res as Settings;

@@ -10,10 +10,10 @@ import {LoginLayoutComponent} from './../layout/login-layout.component';
 import {LayoutComponent} from './../layout/layout.component';
 
 const ownerRoutes: Routes = [
-  
+
   {path: 'login', component: LoginComponent},
   { path: 'home', component: HomeComponent },
-  { path: 'customer', loadChildren: "./../customer/customer.module#CustomerModule" , canActivate: [AuthGuard]},
+  { path: 'customer', loadChildren: './../customer/customer.module#CustomerModule' , canActivate: [AuthGuard]},
   { path: 'vendor', loadChildren: "./../vendor/vendor.module#VendorModule", canActivate: [AuthGuard]},
   { path: 'purchase', loadChildren: "./../purchase/purchase.module#PurchaseModule",canActivate: [AuthGuard]},
   { path: 'sales', loadChildren: "./../sales/sales.module#SalesModule", canActivate: [AuthGuard]},
@@ -23,7 +23,7 @@ const ownerRoutes: Routes = [
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
-  
+
 ];
 
 @NgModule({

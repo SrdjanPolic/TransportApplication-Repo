@@ -38,7 +38,7 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        // GET: api/SalesInvoiceHeaders/5
+        // GET:  api/SalesInvoiceHeaders/5
         [HttpGet("{id}", Name = "GetSalesInvoices")]
         public IActionResult GetSalesInvoiceHeader(int id)
         {

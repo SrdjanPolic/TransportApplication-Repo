@@ -10,7 +10,7 @@
           <mat-error *ngIf="hasError('name', 'required')">Ime je neophodno</mat-error>
           <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
         </mat-form-field>
-        
+
         <mat-form-field>
           <input matInput type="text" placeholder="Adresa" formControlName="address">
           <mat-hint align="end">Max. 60 karaktera dužina.</mat-hint>
@@ -28,7 +28,7 @@
         <mat-form-field>
           <input matInput [matDatepicker]="pickeridexpirydate" placeholder="Datum važenja LK" formControlName ="personalIdExpDate">
           <mat-datepicker-toggle matSuffix [for]="pickeridexpirydate"></mat-datepicker-toggle>
-          <mat-error *ngIf="hasError('personalIdExpDate')">Datum važenja lične karte je neophodan</mat-error>
+          <mat-error *ngIf="hasError('personalIdExpDate','required')">Datum važenja lične karte je neophodan</mat-error>
           <mat-datepicker #pickeridexpirydate></mat-datepicker>
         </mat-form-field>
 
@@ -42,7 +42,7 @@
         <mat-form-field>
           <input matInput [matDatepicker]="pickerpassport" placeholder="Datum važenja pasoša" formControlName ="passExpDate">
           <mat-datepicker-toggle matSuffix [for]="pickerpassport"></mat-datepicker-toggle>
-          <mat-error *ngIf="hasError('passExpDate')">Datum važenja pasoša je neophodan</mat-error>
+          <mat-error *ngIf="hasError('passExpDate','required')">Datum važenja pasoša je neophodan</mat-error>
           <mat-datepicker #pickerpassport></mat-datepicker>
         </mat-form-field>
 
@@ -56,7 +56,7 @@
         <mat-form-field>
           <input matInput [matDatepicker]="pickerdriverlicence" placeholder="Datum važenja vozačke dozvole" formControlName ="driversLicenceExpDate">
           <mat-datepicker-toggle matSuffix [for]="pickerdriverlicence"></mat-datepicker-toggle>
-          <mat-error *ngIf="hasError('driversLicenceExpDate')">Datum važenja vozačke dozvole je neophodan</mat-error>
+          <mat-error *ngIf="hasError('driversLicenceExpDate','required')">Datum važenja vozačke dozvole je neophodan</mat-error>
           <mat-datepicker #pickerdriverlicence></mat-datepicker>
         </mat-form-field>
 
