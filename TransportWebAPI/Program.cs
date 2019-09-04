@@ -24,8 +24,8 @@ namespace TransportWebAPI
 
         private static void RunSeeding(IWebHost host)
         {
-            //var seeder = host.Services.GetService<Seeder>();
-           // seeder.Seed();
+            var seeder = host.Services.GetService<Seeder>();
+            seeder.Seed();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

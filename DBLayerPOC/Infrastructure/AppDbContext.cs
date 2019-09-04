@@ -1,4 +1,5 @@
 ﻿using DBLayerPOC.Infrastructure.Driver;
+using DBLayerPOC.Infrastructure.Login;
 using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using DBLayerPOC.Infrastructure.SalesInvoice;
 using DBLayerPOC.Infrastructure.Settings;
@@ -35,6 +36,8 @@ namespace DBLayerPOC.Infrastructure
 
         public virtual DbSet<Vehicle.Vehicle> Vehicles { get; set; }
 
+        public virtual DbSet<LoginModel> Login { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -66,6 +69,9 @@ namespace DBLayerPOC.Infrastructure
 
             //Vehicle
             modelBuilder.ApplyConfiguration(new VehicleEntityTypeConfiguration());
+
+            //Login
+            modelBuilder.ApplyConfiguration(new LoginModelEntityTypeConfiguration());
         }
     }
 }

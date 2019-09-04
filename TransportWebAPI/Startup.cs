@@ -19,6 +19,9 @@ using Newtonsoft.Json;
 using TransportWebAPI.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace TransportWebAPI
 {
@@ -34,12 +37,38 @@ namespace TransportWebAPI
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = "http://localhost:56515",
+                        ValidAudience = "http://localhost:56515",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                    };
+                });
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", corsBuilder =>
+                {
+                    corsBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
+                });
+            });
+
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 
-            services.AddMvc().AddJsonOptions(options => {
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             }); ;
 
@@ -52,7 +81,7 @@ namespace TransportWebAPI
              );
 
             services.AddTransient<Seeder>();
- 
+
             var builder = new ContainerBuilder();
             builder.RegisterModule(new RepositoryHandlerModule());
             builder.Populate(services);
@@ -62,8 +91,8 @@ namespace TransportWebAPI
         }
 
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -84,7 +113,9 @@ namespace TransportWebAPI
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseCors("EnableCORS");
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {

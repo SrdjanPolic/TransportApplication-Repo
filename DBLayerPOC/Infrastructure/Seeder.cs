@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
+﻿using DBLayerPOC.Infrastructure.Login;
+using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using DBLayerPOC.Infrastructure.SalesInvoice;
 using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Models;
@@ -235,18 +236,18 @@ namespace DBLayerPOC.Infrastructure
 
                 _ctx.SaveChanges();
             }
-            else
-            {
-                foreach(SalesInvoiceHeader header in _ctx.SalesInvoiceHeaders)
-                {
-                    header.DriverId = 2;
-                    header.VehicleId = 5;
+            //else
+            //{
+            //    foreach(SalesInvoiceHeader header in _ctx.SalesInvoiceHeaders)
+            //    {
+            //        header.DriverId = 2;
+            //        header.VehicleId = 5;
 
-                    _ctx.Entry(header).State = EntityState.Modified;
-                }
+            //        _ctx.Entry(header).State = EntityState.Modified;
+            //    }
 
-                _ctx.SaveChanges();
-            }
+            //    _ctx.SaveChanges();
+            //}
 
             if (!_ctx.PurchaseInvoiceHeaders.Any())
             {
@@ -290,16 +291,16 @@ namespace DBLayerPOC.Infrastructure
 
                 _ctx.SaveChanges();
             }
-            else
-            {
-                foreach(PurchaseInvoiceLine line in _ctx.PurchaseInvoiceLines)
-                {
-                    line.VehicleId = 5;
-                    _ctx.Entry(line).State = EntityState.Modified;
-                }
+            //else
+            //{
+            //    foreach(PurchaseInvoiceLine line in _ctx.PurchaseInvoiceLines)
+            //    {
+            //        line.VehicleId = 5;
+            //        _ctx.Entry(line).State = EntityState.Modified;
+            //    }
 
-                _ctx.SaveChanges();
-            }
+            //    _ctx.SaveChanges();
+            //}
 
 
             //if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
@@ -404,6 +405,28 @@ namespace DBLayerPOC.Infrastructure
 
             //    _ctx.SaveChanges();
             //}
+
+            if(!_ctx.Login.Any())
+            {
+                var login = new LoginModel
+                {
+                    Username = "User1",
+                    Password = "abc"
+                };
+
+                _ctx.Login.Add(login);
+
+                var login1 = new LoginModel
+                {
+                    Username = "User2",
+                    Password = "cba"
+                };
+
+                _ctx.Login.Add(login1);
+
+            }
+
+            _ctx.SaveChanges();
         }
     }
 }
