@@ -1,0 +1,19 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%">
+
+    <mat-card-title>Izbriši korisnika</mat-card-title>
+    <mat-card-content>
+      <div fxLayout="column wrap" fxLayoutGap="40px">
+        <div fxLayout="row wrap" fxFlex>
+          <div fxFlex><strong>Korisničko ime</strong></div>
+          <div fxFlex>{{user.username}}</div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" (click)="deleteUser()">Izbriši</button>
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>
+    </mat-card-actions>
+
+  </mat-card>
+</section>
