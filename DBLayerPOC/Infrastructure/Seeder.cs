@@ -410,8 +410,11 @@ namespace DBLayerPOC.Infrastructure
             {
                 var login = new LoginModel
                 {
+                    Name = "Pera Peric",
                     Username = "User1",
-                    Password = "abc"
+                    Password = "abc",
+                    IsAdmin = true,
+                    IsInactive = false
                 };
 
                 _ctx.Login.Add(login);
@@ -419,7 +422,10 @@ namespace DBLayerPOC.Infrastructure
                 var login1 = new LoginModel
                 {
                     Username = "User2",
-                    Password = "cba"
+                    Password = "cba",
+                    Name = "MIka Mikic",
+                    IsAdmin = false,
+                    IsInactive = false  
                 };
 
                 _ctx.Login.Add(login1);

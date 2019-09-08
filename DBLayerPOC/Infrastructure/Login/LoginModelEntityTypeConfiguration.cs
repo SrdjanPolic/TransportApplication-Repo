@@ -13,8 +13,11 @@ namespace DBLayerPOC.Infrastructure.Login
             builder.ToTable("User");
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Name).HasColumnName("Name").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Username).HasColumnName("Username").HasMaxLength(50);
             builder.Property(x => x.Password).HasColumnName("Password").HasMaxLength(50);
+            builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
+            builder.Property(x => x.IsAdmin).HasColumnName("IsInactive").HasDefaultValue(false);
         }
     }
 }
