@@ -20,7 +20,7 @@ export class AuthService {
 
   login(user: User) {
     let routeToLogin: string;
-    routeToLogin = environment.urlAddress + '/' + 'Auth';
+    routeToLogin = environment.urlAddress + '/api/' + 'Auth';
     let credentials = JSON.stringify(user);
     this.http.post(routeToLogin, credentials, {
       headers: new HttpHeaders ({
