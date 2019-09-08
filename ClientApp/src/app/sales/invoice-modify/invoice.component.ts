@@ -1,4 +1,4 @@
-//import { CustomerService } from './../../shared/customer.service';
+import { PrintService } from './../../shared/print.service';
 import { SalesInvService } from './../../shared/SalesInv.service';
 import { RepositoryService } from './../../shared/repository.service';
 // import { OrderService } from './../../shared/order.service';
@@ -36,6 +36,7 @@ export class InvoiceComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private errorService: ErrorHandlerService,
+    public printService: PrintService,
     private currentRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -156,6 +157,11 @@ export class InvoiceComponent implements OnInit {
   }
   test(value) {
     console.log(value);
+  }
+  onPrintInvoice() {
+    const invoiceIds = ['101', '102'];
+    this.printService
+      .printDocument('invoice', invoiceIds);
   }
 
 }

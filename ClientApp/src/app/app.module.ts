@@ -20,6 +20,7 @@ import {AuthGuard} from './auth/auth.guard';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PrintLayoutComponent } from './print-layout/print-layout.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RouterModule } from '@angular/router';
     NotFoundComponent,
     ServerErrorComponent,
     LoginComponent,
-    LoginLayoutComponent
+    LoginLayoutComponent,
+    PrintLayoutComponent
   ],
   imports: [
     BrowserModule,

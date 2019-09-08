@@ -183,6 +183,6 @@
     <div class="form-group">
       <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
       <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih faktura</a>
-      <button type="button" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa</button>
+      <button type="button" (click)="onPrintInvoice()" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa fakture</button>
     </div>
   </form>
