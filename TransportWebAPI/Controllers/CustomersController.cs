@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.Data;
@@ -21,7 +22,7 @@ namespace TransportWebAPI.Controllers
         }
 
         // GET: api/Customers
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Get()
         {
             try

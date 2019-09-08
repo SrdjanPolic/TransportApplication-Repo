@@ -27,7 +27,7 @@ namespace TransportWebAPI.Controllers.Authentification
 
 
         // GET api/values
-        [HttpPost, Route("login")]
+        [HttpPost]
         public IActionResult Login([FromBody]LoginModel user)
         {
             if (user == null)   
