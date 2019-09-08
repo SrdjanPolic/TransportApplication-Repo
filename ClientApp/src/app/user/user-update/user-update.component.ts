@@ -25,6 +25,7 @@ export class UserUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       userName: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       isAdmin: new FormControl(false),
@@ -72,6 +73,7 @@ export class UserUpdateComponent implements OnInit {
   }
 
   private executeUserUpdate = (userFormValue) => {
+    this.user.name = userFormValue.name,
     this.user.username =  userFormValue.userName,
     this.user.password = userFormValue.password,
     this.user.isAdmin = userFormValue.isAdmin,

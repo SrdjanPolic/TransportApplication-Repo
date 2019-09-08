@@ -7,14 +7,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { UserUpdateComponent } from './../user/user-update/user-update.component';
 import { UserDeleteComponent } from './../user/user-delete/user-delete.component';
+import {TransformModule} from './../shared/transform/transform.module';
 
 @NgModule({
   imports: [
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TransformModule
   ],
-  declarations: [UserListComponent, UserCreateComponent, UserUpdateComponent, UserDeleteComponent]
+  declarations: [UserListComponent, UserCreateComponent, UserUpdateComponent, UserDeleteComponent],
+  entryComponents: [],
+  providers: []
 })
 export class UserModule { }

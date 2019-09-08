@@ -20,6 +20,7 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       username: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       isAdmin: new FormControl(false),
@@ -50,6 +51,7 @@ export class UserCreateComponent implements OnInit {
 
   private executeUserCreation = (userFormValue) => {
     let user: UserForCreation = {
+      name: userFormValue.name,
       username: userFormValue.username,
       password: userFormValue.password,
       isAdmin: userFormValue.isAdmin,

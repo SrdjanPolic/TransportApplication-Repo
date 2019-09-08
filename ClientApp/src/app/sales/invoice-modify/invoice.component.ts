@@ -150,8 +150,7 @@ export class InvoiceComponent implements OnInit {
         this.errorService.handleError(error);
       })
       );
-    }
-    else {
+    } else {
       alert('Proverite obavezna polja na formi.');
     }
   }

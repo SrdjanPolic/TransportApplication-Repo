@@ -7,6 +7,11 @@
   </div>
 </div>
 <table mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ime i prezime</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
   <ng-container matColumnDef="userName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Korisnik </th>
     <td mat-cell *matCellDef="let element"> {{element.userName}} </td>

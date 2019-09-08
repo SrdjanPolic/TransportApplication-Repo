@@ -4,6 +4,13 @@
     <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)="createUser(userForm.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-card-content>
+
+        <mat-form-field>
+            <input matInput type="text" placeholder="Ime i prezime" formControlName="name" id="name">
+            <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('name', 'required')">Ime i prezime je neophodno</mat-error>
+            <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+        </mat-form-field>
         <mat-form-field>
           <input matInput type="text" placeholder="Korisničko ime" formControlName="username" id="username">
           <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>

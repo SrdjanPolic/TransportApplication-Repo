@@ -2,11 +2,11 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { SalesInvService } from '../../shared/SalesInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {RepositoryService} from './../../shared/repository.service';
-import {SalesInvHeader} from './../../_interface/SalesInvHeader.model';
+import { RepositoryService} from './../../shared/repository.service';
+import { SalesInvHeader} from './../../_interface/SalesInvHeader.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
-import {Customer} from './../../_interface/customer.model';
+import { Customer} from './../../_interface/customer.model';
 
 
 @Component({

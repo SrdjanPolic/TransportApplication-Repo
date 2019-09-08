@@ -5,6 +5,12 @@
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-card-content>
         <mat-form-field>
+          <input matInput type="text" placeholder="Ime i prezime" formControlName="name" id="name">
+          <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')">Ime i prezime je neophodno</mat-error>
+          <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+        </mat-form-field>
+        <mat-form-field>
           <input matInput type="text" placeholder="Korisničko ime" formControlName="userName" id="userName">
           <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
           <mat-error *ngIf="hasError('userName', 'required')">Korisničko ime je neophodno</mat-error>
