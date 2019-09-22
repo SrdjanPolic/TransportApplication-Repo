@@ -18,7 +18,7 @@ namespace TransportWebAPI
         {
             var hostBuilder = CreateWebHostBuilder(args);
             var host = hostBuilder.Build();
-            RunSeeding(host);
+            //RunSeeding(host);
             host.Run();
         }
 
