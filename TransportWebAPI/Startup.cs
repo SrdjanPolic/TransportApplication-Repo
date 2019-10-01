@@ -76,7 +76,7 @@ namespace TransportWebAPI
               .AddDbContext<AppDbContext>(options =>
               {
                   options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
-                                       sqlOptions => sqlOptions.MigrationsAssembly("WebApplication"));
+                                       sqlOptions => sqlOptions.MigrationsAssembly("DBLayerPOC"));
               }
              );
 

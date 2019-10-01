@@ -49,12 +49,12 @@ namespace DBLayerPOC.Infrastructure
 
             if (!_ctx.CurrencyExchangeRates.Any())
             {
-                for (int i = 0; i < 30; i++)
+                //for (int i = 0; i < 30; i++)
                 {
                     var exRate = new CurrencyExchangeRate
                     {
-                        ExchangeRateAmount = 117.87F + 0.1F * i,
-                        StartingDate = DateTime.Now.AddDays(-i),
+                        ExchangeRateAmount = 117.5F,
+                        StartingDate = DateTime.UtcNow,
                         CurrencyId = 1
                     };
 
@@ -64,54 +64,54 @@ namespace DBLayerPOC.Infrastructure
                 _ctx.SaveChanges();
             }
 
-            if (!_ctx.Vendors.Any())
-            {
-                for (int i = 0; i < 30; i++)
-                {
-                    var vendor = new Vendor.Vendor
-                    {
-                        Name = "Vendor " + i,
-                        Address = "Adresa " + i,
-                        City = "Grad" + i,
-                        Country = "Zemlja" + i,
-                        PhoneNo = "Telefon" + i,
-                        Email = "Email" + i,
-                        PaymentTermsCode = "Valuta" + i,
-                        VatGroup = 20,
-                        VatNumber = "PDV Broj" + i,
-                        LastChangeDate = DateTime.Now.AddDays(-i),
-                        IsInactive = false
-                    };
+            //if (!_ctx.Vendors.Any())
+            //{
+            //    for (int i = 0; i < 30; i++)
+            //    {
+            //        var vendor = new Vendor.Vendor
+            //        {
+            //            Name = "Vendor " + i,
+            //            Address = "Adresa " + i,
+            //            City = "Grad" + i,
+            //            Country = "Zemlja" + i,
+            //            PhoneNo = "Telefon" + i,
+            //            Email = "Email" + i,
+            //            PaymentTermsCode = "Valuta" + i,
+            //            VatGroup = 20,
+            //            VatNumber = "PDV Broj" + i,
+            //            LastChangeDate = DateTime.Now.AddDays(-i),
+            //            IsInactive = false
+            //        };
 
-                    _ctx.Vendors.Add(vendor);
+            //        _ctx.Vendors.Add(vendor);
 
-                }
+            //    }
 
-                _ctx.SaveChanges();
-            }
+            //    _ctx.SaveChanges();
+            //}
 
 
-            if (!_ctx.Customers.Any())
-            {
-                for (int i = 0; i < 5000; i++)
-                {
-                    var customer = new Customer
-                    {
-                        Name = "Korisnik " + i,
-                        Address = "Adresa korisnika " + i,
-                        City = "City " + i,
-                        Country = "Country " + i,
-                        PhoneNo = "Telefon " + i,
-                        Email = "Email " + i,
-                        VatGroup = 3,
-                        IsInactive = false
-                    };
+            //if (!_ctx.Customers.Any())
+            //{
+            //    for (int i = 0; i < 5000; i++)
+            //    {
+            //        var customer = new Customer
+            //        {
+            //            Name = "Korisnik " + i,
+            //            Address = "Adresa korisnika " + i,
+            //            City = "City " + i,
+            //            Country = "Country " + i,
+            //            PhoneNo = "Telefon " + i,
+            //            Email = "Email " + i,
+            //            VatGroup = 3,
+            //            IsInactive = false
+            //        };
 
-                    _ctx.Customers.Add(customer);
-                }
+            //        _ctx.Customers.Add(customer);
+            //    }
 
-                _ctx.SaveChanges();
-            }
+            //    _ctx.SaveChanges();
+            //}
 
             if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.PurchaseInvoiceObjectName)))
             {
@@ -127,115 +127,131 @@ namespace DBLayerPOC.Infrastructure
                 _ctx.SettingsTable.Add(settings);
             }
 
-            if (!_ctx.Drivers.Any())
+            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
             {
-                for (int i = 0; i < 3; i++)
+                var SalesInvoiceNumber = _ctx.SalesInvoiceHeaders.Count();
+                var settings = new Settings.Settings
                 {
-                    var driver = new Driver.Driver
-                    {
-                        Name = "Vozac" + i,
-                        PersonalIdNummber = Path.GetRandomFileName(),
-                        PersonalIdExpDate = DateTime.Now,
-                        PassNumber = Path.GetRandomFileName(),
-                        PassExpDate = DateTime.Now,
-                        DriversLicenceNumber = Path.GetRandomFileName(),
-                        DriversLicenceExpDate = DateTime.Now,
-                        Address = Path.GetRandomFileName(),
-                        Remark = Path.GetRandomFileName(),
-                        IsInactive = false
-                    };
+                    ObjectName = Constants.SalesInvoiceObjectName,
+                    Prefix = "IF-19",
+                    Year = 2019,
+                    LastUsedNumber = SalesInvoiceNumber
+                };
 
-                    _ctx.Drivers.Add(driver);
-                }
-
-                _ctx.SaveChanges();
+                _ctx.SettingsTable.Add(settings);
             }
 
-            if (!_ctx.Vehicles.Any())
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    var vehicle = new Vehicle.Vehicle
-                    {
-                        RegistrationNumber = Path.GetRandomFileName(),
-                        MaxWeight = 2000,
-                        ChassisNumber = Path.GetRandomFileName(),
-                        FuelType = "Diesel",
-                        VechicleType = "KOmbi",
-                        IsInactive = false,
-                        Remark = Path.GetRandomFileName()
-                    };
+            _ctx.SaveChanges();
 
-                    _ctx.Vehicles.Add(vehicle);
-                }
+            //if (!_ctx.Drivers.Any())
+            //{
+            //    for (int i = 0; i < 3; i++)
+            //    {
+            //        var driver = new Driver.Driver
+            //        {
+            //            Name = "Vozac" + i,
+            //            PersonalIdNummber = Path.GetRandomFileName(),
+            //            PersonalIdExpDate = DateTime.Now,
+            //            PassNumber = Path.GetRandomFileName(),
+            //            PassExpDate = DateTime.Now,
+            //            DriversLicenceNumber = Path.GetRandomFileName(),
+            //            DriversLicenceExpDate = DateTime.Now,
+            //            Address = Path.GetRandomFileName(),
+            //            Remark = Path.GetRandomFileName(),
+            //            IsInactive = false
+            //        };
 
-                _ctx.SaveChanges();
-            }
+            //        _ctx.Drivers.Add(driver);
+            //    }
 
-            if (!_ctx.SalesInvoiceHeaders.Any())
-            {
+            //    _ctx.SaveChanges();
+            //}
 
-                for (int i = 0; i < 20; i++)
-                {
-                    var invoiceHeader = new SalesInvoiceHeader
-                    {
-                        InvoiceNo = "Faktura Broj" + i,
-                        PostingDate = DateTime.Now.AddDays(-i - 1),
-                        ExternalReferenceNo = "abc " + i,
-                        DueDate = DateTime.Now.AddDays(i + 1),
-                        SalesPerson = "Sales Person " + i,
-                        OrderDate = DateTime.Now,
-                        Paid = false,
-                        Invoiced = false,
-                        CreditMemo = false,
-                        PaymentDate = DateTime.Now.AddDays(i + 10),
-                        CurrencyId = 1,
-                        CustomerId = 6,
-                        TotalAmount = 18F,
-                        TotalAmountLocal = 12.45F,
-                        CommodityType = "bla",
-                        NumberOfPallets = 12,
-                        NumberOfPalletsPlaces = 12,
-                        BruttoWeight = 90F,
-                        AdrNeeded = true,
-                        Remarks = "blabla",
-                        VehicleId = 2,
-                        DriverId = 1,
-                        RouteDistance = 1200,
-                        LoadRepresentative = "Vucic",
-                        PricePerKm = 12,
-                        CrmNumber = "lincl"
-                    };
+            //if (!_ctx.Vehicles.Any())
+            //{
+            //    for (int i = 0; i < 3; i++)
+            //    {
+            //        var vehicle = new Vehicle.Vehicle
+            //        {
+            //            RegistrationNumber = Path.GetRandomFileName(),
+            //            MaxWeight = 2000,
+            //            ChassisNumber = Path.GetRandomFileName(),
+            //            FuelType = "Diesel",
+            //            VechicleType = "KOmbi",
+            //            IsInactive = false,
+            //            Remark = Path.GetRandomFileName()
+            //        };
 
-                    for (int j = 0; j < 3; j++)
-                    {
-                        var invoiceLine = new SalesInvoiceLine
-                        {
-                            Header = invoiceHeader,
-                            LoadDate = DateTime.Now,
-                            UnloadDate = DateTime.Now,
-                            LoadAddress = "Adr1",
-                            UnloadAddress = "Adr2",
-                            ExportCustoms = "Cust1",
-                            ImportCustoms = "Cust2",
-                            Quantity = 23,
-                            UnitPrice = 250,
-                            DiscountPercent = 0,
-                            LineAmount = 0,
-                            Remark = "bla",
-                            Description = "bla bla",
-                            VatPercent = 18
-                        };
+            //        _ctx.Vehicles.Add(vehicle);
+            //    }
 
-                        _ctx.SalesInvoiceLines.Add(invoiceLine);
-                    }
+            //    _ctx.SaveChanges();
+            //}
 
-                    _ctx.SalesInvoiceHeaders.Add(invoiceHeader);
+            //if (!_ctx.SalesInvoiceHeaders.Any())
+            //{
 
-                }
+            //    for (int i = 0; i < 20; i++)
+            //    {
+            //        var invoiceHeader = new SalesInvoiceHeader
+            //        {
+            //            InvoiceNo = "Faktura Broj" + i,
+            //            PostingDate = DateTime.Now.AddDays(-i - 1),
+            //            ExternalReferenceNo = "abc " + i,
+            //            DueDate = DateTime.Now.AddDays(i + 1),
+            //            SalesPerson = "Sales Person " + i,
+            //            OrderDate = DateTime.Now,
+            //            Paid = false,
+            //            Invoiced = false,
+            //            CreditMemo = false,
+            //            PaymentDate = DateTime.Now.AddDays(i + 10),
+            //            CurrencyId = 1,
+            //            CustomerId = 6,
+            //            TotalAmount = 18F,
+            //            TotalAmountLocal = 12.45F,
+            //            CommodityType = "bla",
+            //            NumberOfPallets = 12,
+            //            NumberOfPalletsPlaces = 12,
+            //            BruttoWeight = 90F,
+            //            AdrNeeded = true,
+            //            Remarks = "blabla",
+            //            VehicleId = 2,
+            //            DriverId = 1,
+            //            RouteDistance = 1200,
+            //            LoadRepresentative = "Vucic",
+            //            PricePerKm = 12,
+            //            CrmNumber = "lincl"
+            //        };
 
-                _ctx.SaveChanges();
-            }
+            //        for (int j = 0; j < 3; j++)
+            //        {
+            //            var invoiceLine = new SalesInvoiceLine
+            //            {
+            //                Header = invoiceHeader,
+            //                LoadDate = DateTime.Now,
+            //                UnloadDate = DateTime.Now,
+            //                LoadAddress = "Adr1",
+            //                UnloadAddress = "Adr2",
+            //                ExportCustoms = "Cust1",
+            //                ImportCustoms = "Cust2",
+            //                Quantity = 23,
+            //                UnitPrice = 250,
+            //                DiscountPercent = 0,
+            //                LineAmount = 0,
+            //                Remark = "bla",
+            //                Description = "bla bla",
+            //                VatPercent = 18
+            //            };
+
+            //            _ctx.SalesInvoiceLines.Add(invoiceLine);
+            //        }
+
+            //        _ctx.SalesInvoiceHeaders.Add(invoiceHeader);
+
+            //    }
+
+            //    _ctx.SaveChanges();
+            //}
             //else
             //{
             //    foreach(SalesInvoiceHeader header in _ctx.SalesInvoiceHeaders)
@@ -249,48 +265,48 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
             //}
 
-            if (!_ctx.PurchaseInvoiceHeaders.Any())
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    var invoiceHeader = new PurchaseInvoiceHeader
-                    {
-                        InvoiceNo = "Faktura Broj" + i,
-                        PostingDate = DateTime.Now.AddDays(-i - 1),
-                        ExternalReferenceNo = "abc " + i,
-                        DueDate = DateTime.Now.AddDays(i + 1),
-                        Paid = false,
-                        Invoiced = false,
-                        CreditMemo = false,
-                        PaymentDate = DateTime.Now.AddDays(i + 10),
-                        CurrencyId = 1,
-                        VendorId = 8,
-                        TotalAmount = 0F
-                    };
+            //if (!_ctx.PurchaseInvoiceHeaders.Any())
+            //{
+            //    for (int i = 0; i < 20; i++)
+            //    {
+            //        var invoiceHeader = new PurchaseInvoiceHeader
+            //        {
+            //            InvoiceNo = "Faktura Broj" + i,
+            //            PostingDate = DateTime.Now.AddDays(-i - 1),
+            //            ExternalReferenceNo = "abc " + i,
+            //            DueDate = DateTime.Now.AddDays(i + 1),
+            //            Paid = false,
+            //            Invoiced = false,
+            //            CreditMemo = false,
+            //            PaymentDate = DateTime.Now.AddDays(i + 10),
+            //            CurrencyId = 1,
+            //            VendorId = 8,
+            //            TotalAmount = 0F
+            //        };
 
-                    for (int j = 0; j < 3; j++)
-                    {
-                        var invoiceLine = new PurchaseInvoiceLine
-                        {
-                            Header = invoiceHeader,
-                            Quantity = 1,
-                            UnitPrice = 250,
-                            DiscountPercent = 0,
-                            LineAmount = 0,
-                            Remark = "bla",
-                            VehicleId = 1,
-                            Description = "bla bla",
-                            VatPercent = 18
-                        };
+            //        for (int j = 0; j < 3; j++)
+            //        {
+            //            var invoiceLine = new PurchaseInvoiceLine
+            //            {
+            //                Header = invoiceHeader,
+            //                Quantity = 1,
+            //                UnitPrice = 250,
+            //                DiscountPercent = 0,
+            //                LineAmount = 0,
+            //                Remark = "bla",
+            //                VehicleId = 1,
+            //                Description = "bla bla",
+            //                VatPercent = 18
+            //            };
 
-                        _ctx.PurchaseInvoiceLines.Add(invoiceLine);
-                    }
+            //            _ctx.PurchaseInvoiceLines.Add(invoiceLine);
+            //        }
 
-                    _ctx.PurchaseInvoiceHeaders.Add(invoiceHeader);
-                }
+            //        _ctx.PurchaseInvoiceHeaders.Add(invoiceHeader);
+            //    }
 
-                _ctx.SaveChanges();
-            }
+            //    _ctx.SaveChanges();
+            //}
             //else
             //{
             //    foreach(PurchaseInvoiceLine line in _ctx.PurchaseInvoiceLines)
@@ -374,7 +390,7 @@ namespace DBLayerPOC.Infrastructure
             //}
 
 
- 
+
 
             //if (!_ctx.TransportOffers.Any())
             //{
@@ -406,13 +422,13 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
             //}
 
-            if(!_ctx.Login.Any())
+            if (!_ctx.Login.Any())
             {
                 var login = new LoginModel
                 {
-                    Name = "Pera Peric",
-                    Username = "User1",
-                    Password = "abc",
+                    Name = "Admin",
+                    Username = "Admin",
+                    Password = "admin",
                     IsAdmin = true,
                     IsInactive = false
                 };
@@ -421,9 +437,9 @@ namespace DBLayerPOC.Infrastructure
 
                 var login1 = new LoginModel
                 {
-                    Username = "User2",
-                    Password = "cba",
-                    Name = "MIka Mikic",
+                    Username = "User",
+                    Password = "user",
+                    Name = "User",
                     IsAdmin = false,
                     IsInactive = false  
                 };
