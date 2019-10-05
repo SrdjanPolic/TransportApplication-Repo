@@ -33,6 +33,7 @@ export class AuthService {
         this.router.navigate(['/home']);
       }, err => {
         this.loggedIn.next(false);
+        window.alert('Molimo unesite ispravne podatke.');
       });
     }
 
