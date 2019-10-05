@@ -14,7 +14,8 @@ export class PrintService {
     this.isPrinting = true;
     this.router.navigate(['/',
     {outlets: {
-      'print': ['print', documentName, documentData.join()]
+      //'print': ['print', documentName, documentData.join()]
+      'print': ['print']
     }}
   ]);
   }

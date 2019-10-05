@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DBLayerPOC": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Key": "Value"
+      }
+    }
+  }
+}

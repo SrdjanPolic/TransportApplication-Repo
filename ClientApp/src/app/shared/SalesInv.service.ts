@@ -15,10 +15,10 @@ export class SalesInvService {
 
   saveOrUpdateInvoice() {
     this.formData.lines = this.SalesInvLines;
-    // this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
-    // this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
-    // this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
-    // this.formData.orderDate = this.adjustDateForTimeOffset(this.formData.orderDate);
+    this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
+    this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
+    this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
+    this.formData.orderDate = this.adjustDateForTimeOffset(this.formData.orderDate);
     var body = {
       ...this.formData,
       SalesInvLines: this.SalesInvLines
