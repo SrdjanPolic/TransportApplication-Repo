@@ -19,7 +19,7 @@ namespace TransportWebAPI
         {
             var hostBuilder = CreateWebHostBuilder(args);
             var host = hostBuilder.Build().MigrateDatabase();
-            RunSeeding(host);
+           // RunSeeding(host);
             host.Run();
         }
 

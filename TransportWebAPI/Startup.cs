@@ -27,11 +27,12 @@ namespace TransportWebAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
-
+        private IHostingEnvironment _env;
         public IConfiguration Configuration { get; }
 
 
@@ -66,16 +67,26 @@ namespace TransportWebAPI
             services.ConfigureIISIntegration();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            string databaseConnectionString;
+            if (_env.IsDevelopment())
+            {
+                databaseConnectionString = Configuration.GetConnectionString("ConnectionStringDev");
+            }
+            else
+            {
+                databaseConnectionString = Configuration.GetConnectionString("ConnectionStringProd");
+            }
 
-            services.AddMvc().AddJsonOptions(options =>
+
+                services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            }); ;
+            }); 
 
             services.AddEntityFrameworkSqlServer()
               .AddDbContext<AppDbContext>(options =>
               {
-                  options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"),
+                  options.UseSqlServer(databaseConnectionString,
                                        sqlOptions => sqlOptions.MigrationsAssembly("DBLayerPOC"));
               }
              );
@@ -92,9 +103,9 @@ namespace TransportWebAPI
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

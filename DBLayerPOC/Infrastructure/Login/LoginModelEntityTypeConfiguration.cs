@@ -17,7 +17,7 @@ namespace DBLayerPOC.Infrastructure.Login
             builder.Property(x => x.Username).HasColumnName("Username").HasMaxLength(50);
             builder.Property(x => x.Password).HasColumnName("Password").HasMaxLength(50);
             builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
-            builder.Property(x => x.IsAdmin).HasColumnName("IsInactive").HasDefaultValue(false);
+            builder.Property(x => x.IsAdmin).HasColumnName("IsAdmin").HasDefaultValue(false);
         }
     }
 }
