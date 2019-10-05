@@ -22,14 +22,10 @@ namespace TransportWebAPI.Controllers
 
         // GET: api/Customers
         [HttpGet, Authorize]
-        public IActionResult Get([FromBody]LoginModel loggedUser)
+        public IActionResult Get()
         {
             try
             {
-                if (loggedUser == null || !loggedUser.IsAdmin)
-                {
-                    return BadRequest(401);
-                }
                 var users = _unitOfWork.GetRepository<LoginModel>()
                     .GetList().Items.ToList();
                 return Ok(users);
@@ -41,23 +37,18 @@ namespace TransportWebAPI.Controllers
         }
 
         // GET: api/User/5
-        [HttpGet("{id}", Name = "Get"), Authorize]
-        public IActionResult Get(int id, LoginModel loggedUser)
+        [HttpGet("{id}", Name = "GetUser"), Authorize]
+        public IActionResult Get(int id)
         {
             try
             {
-                if (loggedUser.IsAdmin)
+                var user = _unitOfWork.GetRepository<LoginModel>().Single(x => x.Id == id);
+                if (user == null)
                 {
-                    var user = _unitOfWork.GetRepository<LoginModel>().Single(x => x.Id == id);
-                    if (user == null)
-                    {
-                        return NotFound();
-                    }
-
-                    return Ok(user);
+                    return NotFound();
                 }
 
-                return BadRequest(401);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -67,14 +58,10 @@ namespace TransportWebAPI.Controllers
 
         // POST: api/User
         [HttpPost, Authorize]
-        public IActionResult Post([FromBody] LoginModel userToInsert, LoginModel loggedUser)
+        public IActionResult Post([FromBody] LoginModel userToInsert)
         {
             try
             {
-                if(loggedUser == null || !loggedUser.IsAdmin)
-                {
-                    return BadRequest(401);
-                }
                 if (userToInsert == null)
                 {
                     return BadRequest("User object is null");
@@ -85,11 +72,11 @@ namespace TransportWebAPI.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                
+
                 _unitOfWork.GetRepository<LoginModel>().Add(userToInsert);
                 _unitOfWork.SaveChanges();
 
-                return CreatedAtRoute(routeName: "Get",
+                return CreatedAtRoute(routeName: "GetUser",
                                       routeValues: new { id = userToInsert.Id },
                                       value: userToInsert);
             }
@@ -101,15 +88,10 @@ namespace TransportWebAPI.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}"), Authorize]
-        public IActionResult Put(int id, [FromBody] LoginModel userToChange, LoginModel loggedUser)
+        public IActionResult Put(int id, [FromBody] LoginModel userToChange)
         {
             try
             {
-                if (loggedUser == null || !loggedUser.IsAdmin)
-                {
-                    return BadRequest(401);
-                }
-
                 if (userToChange == null)
                 {
                     return BadRequest("Customer object is null");
