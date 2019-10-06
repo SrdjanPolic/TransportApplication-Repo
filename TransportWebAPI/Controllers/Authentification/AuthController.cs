@@ -43,7 +43,7 @@ namespace TransportWebAPI.Controllers.Authentification
             {
                 var users = _unitOfWork.GetRepository<LoginModel>().
                         GetList().Items.ToList();
-                if (users.Any(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username)))
+                if (users.Any(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username) && !x.IsInactive))
                 {
                     var loggedUser = users.FirstOrDefault(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username));
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
