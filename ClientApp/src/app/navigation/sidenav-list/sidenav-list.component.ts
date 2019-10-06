@@ -8,10 +8,11 @@ import {AuthService} from './../../auth/auth.service';
 })
 export class SidenavListComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
-
+  isAdministrator: boolean;
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.isAdministrator.subscribe(value => this.isAdministrator = value);
   }
 
   public onSidenavClose = () => {
@@ -20,5 +21,4 @@ export class SidenavListComponent implements OnInit {
   public onLogout() {
     this.authService.logout();
   }
-
 }
