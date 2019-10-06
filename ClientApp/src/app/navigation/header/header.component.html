@@ -21,14 +21,16 @@
           <li>
               <a routerLink="/vendor/vendors">Dobavljači</a>
           </li>
-          
-          <li>
-              <button mat-button (click)="onLogout()">Logout</button>
-          </li>
           <li>
             <button (click)="onToggleTheme()" class="toggleButton" mat-raised-button color="primary">Promeni Temu</button>
           </li>
-          
+          <li>
+            Dobrodošli: {{userName}}
+          </li>
+          <li>
+            <button mat-button (click)="onLogout()">Logout</button>
+        </li>
+
       </ul>
   </div>
 </mat-toolbar>

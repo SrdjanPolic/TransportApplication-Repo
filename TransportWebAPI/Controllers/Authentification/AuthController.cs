@@ -52,6 +52,9 @@ namespace TransportWebAPI.Controllers.Authentification
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
                 return Ok(new { Token = tokenString });
+                //return Ok ({ id: user.id,
+                
+                //});
             }
             else
             {

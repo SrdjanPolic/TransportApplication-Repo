@@ -42,4 +42,7 @@
     <button mat-menu-item (click)="onSidenavClose()">Pregled izlaznih faktura</button>
     <button mat-menu-item (click)="onSidenavClose()">Pregled ulaznih faktura</button>
   </mat-menu>
+  <a mat-list-item routerLink="/user/users" (click)="onSidenavClose()" *ngIf= "this.authService.isAdministrator">
+    <mat-icon>face</mat-icon><span class="nav-caption" >Admin- Korisnici</span>
+  </a>
 </mat-nav-list>
