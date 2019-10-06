@@ -29,26 +29,26 @@ export class AuthService {
     let credentials = JSON.stringify(user);
     this.http.post(routeToLogin, credentials, {
       headers: new HttpHeaders ({
-        "Content-Type" : "application/json"
+        'Content-Type' : 'application/json'
       })
       }).subscribe(response => {
         const token = (<any>response).token;
-        const isadministrator = (<any>response).isAdmin;
+        const administrator = (<any>response).isAdmin;
         this.currentUser = {
           username: user.username,
           id: user.id,
           password: user.password,
-          isAdmin: isadministrator,
+          isAdmin: administrator,
           isInactive: user.isInactive,
           name: user.name
         };
         localStorage.setItem('jwt', token);
         this.loggedIn.next(true);
-        this.isAdmin.next(this.currentUser.isAdmin);
+        this.isAdmin.next(administrator);
         this.router.navigate(['/home']);
       }, err => {
         this.loggedIn.next(false);
-        window.alert('Molimo unesite ispravne podatke.');
+        window.alert('Korisnik nije autorizovan ili je deaktiviran.');
       });
     }
 
