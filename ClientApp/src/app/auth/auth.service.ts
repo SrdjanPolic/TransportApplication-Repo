@@ -18,7 +18,7 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
   get isAdministrator()  {
-    return this.currentUser.isAdmin;
+    return this.isAdmin.asObservable();
   }
 
   constructor(private router: Router, private repository: RepositoryService, private http: HttpClient) { }
@@ -32,15 +32,16 @@ export class AuthService {
         "Content-Type" : "application/json"
       })
       }).subscribe(response => {
-        let token = (<any>response).token;
+        const token = (<any>response).token;
+        const isadministrator = (<any>response).isAdmin;
         this.currentUser = {
           username: user.username,
           id: user.id,
           password: user.password,
-          isAdmin: (<any>response).isAdmin,
+          isAdmin: isadministrator,
           isInactive: user.isInactive,
           name: user.name
-        }
+        };
         localStorage.setItem('jwt', token);
         this.loggedIn.next(true);
         this.isAdmin.next(this.currentUser.isAdmin);
