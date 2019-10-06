@@ -13,7 +13,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private isAdmin = new BehaviorSubject<boolean>(false);
-  currentUser: User | null;
+  public currentUser: User | null;
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
