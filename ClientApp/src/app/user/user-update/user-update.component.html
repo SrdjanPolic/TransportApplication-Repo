@@ -1,6 +1,6 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-card fxFlex="500px" fxFlex.xs="100%">
-    <mat-card-title>Ažuriraj vozača</mat-card-title>
+    <mat-card-title>Ažuriraj korisnika</mat-card-title>
     <form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)="updateUser(userForm.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-card-content>
@@ -11,10 +11,10 @@
           <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" placeholder="Korisničko ime" formControlName="userName" id="userName">
+          <input matInput type="text" placeholder="Korisničko ime" formControlName="username" id="username">
           <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
-          <mat-error *ngIf="hasError('userName', 'required')">Korisničko ime je neophodno</mat-error>
-          <mat-error *ngIf="hasError('userName', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+          <mat-error *ngIf="hasError('username', 'required')">Korisničko ime je neophodno</mat-error>
+          <mat-error *ngIf="hasError('username', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
         </mat-form-field>
 
         <mat-form-field>

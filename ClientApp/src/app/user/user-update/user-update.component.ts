@@ -26,7 +26,7 @@ export class UserUpdateComponent implements OnInit {
   ngOnInit() {
     this.userForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      userName: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      username: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       isAdmin: new FormControl(false),
       isInactive: new FormControl(false)
