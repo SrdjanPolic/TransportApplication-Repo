@@ -45,7 +45,7 @@
   <a mat-list-item routerLink="/user/users" (click)="onSidenavClose()" *ngIf= "isAdministrator === true">
     <mat-icon>face</mat-icon><span class="nav-caption" >Admin- Korisnici</span>
   </a>
-  <a mat-list-item routerLink="/user/users" (click)="onLogout()">
+  <a mat-list-item routerLink="/home" (click)="onLogout()">
     <mat-icon>cancel</mat-icon><span class="nav-caption" >Logout</span>
   </a>
 </mat-nav-list>
