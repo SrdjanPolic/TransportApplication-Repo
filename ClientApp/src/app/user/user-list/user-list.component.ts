@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['username', 'isAdmin', 'isInactive', 'update'];
+  public displayedColumns = ['username', 'name', 'isAdmin', 'isInactive', 'update'];
   public dataSource = new MatTableDataSource<User>();
 
   @ViewChild(MatSort) sort: MatSort;

@@ -12,8 +12,13 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
-    get isLoggedIn() {
+  private isAdmin = new BehaviorSubject<boolean>(false);
+  currentUser: User | null;
+  get isLoggedIn() {
     return this.loggedIn.asObservable();
+  }
+  get isAdministrator()  {
+    return this.isAdmin.asObservable();
   }
 
   constructor(private router: Router, private repository: RepositoryService, private http: HttpClient) { }
@@ -27,9 +32,19 @@ export class AuthService {
         "Content-Type" : "application/json"
       })
       }).subscribe(response => {
-        let token = (<any>response).token;
-        localStorage.setItem("jwt",token);
+        const token = (<any>response).token;
+        const isadministrator = (<any>response).isAdmin;
+        this.currentUser = {
+          username: user.username,
+          id: user.id,
+          password: user.password,
+          isAdmin: isadministrator,
+          isInactive: user.isInactive,
+          name: user.name
+        };
+        localStorage.setItem('jwt', token);
         this.loggedIn.next(true);
+        this.isAdmin.next(this.currentUser.isAdmin);
         this.router.navigate(['/home']);
       }, err => {
         this.loggedIn.next(false);
@@ -46,7 +61,8 @@ export class AuthService {
 
   logout() {
     this.loggedIn.next(false);
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
+    this.currentUser = null;
     this.router.navigate(['/login']);
 
   }

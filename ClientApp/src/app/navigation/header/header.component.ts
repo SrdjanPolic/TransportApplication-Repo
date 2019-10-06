@@ -10,7 +10,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
   @Output() public toggleTheme = new EventEmitter();
-  isLoggedIn$: Observable<boolean>; 
+  isLoggedIn$: Observable<boolean>;
 
   constructor(private authService: AuthService) { }
 
@@ -22,6 +22,12 @@ export class HeaderComponent implements OnInit {
     this.sidenavToggle.emit();
   }
 
+  get userName(): string {
+    if (this.authService.isLoggedIn) {
+      return this.authService.currentUser.username;
+    }
+  }
+
   public onToggleTheme = () => {
     this.toggleTheme.emit();
   }
@@ -31,6 +37,6 @@ export class HeaderComponent implements OnInit {
   }
 
 
- 
+
 
 }
