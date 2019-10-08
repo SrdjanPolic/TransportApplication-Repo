@@ -426,8 +426,8 @@ namespace DBLayerPOC.Infrastructure
             {
                 var login = new LoginModel
                 {
-                    Name = "Admin",
-                    Username = "Admin",
+                    Name = "admin",
+                    Username = "admin",
                     Password = "admin",
                     IsAdmin = true,
                     IsInactive = false
@@ -437,9 +437,9 @@ namespace DBLayerPOC.Infrastructure
 
                 var login1 = new LoginModel
                 {
-                    Username = "User",
+                    Username = "user",
                     Password = "user",
-                    Name = "User",
+                    Name = "user",
                     IsAdmin = false,
                     IsInactive = false  
                 };
