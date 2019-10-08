@@ -125,6 +125,8 @@ namespace DBLayerPOC.Infrastructure
                 };
 
                 _ctx.SettingsTable.Add(settings);
+
+                _ctx.SaveChanges();
             }
 
             if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
@@ -139,9 +141,11 @@ namespace DBLayerPOC.Infrastructure
                 };
 
                 _ctx.SettingsTable.Add(settings);
+
+                _ctx.SaveChanges();
             }
 
-            _ctx.SaveChanges();
+            
 
             //if (!_ctx.Drivers.Any())
             //{
@@ -446,9 +450,11 @@ namespace DBLayerPOC.Infrastructure
 
                 _ctx.Login.Add(login1);
 
+                _ctx.SaveChanges();
+
             }
 
-            _ctx.SaveChanges();
+         
         }
     }
 }
