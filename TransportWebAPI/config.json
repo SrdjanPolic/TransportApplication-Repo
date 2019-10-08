@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "ConnectionStringProd": "Server=tcp:atomicsped.database.windows.net,1433;Initial Catalog=Bla;Persist Security Info=False;User ID=srdjanpolic;Password=Poka2404980!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    "ConnectionStringDev": "server=DENUE-AXD4094N1\\NAVDEMO;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;"
+    "ConnectionStringProd": "Data Source=81.95.105.76,1433;Network Library=DBMSSOCN;Initial Catalog=e001800;User ID=e001800a;Password=Axesys174500;",
+    "ConnectionStringDev": "server=.\\SQLEXPRESS;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;"
   }
 }
