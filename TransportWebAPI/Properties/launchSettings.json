@@ -25,7 +25,6 @@
       "commandName": "Project",
       "launchUrl": "api/values",
       "environmentVariables": {
-        "ASPNETCORE_DEVELOPMENT": "Development",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://www.atomicsped.com;https://localhost:5001;http://localhost:5000"

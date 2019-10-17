@@ -14,6 +14,9 @@ export class SidenavListComponent implements OnInit {
   ngOnInit() {
     this.authService.isAdministrator.subscribe(value => this.isAdministrator = value);
   }
+  get isAdmin(): string {
+    return localStorage.getItem('isAdmin');
+  }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();

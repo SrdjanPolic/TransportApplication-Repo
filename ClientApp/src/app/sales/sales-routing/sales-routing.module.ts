@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'create', component: InvoiceComponent },
   { path: 'update/:id', component: InvoiceComponent },
   { path: 'delete/:id', component: InvoiceComponent },
-  { path: 'print' , component: PrintLayoutComponent,
-    outlet: 'print' }
+  { path: 'details/:id/print' , component: PrintLayoutComponent}
+    //outlet: 'print' }
 ];
 
 @NgModule({

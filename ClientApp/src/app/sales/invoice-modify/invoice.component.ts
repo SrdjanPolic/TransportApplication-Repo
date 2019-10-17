@@ -31,6 +31,7 @@ export class InvoiceComponent implements OnInit {
   currencyList: Currency[];
   settings: Settings;
   private dialogConfig;
+  invoiceIdForPrint: string;
 
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
@@ -48,13 +49,13 @@ export class InvoiceComponent implements OnInit {
     //   });
     if (invoiceID == null) {
       this.resetForm();
-    }
-    else {
+    } else {
       // tslint:disable-next-line: radix
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
         this.service.formData = res;
         this.service.SalesInvLines = res.lines;
         this.service.formData.deletedInvoiceLineIds = '';
+        this.invoiceIdForPrint = invoiceID;
       });
     }
 
@@ -161,9 +162,9 @@ export class InvoiceComponent implements OnInit {
     console.log(value);
   }
   onPrintInvoice() {
-    const invoiceIds = ['101', '102'];
+    //const invoiceIds = ['101', '102'];
     this.printService
-      .printDocument('invoice', invoiceIds);
+      .printDocument('invoice', this.invoiceIdForPrint);
   }
 
 }

@@ -10,14 +10,16 @@ export class PrintService {
 
   constructor(private router: Router) { }
 
-  printDocument(documentName: string, documentData: string[]) {
+  printDocument(documentName: string, document: string) {
     this.isPrinting = true;
-    this.router.navigate(['/',
-    {outlets: {
-      //'print': ['print', documentName, documentData.join()]
-      'print': ['print']
-    }}
-  ]);
+    let pathurl = `/sales/details/${document}/print`;
+    this.router.navigate([pathurl]);
+  //   this.router.navigate(['/',
+  //   {outlets: {
+  //     //'print': ['print', documentName, documentData.join()]
+  //     'print': ['print']
+  //   }}
+  // ]);
   }
 
   onDataReady() {

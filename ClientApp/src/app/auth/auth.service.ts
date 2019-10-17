@@ -43,6 +43,10 @@ export class AuthService {
           name: user.name
         };
         localStorage.setItem('jwt', token);
+        localStorage.setItem('username', this.currentUser.username);
+        if (this.currentUser.isAdmin) {
+          localStorage.setItem('isAdmin', 'true')
+        } else { localStorage.setItem('isAdmin', 'false'); }
         this.loggedIn.next(true);
         this.isAdmin.next(administrator);
         this.router.navigate(['/home']);
@@ -52,16 +56,11 @@ export class AuthService {
       });
     }
 
-
-  //   if (user.username !== '' && user.password !== '') {            //dodati logiku za proveru korisnika
-  //     this.loggedIn.next(true);
-  //     this.router.navigate(['/home']);
-  //   }
-  // }
-
   logout() {
     this.loggedIn.next(false);
     localStorage.removeItem('jwt');
+    localStorage.removeItem('username');
+    localStorage.removeItem('isAdmin');
     this.currentUser = null;
     this.router.navigate(['/login']);
 
