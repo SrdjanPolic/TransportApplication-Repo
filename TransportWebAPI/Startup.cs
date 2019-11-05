@@ -22,21 +22,22 @@ using System.IO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Hosting;
 
 namespace TransportWebAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             _env = env;
         }
-        private IHostingEnvironment _env;
+        private IWebHostEnvironment _env;
         public IConfiguration Configuration { get; }
 
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -55,6 +56,7 @@ namespace TransportWebAPI
                 });
 
 
+
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", corsBuilder =>
@@ -65,7 +67,6 @@ namespace TransportWebAPI
 
             services.ConfigureCors();
             services.ConfigureIISIntegration();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             string databaseConnectionString;
             if (_env.IsDevelopment())
@@ -77,11 +78,13 @@ namespace TransportWebAPI
                 databaseConnectionString = Configuration.GetConnectionString("ConnectionStringProd");
             }
 
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(databaseConnectionString));
 
-                services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            }); 
+
+            //    services.AddMvc().AddJsonOptions(options =>
+            //{
+            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //}); 
 
             services.AddEntityFrameworkSqlServer()
               .AddDbContext<AppDbContext>(options =>
@@ -91,49 +94,101 @@ namespace TransportWebAPI
               }
              );
 
+            services.AddControllers(options => options.EnableEndpointRouting = false);
+
             services.AddTransient<Seeder>();
 
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new RepositoryHandlerModule());
-            builder.Populate(services);
-            var container = builder.Build();
-            // Create the IServiceProvider based on the container.
-            return new AutofacServiceProvider(container);
+            
+
+           
+
+            //var builder = new ContainerBuilder();
+            //builder.RegisterModule(new RepositoryHandlerModule());
+            //builder.Populate(services);
+            //var container = builder.Build();
+            //// Create the IServiceProvider based on the container.
+            //return new AutofacServiceProvider(container);
         }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new RepositoryHandlerModule());
+        }
+
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.Use(async (context, next) =>
-                {
-                    await next();
-                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-                    {
-                        context.Request.Path = "/index.html";
-                        await next();
-                    }
-                });
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
-            app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.UseCors("EnableCORS");
-            app.UseCors("CorsPolicy");
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                ForwardedHeaders = ForwardedHeaders.All
+                endpoints.MapControllers();
             });
-            app.UseStaticFiles();
-            app.UseMvc();
+
+            //if (_env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.Use(async (context, next) =>
+            //    {
+            //        await next();
+            //        if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+            //        {
+            //            context.Request.Path = "/index.html";
+            //            await next();
+            //        }
+            //    });
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+            //app.UseRouting();
+            //app.UseCors("default");
+
+            //app.UseAuthorization();
+            //app.UseAuthentication();
+
+
+
+
+
+            //app.UseEndpoints(endpoints =>
+
+            //{
+
+            //    endpoints.MapControllerRoute(
+
+            //        name: "default",
+
+            //        pattern: "{controller}/api/{action=Index}/{id?}");
+
+            //});
+
+
+            //app.UseCors("EnableCORS");
+            //app.UseCors("CorsPolicy");
+            //app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //{
+            //    ForwardedHeaders = ForwardedHeaders.All
+            //});
+            //app.UseStaticFiles();
+            //app.UseMvc();
         }
     }
 }

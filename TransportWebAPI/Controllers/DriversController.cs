@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Infrastructure.Driver;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Data;
 

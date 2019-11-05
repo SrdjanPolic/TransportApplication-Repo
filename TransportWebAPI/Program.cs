@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac.Extensions.DependencyInjection;
 using DBLayerPOC;
 using DBLayerPOC.Infrastructure;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace TransportWebAPI
@@ -17,26 +19,31 @@ namespace TransportWebAPI
     {
         public static void Main(string[] args)
         {
-            var hostBuilder = CreateWebHostBuilder(args);
-            var host = hostBuilder.Build().MigrateDatabase();
-            RunSeeding(host);
+            var host = CreateHostBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webHostBuilder => {
+            webHostBuilder
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .UseIISIntegration();
+        })
+        .Build();
+
             host.Run();
         }
 
-        private static void RunSeeding(IWebHost host)
-        {
-            var seeder = host.Services.GetService<Seeder>();
-            seeder.Seed();
-        }
+        //private static void RunSeeding(IWebHost host)
+        //{
+        //    var seeder = host.Services.GetService<Seeder>();
+        //    seeder.Seed();
+        //}
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(SetupConfiguration)
-                .UseStartup<Startup>().ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConsole();
-                });
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+         Host.CreateDefaultBuilder(args)
+             .ConfigureWebHostDefaults(webBuilder =>
+             {
+                 webBuilder.UseStartup<Startup>();
+             });
+
 
         private static void SetupConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
         {
