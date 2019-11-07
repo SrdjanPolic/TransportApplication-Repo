@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {InvoicesComponent} from './../invoice-list/invoices.component';
 import {InvoiceComponent} from './../invoice-modify/invoice.component';
 import {InvoiceLinesComponent} from './../invoice-lines/invoice-lines.component';
-import {PrintLayoutComponent} from './../../print-layout/print-layout.component';
+import { InvoicePrintComponent } from '../invoice-print/invoice-print.component';
 
 const routes: Routes = [
   { path: 'SalesInvoices', component: InvoicesComponent },
@@ -13,8 +13,7 @@ const routes: Routes = [
   { path: 'create', component: InvoiceComponent },
   { path: 'update/:id', component: InvoiceComponent },
   { path: 'delete/:id', component: InvoiceComponent },
-  { path: 'details/:id/print' , component: PrintLayoutComponent}
-    //outlet: 'print' }
+  { path: 'details/:id/print' , component: InvoicePrintComponent}
 ];
 
 @NgModule({

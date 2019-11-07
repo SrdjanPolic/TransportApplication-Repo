@@ -44,9 +44,6 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     const invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    // this.repoService.getData('api/Settings/SalesInvoice').subscribe(res => {
-    //   this.settings = res as Settings;
-    //   });
     if (invoiceID == null) {
       this.resetForm();
     } else {
@@ -162,9 +159,10 @@ export class InvoiceComponent implements OnInit {
     console.log(value);
   }
   onPrintInvoice() {
-    //const invoiceIds = ['101', '102'];
-    this.printService
-      .printDocument('invoice', this.invoiceIdForPrint);
+    // this.printService
+    //   .printDocument('invoice', this.invoiceIdForPrint);
+    let pathurl = `/sales/details/${this.invoiceIdForPrint}/print`;
+    this.router.navigate([pathurl]);
   }
 
 }

@@ -25,12 +25,31 @@ $candy-app-theme: mat-light-theme(
 }
 
 
-
-
-
 /* for sidenav to take whole page */
 html, body {
     margin: 0;
     height: 100%;
 }
 
+
+@media print {
+  /* invert the display (show/hide) properties of the main */
+  /* aplication component and the printing component       */
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  app-invoice-print {
+    display: block;
+  }
+
+  app-header {
+    display: none;
+  }
+  /* ##################################################### */
+}

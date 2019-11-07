@@ -1,0 +1,133 @@
+
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="/assets/img/AtomicSped.bmp" style="width:100%; max-width:500px;">
+                        </td>
+                        <td>
+                            <strong>Preduzeće za transport, špediciju i logistiku</strong><br>
+                                <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
+                                    <strong>Matični broj 21417408</strong><br>
+                                       <strong>PIB 111040511</strong><br>
+                                            office@atomic-sped.rs<br>
+                            <strong>Tekući račun  160-523065-50 Banca Intesa AD</strong><br>
+                            <br> <br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            RAČUN BR           {{this.service.formData.invoiceNo}}<br>
+                            Datum izdavanja računa           {{this.service.formData.postingDate.toString()  | localTime}}<br>
+                            Valuta računa                    {{this.service.formData.dueDate.toString() | localTime}}<br>
+                            Datum prometa dobara            {{this.service.formData.postingDate.toString() | localTime}}<br><br><br>
+                            Broj vozila:             {{this.service.formData.vehicleId}}<br>
+                            Broj CMR-a:              {{this.service.formData.crmNumber}}<br>
+                            Količina robe:           {{this.service.formData.commodityType}}<br>
+                            Vrsta prevoza:           {{this.service.formData.remarks}}<br>
+                        </td>
+
+                        <td>
+                            {{this.customer.name}}<br>
+                            {{this.customer.address}}<br>
+                            {{this.customer.vatNumber}}<br>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <div class="row">
+      <div class="span8 well invoice-body">
+        <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th><strong>Usluge transporta</strong></th>
+            <th>Cena</th>
+            <th>PDV%</th>
+            <th>PDV</th>
+            <th>Ukupno</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let lines of this.service.SalesInvLines">
+          <td>{{lines.description}}</td>
+          <td>{{lines.unitPrice |number: '1.2-2'}}</td>
+          <td>{{lines.vatPercent |number: '1.2-2'}}</td>
+          <td>{{lines.lineAmount - (lines.unitPrice * lines.quantity) |number: '1.2-2'}}</td>
+          <td>{{lines.lineAmount |number: '1.2-2'}}</td>
+          </tr><tr>
+            <td>&nbsp;</td>
+            <td><strong>SVEGA</strong></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><strong>{{this.service.formData.totalAmount |number: '1.2-2'}}</strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><strong>ZA UPLATU DINARA</strong></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><strong>{{this.service.formData.totalAmount |number: '1.2-2'}}</strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><strong>KURS EUR</strong></td>
+            <td><strong>117.5 (napraviti kontroler)</strong></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div>
+      <p>
+        <strong>Slovima: {{this.convertNumberToWords(this.service.formData.totalAmount)}} </strong>
+      </p>
+    </div>
+    <br>
+    <div>
+      <p><strong>Oslobođenje PDV-a po članu 24 stav 1 tačka 1</strong></p>
+      <p><strong>Zakona o pdv (Sl. glasnik 84/2004, 86/2004, ispravka 14/2014, 83/2015, 108/2016).</strong></p>
+    </div>
+    <div>
+      Referenca : {{this.service.formData.externalReferenceNo}}
+    </div>
+    <div>
+      Datum utovara: ??
+      Datum istovara: ??
+    </div>
+    <footer>
+      <p>
+        <strong>Molimo vas da račun uplatite u valutnom roku na tekući račun.</strong>
+      </p>
+      <p>
+        <strong>U pozivu na broj navedite {{this.service.formData.invoiceNo}}. U slučaju kašnjenja zaračunavamo zakonom propisanu kamatu.</strong>
+      </p>
+      <p>
+        <strong>U slučaju spora nadležan je Privredni sud u Valjevu.</strong>
+      </p>
+      <br>
+      <br>
+      <div class="stampel">
+        <p >
+          Beograd {{this.service.formData.postingDate | localTime}}
+        </p>
+        <p>
+          ______________________________________________________
+        </p>
+    </div>
+    </footer>
+</div>

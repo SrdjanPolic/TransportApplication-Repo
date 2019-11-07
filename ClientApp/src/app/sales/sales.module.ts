@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {TransformModule} from './../shared/transform/transform.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { PrintLayoutComponent } from './../print-layout/print-layout.component';
+import { InvoicePrintComponent } from './invoice-print/invoice-print.component';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { PrintLayoutComponent } from './../print-layout/print-layout.component';
     FormsModule,
     TransformModule
   ],
-  declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent, PrintLayoutComponent],
+  declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent,InvoicePrintComponent],
   entryComponents: [InvoiceLinesComponent],
   providers: []
 })

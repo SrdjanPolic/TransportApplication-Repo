@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { PurchInvLine } from '../../_interface/PurchInvLine.model';
 //import { ItemService } from 'src/app/shared/item.service';
 //import { Item } from 'src/app/shared/item.model';
@@ -14,7 +14,7 @@ import { PurchInvService } from '../../shared/PurchInv.service';
 export class InvoiceLinesComponent implements OnInit {
   formData: PurchInvLine;
   //itemList: Item[];
-  isValid: boolean = true;
+  isValid = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -24,7 +24,7 @@ export class InvoiceLinesComponent implements OnInit {
 
   ngOnInit() {
     //this.itemService.getItemList().then(res => this.itemList = res as Item[]);
-    if (this.data.invoiceLineIndex == null)
+    if (this.data.invoiceLineIndex == null) {
       this.formData = {
         id: 0,
         unitPrice: 0,
@@ -35,9 +35,10 @@ export class InvoiceLinesComponent implements OnInit {
         description: '',
         vatPercent: 0,
         purchInvHeaderid: this.data.purchInvHeaderid,
-      }
-    else
+      };
+    } else {
       this.formData = Object.assign({}, this.invoiceService.PurchInvLines[this.data.invoiceLineIndex]);
+    }
   }
 
   // updatePrice(ctrl) {
@@ -53,25 +54,28 @@ export class InvoiceLinesComponent implements OnInit {
   // }
 
   updateTotal() {
-    this.formData.lineAmount = parseFloat((this.formData.quantity * (this.formData.unitPrice - this.formData.unitPrice *(this.formData.discountPercent/100))*(1 + this.formData.vatPercent/100)).toFixed(2));
+    this.formData.lineAmount = parseFloat((this.formData.quantity * (this.formData.unitPrice - this.formData.unitPrice * (this.formData.discountPercent / 100)) * (1 + this.formData.vatPercent / 100)).toFixed(2));
   }
 
   onSubmit(form: NgForm) {
     if (this.validateForm(form.value)) {
-      if (this.data.invoiceLineIndex == null)
+      if (this.data.invoiceLineIndex == null) {
         this.invoiceService.PurchInvLines.push(form.value);
-      else
+      }
+      else {
       this.invoiceService.PurchInvLines[this.data.invoiceLineIndex] = form.value;
+      }
       this.dialogRef.close();
     }
   }
 
   validateForm(formData: PurchInvLine) {
     this.isValid = true;
-    if (formData.unitPrice == 0)
+    if (formData.unitPrice === 0) {
       this.isValid = false;
-    else if (formData.quantity == 0)
+    } else if (formData.quantity === 0) {
       this.isValid = false;
+         }
     return this.isValid;
   }
 
