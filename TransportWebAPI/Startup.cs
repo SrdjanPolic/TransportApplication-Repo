@@ -62,13 +62,10 @@ namespace TransportWebAPI
 
             services.AddCors(options =>
             {
-                options.AddPolicy("EnableCORS", corsBuilder =>
-                {
-                    corsBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
-                });
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder.WithOrigins("http://localhost:56515"));
             });
-
-            services.ConfigureCors();
+            services.AddMvc();
             services.ConfigureIISIntegration();
 
             string databaseConnectionString;
@@ -123,6 +120,14 @@ namespace TransportWebAPI
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseHttpsRedirection();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:56515"));
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
+            app.UseStaticFiles();
+            app.UseMvc();
 
             app.UseEndpoints(endpoints =>
             {
