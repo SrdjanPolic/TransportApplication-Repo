@@ -100,17 +100,6 @@ namespace TransportWebAPI
             services.AddControllers(options => options.EnableEndpointRouting = false);
 
             services.AddTransient<Seeder>();
-
-
-
-
-
-            //var builder = new ContainerBuilder();
-            //builder.RegisterModule(new RepositoryHandlerModule());
-            //builder.Populate(services);
-            //var container = builder.Build();
-            //// Create the IServiceProvider based on the container.
-            //return new AutofacServiceProvider(container);
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -140,58 +129,24 @@ namespace TransportWebAPI
                 endpoints.MapControllers();
             });
 
-            //if (_env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.Use(async (context, next) =>
-            //    {
-            //        await next();
-            //        if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-            //        {
-            //            context.Request.Path = "/index.html";
-            //            await next();
-            //        }
-            //    });
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
-
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-            //app.UseRouting();
-            //app.UseCors("default");
-
-            //app.UseAuthorization();
-            //app.UseAuthentication();
-
-
-
-
-
-            //app.UseEndpoints(endpoints =>
-
-            //{
-
-            //    endpoints.MapControllerRoute(
-
-            //        name: "default",
-
-            //        pattern: "{controller}/api/{action=Index}/{id?}");
-
-            //});
-
-
-            //app.UseCors("EnableCORS");
-            //app.UseCors("CorsPolicy");
-            //app.UseForwardedHeaders(new ForwardedHeadersOptions
-            //{
-            //    ForwardedHeaders = ForwardedHeaders.All
-            //});
-            //app.UseStaticFiles();
-            //app.UseMvc();
+            if (_env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.Use(async (context, next) =>
+                {
+                    await next();
+                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                    {
+                        context.Request.Path = "/index.html";
+                        await next();
+                    }
+                });
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
         }
     }
 }
