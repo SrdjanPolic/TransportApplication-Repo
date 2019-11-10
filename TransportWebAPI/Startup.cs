@@ -39,21 +39,24 @@ namespace TransportWebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+                            {
+                                options.TokenValidationParameters = new TokenValidationParameters
+                                {
+                                    ValidateIssuer = true,
+                                    ValidateAudience = true,
+                                    ValidateLifetime = true,
+                                    ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = "http://localhost:56515",
-                        ValidAudience = "http://localhost:56515",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
-                    };
-                });
+                                    ValidIssuer = "http://localhost:56515",
+                                    ValidAudience = "http://localhost:56515",
+                                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                                };
+                            });
 
 
 
@@ -98,9 +101,9 @@ namespace TransportWebAPI
 
             services.AddTransient<Seeder>();
 
-            
 
-           
+
+
 
             //var builder = new ContainerBuilder();
             //builder.RegisterModule(new RepositoryHandlerModule());
@@ -129,7 +132,7 @@ namespace TransportWebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
