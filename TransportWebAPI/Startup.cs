@@ -58,14 +58,16 @@ namespace TransportWebAPI
                                 };
                             });
 
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAnyOrigin",
-                    builder => builder.WithOrigins("http://localhost:56515"));
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.AllowAnyOrigin());
             });
-            services.AddMvc();
+            
+
+         
             services.ConfigureIISIntegration();
 
             string databaseConnectionString;
@@ -120,14 +122,15 @@ namespace TransportWebAPI
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseHttpsRedirection();
-            app.UseCors(builder => builder.WithOrigins("http://localhost:56515"));
+            
+            
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseStaticFiles();
-            app.UseMvc();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:56515", "http://localhost:4200"));
 
             app.UseEndpoints(endpoints =>
             {
@@ -152,6 +155,9 @@ namespace TransportWebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+            app.UseHttpsRedirection();
+            app.UseMvc();
         }
     }
 }
