@@ -58,12 +58,12 @@ namespace TransportWebAPI
                                 };
                             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
+            
+            services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin",
-                    builder => builder.AllowAnyOrigin());
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
             
 
@@ -117,9 +117,7 @@ namespace TransportWebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
+            
             app.UseAuthentication();
             app.UseAuthorization();
             
@@ -129,8 +127,10 @@ namespace TransportWebAPI
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:56515", "http://localhost:4200"));
+            app.UseRouting();
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
