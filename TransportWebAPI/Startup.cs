@@ -80,13 +80,9 @@ namespace TransportWebAPI
                 databaseConnectionString = Configuration.GetConnectionString("ConnectionStringProd");
             }
 
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(databaseConnectionString));
-
-
-            //    services.AddMvc().AddJsonOptions(options =>
-            //{
-            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //}); 
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddEntityFrameworkSqlServer()
               .AddDbContext<AppDbContext>(options =>
