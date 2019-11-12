@@ -31,6 +31,7 @@ export class InvoiceComponent implements OnInit {
   currencyList: Currency[];
   settings: Settings;
   private dialogConfig;
+  invoiceIdForPrint: string;
 
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
@@ -43,18 +44,15 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     const invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    // this.repoService.getData('api/Settings/SalesInvoice').subscribe(res => {
-    //   this.settings = res as Settings;
-    //   });
     if (invoiceID == null) {
       this.resetForm();
-    }
-    else {
+    } else {
       // tslint:disable-next-line: radix
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
         this.service.formData = res;
         this.service.SalesInvLines = res.lines;
         this.service.formData.deletedInvoiceLineIds = '';
+        this.invoiceIdForPrint = invoiceID;
       });
     }
 
@@ -161,9 +159,10 @@ export class InvoiceComponent implements OnInit {
     console.log(value);
   }
   onPrintInvoice() {
-    const invoiceIds = ['101', '102'];
-    this.printService
-      .printDocument('invoice', invoiceIds);
+    // this.printService
+    //   .printDocument('invoice', this.invoiceIdForPrint);
+    let pathurl = `/sales/details/${this.invoiceIdForPrint}/print`;
+    this.router.navigate([pathurl]);
   }
 
 }

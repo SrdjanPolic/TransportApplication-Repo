@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async">
+<mat-toolbar color="primary" *ngIf="this.userName != null">
   <div>
       <button mat-icon-button (click)="onToggleSidenav()">
           <mat-icon>menu</mat-icon>
@@ -34,3 +34,4 @@
       </ul>
   </div>
 </mat-toolbar>
+

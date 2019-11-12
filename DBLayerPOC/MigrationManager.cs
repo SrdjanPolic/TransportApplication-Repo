@@ -14,15 +14,15 @@ namespace DBLayerPOC
             {
                 using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
                 {
-                    try
-                    {
-                        appContext.Database.Migrate();
-                    }
-                    catch (Exception ex)
-                    {
-                        //Log errors or do anything you think it's needed
-                        throw;
-                    }
+                    //try
+                    //{
+                    //    appContext.Database.Migrate();
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    //Log errors or do anything you think it's needed
+                    //    throw;
+                    //}
                 }
             }
 

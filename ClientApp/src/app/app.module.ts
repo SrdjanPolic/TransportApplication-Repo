@@ -42,29 +42,29 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: LayoutComponent,
-        canActivate: [AuthGuard],
-        children: [
-          {
-            path: '',
-            component: HomeComponent
-          }
-        ]
-      },
-      {
-        path: '',
-        component: LoginLayoutComponent,
-        children: [
-          {
-            path: 'login',
-            component: LoginComponent
-          }
-        ]
-      },
-    ])
+    // RouterModule.forRoot([
+    //   {
+    //     path: '',
+    //     component: LayoutComponent,
+    //     canActivate: [AuthGuard],
+    //     children: [
+    //       {
+    //         path: '',
+    //         component: HomeComponent
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     path: '',
+    //     component: LoginLayoutComponent,
+    //     children: [
+    //       {
+    //         path: 'login',
+    //         component: LoginComponent
+    //       }
+    //     ]
+    //   },
+    // ])
   ],
   providers: [AuthService, AuthGuard,
     {provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
