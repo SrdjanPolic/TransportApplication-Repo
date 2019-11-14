@@ -17,6 +17,7 @@ import { Customer} from './../../_interface/customer.model';
 export class InvoicesComponent implements OnInit {
   public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'currencyId', 'paid', 'update'];
   SalesList: Customer;
+  filterBy = 'all';
   public dataSource = new MatTableDataSource<SalesInvHeader>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
