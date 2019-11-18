@@ -8,6 +8,7 @@ using DBLayerPOC;
 using DBLayerPOC.Infrastructure;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,21 +22,22 @@ namespace TransportWebAPI
         {
             var host = CreateHostBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(webHostBuilder => {
-            webHostBuilder
-              .UseContentRoot(Directory.GetCurrentDirectory())
-              .UseIISIntegration();
-        })
-        .Build();
+                .ConfigureWebHostDefaults(webHostBuilder =>
+                {
+                    webHostBuilder
+                      .UseContentRoot(Directory.GetCurrentDirectory())
+                      .UseIISIntegration();
+                }).Build().MigrateDatabase();
+            RunSeeding(host);
 
             host.Run();
         }
 
-        //private static void RunSeeding(IWebHost host)
-        //{
-        //    var seeder = host.Services.GetService<Seeder>();
-        //    seeder.Seed();
-        //}
+        private static void RunSeeding(IHost host)
+        {
+            var seeder = host.Services.GetService<Seeder>();
+            seeder.Seed();
+        }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
          Host.CreateDefaultBuilder(args)
