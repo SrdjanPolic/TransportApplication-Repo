@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  urlAddress: 'http://http://aplikacija.atomic-sped.rs/'
+  //urlAddress: 'http://aplikacija.atomic-sped.rs/'
+  urlAddress : 'https://atomicspedapp.azurewebsites.net/'
 };

@@ -15,17 +15,24 @@ import { Customer} from './../../_interface/customer.model';
   styles: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'currencyId', 'paid', 'update'];
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'currencyId',
+   'paid', 'invoiced', 'creditMemo', 'update'];
   SalesList: Customer;
-  filterBy = 'all';
   public dataSource = new MatTableDataSource<SalesInvHeader>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  Filter: string;
+  filterValues = {
+    paid: 'false',
+    invoiced: 'false',
+    creditMemo: 'false',
+  };
   constructor(private service: SalesInvService,
     private Reposervice: RepositoryService,
     private errorService: ErrorHandlerService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService) {
+     }
 
   ngOnInit() {
     this.refreshList();
@@ -34,6 +41,7 @@ export class InvoicesComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filterPredicate = this.createFilter();
   }
 
   public refreshList = () => {
@@ -49,6 +57,42 @@ export class InvoicesComponent implements OnInit {
 
 public doFilter = (value: string) => {
   this.dataSource.filter = value.trim().toLocaleLowerCase();
+}
+public filterBy = (value: string) => {
+  switch(value) {
+    case 'paid':
+      this.filterValues.paid = 'true';
+      this.filterValues.invoiced = 'false';
+      this.filterValues.creditMemo = 'false';
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+      break;
+    case 'invoiced':
+      this.filterValues.invoiced = 'true';
+      this.filterValues.paid = 'false';
+      this.filterValues.creditMemo = 'false';
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+      break;
+    case 'creditMemo':
+      this.filterValues.creditMemo = 'true';
+      this.filterValues.paid = 'false';
+      this.filterValues.invoiced = 'false';
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+      break;
+    default: break;
+  }
+}
+public createFilter(): (data: any, filter: string) => boolean {
+  let filterFunction = function(data, filter): boolean {
+    let searchTerms = JSON.parse(filter);
+    return data.paid.toString().toLocaleLowerCase().indexOf(searchTerms.paid) !== -1
+    && data.invoiced.toString().toLocaleLowerCase().indexOf(searchTerms.invoiced) !== -1
+    && data.creditMemo.toString().toLocaleLowerCase().indexOf(searchTerms.creditMemo) !== -1;
+  }
+  return filterFunction;
+}
+public clearFilters =() => {
+  this.dataSource.filter = '';
+  this.Filter = '';
 }
 
 public redirectToUpdate = (id: string) => {

@@ -3,16 +3,16 @@
 </div>
 <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
   <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    <input matInput type="text" [(ngModel)]="Filter" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
   <div>
     <a [routerLink]="['/sales/create']" mat-button color="primary">Kreiraj novu izlaznu fakturu</a>
   </div>
   <div>
-    <button mat-raised-button   (click) ="filterBy='paid'">Plaćeno</button>
-    <button mat-raised-button   (click) ="filterBy='invoiced'">Proknjiženo</button>
-    <button mat-raised-button   (click) ="filterBy='creditMemo'">Stornirano</button>
-    <button mat-raised-button   (click) ="filterBy='all'">Prikaži sve</button>
+    <button mat-raised-button   (click) ="filterBy('paid')">Plaćeno</button>
+    <button mat-raised-button   (click) ="filterBy('invoiced')">Proknjiženo</button>
+    <button mat-raised-button   (click) ="filterBy('creditMemo')">Stornirano</button>
+    <button mat-raised-button   (click) ="clearFilters()">Prikaži sve</button>
   </div>
 </div>
 <table mat-table class="table" [dataSource]="dataSource" matSort>
@@ -44,6 +44,16 @@
   <ng-container matColumnDef="paid">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Plaćeno </th>
     <td mat-cell input *matCellDef="let element"> {{element.paid |transformboolean}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="invoiced">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Proknjiženo </th>
+    <td mat-cell input *matCellDef="let element"> {{element.invoiced |transformboolean}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="creditMemo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Stornirano </th>
+    <td mat-cell input *matCellDef="let element"> {{element.creditMemo |transformboolean}} </td>
   </ng-container>
 
   <ng-container matColumnDef="details">
