@@ -18,8 +18,7 @@
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "ancmHostingModel": "OutOfProcess"
+      }
     },
     "TransportWebAPI": {
       "commandName": "Project",
@@ -27,7 +26,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://www.atomicsped.com;https://localhost:5001;http://localhost:5000"
+      "applicationUrl": "http://localhost:56515"
     }
   }
 }

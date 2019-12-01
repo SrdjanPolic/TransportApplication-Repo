@@ -1,6 +1,7 @@
 {
   "ConnectionStrings": {
     //"ConnectionString": "\"server=DENUE-AXD4094N1\\\\NAVDEMO;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;\";",
-    "ConnectionString": "Server=tcp:denue-sql.database.windows.net,1433;Initial Catalog=TransportDBNew;Persist Security Info=False;User ID=adragojevic;Password=Axesys1745;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    //"ConnectionString": "Server=tcp:denue-sql.database.windows.net,1433;Initial Catalog=TransportDBNew;Persist Security Info=False;User ID=adragojevic;Password=Axesys1745;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    "ConnectionString": "Data Source=mssql101.windows.loopia.com;Initial Catalog=e001800;Integrated Security=False;User ID=e001800a;Password=Axesys174500;Connect Timeout=15;Encrypt=False;Packet Size=4096"
   }
 }

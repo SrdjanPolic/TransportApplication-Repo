@@ -20,6 +20,10 @@ import {AuthGuard} from './auth/auth.guard';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {registerLocaleData} from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+registerLocaleData(localeDe, 'de');
 
 @NgModule({
   declarations: [
