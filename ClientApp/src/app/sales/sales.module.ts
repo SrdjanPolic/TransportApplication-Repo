@@ -9,6 +9,7 @@ import {TransformModule} from './../shared/transform/transform.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { InvoicePrintComponent } from './invoice-print/invoice-print.component';
+import { InvoiceInoPrintComponent } from './invoice-ino-print/invoice-ino-print.component';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { InvoicePrintComponent } from './invoice-print/invoice-print.component';
     FormsModule,
     TransformModule
   ],
-  declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent,InvoicePrintComponent],
+  declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent, InvoicePrintComponent, InvoiceInoPrintComponent],
   entryComponents: [InvoiceLinesComponent],
   providers: []
 })

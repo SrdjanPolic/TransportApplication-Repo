@@ -17,11 +17,11 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-invoice-print',
-  templateUrl: './invoice-print.component.html',
-  styles: ['./invoice-print.component.css']
+  selector: 'app-invoice-ino-print',
+  templateUrl: './invoice-ino-print.component.html',
+  styles: ['./invoice-ino-print.component.css']
 })
-export class InvoicePrintComponent implements OnInit {
+export class InvoiceInoPrintComponent implements OnInit {
   customer: Customer;
   driver: Driver;
   vehicle: Vehicle;
@@ -52,6 +52,8 @@ export class InvoicePrintComponent implements OnInit {
         this.service.formData.deletedInvoiceLineIds = '';
         this.invoiceIdForPrint = invoiceID;
       });
+      //window.print();
+      //this.location.back();
 
     }
     let customerByIdUrl: string = `api/Customers/${this.service.formData.customerId}`;
@@ -108,33 +110,33 @@ export class InvoicePrintComponent implements OnInit {
   convertNumberToWords(amount) {
     var words = new Array();
     words[0] = '';
-    words[1] = 'jedan';
-    words[2] = 'dva';
-    words[3] = 'tri';
-    words[4] = 'četiri';
-    words[5] = 'pet';
-    words[6] = 'šest';
-    words[7] = 'sedam';
-    words[8] = 'osam';
-    words[9] = 'devet';
-    words[10] = 'deset';
-    words[11] = 'jedanaest';
-    words[12] = 'dvanaest';
-    words[13] = 'trinaest';
-    words[14] = 'četrnaest';
-    words[15] = 'petnaest';
-    words[16] = 'šesnaest';
-    words[17] = 'sedamnaest';
-    words[18] = 'osamnaest';
-    words[19] = 'devetnaest';
-    words[20] = 'dvadeset';
-    words[30] = 'trideset';
-    words[40] = 'četrdeset';
-    words[50] = 'pedeset';
-    words[60] = 'šezdeset';
-    words[70] = 'sedamdeset';
-    words[80] = 'osamdeset';
-    words[90] = 'devedeset';
+    words[1] = 'one';
+    words[2] = 'two';
+    words[3] = 'three';
+    words[4] = 'four';
+    words[5] = 'five';
+    words[6] = 'six';
+    words[7] = 'seven';
+    words[8] = 'eight';
+    words[9] = 'nine';
+    words[10] = 'ten';
+    words[11] = 'eleven';
+    words[12] = 'twelve';
+    words[13] = 'thirteen';
+    words[14] = 'fourteen';
+    words[15] = 'fifteen';
+    words[16] = 'sixteen';
+    words[17] = 'seventeen';
+    words[18] = 'eighteen';
+    words[19] = 'nineteen';
+    words[20] = 'twenty';
+    words[30] = 'thirty';
+    words[40] = 'fourty';
+    words[50] = 'fifty';
+    words[60] = 'sixty';
+    words[70] = 'seventy';
+    words[80] = 'eighty';
+    words[90] = 'ninety';
     amount = amount.toString();
     var atemp = amount.split(".");
     var number = atemp[0].split(",").join("");
@@ -175,17 +177,17 @@ export class InvoicePrintComponent implements OnInit {
                 words_string += "Lakhs ";
             }
             if ((i == 5 && value != 0) || (i == 4 && value != 0 && n_array[i + 1] == 0)) {
-                words_string += "hiljada";
+                words_string += "thousand";
             }
             if (i == 6 && value != 0 && (n_array[i + 1] != 0 && n_array[i + 2] != 0)) {
-                words_string += "hiljadai";
+                words_string += "thousandand";
             } else if (i == 6 && value != 0) {
-                words_string += "sto";
+                words_string += "hundred";
             }
         }
         words_string = words_string.split("  ").join(" ");
     }
-    return (words_string + 'dinara i 00/100');
+    return (words_string + 'euro and 00/100');
   }
 
 

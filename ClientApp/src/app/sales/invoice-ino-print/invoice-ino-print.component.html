@@ -1,0 +1,122 @@
+
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="/assets/img/AtomicSped.bmp" style="width:100%; max-width:500px;">
+                        </td>
+                        <td>
+                            <strong>Company for transport, freight forwarding and logistics</strong><br>
+                                <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
+                                    <strong>Identification number 21417408</strong><br>
+                                       <strong>VAT 111040511</strong><br>
+                                            office@atomic-sped.rs<br>
+                            <br> <br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            INVOICE          {{this.service.formData.invoiceNo}}<br>
+                            Date of invoice           {{this.service.formData.postingDate.toString()  | localTime}}<br>
+                            Date of payment value                    {{this.service.formData.dueDate.toString() | localTime}}<br>
+                            <br><br><br>
+                            Plate number:             {{this.service.formData.vehicleId}}<br>
+                            Good quantity:              {{this.service.formData.crmNumber}}<br>
+                            Type of transport:           {{this.service.formData.commodityType}}<br>
+                            Remarks:           {{this.service.formData.remarks}}<br>
+                        </td>
+
+                        <td>
+                            {{this.customer.name}}<br>
+                            {{this.customer.address}}<br>
+                            {{this.customer.vatNumber}}<br>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <div class="row">
+      <div class="span8 well invoice-body">
+        <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th><strong>Description of charges</strong></th>
+            <th>Price</th>
+            <th>Total payment</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let lines of this.service.SalesInvLines">
+          <td>{{lines.description}}</td>
+          <td>{{lines.unitPrice | number:'1.2-2' }}</td>
+          <td>{{lines.lineAmount | number:'1.2-2' }}</td>
+          </tr><tr>
+            <td>&nbsp;</td>
+            <td><strong>TOTAL (euro)</strong></td>
+            <td><strong>{{this.service.formData.totalAmount |number: '1.2-2'}}</strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><strong>TOTAL FOR PAYMENT</strong></td>
+            <td><strong>{{this.service.formData.totalAmount | number:'1.2-2' }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div>
+      <p>
+        <strong>In letters: {{this.convertNumberToWords(this.service.formData.totalAmount)}} </strong>
+      </p>
+    </div>
+    <br>
+    <div>
+      Transport order : {{this.service.formData.externalReferenceNo}}
+    </div>
+    <div>
+      Loading date: ??
+      Unloading date: ??
+    </div>
+    <div>
+      <p>
+        Original CMR is enclosed, as well as EX document. In case of payment delay, the <br>
+        interest rate is 0,4% per day of above amount  till the day of actual payment. <br>
+        All claims are beeing accepted until the moment when the truck is discharced.  <br>
+      </p>
+      <p>
+        Payment instruction : <br>
+        BANCA INTESA AD, BEOGRAD, REPUBLIKA SRBIJA <br>
+        SWIFT CODE: DBDBRSBG <br>
+        IBAN: RS3516 0005 3800 0432 9402 <br>
+      </p>
+      <p>
+        BANKING PAYMENT TRANSACTION COST ARE ON YOUR ACCOUNT <br>
+      </p>
+
+    </div>
+    <footer>
+
+      <br>
+      <br>
+      <div class="stampel">
+        <p >
+          Beograd {{this.service.formData.postingDate | localTime}}
+        </p>
+        <p>
+          ______________________________________________________
+        </p>
+    </div>
+    </footer>
+</div>
