@@ -26,99 +26,73 @@ namespace TransportWebAPI.Controllers
         [HttpGet]
         public IActionResult GetVendors()
         {
-            try
-            {
-                var vendors = _unitOfWork.GetRepository<Vendor>().
-                    GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items.ToList();
-                return Ok(vendors);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
-            }
+
+            var vendors = _unitOfWork.GetRepository<Vendor>().
+                GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items.ToList();
+            return Ok(vendors);
         }
 
         // GET: api/Vendors/5
         [HttpGet("{id}", Name = "GetVendor")]
         public IActionResult GetVendor(int id)
         {
-            try
-            {
-                var vendor = _unitOfWork.GetRepository<Vendor>().Single(x => x.Id == id);
-                if (vendor == null)
-                {
-                    return NotFound();
-                }
 
-                return Ok(vendor);
-            }
-            catch (Exception ex)
+            var vendor = _unitOfWork.GetRepository<Vendor>().Single(x => x.Id == id);
+            if (vendor == null)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return NotFound();
             }
+
+            return Ok(vendor);
         }
 
         // PUT: api/Vendors/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVendor(int id, [FromBody] Vendor vendor)
         {
-            try
+            if (vendor == null)
             {
-                if(vendor == null)
-                {
-                    return BadRequest("Vendor object is null");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
-
-                var dbVendor = _unitOfWork.GetRepository<Vendor>().Single(x => x.Id == id);
-                if (dbVendor == null)
-                {
-                    return NotFound();
-                }
-
-                vendor.Id = id;
-                vendor.LastChangeDate = DateTime.Now;
-                _unitOfWork.GetRepository<Vendor>().Update(vendor);
-                _unitOfWork.SaveChanges();
-
-                return NoContent();
+                return BadRequest("Vendor object is null");
             }
-            catch (Exception ex)
+            if (!ModelState.IsValid)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return BadRequest("Invalid model object");
             }
+
+            var dbVendor = _unitOfWork.GetRepository<Vendor>().Single(x => x.Id == id);
+            if (dbVendor == null)
+            {
+                return NotFound();
+            }
+
+            vendor.Id = id;
+            vendor.LastChangeDate = DateTime.Now;
+            _unitOfWork.GetRepository<Vendor>().Update(vendor);
+            _unitOfWork.SaveChanges();
+
+            return NoContent();
         }
 
         // POST: api/Vendors
         [HttpPost]
         public IActionResult Post([FromBody] Vendor vendor)
         {
-            try
+            if (vendor == null)
             {
-                if (vendor == null)
-                {
-                    return BadRequest("Vendor object is null");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
-
-                vendor.LastChangeDate = DateTime.Now;
-                _unitOfWork.GetRepository<Vendor>().Add(vendor);
-                _unitOfWork.SaveChanges();
-
-                return CreatedAtRoute(routeName: "GetVendor",
-                                      routeValues: new { id = vendor.Id },
-                                      value: vendor);
+                return BadRequest("Vendor object is null");
             }
-            catch (Exception ex)
+            if (!ModelState.IsValid)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return BadRequest("Invalid model object");
             }
+
+            vendor.LastChangeDate = DateTime.Now;
+            _unitOfWork.GetRepository<Vendor>().Add(vendor);
+            _unitOfWork.SaveChanges();
+
+            return CreatedAtRoute(routeName: "GetVendor",
+                                  routeValues: new { id = vendor.Id },
+                                  value: vendor);
         }
     }
 }

@@ -43,6 +43,13 @@ namespace TransportWebAPI
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = "atomicspedlog@gmail.com";
+                options.ClientSecret = "atomic1234";
             }).AddJwtBearer(options =>
                             {
                                 options.TokenValidationParameters = new TokenValidationParameters
@@ -105,7 +112,7 @@ namespace TransportWebAPI
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, EmailSendingClient emailSendingClient)
         {
 
             if (_env.IsDevelopment())
@@ -113,7 +120,8 @@ namespace TransportWebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            
+            app.ConfigureExceptionHandler(emailSendingClient);
+
             app.UseAuthentication();
             app.UseAuthorization();
             
@@ -133,12 +141,12 @@ namespace TransportWebAPI
                 endpoints.MapControllers();
             });
 
-            if (_env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
+            //if (_env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
                 app.Use(async (context, next) =>
                 {
                     await next();
@@ -150,7 +158,8 @@ namespace TransportWebAPI
                 });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+                app.UseStaticFiles();
+            //}
             
             app.UseHttpsRedirection();
             app.UseMvc();

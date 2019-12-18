@@ -14,7 +14,7 @@ namespace TransportWebAPI
             builder.RegisterGeneric(typeof(UnitOfWork<>))
                     .As(typeof(IUnitOfWork<>)).InstancePerLifetimeScope();
 
-           // builder.RegisterType<IEmailSendingClient>().InstancePerLifetimeScope();
+            builder.RegisterType<EmailSendingClient>();
         }
     }
 }

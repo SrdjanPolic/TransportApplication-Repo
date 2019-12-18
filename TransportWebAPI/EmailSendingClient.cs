@@ -12,7 +12,7 @@ namespace TransportWebAPI
        void SendLogEmail(string logMessage);
     }
 
-    public class EmailSendingClient
+    public class EmailSendingClient : IEmailSendingClient
     {
         private SmtpClient smtpClient;
         public EmailSendingClient()
@@ -22,15 +22,17 @@ namespace TransportWebAPI
                 Host = "smtp.gmail.com", // set your SMTP server name here
                 Port = 587, // Port 
                 EnableSsl = true,
+                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential("atomicspedlog@gmail.com", "atomic1234")
+                
             };
         }
 
         public async void SendLogEmail(string logMessage)
         {
-            using (var message = new MailMessage("atomicspedlog@gmail.com", "atomicspedlog@mail.com")
+            using (var message = new MailMessage("atomicspedlog@gmail.com", "atomicspedlog@gmail.com")
             {
-                Subject = "Atomic Sped Error",
+                Subject = "Atomic Sped Log",
                 Body = logMessage
             })
             {
