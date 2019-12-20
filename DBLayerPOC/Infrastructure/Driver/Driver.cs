@@ -17,12 +17,6 @@ namespace DBLayerPOC.Infrastructure.Driver
         public DateTime DriversLicenceExpDate { get; set; }
         public string Address { get; set; }
         public string Remark { get; set; }
-        public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
-        public bool IsInactive { get; set; }
-
-        public Driver()
-        {
-            SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
-        }
+        public bool IsInactive { get; set; }       
     }
 }
