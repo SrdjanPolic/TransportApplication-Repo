@@ -27,24 +27,18 @@ namespace TransportWebAPI.Controllers
         [HttpGet]
         public IActionResult GetCurrencies()
         {
-            try
-            {
-                var currencies = _unitOfWork.GetRepository<Currency>().
-                    GetList().Items.ToList();
 
-                foreach(var currency in currencies)
-                {
-                    var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
-                        .GetList().Items.ToList().OrderByDescending(x => x.StartingDate).FirstOrDefault(x => x.CurrencyId == currency.Id);
-                    currency.CurrencyExchangeRates.Add(currencyExchangeRate);
-                }
+            var currencies = _unitOfWork.GetRepository<Currency>().
+                GetList().Items.ToList();
 
-                return Ok(currencies);
-            }
-            catch (Exception ex)
+            foreach (var currency in currencies)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
+                    .GetList().Items.ToList().OrderByDescending(x => x.StartingDate).FirstOrDefault(x => x.CurrencyId == currency.Id);
+                currency.CurrencyExchangeRates.Add(currencyExchangeRate);
             }
+
+            return Ok(currencies);
         }
     }
 }

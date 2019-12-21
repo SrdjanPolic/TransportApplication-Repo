@@ -25,99 +25,72 @@ namespace TransportWebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            try
-            {
-                var vehicles = _unitOfWork.GetRepository<Vehicle>()
-                    .GetList().Items.ToList();
-                return Ok(vehicles);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
-            }
+            var vehicles = _unitOfWork.GetRepository<Vehicle>()
+                .GetList().Items.ToList();
+            return Ok(vehicles);
         }
 
         // GET: api/Vehicles/5
         [HttpGet("{id}", Name = "GetVehicle")]
         public IActionResult Get(int id)
         {
-            try
-            {
-                var vehicles = _unitOfWork.GetRepository<Vehicle>().Single(x => x.Id == id);
-                if (vehicles == null)
-                {
-                    return NotFound();
-                }
 
-                return Ok(vehicles);
-            }
-            catch (Exception ex)
+            var vehicles = _unitOfWork.GetRepository<Vehicle>().Single(x => x.Id == id);
+            if (vehicles == null)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return NotFound();
             }
+
+            return Ok(vehicles);
         }
 
         // POST: api/Vehicles
         [HttpPost]
         public IActionResult Post([FromBody]Vehicle vehicle)
         {
-            try
+            if (vehicle == null)
             {
-                if (vehicle == null)
-                {
-                    return BadRequest("Vehicle object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
-
-                _unitOfWork.GetRepository<Vehicle>().Add(vehicle);
-                _unitOfWork.SaveChanges();
-
-                return CreatedAtRoute(routeName: "GetVehicle",
-                                      routeValues: new { id = vehicle.Id },
-                                      value: vehicle);
+                return BadRequest("Vehicle object is null");
             }
-            catch (Exception ex)
+
+            if (!ModelState.IsValid)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return BadRequest("Invalid model object");
             }
+
+            _unitOfWork.GetRepository<Vehicle>().Add(vehicle);
+            _unitOfWork.SaveChanges();
+
+            return CreatedAtRoute(routeName: "GetVehicle",
+                                  routeValues: new { id = vehicle.Id },
+                                  value: vehicle);
         }
 
         // PUT: api/Vehicles/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Vehicle vehicle)
         {
-            try
+            if (vehicle == null)
             {
-                if (vehicle == null)
-                {
-                    return BadRequest("Vehicle object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
-
-                var dbCustomer = _unitOfWork.GetRepository<Vehicle>().Single(x => x.Id == id);
-                if (dbCustomer == null)
-                {
-                    return NotFound();
-                }
-
-                vehicle.Id = id;
-                _unitOfWork.GetRepository<Vehicle>().Update(vehicle);
-                _unitOfWork.SaveChanges();
-
-                return NoContent();
+                return BadRequest("Vehicle object is null");
             }
-            catch (Exception ex)
+
+            if (!ModelState.IsValid)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return BadRequest("Invalid model object");
             }
+
+            var dbCustomer = _unitOfWork.GetRepository<Vehicle>().Single(x => x.Id == id);
+            if (dbCustomer == null)
+            {
+                return NotFound();
+            }
+
+            vehicle.Id = id;
+            _unitOfWork.GetRepository<Vehicle>().Update(vehicle);
+            _unitOfWork.SaveChanges();
+
+            return NoContent();
         }
     }
 }

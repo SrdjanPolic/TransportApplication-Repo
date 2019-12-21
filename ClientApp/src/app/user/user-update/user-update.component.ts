@@ -74,7 +74,7 @@ export class UserUpdateComponent implements OnInit {
 
   private executeUserUpdate = (userFormValue) => {
     this.user.name = userFormValue.name,
-    this.user.username =  userFormValue.username,
+    this.user.username =  userFormValue.userName,
     this.user.password = userFormValue.password,
     this.user.isAdmin = userFormValue.isAdmin,
     this.user.isInactive = userFormValue.isInactive;

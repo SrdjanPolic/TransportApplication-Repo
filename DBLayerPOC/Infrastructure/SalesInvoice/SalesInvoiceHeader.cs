@@ -45,11 +45,9 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        public int DriverId { get; set; }
-        public Driver.Driver Driver { get; set; }
+        public string DriverName { get; set; }
 
-        public int VehicleId { get; set; }
-        public Vehicle.Vehicle Vehicle { get; set; }
+        public string VechicleRegistration { get; set; }
 
         public SalesInvoiceHeader()
         {

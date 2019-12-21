@@ -25,9 +25,9 @@ namespace DBLayerPOC.Infrastructure.Driver
             builder.Property(x => x.Remark).HasColumnName("Remark").HasMaxLength(250).IsRequired();
             builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
 
-            builder.Metadata.FindNavigation(nameof(Driver.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
-            builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Driver).HasForeignKey(b => b.DriverId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Metadata.FindNavigation(nameof(Driver.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
+            //builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Driver).HasForeignKey(b => b.DriverId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

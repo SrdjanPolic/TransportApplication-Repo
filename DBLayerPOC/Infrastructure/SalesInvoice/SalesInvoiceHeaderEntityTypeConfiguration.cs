@@ -37,8 +37,10 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.PricePerKm).HasColumnName("PricePerKm").HasDefaultValue(0F);
             builder.Property(x => x.CrmNumber).HasColumnName("CrmNumber").HasMaxLength(50);
             builder.Property(x => x.PartiallyPayed).HasColumnName("PartiallyPayed").HasDefaultValue(0);
-            builder.Property(x => x.DriverId).HasColumnName("DriverId");
-            builder.Property(x => x.VehicleId).HasColumnName("VehicleId");
+            //builder.Property(x => x.DriverId).HasColumnName("DriverId");
+            //builder.Property(x => x.VehicleId).HasColumnName("VehicleId");
+            builder.Property(x => x.DriverName).HasColumnName("DriverName");
+            builder.Property(x => x.VechicleRegistration).HasColumnName("VechicleRegistration");
 
             builder.Metadata.FindNavigation(nameof(SalesInvoiceHeader.Lines)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.Lines).WithOne(b => b.Header).HasForeignKey(b => b.SalesHeaderId)

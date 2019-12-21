@@ -28,21 +28,14 @@ namespace TransportWebAPI.Controllers
         [HttpGet("{objectName}", Name = "GetSettings")]
         public IActionResult Get(string objectName)
         {
-            try
+            var settings = _unitOfWork.GetRepository<Settings>()
+                .Single(x => x.ObjectName.ToLower().Equals(objectName.ToLower()) && x.Year == DateTime.Now.Year);
+            if (settings == null)
             {
-                var settings = _unitOfWork.GetRepository<Settings>()
-                    .Single(x => x.ObjectName.ToLower().Equals(objectName.ToLower()) && x.Year == DateTime.Now.Year);
-                if (settings == null)
-                {
-                    return NotFound();
-                }
+                return NotFound();
+            }
 
-                return Ok(settings);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
-            }
+            return Ok(settings);
         }
     }
 }

@@ -6,7 +6,6 @@ import {InvoicesComponent} from './../invoice-list/invoices.component';
 import {InvoiceComponent} from './../invoice-modify/invoice.component';
 import {InvoiceLinesComponent} from './../invoice-lines/invoice-lines.component';
 import { InvoicePrintComponent } from '../invoice-print/invoice-print.component';
-import { InvoiceInoPrintComponent} from '../invoice-ino-print/invoice-ino-print.component';
 
 const routes: Routes = [
   { path: 'SalesInvoices', component: InvoicesComponent },
@@ -14,8 +13,7 @@ const routes: Routes = [
   { path: 'create', component: InvoiceComponent },
   { path: 'update/:id', component: InvoiceComponent },
   { path: 'delete/:id', component: InvoiceComponent },
-  { path: 'details/:id/print' , component: InvoicePrintComponent},
-  { path: 'details/:id/inoprint' , component: InvoiceInoPrintComponent}
+  { path: 'details/:id/print' , component: InvoicePrintComponent}
 ];
 
 @NgModule({

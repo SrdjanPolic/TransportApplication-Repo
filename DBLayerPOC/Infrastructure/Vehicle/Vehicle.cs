@@ -15,13 +15,5 @@ namespace DBLayerPOC.Infrastructure.Vehicle
         public string VechicleType { get; set; }
         public bool IsInactive { get; set; }
         public string Remark { get; set; }
-
-
-        public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
-
-        public Vehicle()
-        {
-            SalesInvoiceHeaders = new HashSet<SalesInvoiceHeader>();
-        }
     }
 }

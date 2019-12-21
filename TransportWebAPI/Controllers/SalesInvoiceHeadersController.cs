@@ -25,47 +25,31 @@ namespace TransportWebAPI.Controllers
         [HttpGet]
         public IActionResult GetSalesInvoiceHeaders()
         {
-            try
-            {
-                var SalesInvoiceHeaders = _unitOfWork.GetRepository<SalesInvoiceHeader>().
-                    GetList(include: source => source.Include(x => x.Customer), orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
+            var SalesInvoiceHeaders = _unitOfWork.GetRepository<SalesInvoiceHeader>().
+                GetList(include: source => source.Include(x => x.Customer), orderBy: source => source.OrderByDescending(x => x.PostingDate)).Items.ToList();
 
-                return Ok(SalesInvoiceHeaders);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
-            }
+            return Ok(SalesInvoiceHeaders);
         }
 
         // GET:  api/SalesInvoiceHeaders/5
         [HttpGet("{id}", Name = "GetSalesInvoices")]
         public IActionResult GetSalesInvoiceHeader(int id)
         {
-            try
-            {
-                var SalesInvoiceHeader = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .Single(include: source => source.Include(x => x.Lines), predicate: x => x.Id == id);
+            var SalesInvoiceHeader = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                .Single(include: source => source.Include(x => x.Lines), predicate: x => x.Id == id);
 
-                if (SalesInvoiceHeader == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(SalesInvoiceHeader);
-            }
-            catch (Exception ex)
+            if (SalesInvoiceHeader == null)
             {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
+                return NotFound();
             }
+
+            return Ok(SalesInvoiceHeader);
         }
 
         // POST: api/SalesInvoiceHeaders
         [HttpPost]
         public IActionResult PostSalesInvoiceHeader([FromBody]SalesInvoiceHeader salesInvoiceHeader)
         {
-            try
-            {
                 if (salesInvoiceHeader == null)
                 {
                     return BadRequest("SalesInvoiceHeader object is null");
@@ -130,11 +114,6 @@ namespace TransportWebAPI.Controllers
                 return CreatedAtRoute(routeName: "GetSalesInvoices",
                                       routeValues: new { id = salesInvoiceHeader.Id },
                                       value: salesInvoiceHeader);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, string.Format("Internal server error + {0}" + ex.Message));
-            }
         }
 
         private string GetInvoiceNumber(Settings settings)

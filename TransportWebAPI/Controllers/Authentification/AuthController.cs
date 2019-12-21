@@ -23,10 +23,12 @@ namespace TransportWebAPI.Controllers.Authentification
 
         private readonly ILogger _logger;
 
-        public AuthController(IUnitOfWork<AppDbContext> unitOfWork, ILogger<AuthController> logger)
+        private IEmailSendingClient _emailSendingClient;
+
+        public AuthController(IUnitOfWork<AppDbContext> unitOfWork, EmailSendingClient emailSendingClient)
         {
             _unitOfWork = unitOfWork;
-            _logger = logger;
+            _emailSendingClient = emailSendingClient;
         }
 
 
@@ -34,42 +36,36 @@ namespace TransportWebAPI.Controllers.Authentification
         [HttpPost]
         public IActionResult Login([FromBody]LoginModel user)
         {
-            if (user == null)   
+            if (user == null)
             {
+                _emailSendingClient.SendLogEmail("Invalid client request");
                 return BadRequest("Invalid client request");
             }
 
-            try
-            {
-                var users = _unitOfWork.GetRepository<LoginModel>().
+            var users = _unitOfWork.GetRepository<LoginModel>().
                         GetList().Items.ToList();
-                if (users.Any(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username) && !x.IsInactive))
-                {
-                    var loggedUser = users.FirstOrDefault(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username));
-                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
-                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
-                    var tokeOptions = new JwtSecurityToken(
-                        issuer: "http://localhost:56515",
-                        audience: "http://localhost:56515",
-                        claims: new List<Claim>(),
-                        expires: DateTime.Now.AddMinutes(15),
-                        signingCredentials: signinCredentials
-                    );
-
-                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                    _logger.LogError("sve OK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    return Ok(new { Token = tokenString, loggedUser.IsAdmin });
-                }
-                else
-                {
-                    return Unauthorized();
-                }
-            }
-            catch(Exception e)
+            if (users.Any(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username) && !x.IsInactive))
             {
-                _logger.LogError(e.Message);
-                throw;
+                var loggedUser = users.FirstOrDefault(x => x.Password.Equals(user.Password) && x.Username.Equals(user.Username));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "http://localhost:56515",
+                    audience: "http://localhost:56515",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddMinutes(15),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                _emailSendingClient.SendLogEmail($"Logged user: {loggedUser.Name} {"  "} {loggedUser.Username} {"  "} {DateTime.UtcNow}");
+                return Ok(new { Token = tokenString, loggedUser.IsAdmin });
+            }
+            else
+            {
+                _emailSendingClient.SendLogEmail($"Attempt of unautorhized access: {user.Username}, {"  "} {user.Password} {"  "} {DateTime.UtcNow}");
+                return Unauthorized();
             }
         }
     }
