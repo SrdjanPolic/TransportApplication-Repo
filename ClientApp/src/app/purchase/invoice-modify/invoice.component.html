@@ -67,6 +67,25 @@
       </div>
     </div>
   </div>
+  <div class="col-md-3">
+    <div class="form-group">l
+      <label>Proknjiženo</label>
+      <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.invoiced" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <label>Stornirano</label>
+      <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.creditMemo" class="form-control"/>
+    </div>
+    <!--<div class="form-group">
+      <label>Datum plaćanja</label>
+      <input type ="date" name="PaymentDate" #PaymentDate="ngModel" [(ngModel)]="service.formData.PaymentDate" class="form-control"/>
+    </div> -->
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate">
+      <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
+      <mat-datepicker #pickerpayment></mat-datepicker>
+    </mat-form-field>
+  </div>
   <!-- Invoice line table-->
   <table class="table table-borderless">
     <thead class="thead-light">
@@ -97,25 +116,6 @@
       </tr>
     </tbody>
   </table>
-  <div class="col-md-3">
-    <div class="form-group">l
-      <label>Proknjiženo</label>
-      <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.invoiced" class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label>Stornirano</label>
-      <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.creditMemo" class="form-control"/>
-    </div>
-    <!--<div class="form-group">
-      <label>Datum plaćanja</label>
-      <input type ="date" name="PaymentDate" #PaymentDate="ngModel" [(ngModel)]="service.formData.PaymentDate" class="form-control"/>
-    </div> -->
-    <mat-form-field>
-      <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate">
-      <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
-      <mat-datepicker #pickerpayment></mat-datepicker>
-    </mat-form-field>
-  </div>
   <div class="form-group">
     <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
     <a class="btn btn-outline-dark ml-1" routerLink="/purchase/PurchInvoices"><i class="fa fa-table"></i> Pregled ulaznih faktura</a>
