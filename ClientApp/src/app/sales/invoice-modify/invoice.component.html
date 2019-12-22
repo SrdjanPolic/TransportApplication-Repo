@@ -1,5 +1,5 @@
 <form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)">
-    <input type="hidden"  name="invoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo">
+  <input type="hidden"  name="invoiceNo" #InvoiceNo="ngModel" [(ngModel)]="service.formData.invoiceNo">
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
@@ -73,12 +73,14 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Vozilo</label>
+          <!-- <label>Vozilo</label>
           <select name="vechicleId" #vehicleId="ngModel" [(ngModel)]="service.formData.vehicleId" class="form-control"
           [class.is-invalid]="!isValid && service.formData.vehicleId==0">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of vehicleList" value="{{item.id}}">{{item.registrationNumber}}</option>
-          </select>
+          </select> -->
+          <label>Vozilo</label>
+          <input type="text" name="vechicleRegistration" #vechicleRegistration="ngModel" [(ngModel)]="service.formData.vechicleRegistration" class="form-control"/>
         </div>
         <div class="form-group">
           <label>Napomena</label>
@@ -121,11 +123,12 @@
         </div>
         <div class="form-group">
           <label>Vozač</label>
-          <select name="driverId" #driverId="ngModel" [(ngModel)]="service.formData.driverId" class="form-control"
+          <input type="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName" class="form-control"/>
+          <!-- <select name="driverId" #driverId="ngModel" [(ngModel)]="service.formData.driverId" class="form-control"
           [class.is-invalid]="!isValid && service.formData.driverId==0">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of driverList" value="{{item.id}}">{{item.name}}</option>
-          </select>
+          </select> -->
         </div>
       </div>
       <div class="col-md-3">
@@ -181,5 +184,6 @@
       <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
       <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih faktura</a>
       <button type="button" (click)="onPrintInvoice()" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa fakture</button>
-    </div>
+      <button type="button" (click)="onPrintInoInvoice()" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa Ino fakture (engleski)</button>
+    /div>
   </form>
