@@ -16,8 +16,7 @@ namespace DBLayerPOC.Models
         public int VatGroup { get; set; }
         public string VatNumber { get; set; }
         public bool IsInactive { get; set; }
-        public DateTime LastChangeDate { get; set; }
-
+      
         public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
 
         public Customer()

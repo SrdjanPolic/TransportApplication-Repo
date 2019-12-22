@@ -12,5 +12,9 @@ namespace DBLayerPOC.ModelBase
     public class Entity
     {
         public int Id { get; set; }
+
+        public DateTime? LastChangeDateTime { get; set; }
+
+        public int? LastChangeUserId { get; set; }
     }
 }

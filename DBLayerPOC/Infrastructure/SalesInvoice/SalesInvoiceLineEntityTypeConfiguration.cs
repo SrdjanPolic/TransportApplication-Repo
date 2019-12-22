@@ -26,6 +26,9 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.LoadAddress).HasColumnName("LoadAddress").HasMaxLength(250);
             builder.Property(x => x.ExportCustoms).HasColumnName("ExportCustoms").HasMaxLength(250);
             builder.Property(x => x.ImportCustoms).HasColumnName("ImportCustoms").HasMaxLength(250);
+
+            builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
+            builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
         }
     }
 }

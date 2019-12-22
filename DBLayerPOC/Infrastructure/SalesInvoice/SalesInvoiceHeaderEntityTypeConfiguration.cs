@@ -42,6 +42,9 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.DriverName).HasColumnName("DriverName");
             builder.Property(x => x.VechicleRegistration).HasColumnName("VechicleRegistration");
 
+            builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
+            builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
+
             builder.Metadata.FindNavigation(nameof(SalesInvoiceHeader.Lines)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.HasMany(x => x.Lines).WithOne(b => b.Header).HasForeignKey(b => b.SalesHeaderId)
                 .OnDelete(DeleteBehavior.Cascade);

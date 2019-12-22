@@ -18,6 +18,9 @@ namespace DBLayerPOC.Infrastructure.Settings
             builder.Property(x => x.Prefix).HasColumnName("Prefix").IsRequired();
             builder.Property(x => x.Year).HasColumnName("Year").IsRequired();
             builder.Property(x => x.LastUsedNumber).HasColumnName("LastUsedNumber").IsRequired();
+
+            builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
+            builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
         }
     }
 }

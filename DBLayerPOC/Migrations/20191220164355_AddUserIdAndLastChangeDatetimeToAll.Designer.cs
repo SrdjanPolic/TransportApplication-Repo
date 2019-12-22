@@ -4,14 +4,16 @@ using DBLayerPOC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBLayerPOC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191220164355_AddUserIdAndLastChangeDatetimeToAll")]
+    partial class AddUserIdAndLastChangeDatetimeToAll
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("DriversLicenceExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 937, DateTimeKind.Local).AddTicks(8707));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 489, DateTimeKind.Local).AddTicks(9045));
 
                     b.Property<string>("DriversLicenceNumber")
                         .IsRequired()
@@ -52,17 +54,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -74,7 +70,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PassExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 938, DateTimeKind.Local).AddTicks(433));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 490, DateTimeKind.Local).AddTicks(608));
 
                     b.Property<string>("PassNumber")
                         .IsRequired()
@@ -86,7 +82,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PersonalIdExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 937, DateTimeKind.Local).AddTicks(9892));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 490, DateTimeKind.Local).AddTicks(77));
 
                     b.Property<string>("PersonalIdNummber")
                         .IsRequired()
@@ -124,17 +120,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -178,7 +168,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("DueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 906, DateTimeKind.Local).AddTicks(8590));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 462, DateTimeKind.Local).AddTicks(604));
 
                     b.Property<string>("ExternalReferenceNo")
                         .HasColumnName("ExternalReferenceNo")
@@ -197,17 +187,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Paid")
                         .ValueGeneratedOnAdd()
@@ -225,13 +209,13 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PaymentDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 907, DateTimeKind.Local).AddTicks(3900));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 462, DateTimeKind.Local).AddTicks(6868));
 
                     b.Property<DateTime>("PostingDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PostingDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 906, DateTimeKind.Local).AddTicks(7577));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 461, DateTimeKind.Local).AddTicks(9501));
 
                     b.Property<string>("PurchaseSupplierNumber")
                         .HasColumnName("PurchaseSupplierNumber")
@@ -282,17 +266,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("real")
                         .HasDefaultValue(0f);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<float>("LineAmount")
                         .ValueGeneratedOnAdd()
@@ -387,7 +365,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("DueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 922, DateTimeKind.Local).AddTicks(1699));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 477, DateTimeKind.Local).AddTicks(663));
 
                     b.Property<string>("ExternalReferenceNo")
                         .HasColumnName("ExternalReferenceNo")
@@ -406,17 +384,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoadRepresentative")
                         .HasColumnName("LoadRepresentative")
@@ -439,7 +411,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("OrderDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 922, DateTimeKind.Local).AddTicks(2041));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 477, DateTimeKind.Local).AddTicks(994));
 
                     b.Property<bool>("Paid")
                         .ValueGeneratedOnAdd()
@@ -457,13 +429,13 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PaymentDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 922, DateTimeKind.Local).AddTicks(6593));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 477, DateTimeKind.Local).AddTicks(5686));
 
                     b.Property<DateTime>("PostingDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PostingDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 922, DateTimeKind.Local).AddTicks(783));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 476, DateTimeKind.Local).AddTicks(9972));
 
                     b.Property<float>("PricePerKm")
                         .ValueGeneratedOnAdd()
@@ -542,17 +514,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<float>("LineAmount")
                         .ValueGeneratedOnAdd()
@@ -569,7 +535,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("LoadDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 928, DateTimeKind.Local).AddTicks(2551));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 483, DateTimeKind.Local).AddTicks(1114));
 
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
@@ -598,7 +564,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("UnloadDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 928, DateTimeKind.Local).AddTicks(4240));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 483, DateTimeKind.Local).AddTicks(3326));
 
                     b.Property<float>("VatPercent")
                         .ValueGeneratedOnAdd()
@@ -621,17 +587,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("LastUsedNumber")
                         .HasColumnName("LastUsedNumber")
@@ -682,17 +642,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<float>("MaxWeight")
                         .ValueGeneratedOnAdd()
@@ -765,12 +719,12 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("LastChangeDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 22, 15, 45, 9, 898, DateTimeKind.Local).AddTicks(34));
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 455, DateTimeKind.Local).AddTicks(8842));
 
-                    b.Property<DateTime?>("LastChangeDateTime")
+                    b.Property<DateTime>("LastChangeDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
+                    b.Property<int>("LastChangeUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -818,17 +772,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -859,17 +807,11 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("real")
                         .HasDefaultValue(1f);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartingDate")
                         .HasColumnName("StartingDate")
@@ -920,17 +862,17 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastChangeDateTime")
+                    b.Property<DateTime>("LastChangeDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
+                        .HasColumnName("LastChangeDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasDefaultValue(new DateTime(2019, 12, 20, 17, 43, 55, 427, DateTimeKind.Local).AddTicks(1503));
 
-                    b.Property<int?>("LastChangeUserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(null);
+                    b.Property<DateTime>("LastChangeDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LastChangeUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -18,6 +18,9 @@ namespace DBLayerPOC.Infrastructure
             builder.Property(x => x.Code).HasColumnName("Code").HasMaxLength(10).IsRequired();
             builder.Property(x => x.Name).HasColumnName("Name").HasMaxLength(50).IsRequired();
 
+            builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
+            builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
+
             builder.Metadata.FindNavigation(nameof(Currency.CurrencyExchangeRates))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
 

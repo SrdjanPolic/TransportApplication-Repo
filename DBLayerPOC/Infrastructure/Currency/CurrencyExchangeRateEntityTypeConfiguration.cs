@@ -18,6 +18,9 @@ namespace DBLayerPOC.Infrastructure
             builder.Property(x => x.CurrencyId).HasColumnName("CurrencyId").IsRequired();
             builder.Property(x => x.StartingDate).HasColumnName("StartingDate").IsRequired();
             builder.Property(x => x.ExchangeRateAmount).HasColumnName("ExchangeRateAmount").HasDefaultValue(1);
+
+            builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
+            builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
         }
     }
 }

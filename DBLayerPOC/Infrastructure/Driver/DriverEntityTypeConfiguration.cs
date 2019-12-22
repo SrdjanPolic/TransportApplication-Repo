@@ -25,6 +25,9 @@ namespace DBLayerPOC.Infrastructure.Driver
             builder.Property(x => x.Remark).HasColumnName("Remark").HasMaxLength(250).IsRequired();
             builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
 
+            builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
+            builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
+
             //builder.Metadata.FindNavigation(nameof(Driver.SalesInvoiceHeaders)).SetPropertyAccessMode(PropertyAccessMode.Field);
             //builder.HasMany(x => x.SalesInvoiceHeaders).WithOne(b => b.Driver).HasForeignKey(b => b.DriverId)
             //    .OnDelete(DeleteBehavior.Restrict);
