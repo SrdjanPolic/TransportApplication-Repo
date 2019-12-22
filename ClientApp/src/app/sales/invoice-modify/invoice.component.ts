@@ -164,9 +164,5 @@ export class InvoiceComponent implements OnInit {
     let pathurl = `/sales/details/${this.invoiceIdForPrint}/print`;
     this.router.navigate([pathurl]);
   }
-  onPrintInoInvoice() {
-    let pathurl = `/sales/details/${this.invoiceIdForPrint}/inoprint`;
-    this.router.navigate([pathurl]);
-  }
 
 }
