@@ -66,6 +66,7 @@ namespace TransportWebAPI.Controllers
             }
 
             vendor.Id = id;
+            vendor.LastChangeDateTime = DateTime.UtcNow;
             vendor.LastChangeDate = DateTime.Now;
             _unitOfWork.GetRepository<Vendor>().Update(vendor);
             _unitOfWork.SaveChanges();
@@ -86,7 +87,7 @@ namespace TransportWebAPI.Controllers
                 return BadRequest("Invalid model object");
             }
 
-            vendor.LastChangeDate = DateTime.Now;
+            vendor.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.GetRepository<Vendor>().Add(vendor);
             _unitOfWork.SaveChanges();
 

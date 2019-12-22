@@ -26,7 +26,7 @@ namespace TransportWebAPI.Controllers
         public IActionResult Get()
         {
             var customers = _unitOfWork.GetRepository<Customer>()
-                .GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDate)).Items.ToList();
+                .GetList(orderBy: source => source.OrderByDescending(x => x.LastChangeDateTime)).Items.ToList();
             return Ok(customers);
         }
 
@@ -57,7 +57,7 @@ namespace TransportWebAPI.Controllers
                 return BadRequest("Invalid model object");
             }
 
-            customer.LastChangeDate = DateTime.Now;
+            customer.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.GetRepository<Customer>().Add(customer);
             _unitOfWork.SaveChanges();
 
@@ -88,7 +88,7 @@ namespace TransportWebAPI.Controllers
             }
 
             customer.Id = id;
-            customer.LastChangeDate = DateTime.Now;
+            customer.LastChangeDateTime = DateTime.Now;
             _unitOfWork.GetRepository<Customer>().Update(customer);
             _unitOfWork.SaveChanges();
 

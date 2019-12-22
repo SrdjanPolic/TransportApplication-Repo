@@ -111,6 +111,7 @@ namespace TransportWebAPI.Controllers
                 _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
             }
 
+            purchaseInvoiceHeader.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.SaveChanges();
 
             return CreatedAtRoute(routeName: "GetPurchaseInvoices",

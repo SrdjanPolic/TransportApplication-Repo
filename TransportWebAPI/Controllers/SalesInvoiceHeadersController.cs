@@ -50,70 +50,71 @@ namespace TransportWebAPI.Controllers
         [HttpPost]
         public IActionResult PostSalesInvoiceHeader([FromBody]SalesInvoiceHeader salesInvoiceHeader)
         {
-                if (salesInvoiceHeader == null)
+            if (salesInvoiceHeader == null)
+            {
+                return BadRequest("SalesInvoiceHeader object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid model object");
+            }
+
+            Settings settingsObject = null;
+            //newly created
+            if (salesInvoiceHeader.Id == 0)
+            {
+                _unitOfWork.GetRepository<SalesInvoiceHeader>().Add(salesInvoiceHeader);
+
+                foreach (var SalesInvoiceLine in salesInvoiceHeader.Lines)
                 {
-                    return BadRequest("SalesInvoiceHeader object is null");
+                    _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
                 }
 
-                if (!ModelState.IsValid)
+                settingsObject = _unitOfWork.GetRepository<Settings>()
+                .Single(x => x.ObjectName.ToLower().Equals(Constants.SalesInvoiceObjectName) && x.Year == DateTime.Now.Year);
+            }
+            //update
+            else
+            {
+                foreach (var salesInvoiceLine in salesInvoiceHeader.Lines)
                 {
-                    return BadRequest("Invalid model object");
-                }
-
-                Settings settingsObject = null; 
-                //newly created
-                if (salesInvoiceHeader.Id == 0)
-                {
-                    _unitOfWork.GetRepository<SalesInvoiceHeader>().Add(salesInvoiceHeader);
-
-                    foreach (var SalesInvoiceLine in salesInvoiceHeader.Lines)
+                    if (salesInvoiceLine.Id == 0)
                     {
-                        _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
+                        _unitOfWork.GetRepository<SalesInvoiceLine>().Add(salesInvoiceLine);
                     }
-
-                    settingsObject = _unitOfWork.GetRepository<Settings>()
-                    .Single(x => x.ObjectName.ToLower().Equals(Constants.SalesInvoiceObjectName) && x.Year == DateTime.Now.Year);
-                }
-                //update
-                else
-                {
-                    foreach (var salesInvoiceLine in salesInvoiceHeader.Lines)
+                    else
                     {
-                        if (salesInvoiceLine.Id == 0)
-                        {
-                            _unitOfWork.GetRepository<SalesInvoiceLine>().Add(salesInvoiceLine);
-                        }
-                        else
-                        {
-                            _unitOfWork.Context.Entry(salesInvoiceLine).State = EntityState.Modified;
-                        }
-                    }
-
-                    _unitOfWork.Context.Entry(salesInvoiceHeader).State = EntityState.Modified;
-                }
-
-                //Delete for OrderItems
-                if (!string.IsNullOrEmpty(salesInvoiceHeader.DeletedInvoiceLineIds))
-                {
-                    foreach (var id in salesInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
-                    {
-                        var intId = int.Parse(id);
-                        _unitOfWork.GetRepository<SalesInvoiceLine>().Delete(intId);
+                        _unitOfWork.Context.Entry(salesInvoiceLine).State = EntityState.Modified;
                     }
                 }
 
-                if(settingsObject != null)
+                _unitOfWork.Context.Entry(salesInvoiceHeader).State = EntityState.Modified;
+            }
+
+            //Delete for OrderItems
+            if (!string.IsNullOrEmpty(salesInvoiceHeader.DeletedInvoiceLineIds))
+            {
+                foreach (var id in salesInvoiceHeader.DeletedInvoiceLineIds.Split(',').Where(x => x != ""))
                 {
-                    salesInvoiceHeader.InvoiceNo = GetInvoiceNumber(settingsObject);
-                    settingsObject.LastUsedNumber++;
-                    _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
+                    var intId = int.Parse(id);
+                    _unitOfWork.GetRepository<SalesInvoiceLine>().Delete(intId);
                 }
+            }
 
-                _unitOfWork.SaveChanges();
+            if (settingsObject != null)
+            {
+                salesInvoiceHeader.InvoiceNo = GetInvoiceNumber(settingsObject);
+                settingsObject.LastUsedNumber++;
+                _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
+            }
 
-                return CreatedAtRoute(routeName: "GetSalesInvoices",
-                                      routeValues: new { id = salesInvoiceHeader.Id },
-                                      value: salesInvoiceHeader);
+            salesInvoiceHeader.LastChangeDateTime = DateTime.UtcNow;
+            _unitOfWork.SaveChanges();
+
+            return CreatedAtRoute(routeName: "GetSalesInvoices",
+                                  routeValues: new { id = salesInvoiceHeader.Id },
+                                  value: salesInvoiceHeader);
         }
 
         private string GetInvoiceNumber(Settings settings)

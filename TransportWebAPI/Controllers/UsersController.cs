@@ -87,7 +87,7 @@ namespace TransportWebAPI.Controllers
             }
 
             userToChange.Id = id;
-            //customer.LastChangeDate = DateTime.Now;
+            userToChange.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.GetRepository<LoginModel>().Update(userToChange);
             _unitOfWork.SaveChanges();
 

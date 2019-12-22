@@ -59,6 +59,7 @@ namespace TransportWebAPI.Controllers
             }
 
             _unitOfWork.GetRepository<Vehicle>().Add(vehicle);
+            vehicle.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.SaveChanges();
 
             return CreatedAtRoute(routeName: "GetVehicle",
@@ -87,6 +88,7 @@ namespace TransportWebAPI.Controllers
             }
 
             vehicle.Id = id;
+            vehicle.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.GetRepository<Vehicle>().Update(vehicle);
             _unitOfWork.SaveChanges();
 

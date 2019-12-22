@@ -57,6 +57,7 @@ namespace TransportWebAPI.Controllers
                 return BadRequest("Invalid model object");
             }
 
+            driver.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.GetRepository<Driver>().Add(driver);
             _unitOfWork.SaveChanges();
 
@@ -86,6 +87,7 @@ namespace TransportWebAPI.Controllers
             }
 
             driver.Id = id;
+            driver.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.GetRepository<Driver>().Update(driver);
             _unitOfWork.SaveChanges();
 
