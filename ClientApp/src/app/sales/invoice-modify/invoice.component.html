@@ -80,50 +80,12 @@
             <option *ngFor="let item of vehicleList" value="{{item.id}}">{{item.registrationNumber}}</option>
           </select>
         </div>
-        <!-- <mat-form-field>
-          <mat-label>Vozilo</mat-label>
-          <select matNativeControl required>
-            <option value="Vozač 1">Vozač 1</option>
-            <option value="Vozač 2">Vozač 2</option>
-            <option value="Vozač 3">Vozač 3</option>
-          </select>
-        </mat-form-field> -->
         <div class="form-group">
           <label>Napomena</label>
           <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control"/>
         </div>
       </div>
     </div>
-    <!-- Invoice line table-->
-    <table class="table table-borderless">
-      <thead class="thead-light">
-        <th>Opis</th>
-        <th>Cena</th>
-        <th>Količina</th>
-        <th>Suma</th>
-        <th>
-          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)"><i class="fa fa-plus"></i> Dodaj stavku</a>
-        </th>
-      </thead>
-      <tbody>
-        <tr *ngIf="service.SalesInvLines.length==0" [class.text-danger]="!isValid && service.SalesInvLines.length==0">
-          <td class="font-italic text-center" colspan="5">
-            Nema stavki za ovu ulaznu fakturu.
-          </td>
-        </tr>
-
-        <tr *ngFor="let item of service.SalesInvLines;let i=index;">
-          <td>{{item.description}}</td>
-          <td>{{item.unitPrice}}</td>
-          <td>{{item.quantity}}</td>
-          <td>{{item.lineAmount}}</td>
-          <td>
-            <a class="btn btn-sm btn-info text-white" (click)="AddOrEditInvoiceLine(i,service.formData.invoiceNo)"><i class="fa fa-pencil"></i></a>
-            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteInvoiceLine(item.id,i)"><i class="fa fa-trash"></i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
@@ -185,6 +147,36 @@
         </div>
       </div>
     </div>
+    <!-- Invoice line table-->
+    <table class="table table-borderless">
+      <thead class="thead-light">
+        <th>Opis</th>
+        <th>Cena</th>
+        <th>Količina</th>
+        <th>Suma</th>
+        <th>
+          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)"><i class="fa fa-plus"></i> Dodaj stavku</a>
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngIf="service.SalesInvLines.length==0" [class.text-danger]="!isValid && service.SalesInvLines.length==0">
+          <td class="font-italic text-center" colspan="5">
+            Nema stavki za ovu ulaznu fakturu.
+          </td>
+        </tr>
+
+        <tr *ngFor="let item of service.SalesInvLines;let i=index;">
+          <td>{{item.description}}</td>
+          <td>{{item.unitPrice}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.lineAmount}}</td>
+          <td>
+            <a class="btn btn-sm btn-info text-white" (click)="AddOrEditInvoiceLine(i,service.formData.invoiceNo)"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteInvoiceLine(item.id,i)"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <div class="form-group">
       <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
       <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih faktura</a>
