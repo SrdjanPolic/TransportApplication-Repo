@@ -88,8 +88,8 @@ export class InvoiceComponent implements OnInit {
       bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',
-      vehicleId: 0,
-      driverId: 0,
+      vechicleRegistration: '',
+      driverName: '',
       routeDistance: 0,
       loadRepresentative: '',
       pricePerKm: 0,
@@ -162,6 +162,10 @@ export class InvoiceComponent implements OnInit {
     // this.printService
     //   .printDocument('invoice', this.invoiceIdForPrint);
     let pathurl = `/sales/details/${this.invoiceIdForPrint}/print`;
+    this.router.navigate([pathurl]);
+  }
+  onPrintInoInvoice() {
+    let pathurl = `/sales/details/${this.invoiceIdForPrint}/inoprint`;
     this.router.navigate([pathurl]);
   }
 
