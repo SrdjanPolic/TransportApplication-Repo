@@ -66,9 +66,10 @@ namespace TransportWebAPI.Controllers
             {
                 _unitOfWork.GetRepository<SalesInvoiceHeader>().Add(salesInvoiceHeader);
 
-                foreach (var SalesInvoiceLine in salesInvoiceHeader.Lines)
+                foreach (var salesInvoiceLine in salesInvoiceHeader.Lines)
                 {
-                    _unitOfWork.GetRepository<SalesInvoiceLine>().Add(SalesInvoiceLine);
+                    _unitOfWork.GetRepository<SalesInvoiceLine>().Add(salesInvoiceLine);
+                    salesInvoiceLine.LastChangeDateTime = DateTime.UtcNow;
                 }
 
                 settingsObject = _unitOfWork.GetRepository<Settings>()
@@ -87,6 +88,8 @@ namespace TransportWebAPI.Controllers
                     {
                         _unitOfWork.Context.Entry(salesInvoiceLine).State = EntityState.Modified;
                     }
+
+                    salesInvoiceLine.LastChangeDateTime = DateTime.UtcNow;
                 }
 
                 _unitOfWork.Context.Entry(salesInvoiceHeader).State = EntityState.Modified;
@@ -107,6 +110,13 @@ namespace TransportWebAPI.Controllers
                 salesInvoiceHeader.InvoiceNo = GetInvoiceNumber(settingsObject);
                 settingsObject.LastUsedNumber++;
                 _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
+            }
+
+            //Update total amount on the document header after all changes
+            salesInvoiceHeader.TotalAmount = 0;
+            foreach (var salesInvoiceLine in salesInvoiceHeader.Lines)
+            {
+                salesInvoiceHeader.TotalAmount += salesInvoiceLine.LineAmount;
             }
 
             salesInvoiceHeader.LastChangeDateTime = DateTime.UtcNow;
