@@ -14,7 +14,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
-            builder.Property(x => x.InvoiceNo).HasColumnName("InvoiceNo").HasMaxLength(50).IsRequired(); 
+            builder.Property(x => x.InvoiceNo).HasColumnName("InvoiceNo").HasMaxLength(50).IsRequired();
+            builder.Property(x => x.SupplierInvoiceNo).HasColumnName("SupplierInvoiceNo").HasMaxLength(50).IsRequired();
             builder.Property(x => x.PostingDate).HasColumnName("PostingDate").HasDefaultValue(DateTime.Now);
             builder.Property(x => x.ExternalReferenceNo).HasColumnName("ExternalReferenceNo").HasMaxLength(50);
             builder.Property(x => x.DueDate).HasColumnName("DueDate").HasDefaultValue(DateTime.Now);
