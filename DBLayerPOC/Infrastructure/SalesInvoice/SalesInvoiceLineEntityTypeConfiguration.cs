@@ -21,8 +21,6 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.Remark).HasColumnName("Remark").HasMaxLength(250).IsRequired(false);
             builder.Property(x => x.Description).HasColumnName("Description").HasMaxLength(250).IsRequired(true);
             builder.Property(x => x.VatPercent).HasColumnName("VatPercent").IsRequired(true).HasDefaultValue(0);
-            builder.Property(x => x.ExportCustoms).HasColumnName("ExportCustoms").HasMaxLength(250);
-            builder.Property(x => x.ImportCustoms).HasColumnName("ImportCustoms").HasMaxLength(250);
 
             builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
             builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);

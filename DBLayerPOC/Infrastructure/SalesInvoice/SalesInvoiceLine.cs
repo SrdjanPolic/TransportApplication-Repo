@@ -7,8 +7,6 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
 {
     public class SalesInvoiceLine : Entity
     {
-        public string ExportCustoms { get; set; }
-        public string ImportCustoms { get; set; }
         public int Quantity { get; set; }
         public float UnitPrice { get; set; }
         public float DiscountPercent { get; set; }
