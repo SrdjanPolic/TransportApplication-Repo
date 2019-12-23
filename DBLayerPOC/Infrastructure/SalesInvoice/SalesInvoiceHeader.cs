@@ -38,16 +38,16 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
 
         [NotMapped]
         public string DeletedInvoiceLineIds { get; set; }
-
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
-
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-
         public string DriverName { get; set; }
-
         public string VechicleRegistration { get; set; }
+        public DateTime? LoadDate { get; set; }
+        public DateTime? UnloadDate { get; set; }
+        public string LoadAddress { get; set; }
+        public string UnloadAddress { get; set; }
 
         public SalesInvoiceHeader()
         {
