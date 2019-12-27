@@ -28,6 +28,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.PurchaseSupplierNumber).HasColumnName("PurchaseSupplierNumber").HasMaxLength(50);
             builder.Property(x => x.PartiallyPayed).HasColumnName("PartiallyPayed").HasDefaultValue(0);
 
+            builder.Property(x => x.TravelOrder).HasColumnName("TravelOrder").HasMaxLength(250);
+
             builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
             builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
 
