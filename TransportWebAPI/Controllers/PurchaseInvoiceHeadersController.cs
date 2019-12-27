@@ -114,13 +114,6 @@ namespace TransportWebAPI.Controllers
                 _unitOfWork.Context.Entry(settingsObject).State = EntityState.Modified;
             }
 
-            //Update total amount on the document header after all changes
-            purchaseInvoiceHeader.TotalAmount = 0;
-            foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
-            {
-                purchaseInvoiceHeader.TotalAmount += purchaseInvoiceLine.LineAmount;
-            }
-
             purchaseInvoiceHeader.LastChangeDateTime = DateTime.UtcNow;
             _unitOfWork.SaveChanges();
 
