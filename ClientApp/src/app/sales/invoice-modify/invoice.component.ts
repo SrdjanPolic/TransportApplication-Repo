@@ -127,6 +127,12 @@ export class InvoiceComponent implements OnInit {
     }, 0);
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
   }
+  isPosted() {
+    return (this.service.formData.invoiced);
+  }
+  isCreditMemo() {
+    return  (this.service.formData.creditMemo);
+  }
 
   validateForm() {
     this.isValid = true;
@@ -142,9 +148,9 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        this.resetForm();
+        //this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        this.router.navigate(['/sales/SalesInvoices']);
+        //this.router.navigate(['/sales/SalesInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};

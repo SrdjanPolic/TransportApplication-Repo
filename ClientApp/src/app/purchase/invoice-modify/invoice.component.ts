@@ -50,8 +50,7 @@ export class InvoiceComponent implements OnInit {
     //  }, 3000);
     if (invoiceID == null) {
       this.resetForm();
-      }
-    else {
+      } else {
       this.service.getInvoiceByID(parseInt(invoiceID)).then(res => {
         this.service.formData = res;
         this.service.PurchInvLines = res.lines;
@@ -125,9 +124,9 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        this.resetForm();
+        //this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        this.router.navigate(['/purchase/PurchInvoices']);
+        //this.router.navigate(['/purchase/PurchInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};

@@ -1,0 +1,38 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="500px" fxFlex.xs="100%">
+    <mat-card-title>Ažuriraj vozaĝa</mat-card-title>
+    <form [formGroup]="currencyExchangeForm" autocomplete="off" novalidate (ngSubmit)="updateCurrencyExchange(currencyExchangeForm.value)" fxLayout="column wrap"
+      fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Izaberite valutu:</mat-label>
+          <mat-select>
+            <mat-option *ngFor= "let currency of currencyList" [value] ="currency.id" formControlName ="currencyId">
+              {{currency.code}
+            </mat-option>
+            <mat-error *ngIf="hasError('currencyId','required')">Valuta je neophodna</mat-error>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerstartingDate" placeholder="Datum kursa" formControlName ="startingDate">
+          <mat-datepicker-toggle matSuffix [for]="pickerstartingDate"></mat-datepicker-toggle>
+          <mat-error *ngIf="hasError('pickerstartingDate','required')">Datum kursa je neophodan</mat-error>
+          <mat-datepicker #pickerstartingDate></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="number" placeholder="Kurs" formControlName="exchangeRateAmount">
+          <mat-hint align="end">Vrednost valute u lokalnoj valuti</mat-hint>
+          <mat-error *ngIf="hasError('exchangeRateAmount', 'required')">Kurs je neophodan</mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary" [disabled]="!currencyExchangeForm.valid">Izmeni</button>
+        <button type="button" mat-raised-button color="warn" (click)="onCancel()">Otkaži</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

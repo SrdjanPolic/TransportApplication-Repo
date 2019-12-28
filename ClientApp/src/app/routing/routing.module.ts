@@ -20,6 +20,7 @@ const ownerRoutes: Routes = [
   { path: 'vehicle', loadChildren: './../vehicle/vehicle.module#VehicleModule', canActivate: [AuthGuard]},
   {path: 'driver', loadChildren: './../driver/driver.module#DriverModule', canActivate: [AuthGuard]},
   {path: 'user', loadChildren: './../user/user.module#UserModule', canActivate: [AuthGuard]},
+  {path: 'currencyExchange', loadChildren: './../currencyExchange/currencyExchange.module#CurrencyExchangeModule', canActivate: [AuthGuard]},
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},

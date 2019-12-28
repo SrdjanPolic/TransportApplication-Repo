@@ -14,7 +14,7 @@
         <div class="form-group">
           <label>Kupac</label>
           <select name="customerId" #customerId="ngModel" [(ngModel)]="service.formData.customerId" class="form-control"
-          [class.is-invalid]="!isValid && service.formData.customerId==0">
+          [class.is-invalid]="!isValid && service.formData.customerId==0" [disabled]="this.isPosted()">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of customerList" value="{{item.id}}">{{item.name}}</option>
           </select>
@@ -22,26 +22,27 @@
         <div class="form-group">
           <label>Valuta</label>
           <select name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"
-          [class.is-invalid]="!isValid && service.formData.currencyId==0">
+          [class.is-invalid]="!isValid && service.formData.currencyId==0" [disabled]="this.isPosted()">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
           </select>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Datum dospeća"  [(ngModel)]= "service.formData.dueDate" name="dueDate">
+          <input matInput [matDatepicker]="picker" placeholder="Datum dospeća"  [(ngModel)]= "service.formData.dueDate" name="dueDate" [disabled]="this.isPosted()">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col-md-3">
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerposting" placeholder="Datum Knjizenja"  [(ngModel)]= "service.formData.postingDate" name="postingDate">
+          <input matInput [matDatepicker]="pickerposting" placeholder="Datum Knjizenja"  [(ngModel)]= "service.formData.postingDate" name="postingDate" [disabled]="this.isPosted()">
           <mat-datepicker-toggle matSuffix [for]="pickerposting"></mat-datepicker-toggle>
           <mat-datepicker #pickerposting></mat-datepicker>
         </mat-form-field>
         <div class="form-group">
           <label>Vaša referenca</label>
-          <input type ="text" name="externalReferenceNo" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.externalReferenceNo" class="form-control"/>
+          <input type ="text" name="externalReferenceNo" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.externalReferenceNo" class="form-control"
+          [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
           <label>Ukupno</label>
@@ -54,12 +55,12 @@
         </div>
         <div class="form-group">
           <label>Plaćeno</label>
-          <input type ="checkbox" name="paid" #paid="ngModel" [(ngModel)]="service.formData.paid" class="form-control"/>
+          <input type ="checkbox" name="paid" #paid="ngModel" [(ngModel)]="service.formData.paid" class="form-control" [disabled]="this.isCreditMemo()"/>
         </div>
       </div>
       <div class="col-md-3">
         <mat-form-field>
-            <input matInput [matDatepicker]="pickerorderDate" placeholder="Datum ponude"  [(ngModel)]= "service.formData.orderDate" name="orderDate">
+            <input matInput [matDatepicker]="pickerorderDate" placeholder="Datum ponude"  [(ngModel)]= "service.formData.orderDate" name="orderDate" [disabled]="this.isPosted()">
             <mat-datepicker-toggle matSuffix [for]="pickerorderDate"></mat-datepicker-toggle>
             <mat-datepicker #pickerorderDate></mat-datepicker>
         </mat-form-field>
@@ -67,7 +68,7 @@
           <label>Referent prodaje</label>
           <!--<input type ="text" name="salesPerson" #salesPerson="ngModel" [(ngModel)]="service.formData.salesPerson" class="form-control"/> -->
           <select name="salesPerson" #salesPerson="ngModel" [(ngModel)]="service.formData.salesPerson" class="form-control"
-          [class.is-invalid]="!isValid">
+          [class.is-invalid]="!isValid" [disabled]="this.isPosted()">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of userList" value="{{item.name}}">{{item.name}}</option>
           </select>
@@ -80,11 +81,12 @@
             <option *ngFor="let item of vehicleList" value="{{item.id}}">{{item.registrationNumber}}</option>
           </select> -->
           <label>Vozilo</label>
-          <input type="text" name="vechicleRegistration" #vechicleRegistration="ngModel" [(ngModel)]="service.formData.vechicleRegistration" class="form-control"/>
+          <input type="text" name="vechicleRegistration" #vechicleRegistration="ngModel" [(ngModel)]="service.formData.vechicleRegistration" class="form-control"
+          [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">
           <label>Napomena</label>
-          <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control"/>
+          <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control" [disabled]="this.isPosted()" />
         </div>
       </div>
     </div>
@@ -92,38 +94,39 @@
       <div class="col-md-3">
         <div class="form-group">
           <label>Proknjiženo</label>
-          <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.invoiced" class="form-control"/>
+          <input type ="checkbox" name="Invoiced" #Invoiced="ngModel" [(ngModel)]="service.formData.invoiced" class="form-control" [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">
           <label>Stornirano</label>
-          <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.creditMemo" class="form-control"/>
+          <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.creditMemo" class="form-control" [disabled]="this.isCreditMemo()"/>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate">
+          <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate" [disabled]="this.isPosted()">
           <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
           <mat-datepicker #pickerpayment></mat-datepicker>
         </mat-form-field>
         <div class="form-group">
           <label>Bruto težina</label>
-          <input type ="number" name="bruttoWeight" #bruttoWeight="ngModel" [(ngModel)]="service.formData.bruttoWeight" class="form-control"/>
+          <input type ="number" name="bruttoWeight" #bruttoWeight="ngModel" [(ngModel)]="service.formData.bruttoWeight" class="form-control" [disabled]="this.isPosted()" />
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
           <label>Podaci o robi</label>
-          <input type ="text" name="commodityType" #commodityType="ngModel" [(ngModel)]="service.formData.commodityType" class="form-control"/>
+          <input type ="text" name="commodityType" #commodityType="ngModel" [(ngModel)]="service.formData.commodityType" class="form-control" [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">
           <label>Broj paleta</label>
-          <input type ="number" name="numberOfPallets" #numberOfPallets="ngModel" [(ngModel)]="service.formData.numberOfPallets" class="form-control"/>
+          <input type ="number" name="numberOfPallets" #numberOfPallets="ngModel" [(ngModel)]="service.formData.numberOfPallets" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
           <label>Broj paletnih mesta</label>
-          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberofPalletsPlaces" class="form-control"/>
+          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberofPalletsPlaces" class="form-control"
+          [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">
           <label>Vozač</label>
-          <input type="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName" class="form-control"/>
+          <input type="text" name="driverName" #driverName="ngModel" [(ngModel)]="service.formData.driverName" class="form-control" [disabled]="this.isPosted()"/>
           <!-- <select name="driverId" #driverId="ngModel" [(ngModel)]="service.formData.driverId" class="form-control"
           [class.is-invalid]="!isValid && service.formData.driverId==0">
             <option value="0">-Izaberite-</option>
@@ -134,19 +137,20 @@
       <div class="col-md-3">
         <div class="form-group">
           <label>ADR potreban</label>
-          <input type ="checkbox" name="adrNeeded" #adrNeeded="ngModel" [(ngModel)]="service.formData.adrNeeded" class="form-control"/>
+          <input type ="checkbox" name="adrNeeded" #adrNeeded="ngModel" [(ngModel)]="service.formData.adrNeeded" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
           <label>Dužina rute</label>
-          <input type ="number" name="routeDistance" #routeDistance="ngModel" [(ngModel)]="service.formData.routeDistance" class="form-control"/>
+          <input type ="number" name="routeDistance" #routeDistance="ngModel" [(ngModel)]="service.formData.routeDistance" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
           <label>Cena po km</label>
-          <input type ="number" name="pricePerKm" #pricePerKm="ngModel" [(ngModel)]="service.formData.pricePerKm" class="form-control"/>
+          <input type ="number" name="pricePerKm" #pricePerKm="ngModel" [(ngModel)]="service.formData.pricePerKm" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
           <label>Ref. za utovar</label>
-          <input type ="text" name="loadRepresentative" #loadRepresentative="ngModel" [(ngModel)]="service.formData.loadRepresentative" class="form-control"/>
+          <input type ="text" name="loadRepresentative" #loadRepresentative="ngModel" [(ngModel)]="service.formData.loadRepresentative"
+          class="form-control" [disabled]="this.isPosted()"/>
         </div>
       </div>
     </div>
@@ -158,7 +162,7 @@
         <th>Količina</th>
         <th>Suma</th>
         <th>
-          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)"><i class="fa fa-plus"></i> Dodaj stavku</a>
+          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditInvoiceLine(null,service.formData.invoiceNo)" ><i class="fa fa-plus"></i> Dodaj stavku</a>
         </th>
       </thead>
       <tbody>
@@ -184,6 +188,6 @@
       <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
       <a class="btn btn-outline-dark ml-1" routerLink="/sales/SalesInvoices"><i class="fa fa-table"></i> Pregled izlaznih faktura</a>
       <button type="button" (click)="onPrintInvoice()" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa fakture</button>
-      <button type="button" (click)="onPrintInoInvoice()" class="btn btn-outline-light"><i class="fa fa-table"></i>Štampa Ino fakture (engleski)</button>
+      <button type="button" (click)="onPrintInoInvoice()" class="btn btn-outline-dark ml-1"><i class="fa fa-table"></i>Štampa Ino fakture (engleski)</button>
     </div>
   </form>

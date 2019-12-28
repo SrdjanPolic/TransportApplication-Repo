@@ -1,0 +1,39 @@
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+  <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div>
+    <a [routerLink]="['/currencyExchange/create']" mat-button color="primary">Kreiraj novi kurs na dan</a>
+  </div>
+</div>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="currencyId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Id valute </th>
+    <td mat-cell *matCellDef="let element"> {{element.currencyId}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="startingDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kursa </th>
+    <td mat-cell *matCellDef="let element"> {{element.startingDate | date: 'dd.MM.yyyy'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="exchangeRateAmount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Iznos </th>
+    <td mat-cell *matCellDef="let element"> {{element.exchangeRateAmount}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef> Prikaz </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+            <mat-icon class="mat-18">system_update</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 50, 100, 500]">
+</mat-paginator>
