@@ -9,6 +9,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
 {
     public class PurchaseInvoiceHeader : Entity
     {
+        public string TravelOrder { get; set; }
+        public string SupplierInvoiceNo { get; set; }
         public string InvoiceNo { get; set; }
         public DateTime PostingDate { get; set; }
         public string ExternalReferenceNo { get; set; }

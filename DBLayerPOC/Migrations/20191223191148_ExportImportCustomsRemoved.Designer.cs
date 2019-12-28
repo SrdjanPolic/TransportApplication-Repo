@@ -4,14 +4,16 @@ using DBLayerPOC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBLayerPOC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191223191148_ExportImportCustomsRemoved")]
+    partial class ExportImportCustomsRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("DriversLicenceExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 316, DateTimeKind.Local).AddTicks(7531));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 728, DateTimeKind.Local).AddTicks(5954));
 
                     b.Property<string>("DriversLicenceNumber")
                         .IsRequired()
@@ -74,7 +76,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PassExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 317, DateTimeKind.Local).AddTicks(8545));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 728, DateTimeKind.Local).AddTicks(7450));
 
                     b.Property<string>("PassNumber")
                         .IsRequired()
@@ -86,7 +88,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PersonalIdExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 317, DateTimeKind.Local).AddTicks(637));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 728, DateTimeKind.Local).AddTicks(6930));
 
                     b.Property<string>("PersonalIdNummber")
                         .IsRequired()
@@ -178,7 +180,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("DueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 220, DateTimeKind.Local).AddTicks(6804));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 700, DateTimeKind.Local).AddTicks(1381));
 
                     b.Property<string>("ExternalReferenceNo")
                         .HasColumnName("ExternalReferenceNo")
@@ -225,22 +227,16 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PaymentDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 221, DateTimeKind.Local).AddTicks(8914));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 700, DateTimeKind.Local).AddTicks(6466));
 
                     b.Property<DateTime>("PostingDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PostingDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 220, DateTimeKind.Local).AddTicks(4765));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 700, DateTimeKind.Local).AddTicks(619));
 
                     b.Property<string>("PurchaseSupplierNumber")
                         .HasColumnName("PurchaseSupplierNumber")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("SupplierInvoiceNo")
-                        .IsRequired()
-                        .HasColumnName("SupplierInvoiceNo")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -255,11 +251,6 @@ namespace DBLayerPOC.Migrations
                         .HasColumnName("TotalAmountLocal")
                         .HasColumnType("real")
                         .HasDefaultValue(0f);
-
-                    b.Property<string>("TravelOrder")
-                        .HasColumnName("TravelOrder")
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
@@ -398,7 +389,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("DueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 276, DateTimeKind.Local).AddTicks(867));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 715, DateTimeKind.Local).AddTicks(2876));
 
                     b.Property<string>("ExternalReferenceNo")
                         .HasColumnName("ExternalReferenceNo")
@@ -438,7 +429,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("LoadDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 280, DateTimeKind.Local).AddTicks(7913));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 717, DateTimeKind.Local).AddTicks(254));
 
                     b.Property<string>("LoadRepresentative")
                         .HasColumnName("LoadRepresentative")
@@ -461,7 +452,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("OrderDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 276, DateTimeKind.Local).AddTicks(1753));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 715, DateTimeKind.Local).AddTicks(3190));
 
                     b.Property<bool>("Paid")
                         .ValueGeneratedOnAdd()
@@ -479,13 +470,13 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PaymentDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 277, DateTimeKind.Local).AddTicks(5136));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 715, DateTimeKind.Local).AddTicks(7618));
 
                     b.Property<DateTime>("PostingDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("PostingDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 275, DateTimeKind.Local).AddTicks(9224));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 715, DateTimeKind.Local).AddTicks(2205));
 
                     b.Property<float>("PricePerKm")
                         .ValueGeneratedOnAdd()
@@ -521,11 +512,6 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("real")
                         .HasDefaultValue(0f);
 
-                    b.Property<string>("TravelOrder")
-                        .HasColumnName("TravelOrder")
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
-
                     b.Property<string>("UnloadAddress")
                         .HasColumnName("UnloadAddress")
                         .HasColumnType("nvarchar(250)")
@@ -535,7 +521,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("UnloadDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 281, DateTimeKind.Local).AddTicks(1640));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 717, DateTimeKind.Local).AddTicks(2049));
 
                     b.Property<string>("VechicleRegistration")
                         .HasColumnName("VechicleRegistration")
@@ -773,7 +759,7 @@ namespace DBLayerPOC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("LastChangeDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2019, 12, 27, 10, 16, 43, 198, DateTimeKind.Local).AddTicks(7660));
+                        .HasDefaultValue(new DateTime(2019, 12, 23, 20, 11, 47, 691, DateTimeKind.Local).AddTicks(7578));
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .HasColumnType("datetime2");

@@ -14,7 +14,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
-            builder.Property(x => x.InvoiceNo).HasColumnName("InvoiceNo").HasMaxLength(50).IsRequired(); 
+            builder.Property(x => x.InvoiceNo).HasColumnName("InvoiceNo").HasMaxLength(50).IsRequired();
+            builder.Property(x => x.SupplierInvoiceNo).HasColumnName("SupplierInvoiceNo").HasMaxLength(50).IsRequired();
             builder.Property(x => x.PostingDate).HasColumnName("PostingDate").HasDefaultValue(DateTime.Now);
             builder.Property(x => x.ExternalReferenceNo).HasColumnName("ExternalReferenceNo").HasMaxLength(50);
             builder.Property(x => x.DueDate).HasColumnName("DueDate").HasDefaultValue(DateTime.Now);
@@ -26,6 +27,8 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.PaymentDate).HasColumnName("PaymentDate").HasDefaultValue(DateTime.Now);
             builder.Property(x => x.PurchaseSupplierNumber).HasColumnName("PurchaseSupplierNumber").HasMaxLength(50);
             builder.Property(x => x.PartiallyPayed).HasColumnName("PartiallyPayed").HasDefaultValue(0);
+
+            builder.Property(x => x.TravelOrder).HasColumnName("TravelOrder").HasMaxLength(250);
 
             builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
             builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);

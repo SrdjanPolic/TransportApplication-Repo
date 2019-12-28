@@ -41,6 +41,12 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             //builder.Property(x => x.VehicleId).HasColumnName("VehicleId");
             builder.Property(x => x.DriverName).HasColumnName("DriverName");
             builder.Property(x => x.VechicleRegistration).HasColumnName("VechicleRegistration");
+            builder.Property(x => x.LoadDate).HasColumnName("LoadDate").HasDefaultValue(DateTime.Now).IsRequired(false);
+            builder.Property(x => x.UnloadDate).HasColumnName("UnloadDate").HasDefaultValue(DateTime.Now).IsRequired(false);
+            builder.Property(x => x.LoadAddress).HasColumnName("LoadAddress").HasMaxLength(250);
+            builder.Property(x => x.UnloadAddress).HasColumnName("UnloadAddress").HasMaxLength(250);
+            
+            builder.Property(x => x.TravelOrder).HasColumnName("TravelOrder").HasMaxLength(250);
 
             builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
             builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);

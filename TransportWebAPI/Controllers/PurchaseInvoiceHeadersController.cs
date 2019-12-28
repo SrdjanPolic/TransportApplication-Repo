@@ -70,6 +70,7 @@ namespace TransportWebAPI.Controllers
 
                 foreach (var purchaseInvoiceLine in purchaseInvoiceHeader.Lines)
                 {
+                    purchaseInvoiceLine.LastChangeDateTime = DateTime.UtcNow;
                     _unitOfWork.GetRepository<PurchaseInvoiceLine>().Add(purchaseInvoiceLine);
                 }
 
@@ -89,6 +90,8 @@ namespace TransportWebAPI.Controllers
                     {
                         _unitOfWork.Context.Entry(purchaseInvoiceLine).State = EntityState.Modified;
                     }
+
+                    purchaseInvoiceLine.LastChangeDateTime = DateTime.UtcNow;
                 }
 
                 _unitOfWork.Context.Entry(purchaseInvoiceHeader).State = EntityState.Modified;
