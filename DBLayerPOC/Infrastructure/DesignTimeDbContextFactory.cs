@@ -20,7 +20,7 @@ namespace DBLayerPOC.Infrastructure
             //var connectionString = Configuration.GetConnectionString("ConnectionString");
             //var connectionString = configuration.GetConnectionString("ConnectionString");
             var connectionString = "server=DENUE-AXD4094N1\\NAVDEMO;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;";
-            //var connectionString = "Server=tcp:denue-sql.database.windows.net,1433;Initial Catalog=TransportDBNew;Persist Security Info=False;User ID=adragojevic;Password=Axesys1745;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            
 
             builder.UseSqlServer(connectionString);
 

@@ -42,8 +42,8 @@ namespace TransportWebAPI.Controllers
         //}
 
         // GET: api/CurrencyExchangeRate/5
-        [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        [HttpGet("{id}", Name = "GetCurrencyExchangeRate")]
+        public IActionResult GetCurrencyExchangeRate(int id)
         {
             var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>().Single(x => x.Id == id);
             if (currencyExchangeRate == null)
@@ -54,24 +54,24 @@ namespace TransportWebAPI.Controllers
             return Ok(currencyExchangeRate);
         }
 
-        // GET: api/CurrencyExchangeRate/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: api/5/Datum
+        [HttpGet("{currencyId}/{exchangeRateDatum}")]
         public IActionResult Get(int currencyId, DateTime exchangeRateDatum)
         {
             var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
                 .Single(x => x.CurrencyId == currencyId
-                            && x.StartingDate.Date == exchangeRateDatum.Date);
-            
+                            && x.StartingDate.Date.CompareTo(exchangeRateDatum.Date) == 0);
+
             //no data on that Day, try to get last closest one
-            if(currencyExchangeRate == null)
+            if (currencyExchangeRate == null)
             {
                 currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
                                         .GetList().Items.Where(x => x.CurrencyId == currencyId
-                                                                && x.StartingDate.Date <= exchangeRateDatum.Date)
+                                                                && x.StartingDate.Date.CompareTo(exchangeRateDatum.Date) <= 0)
                                         .OrderByDescending(y => y.StartingDate)
                                         .FirstOrDefault();
                 //no exchange rate before, take last one
-                if(currencyExchangeRate == null)
+                if (currencyExchangeRate == null)
                 {
                     _unitOfWork.GetRepository<CurrencyExchangeRate>()
                                         .GetList().Items.Where(x => x.CurrencyId == currencyId)
@@ -106,7 +106,7 @@ namespace TransportWebAPI.Controllers
             _unitOfWork.GetRepository<CurrencyExchangeRate>().Add(exchangeRate);
             _unitOfWork.SaveChanges();
 
-            return CreatedAtRoute(routeName: "Get",
+            return CreatedAtRoute(routeName: "GetCurrencyExchangeRate",
                                   routeValues: new { id = exchangeRate.Id },
                                   value: exchangeRate);
 
