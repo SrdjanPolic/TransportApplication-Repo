@@ -54,6 +54,21 @@ namespace TransportWebAPI.Controllers
             return Ok(currencyExchangeRate);
         }
 
+        // GET: api/5
+        [HttpGet("{currencyId}")]
+        public IActionResult GetExchangeRatesForCurrency(int currencyId)
+        {
+            var currencyExchangeRates = _unitOfWork.GetRepository<CurrencyExchangeRate>()
+                .Single(x => x.CurrencyId == currencyId);
+
+            if (currencyExchangeRates == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(currencyExchangeRates);
+        }
+
         // GET: api/5/Datum
         [HttpGet("{currencyId}/{exchangeRateDatum}")]
         public IActionResult Get(int currencyId, DateTime exchangeRateDatum)
