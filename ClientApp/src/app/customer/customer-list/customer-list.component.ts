@@ -15,8 +15,8 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   public displayedColumns = ['name', 'address', 'city', 'country', 'eMail', 'vatNumber', 'lastChangeDate', 'update'];
   public dataSource = new MatTableDataSource<Customer>();
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort,{ static: true }) sort: MatSort;
+  @ViewChild(MatPaginator,{ static: true }) paginator: MatPaginator;
 
   constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 

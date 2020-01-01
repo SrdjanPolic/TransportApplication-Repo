@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 export class VendorListComponent implements OnInit, AfterViewInit {
 
   public displayedColumns = ['name', 'vatNumber' , 'address', 'city', 'country', 'lastChangeDate', 'update'];
-  public dataSource = new MatTableDataSource<Vendor>(); 
+  public dataSource = new MatTableDataSource<Vendor>();
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 
