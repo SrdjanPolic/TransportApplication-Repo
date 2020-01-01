@@ -18,9 +18,9 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'currencyId', 'paid', 'update'];
   vendorList: Vendor;
   public dataSource = new MatTableDataSource<PurchInvHeader>();
-  
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild(MatSort,{ static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(private service: PurchInvService,
     private Reposervice: RepositoryService,
     private errorService: ErrorHandlerService,
@@ -59,12 +59,12 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
     let url: string = `/purchase/delete/${id}`;
     this.router.navigate([url]);
   }
-  
+
   public redirectToDetails = (id: string) => {
     let url: string = `/purchase/details/${id}`;
     this.router.navigate([url]);
   }
-  
+
 
   openForEdit(invoiceID: number) {
     let url: string = `/purchase/update/${invoiceID}`;

@@ -19,8 +19,8 @@ export class InvoicesComponent implements OnInit {
    'paid', 'invoiced', 'creditMemo', 'update'];
   SalesList: Customer;
   public dataSource = new MatTableDataSource<SalesInvHeader>();
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   Filter: string;
   filterValues = {
     paid: 'false',
