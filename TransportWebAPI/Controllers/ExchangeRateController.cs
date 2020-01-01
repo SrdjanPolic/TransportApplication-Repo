@@ -23,24 +23,6 @@ namespace TransportWebAPI.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //// GET: api/ExchangeRates
-        //[HttpGet]
-        //public IActionResult GetExchangeRates()
-        //{
-
-        //    var currencies = _unitOfWork.GetRepository<CurrencyExchangeRate>().
-        //        GetList().Items.ToList();
-
-        //    foreach (var e in currencies)
-        //    {
-        //        var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
-        //            .GetList().Items.ToList().OrderByDescending(x => x.StartingDate).FirstOrDefault(x => x.CurrencyId == currency.Id);
-        //        currency.CurrencyExchangeRates.Add(currencyExchangeRate);
-        //    }
-
-        //    return Ok(currencies);
-        //}
-
         // GET: api/CurrencyExchangeRate/5
         [HttpGet("{id}", Name = "GetCurrencyExchangeRate")]
         public IActionResult GetCurrencyExchangeRate(int id)
@@ -55,11 +37,12 @@ namespace TransportWebAPI.Controllers
         }
 
         // GET: api/5
-        [HttpGet("{currencyId}")]
+        [Route("[action]/{currencyId}")]
+        [HttpGet]
         public IActionResult GetExchangeRatesForCurrency(int currencyId)
         {
             var currencyExchangeRates = _unitOfWork.GetRepository<CurrencyExchangeRate>()
-                .Single(x => x.CurrencyId == currencyId);
+                .GetList(x => x.CurrencyId == currencyId).Items.ToList();
 
             if (currencyExchangeRates == null)
             {
