@@ -38,6 +38,9 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public DateTime CheckIssueDate { get; set; }
         public DateTime ClienReceiptDocDate { get; set; }
 
+        public string TaxLawText { get; set; }
+
+        public bool OwnTransport { get; set; }
 
         [NotMapped]
         public string DeletedInvoiceLineIds { get; set; }
