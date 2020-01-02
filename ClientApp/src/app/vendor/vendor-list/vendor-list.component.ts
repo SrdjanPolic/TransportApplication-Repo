@@ -15,8 +15,8 @@ export class VendorListComponent implements OnInit, AfterViewInit {
   public displayedColumns = ['name', 'vatNumber' , 'address', 'city', 'country', 'lastChangeDate', 'update'];
   public dataSource = new MatTableDataSource<Vendor>();
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 

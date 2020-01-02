@@ -15,8 +15,8 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   public displayedColumns = ['registrationNumber', 'remark', 'vechicleType', 'chassisNumber', 'update'];
   public dataSource = new MatTableDataSource<Vehicle>();
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
 import { CurrencyExchangeListComponent } from '../currencyExchange-list/currencyExchange-list.component';
 import { CurrencyExchangeCreateComponent } from '../currencyExchange-create/currencyExchange-create.component';
 import { CurrencyExchangeUpdateComponent } from '../currencyExchange-update/currencyExchange-update.component';
 import { CurrencyExchangeDeleteComponent } from '../currencyExchange-delete/currencyExchange-delete.component';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: 'currencyExchange', component: CurrencyExchangeListComponent },
