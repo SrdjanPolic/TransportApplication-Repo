@@ -19,8 +19,8 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   vendorList: Vendor;
   public dataSource = new MatTableDataSource<PurchInvHeader>();
 
-  @ViewChild(MatSort,{ static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private service: PurchInvService,
     private Reposervice: RepositoryService,
     private errorService: ErrorHandlerService,

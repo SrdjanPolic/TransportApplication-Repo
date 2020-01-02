@@ -22,7 +22,6 @@ import {ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
-import {AgmCoreModule } from '@agm/core';
 
 registerLocaleData(localeDe, 'de');
 
@@ -47,9 +46,6 @@ registerLocaleData(localeDe, 'de');
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDqLTVbd5niPOe4xLJflfAsYAybhlY5chw'
-    })
     // RouterModule.forRoot([
     //   {
     //     path: '',

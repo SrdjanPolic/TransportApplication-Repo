@@ -15,8 +15,8 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   public displayedColumns = ['currencyId', 'startingDate', 'exchangeRateAmount', 'update'];
   public dataSource = new MatTableDataSource<CurrencyExchange>();
 
-  @ViewChild(MatSort,{ static: true }) sort: MatSort;
-  @ViewChild(MatPaginator,{ static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 
@@ -30,7 +30,7 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public getAllCurrencyExchange = () => {
-    this.repoService.getData('api/CurrencyExchange')
+    this.repoService.getData('api/ExchangeRate')
     .subscribe(res => {
       this.dataSource.data = res as CurrencyExchange[];
     },
@@ -44,12 +44,12 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    let url: string = `/CurrencyExchange/${id}`;
+    let url: string = `/ExchangeRate/${id}`;
     this.router.navigate([url]);
   }
 
   public redirectToUpdate = (id: string) => {
-    let url: string = `/CurrencyExchange/update/${id}`;
+    let url: string = `/ExchangeRate/update/${id}`;
     this.router.navigate([url]);
   }
 }
