@@ -35,6 +35,8 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public string LoadRepresentative { get; set; }
         public float PricePerKm { get; set; }
         public string CrmNumber { get; set; }
+        public DateTime CheckIssueDate { get; set; }
+        public DateTime ClienReceiptDocDate { get; set; }
 
 
         [NotMapped]
