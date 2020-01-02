@@ -46,8 +46,8 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.LoadAddress).HasColumnName("LoadAddress").HasMaxLength(250);
             builder.Property(x => x.UnloadAddress).HasColumnName("UnloadAddress").HasMaxLength(250);
 
-            builder.Property(x => x.CheckIssueDate).HasColumnName("CheckIssueDate").HasDefaultValue(DateTime.Now).IsRequired(false);
-            builder.Property(x => x.ClienReceiptDocDate).HasColumnName("ClienReceiptDocDate").HasDefaultValue(DateTime.Now).IsRequired(false);
+            builder.Property(x => x.CheckIssueDate).HasColumnName("CheckIssueDate").HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.ClienReceiptDocDate).HasColumnName("ClienReceiptDocDate").HasDefaultValue(DateTime.Now);
 
             builder.Property(x => x.TravelOrder).HasColumnName("TravelOrder").HasMaxLength(250);
 
