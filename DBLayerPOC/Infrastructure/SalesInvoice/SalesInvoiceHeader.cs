@@ -23,7 +23,7 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public bool CreditMemo { get; set; }
         public DateTime PaymentDate { get; set; }
         public ICollection<SalesInvoiceLine> Lines { get; }
-        public bool PartiallyPayed { get; set; }
+        public float PartiallyPayed { get; set; }
 
         public string CommodityType { get; set; }
         public double NumberOfPallets { get; set; }
