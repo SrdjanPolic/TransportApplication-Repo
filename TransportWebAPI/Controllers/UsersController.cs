@@ -20,7 +20,7 @@ namespace TransportWebAPI.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Customers
+        // GET: api/Users
         [HttpGet, Authorize]
         public IActionResult Get()
         {
