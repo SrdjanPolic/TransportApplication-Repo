@@ -66,7 +66,8 @@ export class VendorCreateComponent implements OnInit {
       vatGroup: vendorFormValue.vatGroup,
       vatNumber: vendorFormValue.vatNumber,
       isInactive: vendorFormValue.isInactive,
-      lastChangeDate: vendorFormValue.lastChangeDate
+      lastChangeDateTime: vendorFormValue.lastChangeDateTime,
+      lastChangeUserId: 0
     }
 
     let apiUrl = 'api/Vendors';

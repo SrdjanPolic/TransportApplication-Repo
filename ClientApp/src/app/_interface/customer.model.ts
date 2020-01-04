@@ -1,5 +1,5 @@
 import { Account } from './account.model';
-export interface Customer{
+export interface Customer {
     id: string;
     name: string;
     address: string;
@@ -8,7 +8,9 @@ export interface Customer{
     phoneNo: string;
     email: string;
     vatGroup: number;
-    vatNumber:string
+    vatNumber: string;
     isInactive: boolean;
-    accounts?: Account
+    accounts?: Account;
+    lastChangeDateTime: string;
+    lastChangeUserId: number;
 }

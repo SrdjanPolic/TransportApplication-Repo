@@ -26,6 +26,7 @@ export class CurrencyExchangeCreateComponent implements OnInit {
       currencyId: new FormControl(0, Validators.required),
       startingDate: new FormControl(newDt, Validators.required),
       exchangeRateAmount: new FormControl(0, Validators.required),
+
     });
 
     this.dialogConfig = {
@@ -52,14 +53,16 @@ export class CurrencyExchangeCreateComponent implements OnInit {
   }
 
   private executeCurrencyExchangeForCreation = (currencyExchangeValue) => {
+    const currentdate = new Date().toLocaleString();
     let currencyExchange: CurrencyExchangeForCreation = {
       currencyId: currencyExchangeValue.currencyId,
       startingDate: currencyExchangeValue.startingDate,
       exchangeRateAmount: currencyExchangeValue.exchangeRateAmount,
+      lastChangeDateTime: currentdate,
       lastChangeUserId: 0    //TODO- get from local storage
     }
 
-    let apiUrl = 'api/CurrencyExchange';
+    let apiUrl = 'api/CurrencyExchangeRate';
     this.repository.create(apiUrl, currencyExchange)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);

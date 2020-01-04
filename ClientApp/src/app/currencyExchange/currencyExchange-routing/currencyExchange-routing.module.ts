@@ -7,7 +7,7 @@ import { CurrencyExchangeDeleteComponent } from '../currencyExchange-delete/curr
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'currencyExchange', component: CurrencyExchangeListComponent },
+  { path: 'ExchangeRate', component: CurrencyExchangeListComponent },
   { path: 'create', component: CurrencyExchangeCreateComponent },
   { path: 'update/:id', component: CurrencyExchangeUpdateComponent },
   { path: 'delete/:id', component: CurrencyExchangeDeleteComponent }

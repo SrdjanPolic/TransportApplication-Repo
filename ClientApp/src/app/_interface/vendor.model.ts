@@ -1,5 +1,5 @@
 import { Account } from './account.model';
-export interface Vendor{
+export interface Vendor {
     id: string;
     name: string;
     address: string;
@@ -11,7 +11,8 @@ export interface Vendor{
     vatGroup: number;
     vatNumber: string;
     isInactive: boolean;
-    lastChangeDate: Date;
+    lastChangeDateTime: string;
+    lastChangeUserId: number;
 
-    accounts?: Account
+    accounts?: Account;
 }

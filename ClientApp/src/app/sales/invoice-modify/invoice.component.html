@@ -86,7 +86,28 @@
         </div>
         <div class="form-group">
           <label>Napomena</label>
-          <input type ="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control" [disabled]="this.isPosted()" />
+          <input type="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control" [disabled]="this.isPosted()" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Broj putnog naloga</label>
+          <input type ="text" name="travelOrder" #travelOrder="ngModel" [(ngModel)]="service.formData.travelOrder" class="form-control" [disabled]="this.isPosted()"/>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerissuedate" placeholder="Datum izdavanja računa"  [(ngModel)]= "service.formData.checkIssueDate" name="checkIssueDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerissuedate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerissuedate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerclienReceiptDocDate" placeholder="Datum zaprimanja dokumenta kod klijenta" [(ngModel)]= "service.formData.clienReceiptDocDate" name="clienReceiptDocDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerclienReceiptDocDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerclienReceiptDocDate></mat-datepicker>
+        </mat-form-field>
+        <div class="form-group">
+          <label>PDV član - tekst</label>
+          <textarea name="taxLawText" #taxLawText="ngModel" [(ngModel)]="service.formData.taxLawText"
+          class="form-control" [disabled]="this.isPosted()"></textarea>
         </div>
       </div>
     </div>
@@ -101,7 +122,7 @@
           <input type ="checkbox" name="CreditMemo" #CreditMemo="ngModel" [(ngModel)]="service.formData.creditMemo" class="form-control" [disabled]="this.isCreditMemo()"/>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerpayment" placeholder="Datum placanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate" [disabled]="this.isPosted()">
+          <input matInput [matDatepicker]="pickerpayment" placeholder="Datum plaćanja"  [(ngModel)]= "service.formData.paymentDate" name="paymentdate" [disabled]="this.isPosted()">
           <mat-datepicker-toggle matSuffix [for]="pickerpayment"></mat-datepicker-toggle>
           <mat-datepicker #pickerpayment></mat-datepicker>
         </mat-form-field>
@@ -153,6 +174,30 @@
           class="form-control" [disabled]="this.isPosted()"/>
         </div>
       </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Sopstveni transport da/ne</label>
+          <input type ="checkbox" name="ownTransport" #ownTransport="ngModel" [(ngModel)]="service.formData.ownTransport" class="form-control" [disabled]="this.isPosted()"/>
+        </div>
+        <div class="form-group">
+          <label>Adresa utovara</label>
+          <input type ="text" name="loadAddress" #loadAddress="ngModel" [(ngModel)]="service.formData.loadAddress" class="form-control" [disabled]="this.isPosted()"/>
+        </div>
+        <div class="form-group">
+          <label>Adresa istovara</label>
+          <input type ="text" name="unloadAddress" #unloadAddress="ngModel" [(ngModel)]="service.formData.unloadAddress" class="form-control" [disabled]="this.isPosted()"/>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerloadDate" placeholder="Datum utovara" [(ngModel)]= "service.formData.loadDate" name="loadDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerloadDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerloadDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerunloadDate" placeholder="Datum istovara" [(ngModel)]= "service.formData.unloadDate" name="unloadDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerunloadDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerunloadDate></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
     <!-- Invoice line table-->
     <table class="table table-borderless">
@@ -168,7 +213,7 @@
       <tbody>
         <tr *ngIf="service.SalesInvLines.length==0" [class.text-danger]="!isValid && service.SalesInvLines.length==0">
           <td class="font-italic text-center" colspan="5">
-            Nema stavki za ovu ulaznu fakturu.
+            Nema stavki za ovu izlaznu fakturu.
           </td>
         </tr>
 

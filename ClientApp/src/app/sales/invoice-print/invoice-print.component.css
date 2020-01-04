@@ -94,3 +94,9 @@ body {
 .stampel {
   display:inline;
 }
+.custHeader {
+  display: flex;
+}
+.custHeader Item {
+  flex: 1;
+}

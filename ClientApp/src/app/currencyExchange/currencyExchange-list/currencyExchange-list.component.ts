@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['currencyId', 'startingDate', 'exchangeRateAmount', 'update'];
+  public displayedColumns = ['currencyId', 'startingDate', 'exchangeRateAmount'];
   public dataSource = new MatTableDataSource<CurrencyExchange>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -30,7 +30,7 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public getAllCurrencyExchange = () => {
-    this.repoService.getData('api/ExchangeRate')
+    this.repoService.getData('api/ExchangeRate/GetExchangeRatesForCurrency/1')
     .subscribe(res => {
       this.dataSource.data = res as CurrencyExchange[];
     },

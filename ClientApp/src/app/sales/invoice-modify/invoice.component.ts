@@ -32,6 +32,8 @@ export class InvoiceComponent implements OnInit {
   settings: Settings;
   private dialogConfig;
   invoiceIdForPrint: string;
+  isPostedInvoice: boolean;
+  isCreditMemoInvoice: boolean;
 
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
@@ -53,6 +55,8 @@ export class InvoiceComponent implements OnInit {
         this.service.SalesInvLines = res.lines;
         this.service.formData.deletedInvoiceLineIds = '';
         this.invoiceIdForPrint = invoiceID;
+        this.isPostedInvoice = res.invoiced;
+        this.isCreditMemoInvoice = res.creditMemo;
       });
     }
 
@@ -61,6 +65,10 @@ export class InvoiceComponent implements OnInit {
     this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
     this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
     this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
+  }
+
+  get isAdmin(): string {
+    return localStorage.getItem('isAdmin');
   }
 
   resetForm(form?: NgForm) {
@@ -97,28 +105,44 @@ export class InvoiceComponent implements OnInit {
       deletedInvoiceLineIds: '',
       currencyId: 0,
       customerId: 0,
+      travelOrder: '',
+      partiallyPayed : false,
+      checkIssueDate: new Date(),
+      taxLawText : '',
+      loadAddress: '',
+      unloadAddress: '',
+      clienReceiptDocDate: new Date(),
+      ownTransport: false,
+      loadDate: new Date(),
+      unloadDate: new Date(),
+      lastChangeDateTime: newDt.toLocaleString(),
+      lastChangeUserId: 0
     };
     this.service.SalesInvLines = [];
   }
 
   AddOrEditInvoiceLine(invoiceLineIndex, invoiceNo) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = false;
-    dialogConfig.width = '50%';
-    dialogConfig.data = { invoiceLineIndex, invoiceNo };
-    this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
-      this.updateGrandTotal();
-    });
+    if (!this.isPosted()) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.disableClose = false;
+      dialogConfig.width = '50%';
+      dialogConfig.data = { invoiceLineIndex, invoiceNo };
+      this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
+        this.updateGrandTotal();
+      });
+    }
   }
 
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
-    if (invoiceLineID != null) {
-      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ',';
+    if (!this.isPosted()) {
+      if (invoiceLineID != null) {
+        this.service.formData.deletedInvoiceLineIds += invoiceLineID + ',';
+      }
+      this.service.SalesInvLines.splice(i, 1);
+      this.updateGrandTotal();
     }
-    this.service.SalesInvLines.splice(i, 1);
-    this.updateGrandTotal();
   }
 
   updateGrandTotal() {
@@ -128,10 +152,10 @@ export class InvoiceComponent implements OnInit {
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
   }
   isPosted() {
-    return (this.service.formData.invoiced);
+    return (this.isPostedInvoice && this.isAdmin === 'false');
   }
   isCreditMemo() {
-    return  (this.service.formData.creditMemo);
+    return  (this.isCreditMemoInvoice && this.isAdmin === 'false');
   }
 
   validateForm() {

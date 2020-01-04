@@ -24,9 +24,9 @@
 
         <tr class="information">
             <td colspan="2">
-                <table>
+                <table class="custHeader">
                     <tr>
-                        <td>
+                        <td class="Item">
                             RAČUN BR           {{this.service.formData.invoiceNo}}<br>
                             Datum izdavanja računa           {{this.service.formData.postingDate.toString()  | localTime}}<br>
                             Valuta računa                    {{this.service.formData.dueDate.toString() | localTime}}<br>
@@ -37,7 +37,7 @@
                             Vrsta prevoza:           {{this.service.formData.remarks}}<br>
                         </td>
 
-                        <td>
+                        <td class="Item">
                             {{this.customer.name}}<br>
                             {{this.customer.address}}<br>
                             {{this.customer.vatNumber}}<br>
@@ -63,23 +63,23 @@
         <tbody>
         <tr *ngFor="let lines of this.service.SalesInvLines">
           <td>{{lines.description}}</td>
-          <td>{{lines.unitPrice | number:'1.2-2' }}</td>
-          <td>{{lines.vatPercent | number:'1.2-2' }}</td>
-          <td>{{(lines.lineAmount - (lines.unitPrice * lines.quantity)) | number:'1.2-2' }}</td>
-          <td>{{lines.lineAmount | number:'1.2-2' }}</td>
+          <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
+          <td>{{lines.vatPercent | number:'1.2-2':'de-DE' }}</td>
+          <td>{{(lines.lineAmount - (lines.unitPrice * lines.quantity)) | number:'1.2-2':'de-DE' }}</td>
+          <td>{{lines.lineAmount | number:'1.2-2':'de-DE' }}</td>
           </tr><tr>
             <td>&nbsp;</td>
             <td><strong>SVEGA</strong></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td><strong>{{this.service.formData.totalAmount |number: '1.2-2'}}</strong></td>
+            <td><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</strong></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
             <td><strong>ZA UPLATU DINARA</strong></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td><strong>{{this.service.formData.totalAmount | number:'1.2-2' }}</strong></td>
+            <td><strong>{{this.service.formData.totalAmount | number:'1.2-2':'de-DE'}}</strong></td>
           </tr>
           <tr>
             <td>&nbsp;</td>

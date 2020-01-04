@@ -54,6 +54,7 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   private executeCustomerCreation = (customerFormValue) => {
+    const currentdate = new Date().toLocaleString();
     let customer: CustomerForCreation = {
       name: customerFormValue.name,
       address: customerFormValue.address,
@@ -63,7 +64,9 @@ export class CustomerCreateComponent implements OnInit {
       email : customerFormValue.email,
       vatGroup: customerFormValue.vatGroup,
       vatNumber: customerFormValue.vatNumber,
-      isInactive: customerFormValue.isInactive
+      isInactive: customerFormValue.isInactive,
+      lastChangeDateTime: currentdate,
+      lastChangeUserId: 0
     }
 
     let apiUrl = 'api/Customers';

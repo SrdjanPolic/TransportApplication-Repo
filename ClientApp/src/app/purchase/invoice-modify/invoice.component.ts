@@ -81,7 +81,9 @@ export class InvoiceComponent implements OnInit {
       currencyId: 0,
       vendorId: 0,
       currency: '',
-      deletedInvoiceLineIds: ''
+      deletedInvoiceLineIds: '',
+      lastChangeDateTime: newDt.toLocaleString(),
+      lastChangeUserId: 0
     };
     this.service.PurchInvLines = [];
   }
