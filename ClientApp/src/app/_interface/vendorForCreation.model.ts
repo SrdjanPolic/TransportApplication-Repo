@@ -9,5 +9,6 @@ export interface VendorForCreation {
     vatGroup: number;
     vatNumber: string;
     isInactive: boolean;
-    lastChangeDate: Date;
+    lastChangeDateTime: string;
+    lastChangeUserId: number;
 }

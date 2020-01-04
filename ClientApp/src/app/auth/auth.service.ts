@@ -45,7 +45,7 @@ export class AuthService {
         localStorage.setItem('jwt', token);
         localStorage.setItem('username', this.currentUser.username);
         if (this.currentUser.isAdmin) {
-          localStorage.setItem('isAdmin', 'true')
+          localStorage.setItem('isAdmin', 'true');
         } else { localStorage.setItem('isAdmin', 'false'); }
         this.loggedIn.next(true);
         this.isAdmin.next(administrator);

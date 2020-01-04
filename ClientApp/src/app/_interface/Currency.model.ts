@@ -1,5 +1,7 @@
-export interface Currency{
+export interface Currency {
     id: number;
     code: string;
-    name:string
+    name: string;
+    lastChangeDateTime: string;
+    lastChangeUserId: number;
 }

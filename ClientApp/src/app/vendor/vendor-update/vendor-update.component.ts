@@ -56,9 +56,9 @@ export class VendorUpdateComponent implements OnInit {
 
   private getVendorById = () => {
     let vendorId: string = this.activeRoute.snapshot.params['id'];
-      
+
     let vendorByIdUrl: string = `api/Vendors/${vendorId}`;
-   
+
     this.repository.getData(vendorByIdUrl)
       .subscribe(res => {
         this.vendor = res as Vendor;
@@ -77,7 +77,7 @@ export class VendorUpdateComponent implements OnInit {
   }
 
   private executeVendorUpdate = (vendorFormValue) => {
- 
+
     this.vendor.name = vendorFormValue.name;
     this.vendor.address = vendorFormValue.address;
     this.vendor.city = vendorFormValue.city;
@@ -88,13 +88,13 @@ export class VendorUpdateComponent implements OnInit {
     this.vendor.vatGroup = vendorFormValue.vatGroup;
     this.vendor.vatNumber = vendorFormValue.vatNumber;
     this.vendor.isInactive = vendorFormValue.isInactive;
-    this.vendor.lastChangeDate = vendorFormValue.lastChangeDate
-   
+    this.vendor.lastChangeDateTime = vendorFormValue.lastChangeDateTime;
+
     let apiUrl = `api/Vendors/${this.vendor.id}`;
     this.repository.update(apiUrl, this.vendor)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
-        
+
         dialogRef.afterClosed()
           .subscribe(result => {
             this.location.back();

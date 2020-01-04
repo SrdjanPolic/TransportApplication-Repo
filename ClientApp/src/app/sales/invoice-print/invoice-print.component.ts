@@ -98,6 +98,18 @@ export class InvoicePrintComponent implements OnInit {
       deletedInvoiceLineIds: '',
       currencyId: 0,
       customerId: 0,
+      travelOrder: '',
+      partiallyPayed : false,
+      checkIssueDate: new Date(),
+      taxLawText : '',
+      loadAddress: '',
+      unloadAddress: '',
+      clienReceiptDocDate: new Date(),
+      ownTransport: false,
+      loadDate: new Date(),
+      unloadDate: new Date(),
+      lastChangeDateTime: newDt.toLocaleString(),
+      lastChangeUserId: 0
     };
     this.service.SalesInvLines = [];
   }

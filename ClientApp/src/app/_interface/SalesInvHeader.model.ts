@@ -3,6 +3,7 @@ import {Customer} from './customer.model';
 export class SalesInvHeader {
     id: number;
     invoiceNo: string;
+    travelOrder: string;
     postingDate: Date;
     externalReferenceNo: string;
     dueDate: Date;
@@ -15,6 +16,7 @@ export class SalesInvHeader {
     creditMemo: boolean;
     paymentDate: Date;
     lines?: SalesInvLine[];
+    partiallyPayed: boolean;
     commodityType: string;
     numberOfPallets: number;
     numberofPalletsPlaces: number;
@@ -27,9 +29,20 @@ export class SalesInvHeader {
     loadRepresentative: string;
     pricePerKm: number;
     crmNumber: string;
+    checkIssueDate: Date;
+    taxLawText: string;
+    clienReceiptDocDate: Date;
+    ownTransport: boolean;
     deletedInvoiceLineIds: string;
     currencyId: number;
     currency?: string;
     customerId: number;
     customer?: string;
+    loadDate: Date;
+    unloadDate: Date;
+    loadAddress: string;
+    unloadAddress: string;
+    lastChangeDateTime: string;
+    lastChangeUserId: number;
+
 }

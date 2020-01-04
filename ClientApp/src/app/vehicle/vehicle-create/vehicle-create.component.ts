@@ -20,7 +20,7 @@ export interface CarType {
 export class VehicleCreateComponent implements OnInit {
   public vehicleForm: FormGroup;
   private dialogConfig;
-  
+
   carTypes: CarType[] = [
     {value: 'Kombi', viewValue: 'Kombi'},
     {value: 'Putničko', viewValue: 'Putničko'},
@@ -63,6 +63,7 @@ export class VehicleCreateComponent implements OnInit {
   }
 
   private executeVehicleCreation = (vehicleFormValue) => {
+    const currentdate = new Date().toLocaleString();
     let vehicle: VehicleForCreation = {
 
       registrationNumber: vehicleFormValue.registrationNumber,
@@ -71,7 +72,9 @@ export class VehicleCreateComponent implements OnInit {
       fuelType: vehicleFormValue.fuelType,
       vechicleType: vehicleFormValue.vechicleType,
       isInactive: vehicleFormValue.isInactive,
-      remark: vehicleFormValue.remark
+      remark: vehicleFormValue.remark,
+      lastChangeDateTime: currentdate,
+      lastChangeUserId: 0
     };
 
     let apiUrl = 'api/Vehicles';
