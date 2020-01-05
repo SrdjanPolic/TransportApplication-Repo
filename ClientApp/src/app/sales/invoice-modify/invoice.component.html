@@ -130,6 +130,10 @@
           <label>Bruto težina</label>
           <input type ="number" name="bruttoWeight" #bruttoWeight="ngModel" [(ngModel)]="service.formData.bruttoWeight" class="form-control" [disabled]="this.isPosted()" />
         </div>
+        <div class="form-group">
+          <label>Parcijalno plaćen iznos</label>
+          <input type ="number" name="partiallyPayed" #partiallyPayed="ngModel" [(ngModel)]="service.formData.partiallyPayed" class="form-control" [disabled]="this.isCreditMemo()"/>
+        </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">

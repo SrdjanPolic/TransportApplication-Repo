@@ -43,6 +43,10 @@ export class UserCreateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public createUser = (userFormValue) => {
     if (this.userForm.valid) {
       this.executeUserCreation(userFormValue);
@@ -55,7 +59,10 @@ export class UserCreateComponent implements OnInit {
       username: userFormValue.username,
       password: userFormValue.password,
       isAdmin: userFormValue.isAdmin,
-      isInactive: userFormValue.isInactive
+      isInactive: userFormValue.isInactive,
+      lastChangeDateTime: new Date().toLocaleString(),
+      lastChangeUserId: +this.userId,
+
     }
 
     let apiUrl = 'api/Users';

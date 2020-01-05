@@ -49,6 +49,10 @@ export class DriverCreateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public createDriver = (driverFormValue) => {
     if (this.driverForm.valid) {
       this.executeDriverCreation(driverFormValue);
@@ -69,7 +73,7 @@ export class DriverCreateComponent implements OnInit {
       remark: driverFormValue.remark,
       isInactive: driverFormValue.isInactive,
       lastChangeDateTime: currentdate,
-      lastChangeUserId: 0
+      lastChangeUserId: +this.userId,
     }
 
     let apiUrl = 'api/Drivers';

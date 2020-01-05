@@ -42,7 +42,7 @@ export class VehicleUpdateComponent implements OnInit {
       vechicleType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       isInactive: new FormControl(false),
       remark: new FormControl('', Validators.maxLength(250))
-      
+
     });
 
     this.dialogConfig = {
@@ -59,15 +59,19 @@ export class VehicleUpdateComponent implements OnInit {
     return this.vehicleForm.controls[controlName].hasError(errorName);
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public onCancel = () => {
     this.location.back();
   }
 
   private getVehicleById = () => {
     let vehicleId: string = this.activeRoute.snapshot.params['id'];
-      
+
     let vehicleByIdUrl: string = `api/Vehicles/${vehicleId}`;
-   
+
     this.repository.getData(vehicleByIdUrl)
       .subscribe(res => {
         this.vehicle = res as Vehicle;
@@ -86,7 +90,7 @@ export class VehicleUpdateComponent implements OnInit {
   }
 
   private executeVehicleUpdate = (vehicleFormValue) => {
- 
+
     this.vehicle.registrationNumber = vehicleFormValue.registrationNumber;
     this.vehicle.maxWeight = vehicleFormValue.maxWeight;
     this.vehicle.chassisNumber = vehicleFormValue.chassisNumber;
@@ -94,12 +98,14 @@ export class VehicleUpdateComponent implements OnInit {
     this.vehicle.vechicleType = vehicleFormValue.vechicleType;
     this.vehicle.isInactive = vehicleFormValue.isInactive;
     this.vehicle.remark = vehicleFormValue.remark;
+    this.vehicle.lastChangeDateTime = new Date().toLocaleString();
+    this.vehicle.lastChangeUserId = +this.userId;
 
     let apiUrl = `api/Vehicles/${this.vehicle.id}`;
     this.repository.update(apiUrl, this.vehicle)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
-        
+
         dialogRef.afterClosed()
           .subscribe(result => {
             this.location.back();

@@ -16,6 +16,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Settings } from 'src/app/_interface/Settings.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
+import {CurrencyExchange} from '../../_interface/currencyExchange.model';
 
 @Component({
   selector: 'app-invoice',
@@ -26,6 +27,7 @@ export class InvoiceComponent implements OnInit {
   customerList: Customer[];
   driverList: Driver[];
   vehicleList: Vehicle[];
+  currExchange: CurrencyExchange;
   userList: User[];
   isValid = true;
   currencyList: Currency[];
@@ -57,6 +59,7 @@ export class InvoiceComponent implements OnInit {
         this.invoiceIdForPrint = invoiceID;
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
+        this.service.formData.lastChangeUserId = +this.userId;
       });
     }
 
@@ -65,10 +68,17 @@ export class InvoiceComponent implements OnInit {
     this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
     this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
     this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
+    const apiUrl = `api/ExchangeRate/${this.service.formData.currencyId}/${this.service.formData.checkIssueDate}`;
+    this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
+
   }
 
   get isAdmin(): string {
     return localStorage.getItem('isAdmin');
+  }
+
+  get userId(): string {
+    return localStorage.getItem('userId');
   }
 
   resetForm(form?: NgForm) {
@@ -106,7 +116,7 @@ export class InvoiceComponent implements OnInit {
       currencyId: 0,
       customerId: 0,
       travelOrder: '',
-      partiallyPayed : false,
+      partiallyPayed : 0,
       checkIssueDate: new Date(),
       taxLawText : '',
       loadAddress: '',
@@ -116,7 +126,7 @@ export class InvoiceComponent implements OnInit {
       loadDate: new Date(),
       unloadDate: new Date(),
       lastChangeDateTime: newDt.toLocaleString(),
-      lastChangeUserId: 0
+      lastChangeUserId: +this.userId,
     };
     this.service.SalesInvLines = [];
   }
@@ -150,6 +160,12 @@ export class InvoiceComponent implements OnInit {
       return prev + curr.lineAmount;
     }, 0);
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
+    if (this.service.formData.currencyId > 1) {
+      if (this.currExchange.exchangeRateAmount !== 0) {
+      this.service.formData.totalAmountLocal =
+        parseFloat((this.service.formData.totalAmount * this.currExchange.exchangeRateAmount).toFixed(2));
+      }
+    }
   }
   isPosted() {
     return (this.isPostedInvoice && this.isAdmin === 'false');
@@ -191,11 +207,11 @@ export class InvoiceComponent implements OnInit {
   onPrintInvoice() {
     // this.printService
     //   .printDocument('invoice', this.invoiceIdForPrint);
-    let pathurl = `/sales/details/${this.invoiceIdForPrint}/print`;
+    const pathurl = `/sales/details/${this.invoiceIdForPrint}/print`;
     this.router.navigate([pathurl]);
   }
   onPrintInoInvoice() {
-    let pathurl = `/sales/details/${this.invoiceIdForPrint}/inoprint`;
+    const pathurl = `/sales/details/${this.invoiceIdForPrint}/inoprint`;
     this.router.navigate([pathurl]);
   }
 

@@ -16,7 +16,7 @@ export class SalesInvHeader {
     creditMemo: boolean;
     paymentDate: Date;
     lines?: SalesInvLine[];
-    partiallyPayed: boolean;
+    partiallyPayed: number;
     commodityType: string;
     numberOfPallets: number;
     numberofPalletsPlaces: number;

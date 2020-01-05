@@ -44,6 +44,10 @@ export class VendorCreateComponent implements OnInit {
     return this.vendorForm.controls[controlName].hasError(errorName);
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public onCancel = () => {
     this.location.back();
   }
@@ -67,7 +71,7 @@ export class VendorCreateComponent implements OnInit {
       vatNumber: vendorFormValue.vatNumber,
       isInactive: vendorFormValue.isInactive,
       lastChangeDateTime: vendorFormValue.lastChangeDateTime,
-      lastChangeUserId: 0
+      lastChangeUserId: +this.userId
     }
 
     let apiUrl = 'api/Vendors';

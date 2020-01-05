@@ -4,4 +4,6 @@ export interface UserForCreation {
   password: string;
   isAdmin: boolean;
   isInactive: boolean;
+  lastChangeDateTime: string;
+  lastChangeUserId: number;
 }

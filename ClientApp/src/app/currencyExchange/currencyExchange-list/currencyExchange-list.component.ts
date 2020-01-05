@@ -30,7 +30,7 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public getAllCurrencyExchange = () => {
-    this.repoService.getData('api/ExchangeRate/GetExchangeRatesForCurrency/1')
+    this.repoService.getData('api/ExchangeRate/GetExchangeRatesForCurrency/2')
     .subscribe(res => {
       this.dataSource.data = res as CurrencyExchange[];
     },
