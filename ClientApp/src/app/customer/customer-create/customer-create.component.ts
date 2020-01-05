@@ -47,6 +47,10 @@ export class CustomerCreateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public createCustomer = (customerFormValue) => {
     if (this.customerForm.valid) {
       this.executeCustomerCreation(customerFormValue);
@@ -66,7 +70,7 @@ export class CustomerCreateComponent implements OnInit {
       vatNumber: customerFormValue.vatNumber,
       isInactive: customerFormValue.isInactive,
       lastChangeDateTime: currentdate,
-      lastChangeUserId: 0
+      lastChangeUserId: +this.userId,
     }
 
     let apiUrl = 'api/Customers';

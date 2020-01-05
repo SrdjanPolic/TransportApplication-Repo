@@ -56,6 +56,10 @@ export class VehicleCreateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public createVehicle = (vehicleFormValue) => {
     if (this.vehicleForm.valid) {
       this.executeVehicleCreation(vehicleFormValue);
@@ -74,7 +78,7 @@ export class VehicleCreateComponent implements OnInit {
       isInactive: vehicleFormValue.isInactive,
       remark: vehicleFormValue.remark,
       lastChangeDateTime: currentdate,
-      lastChangeUserId: 0
+      lastChangeUserId: +this.userId
     };
 
     let apiUrl = 'api/Vehicles';

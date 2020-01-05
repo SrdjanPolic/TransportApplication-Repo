@@ -50,6 +50,10 @@ export class VendorUpdateComponent implements OnInit {
     return this.vendorForm.controls[controlName].hasError(errorName);
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public onCancel = () => {
     this.location.back();
   }
@@ -89,6 +93,7 @@ export class VendorUpdateComponent implements OnInit {
     this.vendor.vatNumber = vendorFormValue.vatNumber;
     this.vendor.isInactive = vendorFormValue.isInactive;
     this.vendor.lastChangeDateTime = vendorFormValue.lastChangeDateTime;
+    this.vendor.lastChangeUserId = +this.userId;
 
     let apiUrl = `api/Vendors/${this.vendor.id}`;
     this.repository.update(apiUrl, this.vendor)

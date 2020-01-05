@@ -46,6 +46,10 @@ export class UserUpdateComponent implements OnInit {
     return this.userForm.controls[controlName].hasError(errorName);
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   public onCancel = () => {
     this.location.back();
   }
@@ -78,6 +82,8 @@ export class UserUpdateComponent implements OnInit {
     this.user.password = userFormValue.password,
     this.user.isAdmin = userFormValue.isAdmin,
     this.user.isInactive = userFormValue.isInactive;
+    this.user.lastChangeDateTime = new Date().toLocaleString(),
+    this.user.lastChangeUserId = +this.userId;
 
     let apiUrl = `api/Users/${this.user.id}`;
     this.repository.update(apiUrl, this.user)

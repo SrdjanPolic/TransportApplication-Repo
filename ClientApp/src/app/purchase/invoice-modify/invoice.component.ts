@@ -63,36 +63,41 @@ export class InvoiceComponent implements OnInit {
 
   }
 
-    resetForm(form?: NgForm) {
-    let newDt = new Date();
-     if (form = null)
-       form.resetForm();
-    this.service.formData = {
-      id: 0,
-      invoiceNo: 'Biće automatski dodeljen',  //will be delt on back end
-      postingDate: newDt,
-      externalReferenceNo: '',
-      dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
-      totalAmount: 0,
-      paid: false,
-      invoiced: false,
-      creditMemo: false,
-      paymentDate: new Date(),
-      currencyId: 0,
-      vendorId: 0,
-      currency: '',
-      deletedInvoiceLineIds: '',
-      lastChangeDateTime: newDt.toLocaleString(),
-      lastChangeUserId: 0
-    };
-    this.service.PurchInvLines = [];
+  get userId(): string {
+    return localStorage.getItem('userId');
   }
+
+  resetForm(form?: NgForm) {
+  let newDt = new Date();
+    if (form = null) {
+      form.resetForm();
+    }
+  this.service.formData = {
+    id: 0,
+    invoiceNo: 'Biće automatski dodeljen',  //will be delt on back end
+    postingDate: newDt,
+    externalReferenceNo: '',
+    dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
+    totalAmount: 0,
+    paid: false,
+    invoiced: false,
+    creditMemo: false,
+    paymentDate: new Date(),
+    currencyId: 0,
+    vendorId: 0,
+    currency: '',
+    deletedInvoiceLineIds: '',
+    lastChangeDateTime: newDt.toLocaleString(),
+    lastChangeUserId: +this.userId,
+  };
+  this.service.PurchInvLines = [];
+}
 
   AddOrEditInvoiceLine(invoiceLineIndex, invoiceNo) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
-    dialogConfig.width = "50%";
+    dialogConfig.width = '50%';
     dialogConfig.data = { invoiceLineIndex, invoiceNo };
     this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
       this.updateGrandTotal();
@@ -101,8 +106,9 @@ export class InvoiceComponent implements OnInit {
 
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
-    if (invoiceLineID != null)
-      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ",";
+    if (invoiceLineID != null) {
+      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ',';
+    }
     this.service.PurchInvLines.splice(i, 1);
     this.updateGrandTotal();
   }
@@ -116,10 +122,11 @@ export class InvoiceComponent implements OnInit {
 
   validateForm() {
     this.isValid = true;
-    if (this.service.formData.vendorId == 0)
+    if (this.service.formData.vendorId === 0) {
       this.isValid = false;
-    else if (this.service.PurchInvLines.length == 0)
+    } else if (this.service.PurchInvLines.length === 0) {
       this.isValid = false;
+         }
     return this.isValid;
   }
 

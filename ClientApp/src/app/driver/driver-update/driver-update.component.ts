@@ -56,11 +56,15 @@ export class DriverUpdateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
   private getDriverById = () => {
     let driverId: string = this.activeRoute.snapshot.params['id'];
-      
+
     let driverByIdUrl: string = `api/Drivers/${driverId}`;
-   
+
     this.repository.getData(driverByIdUrl)
       .subscribe(res => {
         this.driver = res as Driver;
@@ -89,7 +93,8 @@ export class DriverUpdateComponent implements OnInit {
     this.driver.address = driverFormValue.address,
     this.driver.remark = driverFormValue.remark,
     this.driver.isInactive = driverFormValue.isInactive;
-    
+    this.driver.lastChangeUserId = +this.userId;
+
     let apiUrl = `api/Drivers/${this.driver.id}`;
     this.repository.update(apiUrl, this.driver)
       .subscribe(res => {

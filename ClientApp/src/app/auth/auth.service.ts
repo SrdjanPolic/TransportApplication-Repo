@@ -34,16 +34,20 @@ export class AuthService {
       }).subscribe(response => {
         const token = (<any>response).token;
         const administrator = (<any>response).isAdmin;
+        const userId = (<any>response).id;
         this.currentUser = {
           username: user.username,
-          id: user.id,
+          id: userId,
           password: user.password,
           isAdmin: administrator,
           isInactive: user.isInactive,
-          name: user.name
+          name: user.name,
+          lastChangeDateTime: new Date().toLocaleString(),
+          lastChangeUserId: userId
         };
         localStorage.setItem('jwt', token);
         localStorage.setItem('username', this.currentUser.username);
+        localStorage.setItem('userId', userId);
         if (this.currentUser.isAdmin) {
           localStorage.setItem('isAdmin', 'true');
         } else { localStorage.setItem('isAdmin', 'false'); }
@@ -61,6 +65,7 @@ export class AuthService {
     localStorage.removeItem('jwt');
     localStorage.removeItem('username');
     localStorage.removeItem('isAdmin');
+    localStorage.removeItem('userId');
     this.currentUser = null;
     this.router.navigate(['/login']);
 

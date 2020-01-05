@@ -96,7 +96,7 @@ export class InvoiceInoPrintComponent implements OnInit {
       currencyId: 0,
       customerId: 0,
       travelOrder: '',
-      partiallyPayed : false,
+      partiallyPayed : 0,
       checkIssueDate: new Date(),
       taxLawText : '',
       loadAddress: '',

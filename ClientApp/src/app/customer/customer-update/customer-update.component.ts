@@ -52,12 +52,15 @@ export class CustomerUpdateComponent implements OnInit {
   public onCancel = () => {
     this.location.back();
   }
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
 
   private getCustomerById = () => {
     let customerId: string = this.activeRoute.snapshot.params['id'];
-      
+
     let customerByIdUrl: string = `api/Customers/${customerId}`;
-   
+
     this.repository.getData(customerByIdUrl)
       .subscribe(res => {
         this.customer = res as Customer;
@@ -66,7 +69,7 @@ export class CustomerUpdateComponent implements OnInit {
       (error) => {
         this.errorService.dialogConfig = this.dialogConfig;
         this.errorService.handleError(error);
-      })
+      });
   }
 
   public updateCustomer = (customerFormValue) => {
@@ -76,7 +79,7 @@ export class CustomerUpdateComponent implements OnInit {
   }
 
   private executeCustomerUpdate = (customerFormValue) => {
- 
+
     this.customer.name = customerFormValue.name;
     this.customer.address = customerFormValue.address;
     this.customer.city = customerFormValue.city;
@@ -86,12 +89,13 @@ export class CustomerUpdateComponent implements OnInit {
     this.customer.vatGroup = customerFormValue.vatGroup;
     this.customer.vatNumber = customerFormValue.vatNumber;
     this.customer.isInactive = customerFormValue.isInactive;
-   
+    this.customer.lastChangeUserId = +this.userId;
+
     let apiUrl = `api/Customers/${this.customer.id}`;
     this.repository.update(apiUrl, this.customer)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
-        
+
         dialogRef.afterClosed()
           .subscribe(result => {
             this.location.back();

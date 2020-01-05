@@ -62,7 +62,7 @@ export class CurrencyExchangeCreateComponent implements OnInit {
       lastChangeUserId: 0    //TODO- get from local storage
     }
 
-    let apiUrl = 'api/CurrencyExchangeRate';
+    let apiUrl = 'api/ExchangeRate';
     this.repository.create(apiUrl, currencyExchange)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
