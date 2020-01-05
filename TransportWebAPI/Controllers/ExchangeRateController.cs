@@ -58,14 +58,14 @@ namespace TransportWebAPI.Controllers
         {
             var currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
                 .Single(x => x.CurrencyId == currencyId
-                            && x.StartingDate.Date.CompareTo(exchangeRateDatum.Date) == 0);
+                            && DateTime.Compare(x.StartingDate.Date, exchangeRateDatum.Date) == 0);
 
             //no data on that Day, try to get last closest one
             if (currencyExchangeRate == null)
             {
                 currencyExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>()
                                         .GetList().Items.Where(x => x.CurrencyId == currencyId
-                                                                && x.StartingDate.Date.CompareTo(exchangeRateDatum.Date) <= 0)
+                                                                && DateTime.Compare(x.StartingDate.Date, exchangeRateDatum.Date) < 0)
                                         .OrderByDescending(y => y.StartingDate)
                                         .FirstOrDefault();
                 //no exchange rate before, take last one
