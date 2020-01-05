@@ -47,22 +47,22 @@ namespace DBLayerPOC.Infrastructure
 
             }
 
-            if (!_ctx.CurrencyExchangeRates.Any())
-            {
-                //for (int i = 0; i < 30; i++)
-                {
-                    var exRate = new CurrencyExchangeRate
-                    {
-                        ExchangeRateAmount = 117.5F,
-                        StartingDate = DateTime.UtcNow,
-                        CurrencyId = 1
-                    };
+            //if (!_ctx.CurrencyExchangeRates.Any())
+            //{
+            //    //for (int i = 0; i < 30; i++)
+            //    {
+            //        var exRate = new CurrencyExchangeRate
+            //        {
+            //            ExchangeRateAmount = 117.5F,
+            //            StartingDate = DateTime.UtcNow,
+            //            CurrencyId = 1
+            //        };
 
-                    _ctx.CurrencyExchangeRates.Add(exRate);
-                }
+            //        _ctx.CurrencyExchangeRates.Add(exRate);
+            //    }
 
-                _ctx.SaveChanges();
-            }
+            //    _ctx.SaveChanges();
+            //}
 
             //if (!_ctx.Vendors.Any())
             //{
@@ -119,8 +119,8 @@ namespace DBLayerPOC.Infrastructure
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.PurchaseInvoiceObjectName,
-                    Prefix = "UF-19",
-                    Year = 2019,
+                    Prefix = "UF-20",
+                    Year = 2020,
                     LastUsedNumber = PurchaseInvoiceNumber
                 };
 
@@ -135,8 +135,8 @@ namespace DBLayerPOC.Infrastructure
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.SalesInvoiceObjectName,
-                    Prefix = "IF-19",
-                    Year = 2019,
+                    Prefix = "IF-20",
+                    Year = 2020,
                     LastUsedNumber = SalesInvoiceNumber
                 };
 
@@ -426,33 +426,33 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
             //}
 
-            if (!_ctx.Login.Any())
-            {
-                var login = new LoginModel
-                {
-                    Name = "admin",
-                    Username = "admin",
-                    Password = "admin",
-                    IsAdmin = true,
-                    IsInactive = false
-                };
+            //if (!_ctx.Login.Any())
+            //{
+            //    var login = new LoginModel
+            //    {
+            //        Name = "admin",
+            //        Username = "admin",
+            //        Password = "admin",
+            //        IsAdmin = true,
+            //        IsInactive = false
+            //    };
 
-                _ctx.Login.Add(login);
+            //    _ctx.Login.Add(login);
 
-                var login1 = new LoginModel
-                {
-                    Username = "user",
-                    Password = "user",
-                    Name = "user",
-                    IsAdmin = false,
-                    IsInactive = false  
-                };
+            //    var login1 = new LoginModel
+            //    {
+            //        Username = "user",
+            //        Password = "user",
+            //        Name = "user",
+            //        IsAdmin = false,
+            //        IsInactive = false  
+            //    };
 
-                _ctx.Login.Add(login1);
+            //    _ctx.Login.Add(login1);
 
-                _ctx.SaveChanges();
+            //    _ctx.SaveChanges();
 
-            }
+            //}
 
          
         }
