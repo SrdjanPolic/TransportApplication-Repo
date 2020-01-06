@@ -8,7 +8,7 @@
           <mat-label>Izaberite valutu:</mat-label>
           <mat-select formControlName = "currencyId" placeholder ="Valuta">
             <ng-container *ngFor= "let currency of currencyList">
-              <mat-option value="{{currency.id}}">{{currency.id}}</mat-option>
+              <mat-option value="{{currency.id}}">{{currency.code}}</mat-option>
             </ng-container>
             <!-- <mat-error *ngIf="hasError('currencyId','required')">Valuta je neophodna</mat-error> -->
           </mat-select>

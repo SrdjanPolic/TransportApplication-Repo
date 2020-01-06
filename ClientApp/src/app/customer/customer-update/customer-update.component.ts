@@ -56,6 +56,12 @@ export class CustomerUpdateComponent implements OnInit {
     return localStorage.getItem('userId');
   }
 
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.customerForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
+
   private getCustomerById = () => {
     let customerId: string = this.activeRoute.snapshot.params['id'];
 

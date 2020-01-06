@@ -18,31 +18,33 @@ export class PurchInvService {
     // this.formData.paymentDate = this.adjustDateForTimeOffset(this.formData.paymentDate);
     // this.formData.dueDate = this.adjustDateForTimeOffset(this.formData.dueDate);
     // this.formData.postingDate = this.adjustDateForTimeOffset(this.formData.postingDate);
-    var body = {
+    const body = {
       ...this.formData
     };
-    let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post(environment.urlAddress + '/api/PurchaseInvoiceHeaders', body,options);
+    const options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    return this.http.post(environment.urlAddress + '/api/PurchaseInvoiceHeaders', body, options);
   }
 
   getInvoiceList() {
     return this.http.get(environment.urlAddress + '/api/PurchaseInvoiceHeaders').toPromise();
   }
 
-  getInvoiceByID(id:number):any {
+  getInvoiceByID(id: number):any {
     return this.http.get(environment.urlAddress + '/api/PurchaseInvoiceHeaders/' + id).toPromise();
   }
-  getSettings():any {
+  getSettings(): any {
     return this.http.get(environment.urlAddress + '/api/Settings/PurchaseInvoice').toPromise();
   }
 
-  deleteInvoice(id:number) {
+  deleteInvoice(id: number) {
     return this.http.delete(environment.urlAddress + '/PurchInvoice/' + id).toPromise();
   }
 
-  adjustDateForTimeOffset(dateToAdjust) {
-    var offsetMs = dateToAdjust.getTimezoneOffset() * 60000;
-    return new Date(dateToAdjust.getTime() - offsetMs);
+  adjustDateForTimeOffset(dateToAdjust: Date) {
+    //const offsetMs = dateToAdjust.getTimezoneOffset() * 60000;
+    //return new Date(dateToAdjust.getTime() - offsetMs);
+    dateToAdjust.setHours(dateToAdjust.getHours() + 2);
+    return dateToAdjust;
     }
 
 }
