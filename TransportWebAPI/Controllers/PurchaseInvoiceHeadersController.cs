@@ -133,7 +133,7 @@ namespace TransportWebAPI.Controllers
                 if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?) && property.Name != "LastChangeDateTime")
                 {
                     var datum = property.GetValue(header, null);
-                    if (((DateTime)datum).Hour == 0 && ((DateTime)datum).Minute == 0 && ((DateTime)datum).Second == 0)
+                    if (((DateTime)datum).Hour == 23 && ((DateTime)datum).Minute == 0 && ((DateTime)datum).Second == 0)
                     {
                         property.SetValue(header, ((DateTime)property.GetValue(header, null)).AddHours(2), null);
                     }
