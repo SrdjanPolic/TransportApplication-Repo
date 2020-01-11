@@ -125,7 +125,7 @@ export class InvoiceComponent implements OnInit {
       travelOrder: '',
       partiallyPayed : 0,
       checkIssueDate: new Date(),
-      taxLawText : '',
+      taxLawText : 'Oslobođenje PDV-a po članu 24 stav 1 tačka 1 Zakona o pdv(Sl. glasnik 84/2004, 86/2004, ispravka 14/2014, 83/2015, 108/2016).',
       loadAddress: '',
       unloadAddress: '',
       clienReceiptDocDate: new Date(),
