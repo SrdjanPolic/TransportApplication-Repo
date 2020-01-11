@@ -58,6 +58,11 @@ export class DriverCreateComponent implements OnInit {
       this.executeDriverCreation(driverFormValue);
     }
   }
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.driverForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
 
   private executeDriverCreation = (driverFormValue) => {
     const currentdate = new Date().toLocaleString();
@@ -75,6 +80,9 @@ export class DriverCreateComponent implements OnInit {
       lastChangeDateTime: currentdate,
       lastChangeUserId: +this.userId,
     }
+    driver.passExpDate = this.setDate('passExpDate');
+    driver.driversLicenceExpDate = this.setDate('driversLicenceExpDate');
+    driver.personalIdExpDate = this.setDate('personalIdExpDate');
 
     let apiUrl = 'api/Drivers';
     this.repository.create(apiUrl, driver)

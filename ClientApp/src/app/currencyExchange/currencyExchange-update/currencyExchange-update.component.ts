@@ -51,6 +51,16 @@ export class CurrencyExchangeUpdateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.currencyExchangeForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
+
   private getcurrencyExchangeById = () => {
     let currencyExchangeId: string = this.activeRoute.snapshot.params['id'];
 
@@ -76,9 +86,9 @@ export class CurrencyExchangeUpdateComponent implements OnInit {
   private executeCurrencyExchangeUpdate = (currencyExchangeFormValue) => {
 
     this.currencyExchange.currencyId = currencyExchangeFormValue.currencyId,
-    this.currencyExchange.startingDate = currencyExchangeFormValue.startingDate,
+    this.currencyExchange.startingDate = this.setDate('startingDate'),
     this.currencyExchange.exchangeRateAmount = currencyExchangeFormValue.exchangeRateAmount,
-    this.currencyExchange.lastChangeUserId = 0  // TODO - add from Local Storage
+    this.currencyExchange.lastChangeUserId = +this.userId;
 
     let apiUrl = `api/CurrencyExchange/${this.currencyExchange.id}`;
     this.repository.update(apiUrl, this.currencyExchange)

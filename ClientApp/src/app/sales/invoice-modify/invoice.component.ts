@@ -48,6 +48,11 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     const invoiceID = this.currentRoute.snapshot.paramMap.get('id');
+    this.repoService.getData('api/Customers').subscribe(res => this.customerList = res as Customer[]);
+    this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
+    this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
+    this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
+    this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
     if (invoiceID == null) {
       this.resetForm();
     } else {
@@ -60,17 +65,19 @@ export class InvoiceComponent implements OnInit {
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
         this.service.formData.lastChangeUserId = +this.userId;
+        let currid = res.currencyId;
+        if (typeof currid === 'undefined') {
+          currid = 2;  //eur
+        }
+        let postingDate = res.clienReceiptDocDate;
+        if (typeof postingDate === 'undefined') {
+          postingDate = new Date();
+        }
+        const apiUrl = `api/ExchangeRate/${currid}/${postingDate}`;
+        this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
+
       });
     }
-
-    this.repoService.getData('api/Customers').subscribe(res => this.customerList = res as Customer[]);
-    this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
-    this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
-    this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
-    this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
-    const apiUrl = `api/ExchangeRate/${this.service.formData.currencyId}/${this.service.formData.checkIssueDate}`;
-    this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
-
   }
 
   get isAdmin(): string {
@@ -160,6 +167,7 @@ export class InvoiceComponent implements OnInit {
       return prev + curr.lineAmount;
     }, 0);
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
+    this.service.formData.totalAmountLocal = this.service.formData.totalAmount;
     if (this.service.formData.currencyId > 1) {
       if (this.currExchange.exchangeRateAmount !== 0) {
       this.service.formData.totalAmountLocal =
@@ -184,13 +192,18 @@ export class InvoiceComponent implements OnInit {
     return this.isValid;
   }
 
+  public setDate(dateToModify: Date): Date {
+    const chosenDate = new Date(dateToModify);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
 
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        //this.resetForm();
+        this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        //this.router.navigate(['/sales/SalesInvoices']);
+        this.router.navigate(['/sales/SalesInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};

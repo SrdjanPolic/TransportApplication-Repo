@@ -7,14 +7,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DriverUpdateComponent } from './driver-update/driver-update.component';
 import { DriverDeleteComponent } from './driver-delete/driver-delete.component';
+import { MaterialModule } from './../material/material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DriverRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [DriverListComponent, DriverCreateComponent, DriverUpdateComponent, DriverDeleteComponent]
+  declarations: [DriverListComponent, DriverCreateComponent, DriverUpdateComponent, DriverDeleteComponent],
+
 })
 export class DriverModule { }

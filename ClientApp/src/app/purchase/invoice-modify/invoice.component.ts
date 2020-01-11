@@ -1,7 +1,5 @@
-//import { CustomerService } from './../../shared/customer.service';
 import { PurchInvService } from './../../shared/PurchInv.service';
 import {RepositoryService} from './../../shared/repository.service';
-//import { OrderService } from './../../shared/order.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -14,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import {MaterialModule} from './../../material/material.module';
 import { Settings } from 'src/app/_interface/Settings.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
+import {CurrencyExchange} from '../../_interface/currencyExchange.model';
 
 
 @Component({
@@ -25,9 +24,12 @@ export class InvoiceComponent implements OnInit {
   vendorList: Vendor[];
   isValid: boolean = true;
   currencyList: Currency[];
+  currExchange: CurrencyExchange;
   settings: Settings;
   invoiceNumber: string;
   private dialogConfig;
+  isPostedInvoice: boolean;
+  isCreditMemoInvoice: boolean;
 
   constructor(public service: PurchInvService,
     private dialog: MatDialog,
@@ -37,17 +39,11 @@ export class InvoiceComponent implements OnInit {
     private errorService: ErrorHandlerService,
     private currentRoute: ActivatedRoute) { }
 
-  async ngOnInit() {
-    let invoiceID = this.currentRoute.snapshot.paramMap.get('id');
-    // this.service.getSettings().then( res =>{
-    //   this.settings = res;
-    //   let x = this.settings;
-    //   console.log(x);
-    //   this.invoiceNumber = this.settings.prefix + '-' + (this.settings.lastUsedNumber + 1).toString();
-    // });
-    // setTimeout(() => {
-    //   this.getDataFromService()
-    //  }, 3000);
+  ngOnInit() {
+    const invoiceID = this.currentRoute.snapshot.paramMap.get('id');
+    this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
+    this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
+
     if (invoiceID == null) {
       this.resetForm();
       } else {
@@ -55,16 +51,36 @@ export class InvoiceComponent implements OnInit {
         this.service.formData = res;
         this.service.PurchInvLines = res.lines;
         this.service.formData.deletedInvoiceLineIds = '';
+        this.isPostedInvoice = res.invoiced;
+        this.isCreditMemoInvoice = res.creditMemo;
+        let currid = res.currencyId;
+        if (typeof currid === 'undefined') {
+          currid = 2;  // eur
+        }
+        let postingDate = res.postingDate;
+        if (typeof postingDate === 'undefined') {
+          postingDate = new Date();
+        }
+        this.service.formData.lastChangeUserId = +this.userId;
+        const apiUrl = `api/ExchangeRate/${currid}/${postingDate}`;
+        this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
       });
     }
-
-    this.repoService.getData('api/Vendors').subscribe(res => this.vendorList = res as Vendor[]);
-    this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
-
   }
 
   get userId(): string {
     return localStorage.getItem('userId');
+  }
+
+  get isAdmin(): string {
+    return localStorage.getItem('isAdmin');
+  }
+
+  isPosted() {
+    return (this.isPostedInvoice && this.isAdmin === 'false');
+  }
+  isCreditMemo() {
+    return  (this.isCreditMemoInvoice && this.isAdmin === 'false');
   }
 
   resetForm(form?: NgForm) {
@@ -75,42 +91,49 @@ export class InvoiceComponent implements OnInit {
   this.service.formData = {
     id: 0,
     invoiceNo: 'Biće automatski dodeljen',  //will be delt on back end
-    postingDate: newDt,
+    postingDate: new Date(),
+    travelOrder: '',
+    supplierInvoiceNo: '',
     externalReferenceNo: '',
     dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
     totalAmount: 0,
     paid: false,
     invoiced: false,
     creditMemo: false,
-    paymentDate: new Date(),
+    paymentDate: new Date(newDt.setDate(newDt.getDate() + 14)),
     currencyId: 0,
     vendorId: 0,
     currency: '',
     deletedInvoiceLineIds: '',
     lastChangeDateTime: newDt.toLocaleString(),
+    totalAmountLocal: 0,
     lastChangeUserId: +this.userId,
   };
   this.service.PurchInvLines = [];
 }
 
   AddOrEditInvoiceLine(invoiceLineIndex, invoiceNo) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = true;
-    dialogConfig.width = '50%';
-    dialogConfig.data = { invoiceLineIndex, invoiceNo };
-    this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
-      this.updateGrandTotal();
-    });
+    if (!this.isPosted()) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.disableClose = true;
+      dialogConfig.width = '50%';
+      dialogConfig.data = { invoiceLineIndex, invoiceNo };
+      this.dialog.open(InvoiceLinesComponent, dialogConfig).afterClosed().subscribe(res => {
+        this.updateGrandTotal();
+      });
+    }
   }
 
 
   onDeleteInvoiceLine(invoiceLineID: number, i: number) {
-    if (invoiceLineID != null) {
-      this.service.formData.deletedInvoiceLineIds += invoiceLineID + ',';
+    if (!this.isPosted()) {
+      if (invoiceLineID != null) {
+        this.service.formData.deletedInvoiceLineIds += invoiceLineID + ',';
+      }
+      this.service.PurchInvLines.splice(i, 1);
+      this.updateGrandTotal();
     }
-    this.service.PurchInvLines.splice(i, 1);
-    this.updateGrandTotal();
   }
 
   updateGrandTotal() {
@@ -118,6 +141,13 @@ export class InvoiceComponent implements OnInit {
       return prev + curr.lineAmount;
     }, 0);
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
+    this.service.formData.totalAmountLocal = this.service.formData.totalAmount;
+    if (this.service.formData.currencyId > 1) {
+      if (this.currExchange.exchangeRateAmount !== 0) {
+      this.service.formData.totalAmountLocal =
+        parseFloat((this.service.formData.totalAmount * this.currExchange.exchangeRateAmount).toFixed(2));
+      }
+    }
   }
 
   validateForm() {
@@ -133,17 +163,16 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        //this.resetForm();
+        this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        //this.router.navigate(['/purchase/PurchInvoices']);
+        this.router.navigate(['/purchase/PurchInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};
         this.errorService.handleError(error);
       })
       );
-    }
-    else {
+    } else {
       alert('Proverite obavezna polja na formi.');
     }
   }
@@ -154,5 +183,10 @@ export class InvoiceComponent implements OnInit {
       console.log(this.settings);
     });
   }
+
+  adjustDateForTimeOffset(dateToAdjust: Date) {
+    dateToAdjust.setHours(dateToAdjust.getHours() + 2);
+    return dateToAdjust;
+    }
 
 }

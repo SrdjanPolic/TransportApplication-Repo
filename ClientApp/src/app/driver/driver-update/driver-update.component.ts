@@ -81,15 +81,20 @@ export class DriverUpdateComponent implements OnInit {
       this.executeDriverUpdate(driverFormValue);
     }
   }
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.driverForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
 
   private executeDriverUpdate = (driverFormValue) => {
     this.driver.name = driverFormValue.name,
     this.driver.personalIdNummber = driverFormValue.personalIdNummber,
-    this.driver.personalIdExpDate = driverFormValue.personalIdExpDate,
+    this.driver.personalIdExpDate = this.setDate('personalIdExpDate'),
     this.driver.passNumber = driverFormValue.passNumber,
-    this.driver.passExpDate = driverFormValue.passExpDate,
+    this.driver.passExpDate = this.setDate('passExpDate');
     this.driver.driversLicenceNumber = driverFormValue.driversLicenceNumber,
-    this.driver.driversLicenceExpDate = driverFormValue.driversLicenceExpDate,
+    this.driver.driversLicenceExpDate = this.setDate('driversLicenceExpDate'),
     this.driver.address = driverFormValue.address,
     this.driver.remark = driverFormValue.remark,
     this.driver.isInactive = driverFormValue.isInactive;

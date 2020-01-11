@@ -3,10 +3,13 @@ import {Vendor} from './vendor.model';
 export class PurchInvHeader {
     id: number;
     invoiceNo: string;
+    travelOrder: string;
+    supplierInvoiceNo: string;
     postingDate: Date;
     externalReferenceNo: string;
     dueDate: Date;
     totalAmount: number;
+    totalAmountLocal: number;
     paid: boolean;
     invoiced: boolean;
     creditMemo: boolean;

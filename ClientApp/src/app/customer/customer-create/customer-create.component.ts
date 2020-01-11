@@ -57,6 +57,12 @@ export class CustomerCreateComponent implements OnInit {
     }
   }
 
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.customerForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
+
   private executeCustomerCreation = (customerFormValue) => {
     const currentdate = new Date().toLocaleString();
     let customer: CustomerForCreation = {

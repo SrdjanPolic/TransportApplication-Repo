@@ -46,6 +46,16 @@ export class CurrencyExchangeCreateComponent implements OnInit {
     this.location.back();
   }
 
+  get userId(): string {
+    return localStorage.getItem('userId');
+  }
+
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.currencyExchangeForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
+
   public createCurrencyExchange = (currencyExchangeValue) => {
     if (this.currencyExchangeForm.valid) {
       this.executeCurrencyExchangeForCreation(currencyExchangeValue);
@@ -59,13 +69,15 @@ export class CurrencyExchangeCreateComponent implements OnInit {
       startingDate: currencyExchangeValue.startingDate,
       exchangeRateAmount: currencyExchangeValue.exchangeRateAmount,
       lastChangeDateTime: currentdate,
-      lastChangeUserId: 0    //TODO- get from local storage
+      lastChangeUserId: +this.userId
     }
 
-    let apiUrl = 'api/ExchangeRate';
+    currencyExchange.startingDate = this.setDate('startingDate');
+
+    const apiUrl = 'api/ExchangeRate';
     this.repository.create(apiUrl, currencyExchange)
       .subscribe(res => {
-        let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
+        const dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
 
         //we are subscribing on the [mat-dialog-close] attribute as soon as we click on the dialog button
         dialogRef.afterClosed()
