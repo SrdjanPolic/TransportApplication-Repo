@@ -115,11 +115,30 @@ namespace TransportWebAPI.Controllers
             }
 
             purchaseInvoiceHeader.LastChangeDateTime = DateTime.UtcNow;
+
+            IncreaseAllChangedDatetimesWithOneHour(purchaseInvoiceHeader);
+
             _unitOfWork.SaveChanges();
 
             return CreatedAtRoute(routeName: "GetPurchaseInvoices",
                                   routeValues: new { id = purchaseInvoiceHeader.Id },
                                   value: purchaseInvoiceHeader);
+        }
+
+        private void IncreaseAllChangedDatetimesWithOneHour(PurchaseInvoiceHeader header)
+        {
+            var properties = header.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?) && property.Name != "LastChangeDateTime")
+                {
+                    var datum = property.GetValue(header, null);
+                    if (((DateTime)datum).Hour == 0 && ((DateTime)datum).Minute == 0 && ((DateTime)datum).Second == 0)
+                    {
+                        property.SetValue(header, ((DateTime)property.GetValue(header, null)).AddHours(2), null);
+                    }
+                }
+            }
         }
 
         private string GetInvoiceNumber(Settings settings)
