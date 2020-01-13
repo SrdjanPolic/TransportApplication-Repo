@@ -46,6 +46,12 @@ html, body {
 
   app-invoice-print {
     display: block;
+    overflow: hidden;
+  }
+
+  app-invoice-ino-print {
+    display: block;
+    overflow: hidden;
   }
 
   app-header {

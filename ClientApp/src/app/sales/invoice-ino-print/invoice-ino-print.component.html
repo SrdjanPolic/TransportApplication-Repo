@@ -86,14 +86,22 @@
       Transport order : {{this.service.formData.externalReferenceNo}}
     </div>
     <div>
-      Loading date: ??
-      Unloading date: ??
+      <p>
+        <strong>
+          Load date: {{this.service.formData.loadDate.toString() | localTime}}
+        </strong>
+        </p>
+      <p>
+        <strong>
+        Unload date: {{this.service.formData.unloadDate.toString() | localTime}}
+        </strong>
+      </p>
     </div>
     <div>
       <p>
         Original CMR is enclosed, as well as EX document. In case of payment delay, the <br>
         interest rate is 0,4% per day of above amount  till the day of actual payment. <br>
-        All claims are beeing accepted until the moment when the truck is discharced.  <br>
+        All claims are beeing accepted until the moment when the truck is discharged.  <br>
       </p>
       <p>
         Payment instruction : <br>

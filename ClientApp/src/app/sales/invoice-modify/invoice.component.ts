@@ -65,10 +65,10 @@ export class InvoiceComponent implements OnInit {
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
         this.service.formData.lastChangeUserId = +this.userId;
-        let currid = res.currencyId;
-        if (typeof currid === 'undefined') {
-          currid = 2;  //eur
-        }
+        const currid = 2;
+        // if (typeof currid === 'undefined') {
+        //   currid = 2;  //eur
+        // }
         let postingDate = res.clienReceiptDocDate;
         if (typeof postingDate === 'undefined') {
           postingDate = new Date();
@@ -100,7 +100,7 @@ export class InvoiceComponent implements OnInit {
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
       salesPerson: '',
-      orderDate: newDt,
+      orderDate: new Date(),
       totalAmount: 0,
       totalAmountLocal: 0,
       paid: false,

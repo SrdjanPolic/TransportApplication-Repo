@@ -60,9 +60,9 @@
       </div>
       <div class="col-md-3">
         <mat-form-field>
-            <input matInput [matDatepicker]="pickerorderDate" placeholder="Datum ponude"  [(ngModel)]= "service.formData.orderDate" name="orderDate" [disabled]="this.isPosted()">
-            <mat-datepicker-toggle matSuffix [for]="pickerorderDate"></mat-datepicker-toggle>
-            <mat-datepicker #pickerorderDate></mat-datepicker>
+          <input matInput [matDatepicker]="pickerorderDate" placeholder="Datum ponude"  [(ngModel)]= "service.formData.orderDate" name="orderDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerorderDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerorderDate></mat-datepicker>
         </mat-form-field>
         <div class="form-group">
           <label>Referent prodaje</label>

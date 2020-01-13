@@ -84,7 +84,7 @@
           <tr>
             <td>&nbsp;</td>
             <td><strong>KURS EUR</strong></td>
-            <td><strong>117.5 (napraviti kontroler)</strong></td>
+            <td><strong>{{this.currExchange.exchangeRateAmount | number:'1.2-2':'de-DE'}}</strong></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
           </tr>
@@ -99,17 +99,30 @@
     </div>
     <br>
     <div>
-      <p><strong>Oslobođenje PDV-a po članu 24 stav 1 tačka 1</strong></p>
-      <p><strong>Zakona o pdv (Sl. glasnik 84/2004, 86/2004, ispravka 14/2014, 83/2015, 108/2016).</strong></p>
-    </div>
-    <div>
+      <strong>
       Referenca : {{this.service.formData.externalReferenceNo}}
+    </strong>
+    </div>
+    <br>
+    <div>
+      <p>
+        {{this.service.formData.taxLawText}}
+      </p>
+
     </div>
     <div>
-      Datum utovara: ??
-      Datum istovara: ??
+      <p>
+        <strong>
+          Datum utovara: {{this.service.formData.loadDate.toString() | localTime}}
+        </strong>
+        </p>
+      <p>
+        <strong>
+        Datum istovara: {{this.service.formData.unloadDate.toString() | localTime}}
+        </strong>
+      </p>
     </div>
-    <footer>
+    <footer class="stamp">
       <p>
         <strong>Molimo vas da račun uplatite u valutnom roku na tekući račun.</strong>
       </p>
@@ -121,13 +134,16 @@
       </p>
       <br>
       <br>
-      <div class="stampel">
-        <p >
-          Beograd {{this.service.formData.postingDate | localTime}}
-        </p>
-        <p>
-          ______________________________________________________
-        </p>
-    </div>
+
+      <!-- <div class="stamp"> -->
+        <div class="foot">
+          <div>
+            Beograd {{this.service.formData.postingDate.toString() | localTime}}
+          </div>
+          <div>
+            ______________________________________________________
+          </div>
+        </div>
+      <!-- </div> -->
     </footer>
 </div>
