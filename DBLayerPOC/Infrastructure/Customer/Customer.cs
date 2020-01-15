@@ -16,6 +16,8 @@ namespace DBLayerPOC.Models
         public int VatGroup { get; set; }
         public string VatNumber { get; set; }
         public bool IsInactive { get; set; }
+
+        public string PersonalIdNumber { get; set; }
       
         public ICollection<SalesInvoiceHeader> SalesInvoiceHeaders { get; }
 

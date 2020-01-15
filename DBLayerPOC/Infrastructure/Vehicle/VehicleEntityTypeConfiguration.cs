@@ -17,7 +17,7 @@ namespace DBLayerPOC.Infrastructure.Vehicle
             builder.Property(x => x.MaxWeight).HasColumnName("MaxWeight").HasDefaultValue(0);
             builder.Property(x => x.RegistrationNumber).HasColumnName("RegistrationNumber").HasMaxLength(50).IsRequired();
             builder.Property(x => x.ChassisNumber).HasColumnName("ChassisNumber").HasMaxLength(50).IsRequired();
-            builder.Property(x => x.FuelType).HasColumnName("FuelType").HasMaxLength(50).IsRequired();
+            builder.Property(x => x.RegistrationDate).HasColumnName("RegistrationDate").IsRequired();
             builder.Property(x => x.VechicleType).HasColumnName("VechicleType").HasMaxLength(50).IsRequired();
             builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
             builder.Property(x => x.Remark).HasColumnName("Remark").HasMaxLength(250).IsRequired();

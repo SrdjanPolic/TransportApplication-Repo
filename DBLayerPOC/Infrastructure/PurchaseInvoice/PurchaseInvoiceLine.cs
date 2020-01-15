@@ -7,6 +7,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
 {
     public class PurchaseInvoiceLine : Entity
     {
+        public string TravelOrder { get; set; }
         public int Quantity { get; set; }
         public float UnitPrice { get; set; }
         public float DiscountPercent { get; set; }
