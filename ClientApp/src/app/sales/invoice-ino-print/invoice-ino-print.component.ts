@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { Settings } from 'src/app/_interface/Settings.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Location } from '@angular/common';
+import {CurrencyExchange} from '../../_interface/currencyExchange.model';
 
 @Component({
   selector: 'app-invoice-ino-print',
@@ -28,6 +29,7 @@ export class InvoiceInoPrintComponent implements OnInit {
   user: User;
   isValid = true;
   currency: Currency;
+  currExchange: CurrencyExchange;
   settings: Settings;
   private dialogConfig;
   invoiceIdForPrint: string;
@@ -40,7 +42,7 @@ export class InvoiceInoPrintComponent implements OnInit {
     private location: Location,
     private currentRoute: ActivatedRoute) { }
 
-  ngOnInit() {
+    ngOnInit() {
     const invoiceID = this.currentRoute.snapshot.paramMap.get('id');
     if (invoiceID == null) {
       this.resetForm();
@@ -51,13 +53,20 @@ export class InvoiceInoPrintComponent implements OnInit {
         this.service.SalesInvLines = res.lines;
         this.service.formData.deletedInvoiceLineIds = '';
         this.invoiceIdForPrint = invoiceID;
+        let customerByIdUrl: string = `api/Customers/${this.service.formData.customerId}`;
+        this.repoService.getData(customerByIdUrl).subscribe(res => this.customer = res as Customer);
+        const currid = 2;  // eur
+        const apiUrl = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
+        this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
       });
-      //window.print();
-      //this.location.back();
 
     }
-    let customerByIdUrl: string = `api/Customers/${this.service.formData.customerId}`;
-    this.repoService.getData(customerByIdUrl).subscribe(res => this.customer = res as Customer);
+    //let customerByIdUrl: string = `api/Customers/${this.service.formData.customerId}`;
+    //this.repoService.getData(customerByIdUrl).subscribe(res => this.customer = res as Customer);
+    // this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
+    // this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
+    // this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
+    // this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
 
   }
 
@@ -69,11 +78,11 @@ export class InvoiceInoPrintComponent implements OnInit {
     this.service.formData = {
       id: 0,
       invoiceNo: 'Biće automatski dodeljen',
-      postingDate: newDt,
+      postingDate: new Date(),
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
       salesPerson: '',
-      orderDate: newDt,
+      orderDate: new Date(),
       totalAmount: 0,
       totalAmountLocal: 0,
       paid: false,
@@ -82,7 +91,7 @@ export class InvoiceInoPrintComponent implements OnInit {
       paymentDate: new Date(),
       commodityType: '',
       numberOfPallets: 0,
-      numberofPalletsPlaces: 0,
+      numberOfPalletsPlaces: 0,
       bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',

@@ -65,10 +65,10 @@ export class InvoiceComponent implements OnInit {
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
         this.service.formData.lastChangeUserId = +this.userId;
-        let currid = res.currencyId;
-        if (typeof currid === 'undefined') {
-          currid = 2;  //eur
-        }
+        const currid = 2;
+        // if (typeof currid === 'undefined') {
+        //   currid = 2;  //eur
+        // }
         let postingDate = res.clienReceiptDocDate;
         if (typeof postingDate === 'undefined') {
           postingDate = new Date();
@@ -100,7 +100,7 @@ export class InvoiceComponent implements OnInit {
       externalReferenceNo: '',
       dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),
       salesPerson: '',
-      orderDate: newDt,
+      orderDate: new Date(),
       totalAmount: 0,
       totalAmountLocal: 0,
       paid: false,
@@ -109,7 +109,7 @@ export class InvoiceComponent implements OnInit {
       paymentDate: new Date(),
       commodityType: '',
       numberOfPallets: 0,
-      numberofPalletsPlaces: 0,
+      numberOfPalletsPlaces: 0,
       bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',
@@ -201,9 +201,9 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        this.resetForm();
+        // this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        this.router.navigate(['/sales/SalesInvoices']);
+        // this.router.navigate(['/sales/SalesInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};

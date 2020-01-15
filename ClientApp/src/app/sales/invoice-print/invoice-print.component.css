@@ -63,6 +63,19 @@ body {
     border-top: 2px solid #eee;
     font-weight: bold;
 }
+.stamp {
+  display:flex;
+}
+.stamp .foot {
+  flex: 1;
+}
+.custHeader {
+  display: flex;
+}
+.custHeader Item {
+  flex: 1;
+}
+
 
 @media only screen and (max-width: 600px) {
     .invoice-box table tr.top table td {
@@ -90,13 +103,4 @@ body {
 
 .rtl table tr td:nth-child(2) {
     text-align: left;
-}
-.stampel {
-  display:inline;
-}
-.custHeader {
-  display: flex;
-}
-.custHeader Item {
-  flex: 1;
 }
