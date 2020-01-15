@@ -27,14 +27,15 @@
                 <table class="custHeader">
                     <tr>
                         <td class="Item">
-                            RAČUN BR           {{this.service.formData.invoiceNo}}<br>
-                            Datum izdavanja računa           {{this.service.formData.postingDate.toString()  | localTime}}<br>
-                            Valuta računa                    {{this.service.formData.dueDate.toString() | localTime}}<br>
-                            Datum prometa dobara            {{this.service.formData.postingDate.toString() | localTime}}<br><br><br>
-                            Broj vozila:             {{this.service.formData.vechicleRegistration}}<br>
-                            Broj CMR-a:              {{this.service.formData.crmNumber}}<br>
-                            Količina robe:           {{this.service.formData.commodityType}}<br>
-                            Vrsta prevoza:           {{this.service.formData.remarks}}<br>
+                            RAČUN BR : {{this.service.formData.invoiceNo}}<br>
+                            Datum izdavanja računa:  {{this.service.formData.postingDate.toString()  | localTime}}<br>
+                            Valuta računa:   {{this.service.formData.dueDate.toString() | localTime}}<br>
+                            Datum prometa dobara: {{this.service.formData.postingDate.toString() | localTime}}<br><br><br>
+                            Broj vozila: {{this.service.formData.vechicleRegistration}}<br>
+                            Broj CMR-a: {{this.service.formData.crmNumber}}<br>
+                            Podaci o robi: vrsta {{this.service.formData.commodityType}}; paleta {{this.service.formData.numberOfPallets}} <br>
+                            paletna mesta {{this.service.formData.numberOfPalletsPlaces}}; težina {{this.service.formData.bruttoWeight}}<br>
+                            Vrsta prevoza: {{this.service.formData.remarks}}<br>
                         </td>
 
                         <td class="Item">
@@ -104,13 +105,9 @@
     </strong>
     </div>
     <br>
-    <div>
-      <p>
-        {{this.service.formData.taxLawText}}
-      </p>
-
     </div>
     <div>
+
       <p>
         <strong>
           Datum utovara: {{this.service.formData.loadDate.toString() | localTime}}
@@ -122,6 +119,12 @@
         </strong>
       </p>
     </div>
+    <div>
+      <p>
+      <strong>
+        {{this.service.formData.taxLawText}}
+      </strong>
+      </p>
     <footer class="stamp">
       <p>
         <strong>Molimo vas da račun uplatite u valutnom roku na tekući račun.</strong>

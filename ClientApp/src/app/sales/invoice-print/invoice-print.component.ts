@@ -91,7 +91,7 @@ export class InvoicePrintComponent implements OnInit {
       paymentDate: new Date(),
       commodityType: '',
       numberOfPallets: 0,
-      numberofPalletsPlaces: 0,
+      numberOfPalletsPlaces: 0,
       bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',

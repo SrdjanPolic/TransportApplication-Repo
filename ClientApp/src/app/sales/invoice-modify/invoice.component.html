@@ -45,10 +45,10 @@
           [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
-          <label>Ukupno</label>
+          <label>Ukupan</label>
           <div class="input-group">
             <div class="input-group-prepend">
-              <div class="input-group-text">EUR/din</div>
+              <div class="input-group-text">Iznos</div>
             </div>
             <input name="totalAmount" #totalAmount="ngModel" [(ngModel)]="service.formData.totalAmount" class="form-control" readonly>
           </div>
@@ -137,7 +137,7 @@
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <label>Podaci o robi</label>
+          <label>Vrsta robe</label>
           <input type ="text" name="commodityType" #commodityType="ngModel" [(ngModel)]="service.formData.commodityType" class="form-control" [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">
@@ -146,7 +146,7 @@
         </div>
         <div class="form-group">
           <label>Broj paletnih mesta</label>
-          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberofPalletsPlaces" class="form-control"
+          <input type ="number" name="numberOfPalletsPlaces" #numberOfPalletsPlaces="ngModel" [(ngModel)]="service.formData.numberOfPalletsPlaces" class="form-control"
           [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">

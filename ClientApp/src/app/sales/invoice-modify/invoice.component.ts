@@ -109,7 +109,7 @@ export class InvoiceComponent implements OnInit {
       paymentDate: new Date(),
       commodityType: '',
       numberOfPallets: 0,
-      numberofPalletsPlaces: 0,
+      numberOfPalletsPlaces: 0,
       bruttoWeight: 0,
       adrNeeded: false,
       remarks: '',
@@ -201,9 +201,9 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        this.resetForm();
+        // this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        this.router.navigate(['/sales/SalesInvoices']);
+        // this.router.navigate(['/sales/SalesInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};

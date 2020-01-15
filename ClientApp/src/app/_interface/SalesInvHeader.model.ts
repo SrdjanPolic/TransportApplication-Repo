@@ -19,7 +19,7 @@ export class SalesInvHeader {
     partiallyPayed: number;
     commodityType: string;
     numberOfPallets: number;
-    numberofPalletsPlaces: number;
+    numberOfPalletsPlaces: number;
     bruttoWeight: number;
     adrNeeded: boolean;
     remarks: string;
