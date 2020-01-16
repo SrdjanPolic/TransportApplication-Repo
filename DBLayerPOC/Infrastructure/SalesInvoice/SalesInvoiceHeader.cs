@@ -55,6 +55,8 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public string LoadAddress { get; set; }
         public string UnloadAddress { get; set; }
 
+        public float CalculatonExchangeRate { get; set; }
+
         public SalesInvoiceHeader()
         {
             Lines = new HashSet<SalesInvoiceLine>();

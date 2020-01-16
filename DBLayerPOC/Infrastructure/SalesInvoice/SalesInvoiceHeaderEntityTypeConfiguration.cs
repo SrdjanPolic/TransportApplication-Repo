@@ -21,6 +21,7 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
             builder.Property(x => x.OrderDate).HasColumnName("OrderDate").HasDefaultValue(DateTime.Now);
             builder.Property(x => x.TotalAmount).HasColumnName("TotalAmount").HasDefaultValue(0F);
             builder.Property(x => x.TotalAmountLocal).HasColumnName("TotalAmountLocal").HasDefaultValue(0F);
+            builder.Property(x => x.CalculatonExchangeRate).HasColumnName("CalculatonExchangeRate").HasDefaultValue(0F);
             builder.Property(x => x.Paid).HasColumnName("Paid").HasDefaultValue(0);
             builder.Property(x => x.Invoiced).HasColumnName("Invoiced").HasDefaultValue(0);
             builder.Property(x => x.CreditMemo).HasColumnName("CreditMemo").HasDefaultValue(0);
