@@ -16,6 +16,7 @@ namespace DBLayerPOC.Infrastructure
             builder.Property(x => x.Name).HasColumnName("Name").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Address).HasColumnName("Address").HasMaxLength(50).IsRequired();
             builder.Property(x => x.City).HasColumnName("City").HasMaxLength(50).IsRequired();
+            builder.Property(x => x.PersonalIdNumber).HasColumnName("PersonalIdNumber").HasMaxLength(50).HasDefaultValue(null);
             builder.Property(x => x.Country).HasColumnName("Country").HasMaxLength(50).IsRequired();
             builder.Property(x => x.PhoneNo).HasColumnName("PhoneNo").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Email).HasColumnName("Email").HasMaxLength(50).IsRequired();

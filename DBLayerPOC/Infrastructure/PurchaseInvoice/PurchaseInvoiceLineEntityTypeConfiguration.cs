@@ -22,6 +22,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
             builder.Property(x => x.Description).HasColumnName("Description").HasMaxLength(250).IsRequired(true);
             builder.Property(x => x.VatPercent).HasColumnName("VatPercent").IsRequired(true).HasDefaultValue(0);
             builder.Property(x => x.VehicleId).HasColumnName("VehicleId").IsRequired(false);
+            builder.Property(x => x.TravelOrder).HasColumnName("TravelOrder").HasMaxLength(250);
 
             builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
             builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);
