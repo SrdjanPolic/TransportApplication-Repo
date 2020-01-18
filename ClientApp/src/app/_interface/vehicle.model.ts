@@ -4,7 +4,7 @@ export interface Vehicle {
     registrationNumber: string;
     maxWeight: number;
     chassisNumber: string;
-    fuelType: string;
+    registrationDate: Date;
     vechicleType: string;
     isInactive: boolean;
     remark: string;

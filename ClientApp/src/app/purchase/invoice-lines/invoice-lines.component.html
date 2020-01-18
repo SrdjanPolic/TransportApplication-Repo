@@ -9,7 +9,7 @@
     <label>Opis usluge</label>
     <input name="description" #description= "ngModel" [(ngModel)]="formData.description" class="form-control">
   </div>
-  
+
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>Cena</label>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="form-group col-md-6">
-      <label>Količina</label>
+      <label>Koliĝina</label>
       <input name="quantity" #quantity="ngModel" [(ngModel)]="formData.quantity" class="form-control"
       (keyup)="updateTotal()" [class.is-invalid]="!isValid && formData.quantity==0">
     </div>
@@ -42,6 +42,11 @@
   </div>
 
   <div class="form-group">
+    <label>Broj putnog naloga</label>
+    <input name="travelOrder" #travelOrder = "ngModel" [(ngModel)]="formData.travelOrder" class="form-control">
+  </div>
+
+  <div class="form-group">
     <label>Napomena</label>
     <input name="remark" #remark= "ngModel" [(ngModel)]="formData.remark" class="form-control">
   </div>
@@ -50,7 +55,7 @@
     <label>Total</label>
     <div class="input-group">
       <div class="input-group-prepend">
-        <div class="input-group-text">EUR/din</div>
+        <div class="input-group-text">Ukupna suma</div>
       </div>
       <input name="lineAmount" #lineAmount="ngModel" [(ngModel)]="formData.lineAmount" class="form-control" readonly>
     </div>

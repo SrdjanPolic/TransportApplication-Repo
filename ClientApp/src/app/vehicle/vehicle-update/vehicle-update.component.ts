@@ -34,11 +34,12 @@ export class VehicleUpdateComponent implements OnInit {
               private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    let newDt = new Date();
     this.vehicleForm = new FormGroup({
       registrationNumber: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       maxWeight: new FormControl(0, [Validators.required]),
       chassisNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      fuelType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      registrationDate: new FormControl(newDt, Validators.required),
       vechicleType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       isInactive: new FormControl(false),
       remark: new FormControl('', Validators.maxLength(250))
@@ -89,18 +90,25 @@ export class VehicleUpdateComponent implements OnInit {
     }
   }
 
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.vehicleForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
+
   private executeVehicleUpdate = (vehicleFormValue) => {
 
     this.vehicle.registrationNumber = vehicleFormValue.registrationNumber;
     this.vehicle.maxWeight = vehicleFormValue.maxWeight;
     this.vehicle.chassisNumber = vehicleFormValue.chassisNumber;
-    this.vehicle.fuelType = vehicleFormValue.fuelType;
+    this.vehicle.registrationDate = vehicleFormValue.registrationDate;
     this.vehicle.vechicleType = vehicleFormValue.vechicleType;
     this.vehicle.isInactive = vehicleFormValue.isInactive;
     this.vehicle.remark = vehicleFormValue.remark;
     this.vehicle.lastChangeDateTime = new Date().toLocaleString();
     this.vehicle.lastChangeUserId = +this.userId;
 
+    this.vehicle.registrationDate= this.setDate('registrationDate');
     let apiUrl = `api/Vehicles/${this.vehicle.id}`;
     this.repository.update(apiUrl, this.vehicle)
       .subscribe(res => {

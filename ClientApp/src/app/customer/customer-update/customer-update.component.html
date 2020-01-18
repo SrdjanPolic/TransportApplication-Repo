@@ -59,8 +59,14 @@
           <mat-error *ngIf="hasError('vatNumber', 'required')">PDV Broj je neophodan</mat-error>
         </mat-form-field>
 
+        <mat-form-field>
+          <input matInput type="text" placeholder="Matični broj" formControlName="personalIdNumber">
+          <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('personalIdNumber', 'required')">Matični Broj je neophodan</mat-error>
+        </mat-form-field>
+
         <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj kupca</mat-checkbox>
-        
+
 
       </mat-card-content>
       <mat-card-actions align="center">

@@ -92,7 +92,6 @@ export class InvoiceComponent implements OnInit {
     id: 0,
     invoiceNo: 'Biće automatski dodeljen',  //will be delt on back end
     postingDate: new Date(),
-    travelOrder: '',
     supplierInvoiceNo: '',
     externalReferenceNo: '',
     dueDate: new Date(newDt.setDate(newDt.getDate() + 14)),

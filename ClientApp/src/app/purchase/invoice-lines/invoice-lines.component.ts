@@ -34,6 +34,7 @@ export class InvoiceLinesComponent implements OnInit {
         remark: '',
         description: '',
         vatPercent: 0,
+        travelOrder: '',
         purchInvHeaderid: this.data.purchInvHeaderid,
       };
     } else {

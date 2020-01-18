@@ -11,6 +11,7 @@ export interface Customer {
     vatNumber: string;
     isInactive: boolean;
     accounts?: Account;
+    personalIdNumber: string;
     lastChangeDateTime: string;
     lastChangeUserId: number;
 }

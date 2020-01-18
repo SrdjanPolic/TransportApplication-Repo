@@ -91,6 +91,10 @@
       </div>
       <div class="col-md-3">
         <div class="form-group">
+          <label>Kalkulativni kurs</label>
+          <input type ="number" name="calculatonExchangeRate" #calculatonExchangeRate="ngModel" [(ngModel)]="service.formData.calculatonExchangeRate" class="form-control" [disabled]="this.isPosted()" />
+        </div>
+        <div class="form-group">
           <label>Broj putnog naloga</label>
           <input type ="text" name="travelOrder" #travelOrder="ngModel" [(ngModel)]="service.formData.travelOrder" class="form-control" [disabled]="this.isPosted()"/>
         </div>
@@ -104,11 +108,6 @@
           <mat-datepicker-toggle matSuffix [for]="pickerclienReceiptDocDate"></mat-datepicker-toggle>
           <mat-datepicker #pickerclienReceiptDocDate></mat-datepicker>
         </mat-form-field>
-        <div class="form-group">
-          <label>PDV član - tekst</label>
-          <textarea name="taxLawText" #taxLawText="ngModel" [(ngModel)]="service.formData.taxLawText"
-          class="form-control" [disabled]="this.isPosted()"></textarea>
-        </div>
       </div>
     </div>
     <div class="row">
@@ -158,6 +157,11 @@
             <option *ngFor="let item of driverList" value="{{item.id}}">{{item.name}}</option>
           </select> -->
         </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerloadDate" placeholder="Datum utovara" [(ngModel)]= "service.formData.loadDate" name="loadDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerloadDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerloadDate></mat-datepicker>
+        </mat-form-field>
       </div>
       <div class="col-md-3">
         <div class="form-group">
@@ -177,6 +181,11 @@
           <input type ="text" name="loadRepresentative" #loadRepresentative="ngModel" [(ngModel)]="service.formData.loadRepresentative"
           class="form-control" [disabled]="this.isPosted()"/>
         </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerunloadDate" placeholder="Datum istovara" [(ngModel)]= "service.formData.unloadDate" name="unloadDate" [disabled]="this.isPosted()">
+          <mat-datepicker-toggle matSuffix [for]="pickerunloadDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerunloadDate></mat-datepicker>
+        </mat-form-field>
       </div>
       <div class="col-md-3">
         <div class="form-group">
@@ -191,16 +200,12 @@
           <label>Adresa istovara</label>
           <input type ="text" name="unloadAddress" #unloadAddress="ngModel" [(ngModel)]="service.formData.unloadAddress" class="form-control" [disabled]="this.isPosted()"/>
         </div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerloadDate" placeholder="Datum utovara" [(ngModel)]= "service.formData.loadDate" name="loadDate" [disabled]="this.isPosted()">
-          <mat-datepicker-toggle matSuffix [for]="pickerloadDate"></mat-datepicker-toggle>
-          <mat-datepicker #pickerloadDate></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerunloadDate" placeholder="Datum istovara" [(ngModel)]= "service.formData.unloadDate" name="unloadDate" [disabled]="this.isPosted()">
-          <mat-datepicker-toggle matSuffix [for]="pickerunloadDate"></mat-datepicker-toggle>
-          <mat-datepicker #pickerunloadDate></mat-datepicker>
-        </mat-form-field>
+        <div class="form-group">
+          <label>PDV član - tekst</label>
+          <textarea name="taxLawText" #taxLawText="ngModel" [(ngModel)]="service.formData.taxLawText"
+          class="form-control" [disabled]="this.isPosted()"></textarea>
+        </div>
+
       </div>
     </div>
     <!-- Invoice line table-->

@@ -3,7 +3,6 @@ import {Vendor} from './vendor.model';
 export class PurchInvHeader {
     id: number;
     invoiceNo: string;
-    travelOrder: string;
     supplierInvoiceNo: string;
     postingDate: Date;
     externalReferenceNo: string;

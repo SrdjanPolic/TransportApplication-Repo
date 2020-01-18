@@ -30,11 +30,12 @@ export class VehicleCreateComponent implements OnInit {
      private dialog: MatDialog, private errorService: ErrorHandlerService) { }
 
   ngOnInit() {
+    let newDt = new Date();
     this.vehicleForm = new FormGroup({
       registrationNumber: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       maxWeight: new FormControl(0, [Validators.required]),
       chassisNumber: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      fuelType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      registrationDate: new FormControl(newDt, Validators.required),
       vechicleType: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       isInactive: new FormControl(false),
       remark: new FormControl('', Validators.maxLength(250))
@@ -66,6 +67,12 @@ export class VehicleCreateComponent implements OnInit {
     }
   }
 
+  public setDate(control: string): Date {
+    const chosenDate = new Date(this.vehicleForm.get(control).value);
+    chosenDate.setMinutes(chosenDate.getMinutes() - chosenDate.getTimezoneOffset());
+    return chosenDate;
+  }
+
   private executeVehicleCreation = (vehicleFormValue) => {
     const currentdate = new Date().toLocaleString();
     let vehicle: VehicleForCreation = {
@@ -73,13 +80,14 @@ export class VehicleCreateComponent implements OnInit {
       registrationNumber: vehicleFormValue.registrationNumber,
       maxWeight: vehicleFormValue.maxWeight,
       chassisNumber: vehicleFormValue.chassisNumber,
-      fuelType: vehicleFormValue.fuelType,
+      registrationDate: vehicleFormValue.registrationDate,
       vechicleType: vehicleFormValue.vechicleType,
       isInactive: vehicleFormValue.isInactive,
       remark: vehicleFormValue.remark,
       lastChangeDateTime: currentdate,
       lastChangeUserId: +this.userId
     };
+    vehicle.registrationDate = this.setDate('registrationDate');
 
     let apiUrl = 'api/Vehicles';
     this.repository.create(apiUrl, vehicle)

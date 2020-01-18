@@ -3,7 +3,7 @@ export interface VehicleForCreation {
     registrationNumber: string;
     maxWeight: number;
     chassisNumber: string;
-    fuelType: string;
+    registrationDate: Date;
     vechicleType: string;
     isInactive: boolean;
     remark: string;

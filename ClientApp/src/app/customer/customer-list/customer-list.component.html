@@ -30,10 +30,17 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> EMail </th>
     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
   </ng-container>
+
   <ng-container matColumnDef="vatNumber">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>PDV/VAT broj</th>
     <td mat-cell *matCellDef="let element">{{element.vatNumber}}</td>
   </ng-container>
+
+  <ng-container matColumnDef="isInactive">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Neaktivan </th>
+    <td mat-cell input *matCellDef="let element"> {{element.isInactive | transformboolean}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="lastChangeDate">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum poslednje izmene </th>
     <td mat-cell *matCellDef="let element"> {{element.lastChangeDate | date:"medium" }} </td>
