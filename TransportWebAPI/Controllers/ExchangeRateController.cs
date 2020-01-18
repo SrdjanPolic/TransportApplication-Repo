@@ -109,5 +109,33 @@ namespace TransportWebAPI.Controllers
                                   value: exchangeRate);
 
         }
+
+        // PUT: api/ExchangeRate/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] CurrencyExchangeRate exchangeRate)
+        {
+            if (exchangeRate == null)
+            {
+                return BadRequest("CurrencyExchangeRate object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid model object");
+            }
+
+            var dbExchangeRate = _unitOfWork.GetRepository<CurrencyExchangeRate>().Single(x => x.Id == id);
+            if (dbExchangeRate == null)
+            {
+                return NotFound();
+            }
+
+            exchangeRate.Id = id;
+            exchangeRate.LastChangeDateTime = DateTime.Now;
+            _unitOfWork.GetRepository<CurrencyExchangeRate>().Update(exchangeRate);
+            _unitOfWork.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
