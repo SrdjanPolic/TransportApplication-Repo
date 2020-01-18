@@ -15,7 +15,7 @@ namespace DBLayerPOC.Infrastructure.Vendor
         public string PhoneNo { get; set; }
         public string Email { get; set; }
         public string PaymentTermsCode { get; set; }
-        public int VatGroup { get; set; }
+        public int PaymentCurrency { get; set; }
         public string VatNumber { get; set; }
         public bool? IsInactive { get; set; }
         public DateTime LastChangeDate { get; set; }
