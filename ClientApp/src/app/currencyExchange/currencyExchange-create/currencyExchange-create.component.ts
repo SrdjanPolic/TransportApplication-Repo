@@ -42,6 +42,13 @@ export class CurrencyExchangeCreateComponent implements OnInit {
     return this.currencyExchangeForm.controls[controlName].hasError(errorName);
   }
 
+  public isFieldInvalid(field: string) {
+    return (
+      (!this.currencyExchangeForm.get(field).valid && this.currencyExchangeForm.get(field).touched) ||
+      (this.currencyExchangeForm.get(field).untouched)
+    );
+  }
+
   public onCancel = () => {
     this.location.back();
   }

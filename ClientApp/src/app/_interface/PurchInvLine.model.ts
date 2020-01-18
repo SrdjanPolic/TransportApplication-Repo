@@ -7,6 +7,7 @@ export class PurchInvLine {
     remark: string;
     description: string;
     vatPercent: number;
+    travelOrder: string;
     purchInvHeaderid: number;
 
 }

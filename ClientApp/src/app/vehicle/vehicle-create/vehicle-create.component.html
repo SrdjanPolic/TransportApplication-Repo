@@ -16,7 +16,7 @@
               <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
               <mat-error *ngIf="hasError('maxWeight', 'required')">Maksimalna nosivost je neophodna</mat-error>
           </mat-form-field>
-  
+
           <mat-form-field>
               <input matInput type="text" placeholder="Broj šasije" formControlName="chassisNumber">
               <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
@@ -25,10 +25,10 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput type="text" placeholder="Tip goriva" formControlName="fuelType">
-            <mat-hint align="end">Max. 30 karaktera dužina.</mat-hint>
-            <mat-error *ngIf="hasError('fuelType', 'required')">Vrsta goriva je neophodan</mat-error>
-            <mat-error *ngIf="hasError('fuelType', 'maxlength')">Prekoračeno 30 karaktera</mat-error>
+            <input matInput [matDatepicker] = "pickerregdate" placeholder=" Datum registracije" formControlName = "registrationDate">
+            <mat-datepicker-toggle matSuffix [for] = "pickerregdate"></mat-datepicker-toggle>
+            <mat-error *ngIf = "hasError('registrationDate','required')">Datum registracije je neophodan</mat-error>
+            <mat-datepicker #pickerregdate></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field>

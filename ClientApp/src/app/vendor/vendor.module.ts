@@ -10,13 +10,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { VendorUpdateComponent } from './vendor-update/vendor-update.component';
 import { VendorDeleteComponent } from './vendor-delete/vendor-delete.component';
+import {TransformModule} from './../shared/transform/transform.module';
 
 @NgModule({
   imports: [
     CommonModule,
     VendorRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TransformModule
   ],
   declarations: [VendorListComponent, VendorDetailsComponent, VendorDataComponent, AccountDataComponent, VendorCreateComponent, VendorUpdateComponent, VendorDeleteComponent]
 })

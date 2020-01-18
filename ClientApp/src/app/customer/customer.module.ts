@@ -10,13 +10,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerUpdateComponent } from './customer-update/customer-update.component';
 import { CustomerDeleteComponent } from './customer-delete/customer-delete.component';
+import {TransformModule} from './../shared/transform/transform.module';
 
 @NgModule({
   imports: [
     CommonModule,
     CustomerRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TransformModule
   ],
   declarations: [CustomerListComponent, CustomerDetailsComponent, CustomerDataComponent,
     AccountDataComponent, CustomerCreateComponent, CustomerUpdateComponent, CustomerDeleteComponent]

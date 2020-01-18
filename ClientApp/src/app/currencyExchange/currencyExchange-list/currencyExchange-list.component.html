@@ -22,10 +22,18 @@
     <td mat-cell *matCellDef="let element"> {{element.exchangeRateAmount}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Izmena </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+          <mat-icon class="mat-18">system_update</mat-icon>
+      </button>
+    </td>
+  </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 50, 100, 500]">
+<mat-paginator [pageSize]="50" [pageSizeOptions]="[5, 10, 50, 100, 500]">
 </mat-paginator>

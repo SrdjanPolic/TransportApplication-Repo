@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['currencyId', 'startingDate', 'exchangeRateAmount'];
+  public displayedColumns = ['currencyId', 'startingDate', 'exchangeRateAmount', 'update'];
   public dataSource = new MatTableDataSource<CurrencyExchange>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -49,7 +49,8 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToUpdate = (id: string) => {
-    let url: string = `/ExchangeRate/update/${id}`;
-    this.router.navigate([url]);
+    window.alert('U izradi');
+    // let url: string = `/ExchangeRate/update/${id}`;
+    // this.router.navigate([url]);
   }
 }

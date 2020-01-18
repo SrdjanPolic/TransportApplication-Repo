@@ -11,42 +11,42 @@
             <mat-error *ngIf="hasError('name', 'required')">Ime je neophodno</mat-error>
             <mat-error *ngIf="hasError('name', 'maxlength')">Prekoračeno 60 karaktera</mat-error>
           </mat-form-field>
-  
+
           <mat-form-field>
               <input matInput type="text" placeholder="Adresa kupca" formControlName="address">
               <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
               <mat-error *ngIf="hasError('address', 'required')">Adresa je neophodna</mat-error>
               <mat-error *ngIf="hasError('address', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
             </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="text" placeholder="Grad kupca" formControlName="city">
             <mat-hint align="end">Max. 40 karaktera dužina.</mat-hint>
             <mat-error *ngIf="hasError('city', 'required')">Grad je neophodan</mat-error>
             <mat-error *ngIf="hasError('city', 'maxlength')">Prekoračeno 40 karaktera</mat-error>
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="text" placeholder="Zemlja kupca" formControlName="country">
             <mat-hint align="end">2 slova za zemlju.</mat-hint>
             <mat-error *ngIf="hasError('country', 'required')">Zemlja je neophodna</mat-error>
             <mat-error *ngIf="hasError('country', 'maxlength')">Prekoračeno 2 karaktera</mat-error>
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="text" placeholder="Telefon kupca" formControlName="phoneNo">
             <mat-hint align="end">Max. 40 karaktera dužina.</mat-hint>
             <mat-error *ngIf="hasError('phoneNo', 'required')">Telefon je neophodan</mat-error>
             <mat-error *ngIf="hasError('phoneNo', 'maxlength')">Prekoračeno 40 karaktera</mat-error>
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="text" placeholder="EMail kupca" formControlName="email">
             <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
             <mat-error *ngIf="hasError('email', 'required')">EMail je neophodan</mat-error>
             <mat-error *ngIf="hasError('email', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="number" placeholder="PDV Grupa" formControlName="vatGroup">
             <mat-hint align="end">0 ili 20.</mat-hint>
@@ -58,8 +58,14 @@
             <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
             <mat-error *ngIf="hasError('vatGroup', 'required')">PDV Broj je neophodan</mat-error>
           </mat-form-field>
-          
-  
+
+          <mat-form-field>
+            <input matInput type="text" placeholder="Matični broj" formControlName="personalIdNumber">
+            <mat-hint align="end">Max. 50 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('personalIdNumber', 'required')">Matični Broj je neophodan</mat-error>
+          </mat-form-field>
+
+
         </mat-card-content>
         <mat-card-actions align="center">
           <button mat-raised-button color="primary" [disabled]="!customerForm.valid">Kreiraj</button>

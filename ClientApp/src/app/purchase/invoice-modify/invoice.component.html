@@ -89,11 +89,6 @@
     </div>
     <div class="col-md-3">
       <div class="form-group">
-        <label>Putni nalog</label>
-        <input type ="text" name="travelOrder" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.travelOrder"
-         class="form-control" [disabled] = "this.isPosted()">
-      </div>
-      <div class="form-group">
         <label>Broj fakture dobavljača</label>
         <input type ="text" name="supplierInvoiceNo" #externalReferenceNo="ngModel" [(ngModel)]="service.formData.supplierInvoiceNo"
          class="form-control" [disabled] = "this.isPosted()">
