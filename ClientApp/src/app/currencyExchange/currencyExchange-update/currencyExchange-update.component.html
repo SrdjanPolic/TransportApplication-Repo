@@ -12,7 +12,7 @@
               <mat-option value="{{currency.id}}">{{currency.code}}</mat-option>
             </ng-container>
           </mat-select>
-          <mat-error *ngIf="hasError('currencyId')">Valuta je neophodna</mat-error>
+          <mat-error *ngIf="hasError('currencyId', 'required')">Valuta je neophodna</mat-error>
         </mat-form-field>
 
         <mat-form-field>
