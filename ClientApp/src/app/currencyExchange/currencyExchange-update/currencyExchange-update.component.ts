@@ -62,11 +62,11 @@ export class CurrencyExchangeUpdateComponent implements OnInit {
   }
 
   private getcurrencyExchangeById = () => {
-    let currencyExchangeId: string = this.activeRoute.snapshot.params['id'];
+    const currencyExchangeId: string = this.activeRoute.snapshot.params['id'];
 
-    let currencyExchangeByIdUrl: string = `api/CurrencyExchange/${currencyExchangeId}`;
+    const currencyExchangeByIdUrl: string = `api/ExchangeRate/${currencyExchangeId}`;
 
-    this.repository.getData(currencyExchangeId)
+    this.repository.getData(currencyExchangeByIdUrl)
       .subscribe(res => {
         this.currencyExchange = res as CurrencyExchange;
         this.currencyExchangeForm.patchValue(this.currencyExchange);
@@ -90,7 +90,7 @@ export class CurrencyExchangeUpdateComponent implements OnInit {
     this.currencyExchange.exchangeRateAmount = currencyExchangeFormValue.exchangeRateAmount,
     this.currencyExchange.lastChangeUserId = +this.userId;
 
-    let apiUrl = `api/CurrencyExchange/${this.currencyExchange.id}`;
+    let apiUrl = `api/ExchangeRate/${this.currencyExchange.id}`;
     this.repository.update(apiUrl, this.currencyExchange)
       .subscribe(res => {
         let dialogRef = this.dialog.open(SuccessDialogComponent, this.dialogConfig);

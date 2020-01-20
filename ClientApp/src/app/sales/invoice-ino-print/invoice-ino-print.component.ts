@@ -20,7 +20,7 @@ import {CurrencyExchange} from '../../_interface/currencyExchange.model';
 @Component({
   selector: 'app-invoice-ino-print',
   templateUrl: './invoice-ino-print.component.html',
-  styles: ['./invoice-ino-print.component.css']
+  styleUrls: ['./invoice-ino-print.component.css'],
 })
 export class InvoiceInoPrintComponent implements OnInit {
   customer: Customer;

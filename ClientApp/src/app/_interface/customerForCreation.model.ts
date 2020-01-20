@@ -6,7 +6,7 @@ export interface CustomerForCreation {
     country: string;
     phoneNo: string;
     email: string;
-    vatGroup: number;
+    paymentCurrency: number;
     vatNumber: string;
     isInactive: boolean;
     personalIdNumber: string;

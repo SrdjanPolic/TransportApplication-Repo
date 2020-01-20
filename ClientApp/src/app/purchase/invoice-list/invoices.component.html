@@ -27,7 +27,7 @@
 
   <ng-container matColumnDef="totalAmount">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Ukupan iznos </th>
-    <td mat-cell *matCellDef="let element"> {{element.totalAmount}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.totalAmount |number: '1.2-2':'de-DE'}} </td>
   </ng-container>
 
   <ng-container matColumnDef="currencyId">

@@ -7,7 +7,7 @@ export interface Customer {
     country: string;
     phoneNo: string;
     email: string;
-    vatGroup: number;
+    paymentCurrency: number;
     vatNumber: string;
     isInactive: boolean;
     accounts?: Account;

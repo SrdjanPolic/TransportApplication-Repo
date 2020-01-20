@@ -36,6 +36,9 @@ export class InvoiceComponent implements OnInit {
   invoiceIdForPrint: string;
   isPostedInvoice: boolean;
   isCreditMemoInvoice: boolean;
+  exchangeRateValue: number;
+  TaxLawLongTextSerbian: string;
+  TaxLawLongTextEnglish: string;
 
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
@@ -53,6 +56,9 @@ export class InvoiceComponent implements OnInit {
     this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
     this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
     this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
+
+    this.TaxLawLongTextEnglish = '';
+    this.TaxLawLongTextSerbian = 'Oslobođenje PDV-a po članu 24 stav 1 tačka 1 Zakona o pdv(Sl. glasnik 84/2004, 86/2004, ispravka 14/2014, 83/2015, 108/2016).';
     if (invoiceID == null) {
       this.resetForm();
     } else {
@@ -65,16 +71,16 @@ export class InvoiceComponent implements OnInit {
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
         this.service.formData.lastChangeUserId = +this.userId;
-        const currid = 2;
+        const currid2 = 2;
         // if (typeof currid === 'undefined') {
         //   currid = 2;  //eur
         // }
-        let postingDate = res.clienReceiptDocDate;
-        if (typeof postingDate === 'undefined') {
-          postingDate = new Date();
+        let postingDate2 = res.clienReceiptDocDate;
+        if (typeof postingDate2 === 'undefined') {
+          postingDate2 = new Date();
         }
-        const apiUrl = `api/ExchangeRate/${currid}/${postingDate}`;
-        this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
+        const apiUrl2 = `api/ExchangeRate/${currid2}/${postingDate2}`;
+        this.repoService.getData(apiUrl2).subscribe(res2 => this.currExchange = res2 as CurrencyExchange);
 
       });
     }
@@ -125,7 +131,7 @@ export class InvoiceComponent implements OnInit {
       travelOrder: '',
       partiallyPayed : 0,
       checkIssueDate: new Date(),
-      taxLawText : 'Oslobođenje PDV-a po članu 24 stav 1 tačka 1 Zakona o pdv(Sl. glasnik 84/2004, 86/2004, ispravka 14/2014, 83/2015, 108/2016).',
+      taxLawText : this.TaxLawLongTextSerbian,
       loadAddress: '',
       unloadAddress: '',
       clienReceiptDocDate: new Date(),
@@ -169,10 +175,12 @@ export class InvoiceComponent implements OnInit {
     }, 0);
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
     this.service.formData.totalAmountLocal = this.service.formData.totalAmount;
+    this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
     if (this.service.formData.currencyId > 1) {
       if (this.currExchange.exchangeRateAmount !== 0) {
       this.service.formData.totalAmountLocal =
         parseFloat((this.service.formData.totalAmount * this.currExchange.exchangeRateAmount).toFixed(2));
+        this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
       }
     }
   }
@@ -217,6 +225,12 @@ export class InvoiceComponent implements OnInit {
   }
   test(value) {
     console.log(value);
+  }
+
+  selectCurrencyChangeHandler(event: any) {
+    if (typeof (this.service.formData.calculatonExchangeRate) !== 'undefined') {
+    this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
+    }
   }
   onPrintInvoice() {
     // this.printService

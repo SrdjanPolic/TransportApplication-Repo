@@ -6,7 +6,7 @@ export interface VendorForCreation {
     phoneNo: string;
     email: string;
     paymentTermsCode: string;
-    vatGroup: number;
+    paymentCurrency: number;
     vatNumber: string;
     isInactive: boolean;
     lastChangeDateTime: string;

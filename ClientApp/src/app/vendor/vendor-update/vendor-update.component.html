@@ -48,9 +48,9 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" placeholder="PDV Grupa" formControlName="vatGroup">
-          <mat-hint align="end">0 ili 20.</mat-hint>
-          <mat-error *ngIf="hasError('vatGroup', 'required')">PDV Grupa je neophodna</mat-error>
+          <input matInput type="number" placeholder="Valuta plaćanja" formControlName="paymentCurrency">
+          <mat-hint align="end">Broj dana odloženog plaćanja.</mat-hint>
+          <mat-error *ngIf="hasError('paymentCurrency', 'required')">Valuta plaćanja je neophodna</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -61,7 +61,7 @@
         </mat-form-field>
 
         <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj dobavljača</mat-checkbox>
-        
+
 
       </mat-card-content>
       <mat-card-actions align="center">

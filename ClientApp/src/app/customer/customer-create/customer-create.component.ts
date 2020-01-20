@@ -26,7 +26,7 @@ export class CustomerCreateComponent implements OnInit {
       country: new FormControl('', [Validators.required, Validators.pattern('[A-Z]{2}')]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
+      paymentCurrency: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       personalIdNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       isInactive: new FormControl(false)
@@ -73,7 +73,7 @@ export class CustomerCreateComponent implements OnInit {
       country: customerFormValue.country,
       phoneNo: customerFormValue.phoneNo,
       email : customerFormValue.email,
-      vatGroup: customerFormValue.vatGroup,
+      paymentCurrency: customerFormValue.paymentCurrency,
       vatNumber: customerFormValue.vatNumber,
       isInactive: customerFormValue.isInactive,
       personalIdNumber: customerFormValue.personalIdNumber,

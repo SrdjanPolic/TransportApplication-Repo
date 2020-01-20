@@ -1,96 +1,163 @@
-body {
-}
+
 .invoice-box {
-    max-width: 1400px;
-    margin: auto;
-    padding: 30px;
-    border: 1px solid #eee;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-    font-size: 16px;
-    line-height: 24px;
-    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    color: #555;
+  max-width: 1400px;
+  margin: auto;
+  padding: 30px;
+  /* border: 1px solid #eee; */
+  border: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+  font-size: 16px;
+  line-height: 20px;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  color: #555;
 }
 
 .invoice-box table {
-    width: 100%;
-    line-height: inherit;
-    text-align: left;
+  width: 100%;
+  line-height: inherit;
+  text-align: left;
+  border-collapse: collapse;
 }
 
 .invoice-box table td {
-    padding: 5px;
-    vertical-align: top;
+  padding: 5px;
+  vertical-align: top;
 }
 
-.invoice-box table tr td:nth-child(2) {
-    text-align: right;
+.invoice-box table .top  td {
+  width: 50%;
+  text-align: center;
 }
 
 .invoice-box table tr.top table td {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .invoice-box table tr.top table td.title {
-    font-size: 45px;
-    line-height: 45px;
-    color: #333;
+  font-size: 45px;
+  line-height: 45px;
+  color: #333;
+  text-align: left;
+}
+.invoice-box .first-table {
+  border: 0;
+  border-collapse: collapse;
 }
 
 .invoice-box table tr.information table td {
-    padding-bottom: 40px;
+  padding-bottom: 40px;
 }
 
 .invoice-box table tr.heading td {
-    background: #eee;
-    border-bottom: 1px solid #ddd;
-    font-weight: bold;
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
 }
 
 .invoice-box table tr.details td {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .invoice-box table tr.item td{
-    border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .invoice-box table tr.item.last td {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .invoice-box table tr.total td:nth-child(2) {
-    border-top: 2px solid #eee;
-    font-weight: bold;
+  border-top: 2px solid #eee;
+  font-weight: bold;
+}
+.closing-text p{
+  font-weight: bold;
+}
+.stamp {
+  margin-bottom: 30px;
+display:flex;
+}
+.stamp div {
+flex: 1;
+}
+
+.stamp .stamp-line{
+  padding-top: 30px;
+  text-align: center;
+}
+
+.custHeader .item {
+flex: 1;
+width: 50%;
+}
+.custHeader .item p {
+  height: auto;
+  margin:0;
+  padding:0;
+  line-height: 30px;
+}
+.custHeader .item span {
+  width: 250px;
+  float: left;
+}
+
+.custHeader .item .invoice-number {
+   font-weight: bold;
+   font-size: 20px;
+   margin-bottom: 15px;
+}
+.custHeader .item .invoice-number span{
+  width: 150px;
+  text-align: right;
+  margin-right: 30px;
+}
+
+.customer-header-data
+{
+  text-align: center;
+  border: 2px solid #000;
+  height: 100%;
+  padding: 20px 0 20px 0;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
 }
 
 @media only screen and (max-width: 600px) {
-    .invoice-box table tr.top table td {
-        width: 100%;
-        display: block;
-        text-align: center;
-    }
+  .invoice-box table tr.top table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+  }
 
-    .invoice-box table tr.information table td {
-        width: 100%;
-        display: block;
-        text-align: center;
-    }
+  .invoice-box table tr.information table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+  }
+}
+
+.invoice-body table th, .invoice-body table td {
+  border: 1px solid #000 ;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+.invoice-body table .no-border *
+{
+ border: none;
 }
 
 /** RTL **/
 .rtl {
-    direction: rtl;
-    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  direction: rtl;
+  font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 }
 
 .rtl table {
-    text-align: right;
+  text-align: right;
 }
 
 .rtl table tr td:nth-child(2) {
-    text-align: left;
-}
-.stampel {
-  display:inline;
+  text-align: left;
 }

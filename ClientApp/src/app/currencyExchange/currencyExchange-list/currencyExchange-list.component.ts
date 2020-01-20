@@ -49,8 +49,7 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToUpdate = (id: string) => {
-    window.alert('U izradi');
-    // let url: string = `/ExchangeRate/update/${id}`;
-    // this.router.navigate([url]);
+    const url: string = `/currencyExchange/update/${id}`;
+    this.router.navigate([url]);
   }
 }

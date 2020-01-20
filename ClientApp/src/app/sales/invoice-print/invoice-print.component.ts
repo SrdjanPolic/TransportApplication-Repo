@@ -20,7 +20,8 @@ import {CurrencyExchange} from '../../_interface/currencyExchange.model';
 @Component({
   selector: 'app-invoice-print',
   templateUrl: './invoice-print.component.html',
-  styles: ['./invoice-print.component.css']
+  styleUrls: ['./invoice-print.component.css'],
+
 })
 export class InvoicePrintComponent implements OnInit {
   customer: Customer;
@@ -61,12 +62,6 @@ export class InvoicePrintComponent implements OnInit {
       });
 
     }
-    //let customerByIdUrl: string = `api/Customers/${this.service.formData.customerId}`;
-    //this.repoService.getData(customerByIdUrl).subscribe(res => this.customer = res as Customer);
-    // this.repoService.getData('api/Currency').subscribe(res => this.currencyList = res as Currency[]);
-    // this.repoService.getData('api/Drivers').subscribe(res => this.driverList = res as Driver[]);
-    // this.repoService.getData('api/Vehicles').subscribe(res => this.vehicleList = res as Vehicle[]);
-    // this.repoService.getData('api/Users').subscribe(res => this.userList = res as User[]);
 
   }
 

@@ -26,8 +26,8 @@ export class VendorCreateComponent implements OnInit {
       country: new FormControl('', [Validators.required, Validators.pattern('[A-Z]{2}')]),
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      paymentTermsCode: new FormControl('', [Validators.required, Validators.maxLength(40)]),
-      vatGroup: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
+      paymentTermsCode: new FormControl(''),
+      paymentCurrency: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       isInactive: new FormControl(false)
     });
@@ -67,7 +67,7 @@ export class VendorCreateComponent implements OnInit {
       phoneNo: vendorFormValue.phoneNo,
       email : vendorFormValue.email,
       paymentTermsCode : vendorFormValue.paymentTermsCode,
-      vatGroup: vendorFormValue.vatGroup,
+      paymentCurrency: vendorFormValue.paymentCurrency,
       vatNumber: vendorFormValue.vatNumber,
       isInactive: vendorFormValue.isInactive,
       lastChangeDateTime: vendorFormValue.lastChangeDateTime,

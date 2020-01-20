@@ -1,59 +1,59 @@
-
 <div class="invoice-box">
-    <table cellpadding="0" cellspacing="0">
-        <tr class="top">
-            <td colspan="2">
-                <table>
-                    <tr>
-                        <td class="title">
-                            <img src="/assets/img/AtomicSped.bmp" style="width:80%; max-width:350px; height: 170px;">
-                        </td>
-                        <td>
-                            <strong>Preduzeće za transport, špediciju i logistiku</strong><br>
-                                <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
-                                    <strong>Matični broj 21417408</strong><br>
-                                       <strong>PIB 111040511</strong><br>
-                                            office@atomic-sped.rs<br>
-                            <strong>Tekući račun  160-523065-50 Banca Intesa AD</strong><br>
-                            <br> <br>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-
-        <tr class="information table-bordered">
-            <td colspan="2">
-                <table class="custHeader">
-                    <tr>
-                        <td class="Item">
-                            RAČUN BR : {{this.service.formData.invoiceNo}}<br>
-                            Datum izdavanja računa:  {{this.service.formData.postingDate.toString()  | localTime}}<br>
-                            Valuta računa:   {{this.service.formData.dueDate.toString() | localTime}}<br>
-                            Datum prometa dobara: {{this.service.formData.postingDate.toString() | localTime}}<br><br><br>
-                            Broj vozila: {{this.service.formData.vechicleRegistration}}<br>
-                            Broj CMR-a: {{this.service.formData.crmNumber}}<br>
-                            Podaci o robi: vrsta {{this.service.formData.commodityType}}; paleta {{this.service.formData.numberOfPallets}} <br>
-                            paletna mesta {{this.service.formData.numberOfPalletsPlaces}}; težina {{this.service.formData.bruttoWeight}}<br>
-                            Vrsta prevoza: {{this.service.formData.remarks}}<br>
-                        </td>
-
-                        <td class="Item">
-                            {{this.customer.name}}<br>
-                            {{this.customer.address}}<br>
-                            {{this.customer.vatNumber}}<br>
-
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <div class="row">
-      <div class="span8 well invoice-body">
-        <table class="table table-bordered">
-        <thead>
+  <table cellpadding="0" cellspacing="0" class="first-table">
+    <tr class="top">
+      <td colspan="2">
+        <table>
           <tr>
+            <td class="title">
+              <img src="/assets/img/AtomicSped.bmp" style="width:80%; max-width:350px; height: 170px;">
+            </td>
+            <td>
+              <strong>Preduzeće za transport, špediciju i logistiku</strong><br>
+              <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
+              <strong>Matični broj 21417408</strong><br>
+              <strong>PIB 111040511</strong><br>
+              office@atomic-sped.rs<br>
+              <strong>Tekući račun 160-523065-50 Banca Intesa AD</strong><br>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="information">
+      <td colspan="2">
+        <table class="custHeader">
+          <tr>
+            <td class="item">
+              <p class="invoice-number"><span>RAČUN BR:</span> {{this.service.formData.invoiceNo}}</p>
+              <p><strong><span>Datum izdavanja računa:</span> {{this.service.formData.postingDate.toString()  | localTime}}</strong></p>
+              <p><strong><span>Valuta računa:</span> {{this.service.formData.dueDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Datum prometa dobara:</span> {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
+              <br>
+              <p><strong><span>Broj vozila:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
+              <p><strong><span>Broj CMR-a:</span>{{this.service.formData.crmNumber}}</strong></p>
+              <p><strong><span>Podaci o robi: </span>vrsta  {{this.service.formData.commodityType}}; paleta {{this.service.formData.numberOfPallets}}</strong> </p>
+              <p><strong><span>Paletna mesta:</span>{{this.service.formData.numberOfPalletsPlaces}}; težina {{this.service.formData.bruttoWeight}} kg </strong></p>
+              <p><strong><span>Vrsta prevoza:</span> {{this.service.formData.remarks}}</strong></p>
+            </td>
+
+            <td class="item">
+              <div class="customer-header-data">
+                {{this.customer.name}}<br>
+                {{this.customer.address}}<br>
+                PIB {{this.customer.vatNumber}}<br>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <div class="row">
+    <div class="span8 well invoice-body">
+      <table class="table-bordered" cellspacing="0" >
+        <thead>
+          <tr style="text-align:center">
             <th><strong>Usluge transporta</strong></th>
             <th>Cena</th>
             <th>PDV%</th>
@@ -62,91 +62,55 @@
           </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let lines of this.service.SalesInvLines">
-          <td>{{lines.description}}</td>
-          <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
-          <td>{{lines.vatPercent | number:'1.2-2':'de-DE' }}</td>
-          <td>{{(lines.lineAmount - (lines.unitPrice * lines.quantity)) | number:'1.2-2':'de-DE' }}</td>
-          <td>{{lines.lineAmount | number:'1.2-2':'de-DE' }}</td>
-          </tr><tr>
-            <td>&nbsp;</td>
-            <td><strong>SVEGA</strong></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</strong></td>
+          <tr *ngFor="let lines of this.service.SalesInvLines" style="text-align:center">
+            <td><strong>{{lines.description}}</strong></td>
+            <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
+            <td>{{lines.vatPercent | number:'1.2-2':'de-DE' }}</td>
+            <td>{{(lines.lineAmount - (lines.unitPrice * lines.quantity)) | number:'1.2-2':'de-DE' }}</td>
+            <td style="text-align:right">{{lines.lineAmount | number:'1.2-2':'de-DE' }}</td>
           </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><strong>ZA UPLATU DINARA</strong></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><strong>{{this.service.formData.totalAmount | number:'1.2-2':'de-DE'}}</strong></td>
+          <tr class="no-border" style="text-align:right">
+            <td colspan="2">SVEGA</td>
+            <td colspan="3">{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</td>
           </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><strong>KURS EUR</strong></td>
-            <td><strong>{{this.currExchange.exchangeRateAmount | number:'1.2-2':'de-DE'}}</strong></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+          <tr class="no-border" style="text-align:right">
+            <td colspan="2"><strong>ZA UPLATU DINARA</strong></td>
+            <td colspan="3"><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</strong></td>
+          </tr>
+          <tr class="no-border">
+            <td colspan="2" style="text-align:right"><strong>KURS EUR</strong></td>
+            <td colspan="3" style="text-align:left"><strong>{{this.service.formData.calculatonExchangeRate | number:'1.2-2':'de-DE'}}</strong></td>
+          </tr>
+          <tr class="no-border">
+            <td colspan="5">
+              <p><strong>Slovima: {{this.convertNumberToWords(this.service.formData.totalAmount)}}</strong></p>
+            </td>
           </tr>
         </tbody>
       </table>
-      </div>
     </div>
-    <div>
-      <p>
-        <strong>Slovima: {{this.convertNumberToWords(this.service.formData.totalAmount)}} </strong>
-      </p>
-    </div>
-    <br>
-    <div>
-      <strong>
-      Referenca : {{this.service.formData.externalReferenceNo}}
-    </strong>
-    </div>
-    <br>
-    </div>
-    <div>
+  </div>
 
-      <p>
-        <strong>
-          Datum utovara: {{this.service.formData.loadDate.toString() | localTime}}
-        </strong>
-        </p>
-      <p>
-        <strong>
-        Datum istovara: {{this.service.formData.unloadDate.toString() | localTime}}
-        </strong>
-      </p>
-    </div>
+  <br>
+  <div>
+    <p><strong>Referenca: {{this.service.formData.externalReferenceNo}}</strong></p>
+    <p><strong style="width: 200px">Datum utovara: {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
+    <p><strong style="width: 200px">Datum istovara: {{this.service.formData.unloadDate.toString() | localTime}} </strong></p>
+    <p><strong>{{this.service.formData.taxLawText}}</strong></p>
+    <br>
+    <p><strong>Molimo vas da račun uplatite u valutnom roku na tekući račun.</strong></p>
+    <p><strong>U pozivu na broj navedite {{this.service.formData.invoiceNo}}. U slučaju kašnjenja zaračunavamo zakonom
+        propisanu kamatu.</strong>
+    </p>
+    <p><strong>U slučaju spora nadležan je Privredni sud u Valjevu.</strong></p>
+    <br>
+  </div>
+  <footer class="stamp">
     <div>
-      <p>
-      <strong>
-        {{this.service.formData.taxLawText}}
-      </strong>
-      </p>
-    <footer class="stamp">
-      <p>
-        <strong>Molimo vas da račun uplatite u valutnom roku na tekući račun.</strong>
-      </p>
-      <p>
-        <strong>U pozivu na broj navedite {{this.service.formData.invoiceNo}}. U slučaju kašnjenja zaračunavamo zakonom propisanu kamatu.</strong>
-      </p>
-      <p>
-        <strong>U slučaju spora nadležan je Privredni sud u Valjevu.</strong>
-      </p>
-      <br>
-      <br>
-
-      <!-- <div class="stamp"> -->
-        <div class="foot">
-          <div>
-            Beograd {{this.service.formData.postingDate.toString() | localTime}}
-          </div>
-          <div>
-            ______________________________________________________
-          </div>
-        </div>
-      <!-- </div> -->
-    </footer>
+      <p><strong>Beograd {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
+    </div>
+    <div class="stamp-line">
+    _______________________________________________
+    </div>
+  </footer>
 </div>

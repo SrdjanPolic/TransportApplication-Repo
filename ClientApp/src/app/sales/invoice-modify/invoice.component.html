@@ -22,7 +22,8 @@
         <div class="form-group">
           <label>Valuta</label>
           <select name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"
-          [class.is-invalid]="!isValid && service.formData.currencyId==0" [disabled]="this.isPosted()">
+          [class.is-invalid]="!isValid && service.formData.currencyId==0" [disabled]="this.isPosted()"
+          (ngModelChange)= "selectCurrencyChangeHandler($event)">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
           </select>
@@ -204,6 +205,11 @@
           <label>PDV član - tekst</label>
           <textarea name="taxLawText" #taxLawText="ngModel" [(ngModel)]="service.formData.taxLawText"
           class="form-control" [disabled]="this.isPosted()"></textarea>
+        </div>
+        <div class="form-group">
+          <label>CRM Broj</label>
+          <input type ="text" name="crmNumber" #crmNumber="ngModel" [(ngModel)]="service.formData.crmNumber" class="form-control"
+          [disabled]="this.isPosted()"/>
         </div>
 
       </div>
