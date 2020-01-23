@@ -65,7 +65,6 @@ export class DriverCreateComponent implements OnInit {
   }
 
   private executeDriverCreation = (driverFormValue) => {
-    const currentdate = new Date().toLocaleString();
     let driver: DriverForCreation = {
       name: driverFormValue.name,
       personalIdNummber: driverFormValue.personalIdNummber,
@@ -77,7 +76,7 @@ export class DriverCreateComponent implements OnInit {
       address: driverFormValue.address,
       remark: driverFormValue.remark,
       isInactive: driverFormValue.isInactive,
-      lastChangeDateTime: currentdate,
+      lastChangeDateTime: new Date(),
       lastChangeUserId: +this.userId,
     }
     driver.passExpDate = this.setDate('passExpDate');

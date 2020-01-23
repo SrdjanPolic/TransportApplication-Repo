@@ -139,7 +139,7 @@ export class InvoiceComponent implements OnInit {
       loadDate: new Date(),
       unloadDate: new Date(),
       calculatonExchangeRate: 0,
-      lastChangeDateTime: newDt.toLocaleString(),
+      lastChangeDateTime: new Date(),
       lastChangeUserId: +this.userId,
     };
     this.service.SalesInvLines = [];

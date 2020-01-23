@@ -74,7 +74,6 @@ export class VehicleCreateComponent implements OnInit {
   }
 
   private executeVehicleCreation = (vehicleFormValue) => {
-    const currentdate = new Date().toLocaleString();
     let vehicle: VehicleForCreation = {
 
       registrationNumber: vehicleFormValue.registrationNumber,
@@ -84,7 +83,7 @@ export class VehicleCreateComponent implements OnInit {
       vechicleType: vehicleFormValue.vechicleType,
       isInactive: vehicleFormValue.isInactive,
       remark: vehicleFormValue.remark,
-      lastChangeDateTime: currentdate,
+      lastChangeDateTime: new Date(),
       lastChangeUserId: +this.userId
     };
     vehicle.registrationDate = this.setDate('registrationDate');

@@ -70,12 +70,11 @@ export class CurrencyExchangeCreateComponent implements OnInit {
   }
 
   private executeCurrencyExchangeForCreation = (currencyExchangeValue) => {
-    const currentdate = new Date().toLocaleString();
-    let currencyExchange: CurrencyExchangeForCreation = {
+    const currencyExchange: CurrencyExchangeForCreation = {
       currencyId: currencyExchangeValue.currencyId,
       startingDate: currencyExchangeValue.startingDate,
       exchangeRateAmount: currencyExchangeValue.exchangeRateAmount,
-      lastChangeDateTime: currentdate,
+      lastChangeDateTime: new Date(),
       lastChangeUserId: +this.userId
     }
 

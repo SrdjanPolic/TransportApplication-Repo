@@ -11,6 +11,6 @@ export interface DriverForCreation {
     remark: string;
     salesInvoiceHeaders?: SalesInvHeader;
     isInactive: boolean;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 }

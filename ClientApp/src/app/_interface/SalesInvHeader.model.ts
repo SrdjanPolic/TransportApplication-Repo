@@ -43,7 +43,7 @@ export class SalesInvHeader {
     loadAddress: string;
     unloadAddress: string;
     calculatonExchangeRate: number;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 
 }

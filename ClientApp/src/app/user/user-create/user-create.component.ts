@@ -60,7 +60,7 @@ export class UserCreateComponent implements OnInit {
       password: userFormValue.password,
       isAdmin: userFormValue.isAdmin,
       isInactive: userFormValue.isInactive,
-      lastChangeDateTime: new Date().toLocaleString(),
+      lastChangeDateTime: new Date(),
       lastChangeUserId: +this.userId,
 
     }

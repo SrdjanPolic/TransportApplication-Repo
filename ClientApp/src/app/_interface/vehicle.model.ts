@@ -9,6 +9,6 @@ export interface Vehicle {
     isInactive: boolean;
     remark: string;
     salesInvoiceHeaders?: SalesInvHeader;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 }

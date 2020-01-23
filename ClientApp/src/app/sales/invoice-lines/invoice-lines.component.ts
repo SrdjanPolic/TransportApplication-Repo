@@ -25,7 +25,7 @@ export class InvoiceLinesComponent implements OnInit {
   ngOnInit() {
     //this.itemService.getItemList().then(res => this.itemList = res as Item[]);
     let newDt = new Date();
-    if (this.data.invoiceLineIndex == null)
+    if (this.data.invoiceLineIndex == null) {
       this.formData = {
         id: 0,
         loadDate: newDt,
@@ -43,6 +43,7 @@ export class InvoiceLinesComponent implements OnInit {
         vatPercent: 0,
         salesHeaderId: 0,
       }
+    }
     else
       this.formData = Object.assign({}, this.invoiceService.SalesInvLines[this.data.invoiceLineIndex]);
   }
@@ -65,10 +66,12 @@ export class InvoiceLinesComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.validateForm(form.value)) {
-      if (this.data.invoiceLineIndex == null)
+      if (this.data.invoiceLineIndex == null) {
         this.invoiceService.SalesInvLines.push(form.value);
-      else
+      }
+      else {
       this.invoiceService.SalesInvLines[this.data.invoiceLineIndex] = form.value;
+      }
       this.dialogRef.close();
     }
   }

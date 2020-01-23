@@ -9,6 +9,6 @@ export interface VendorForCreation {
     paymentCurrency: number;
     vatNumber: string;
     isInactive: boolean;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 }

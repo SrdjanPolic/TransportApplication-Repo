@@ -10,6 +10,6 @@ export interface CustomerForCreation {
     vatNumber: string;
     isInactive: boolean;
     personalIdNumber: string;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 }

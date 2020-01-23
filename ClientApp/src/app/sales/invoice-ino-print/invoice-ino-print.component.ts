@@ -115,7 +115,7 @@ export class InvoiceInoPrintComponent implements OnInit {
       loadDate: new Date(),
       unloadDate: new Date(),
       calculatonExchangeRate: 0,
-      lastChangeDateTime: newDt.toLocaleString(),
+      lastChangeDateTime: new Date(),
       lastChangeUserId: 0
     };
     this.service.SalesInvLines = [];

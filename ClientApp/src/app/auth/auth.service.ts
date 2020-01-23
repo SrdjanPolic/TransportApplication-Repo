@@ -42,7 +42,7 @@ export class AuthService {
           isAdmin: administrator,
           isInactive: user.isInactive,
           name: user.name,
-          lastChangeDateTime: new Date().toLocaleString(),
+          lastChangeDateTime: new Date(),
           lastChangeUserId: userId
         };
         localStorage.setItem('jwt', token);

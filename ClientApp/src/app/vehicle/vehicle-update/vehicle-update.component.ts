@@ -105,7 +105,7 @@ export class VehicleUpdateComponent implements OnInit {
     this.vehicle.vechicleType = vehicleFormValue.vechicleType;
     this.vehicle.isInactive = vehicleFormValue.isInactive;
     this.vehicle.remark = vehicleFormValue.remark;
-    this.vehicle.lastChangeDateTime = new Date().toLocaleString();
+    this.vehicle.lastChangeDateTime = new Date();
     this.vehicle.lastChangeUserId = +this.userId;
 
     this.vehicle.registrationDate= this.setDate('registrationDate');

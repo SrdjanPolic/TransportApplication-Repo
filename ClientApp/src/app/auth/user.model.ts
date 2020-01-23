@@ -5,6 +5,6 @@ export interface User {
     password: string;
     isAdmin: boolean;
     isInactive: boolean;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 }

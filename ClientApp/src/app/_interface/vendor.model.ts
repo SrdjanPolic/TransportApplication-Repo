@@ -11,7 +11,7 @@ export interface Vendor {
     paymentCurrency: number;
     vatNumber: string;
     isInactive: boolean;
-    lastChangeDateTime: string;
+    lastChangeDateTime: Date;
     lastChangeUserId: number;
 
     accounts?: Account;

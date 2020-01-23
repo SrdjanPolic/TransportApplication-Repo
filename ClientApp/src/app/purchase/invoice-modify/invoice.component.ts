@@ -104,7 +104,7 @@ export class InvoiceComponent implements OnInit {
     vendorId: 0,
     currency: '',
     deletedInvoiceLineIds: '',
-    lastChangeDateTime: newDt.toLocaleString(),
+    lastChangeDateTime: new Date(),
     totalAmountLocal: 0,
     lastChangeUserId: +this.userId,
   };
