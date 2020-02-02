@@ -86,7 +86,7 @@
           [disabled]="this.isPosted()" />
         </div>
         <div class="form-group">
-          <label>Napomena</label>
+          <label>Napomena/vrsta prevoza(solo,dotovar)</label>
           <input type="text" name="remarks" #remarks="ngModel" [(ngModel)]="service.formData.remarks" class="form-control" [disabled]="this.isPosted()" />
         </div>
       </div>
@@ -202,7 +202,7 @@
           <input type ="text" name="unloadAddress" #unloadAddress="ngModel" [(ngModel)]="service.formData.unloadAddress" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <div class="form-group">
-          <label>PDV član - tekst</label>
+          <label>PDV član /payment instructions</label>
           <textarea name="taxLawText" #taxLawText="ngModel" [(ngModel)]="service.formData.taxLawText"
           class="form-control" [disabled]="this.isPosted()"></textarea>
         </div>

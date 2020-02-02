@@ -54,10 +54,10 @@ export class InvoiceInoPrintComponent implements OnInit {
         this.service.formData.deletedInvoiceLineIds = '';
         this.invoiceIdForPrint = invoiceID;
         let customerByIdUrl: string = `api/Customers/${this.service.formData.customerId}`;
-        this.repoService.getData(customerByIdUrl).subscribe(res => this.customer = res as Customer);
+        this.repoService.getData(customerByIdUrl).subscribe(res2 => this.customer = res2 as Customer);
         const currid = 2;  // eur
         const apiUrl = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
-        this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
+        this.repoService.getData(apiUrl).subscribe(res3 => this.currExchange = res3 as CurrencyExchange);
       });
 
     }

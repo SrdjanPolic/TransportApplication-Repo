@@ -53,7 +53,7 @@ export class InvoiceComponent implements OnInit {
         this.service.formData.deletedInvoiceLineIds = '';
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
-        let currid = res.currencyId;
+        let currid = 2;
         if (typeof currid === 'undefined') {
           currid = 2;  // eur
         }

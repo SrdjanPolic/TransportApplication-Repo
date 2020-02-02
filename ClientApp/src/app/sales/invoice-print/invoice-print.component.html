@@ -5,15 +5,15 @@
         <table>
           <tr>
             <td class="title">
-              <img src="/assets/img/AtomicSped.bmp" style="width:80%; max-width:350px; height: 170px;">
+              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:50%; max-width:250px; height: 100px;">
             </td>
-            <td>
-              <strong>Preduzeće za transport, špediciju i logistiku</strong><br>
+            <td style="text-align: left;">
+              <strong>Atomic-sped d.o.o</strong><br>
               <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
-              <strong>Matični broj 21417408</strong><br>
-              <strong>PIB 111040511</strong><br>
-              office@atomic-sped.rs<br>
-              <strong>Tekući račun 160-523065-50 Banca Intesa AD</strong><br>
+              <strong>PIB 111040511 MB 21417408</strong><br>
+              <strong>TR: 170-0030046985000-26 UniCredit Bank</strong><br>
+              <strong>Tel: +381 (0)15 311060</strong><br>
+              <strong>www.atomic-sped.rs ; office@atomic-sped.rs</strong>
             </td>
           </tr>
         </table>
@@ -29,12 +29,6 @@
               <p><strong><span>Datum izdavanja računa:</span> {{this.service.formData.postingDate.toString()  | localTime}}</strong></p>
               <p><strong><span>Valuta računa:</span> {{this.service.formData.dueDate.toString() | localTime}}</strong></p>
               <p><strong><span>Datum prometa dobara:</span> {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
-              <br>
-              <p><strong><span>Broj vozila:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
-              <p><strong><span>Broj CMR-a:</span>{{this.service.formData.crmNumber}}</strong></p>
-              <p><strong><span>Podaci o robi: </span>vrsta  {{this.service.formData.commodityType}}; paleta {{this.service.formData.numberOfPallets}}</strong> </p>
-              <p><strong><span>Paletna mesta:</span>{{this.service.formData.numberOfPalletsPlaces}}; težina {{this.service.formData.bruttoWeight}} kg </strong></p>
-              <p><strong><span>Vrsta prevoza:</span> {{this.service.formData.remarks}}</strong></p>
             </td>
 
             <td class="item">
@@ -48,10 +42,45 @@
         </table>
       </td>
     </tr>
+
+    <tr class="information">
+      <td >
+        <table class="custHeader">
+          <tr>
+            <td class="item-3col">
+
+              <p><strong><span>Datum utovara:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Datum istovara:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Broj ponude:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
+            </td>
+            <td class="item-3col">
+              <p><strong><span>Broj koleta:</span> {{this.service.formData.numberOfPallets}}</strong></p>
+              <p><strong><span>Težina:</span> {{this.service.formData.bruttoWeight}}</strong></p>
+              <p><strong><span>Ref. za utovar:</span> {{this.service.formData.loadRepresentative}}</strong></p>
+            </td>
+
+            <td class="item-3col">
+              <p><strong><span>Broj vozila:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
+              <p><strong><span>Broj CMR-a:</span> {{this.service.formData.crmNumber}}</strong></p>
+              <p><strong><span>Vrsta prevoza:</span> {{this.service.formData.remarks}}</strong></p>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+
   </table>
-  <div class="row">
+  <div>
     <div class="span8 well invoice-body">
-      <table class="table-bordered" cellspacing="0" >
+      <table class="table-bordered fixed" cellspacing="0">
+        <colgroup>
+          <col class="width50">
+          <col class="width15">
+          <col class="width10">
+          <col class="width10">
+          <col class="width15">
+        </colgroup>
         <thead>
           <tr style="text-align:center">
             <th><strong>Usluge transporta</strong></th>
@@ -93,14 +122,13 @@
 
   <br>
   <div>
-    <p><strong>Referenca: {{this.service.formData.externalReferenceNo}}</strong></p>
-    <p><strong style="width: 200px">Datum utovara: {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
-    <p><strong style="width: 200px">Datum istovara: {{this.service.formData.unloadDate.toString() | localTime}} </strong></p>
+    <p>Napomena o poreskom oslobođenju:</p>
     <p><strong>{{this.service.formData.taxLawText}}</strong></p>
     <br>
-    <p><strong>Molimo vas da račun uplatite u valutnom roku na tekući račun.</strong></p>
+    <p><strong>Molimo Vas da račun uplatite u valutnom roku na tekući račun: 170-0030046985000-26 UniCredit Bank.</strong></p>
     <p><strong>U pozivu na broj navedite {{this.service.formData.invoiceNo}}. U slučaju kašnjenja zaračunavamo zakonom
-        propisanu kamatu.</strong>
+        propisanu kamatu i zadržavamo pravo da nivelišemo fakturisani iznos usled nagle promene kursa za period
+        kašnjenja u plaćanju.</strong>
     </p>
     <p><strong>U slučaju spora nadležan je Privredni sud u Valjevu.</strong></p>
     <br>
@@ -110,7 +138,8 @@
       <p><strong>Beograd {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
     <div class="stamp-line">
-    _______________________________________________
+      <img src="/assets/img/Stamp.jpg" style="width:80%; max-width:200px; height: 80px;">
     </div>
   </footer>
 </div>
+

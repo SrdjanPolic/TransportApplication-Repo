@@ -5,14 +5,14 @@
         <table>
           <tr>
             <td class="title">
-              <img src="/assets/img/AtomicSped.bmp" style="width:80%; max-width:350px; height: 170px;">
+              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:50%; max-width:250px; height: 100px;">
             </td>
-            <td>
+            <td style="text-align: left;">
               <strong>Company for transport, freight forwarding and logistics</strong><br>
               <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
               <strong>Identification number 21417408</strong><br>
               <strong>VAT 111040511</strong><br>
-              office@atomic-sped.rs<br>
+              <strong>www.atomic-sped.rs ; office@atomic-sped.rs</strong>
             </td>
           </tr>
         </table>
@@ -27,11 +27,6 @@
               <p class="invoice-number"><span>INVOICE:</span> {{this.service.formData.invoiceNo}}</p>
               <p><strong><span>Date of invoice:</span> {{this.service.formData.postingDate.toString()  | localTime}}</strong></p>
               <p><strong><span>Date of payment value:</span> {{this.service.formData.dueDate.toString() | localTime}}</strong></p>
-              <br>
-              <p><strong><span>Plate number:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
-              <p><strong><span>CMR number:</span>{{this.service.formData.crmNumber}}</strong></p>
-              <p><strong><span>Good quantity: </span>{{this.service.formData.numberOfPallets}}; pallets, weight {{this.service.formData.bruttoWeight}}</strong> </p>
-              <p><strong><span>Type of transport:</span> {{this.service.formData.remarks}}</strong></p>
             </td>
 
             <td class="item">
@@ -46,15 +41,48 @@
         </table>
       </td>
     </tr>
+
+    <tr class="information">
+      <td >
+        <table class="custHeader">
+          <tr>
+            <td class="item-3col">
+
+              <p><strong><span>Load date:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Unload date:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Offer no.:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
+            </td>
+            <td class="item-3col">
+              <p><strong><span>Pallets number:</span> {{this.service.formData.numberOfPallets}}</strong></p>
+              <p><strong><span>Weight:</span> {{this.service.formData.bruttoWeight}}</strong></p>
+              <p><strong><span>Load representative:</span> {{this.service.formData.loadRepresentative}}</strong></p>
+            </td>
+
+            <td class="item-3col">
+              <p><strong><span>Plate number:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
+              <p><strong><span>CRM number:</span> {{this.service.formData.crmNumber}}</strong></p>
+              <p><strong><span>Type of transport:</span> {{this.service.formData.remarks}}</strong></p>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+
   </table>
-  <div class="row">
+  <div>
     <div class="span8 well invoice-body">
-      <table class="table-bordered" cellspacing="0" >
+      <table class="table-bordered fixed" cellspacing="0">
+        <colgroup>
+          <col class="width60">
+          <col class="width20">
+          <col class="width20">
+        </colgroup>
         <thead>
           <tr style="text-align:center">
             <th><strong>Description of charges</strong></th>
             <th>Price</th>
-            <th>Total payment</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -78,34 +106,23 @@
 
   <br>
   <div>
-    <p><strong>Transport order: {{this.service.formData.travelOrder}}</strong></p>
-    <p><strong style="width: 200px">Loading date: {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
-    <p><strong style="width: 200px">Unloading date: {{this.service.formData.unloadDate.toString() | localTime}} </strong></p>
     <p><strong>{{this.service.formData.taxLawText}}</strong></p>
     <br>
-    <div>
-      <p style="font-weight: bold;">
-        Original CMR is enclosed, as well as EX document. In case of payment delay, the <br>
-        interest rate is 0,4% per day of above amount  till the day of actual payment. <br>
-        All claims are beeing accepted until the moment when the truck is discharged.  <br>
-      </p>
-      <p style="font-weight: bold;">
-        Payment instruction : <br>
-        BANCA INTESA AD, BEOGRAD, REPUBLIKA SRBIJA <br>
-        SWIFT CODE: DBDBRSBG <br>
-        IBAN: RS3516 0005 3800 0432 9402 <br>
-      </p>
-      <p style="font-weight: bold;">
-        BANKING PAYMENT TRANSACTION COST ARE ON YOUR ACCOUNT <br>
-      </p>
-    </div>
+    <p><strong>Payment instructions :</strong></p>
+    <p><strong>BANCA INTESA AD,BEOGRAD,REPUBLIKA SRBIJA</strong></p>
+    <p><strong>SWIFT CODE:DBDBRSBG</strong></p>
+    <p><strong>IBAN:RS3516 0005 3800 0432 9402</strong></p><br>
+
+    <p><strong>BANKING PAYMENT TRANSACTION COST ARE ON YOUR ACCOUNT</strong></p>
+    <br>
   </div>
   <footer class="stamp">
     <div>
       <p><strong>Belgrad {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
     <div class="stamp-line">
-    _______________________________________________
+      <img src="/assets/img/Stamp.jpg" style="width:80%; max-width:200px; height: 80px;">
     </div>
   </footer>
 </div>
+

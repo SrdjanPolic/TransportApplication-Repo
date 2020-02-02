@@ -2,7 +2,7 @@
 .invoice-box {
   max-width: 1400px;
   margin: auto;
-  padding: 30px;
+  padding: 25px;
   /* border: 1px solid #eee; */
   border: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, .15);
@@ -45,7 +45,7 @@
 }
 
 .invoice-box table tr.information table td {
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 
 .invoice-box table tr.heading td {
@@ -79,7 +79,7 @@ flex: 1;
 }
 
 .stamp .stamp-line{
-  padding-top: 30px;
+  padding-top: 0px;
   text-align: center;
 }
 
@@ -87,15 +87,26 @@ flex: 1;
 flex: 1;
 width: 50%;
 }
+.custHeader .item-3col {
+  flex: 1;
+  width: 33%;
+  }
+
 .custHeader .item p {
   height: auto;
   margin:0;
   padding:0;
-  line-height: 30px;
+  line-height: 25px;
+  text-align: left;
 }
 .custHeader .item span {
-  width: 250px;
+  width: 220px;
   float: left;
+}
+.custHeader .item-3col span {
+  width: 130px;
+  float: left;
+  text-align: left;
 }
 
 .custHeader .item .invoice-number {
@@ -144,7 +155,29 @@ width: 50%;
 {
  border: none;
 }
+.invoice-box table fixed {
+  table-layout: fixed; width: 100%;
+}
+.invoice-box table fixed td,th {
+  overflow: hidden;
+}
+.invoice-box table fixed td:nth-of-type(1) { width: 50%;}
+.invoice-box table fixed td:nth-of-type(2) { width: 15%;}
+.invoice-box table fixed td:nth-of-type(3) { width: 10%;}
+.invoice-box table fixed td:nth-of-type(4) { width: 10%;}
+.invoice-box table fixed td:nth-of-type(4) { width: 15%;}
 
+.width5 { width: 5%; }
+.width10 { width: 10%; }
+.width15 { width: 15%; }
+.width20 { width: 20%; }
+.width30 { width: 30%; }
+.width50 { width: 50%; }
+.width60 { width: 60%; }
+.width65 { width: 65%; }
+.width63 { width: 63%; }
+.width70 { width: 70%; }
+.width75 { width: 75%; }
 /** RTL **/
 .rtl {
   direction: rtl;
