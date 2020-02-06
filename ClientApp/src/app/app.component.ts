@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Atomic Sped';
+  title = 'Atomic Sped app';
   public isDarkTheme = false;
 
   toggleTheme() {

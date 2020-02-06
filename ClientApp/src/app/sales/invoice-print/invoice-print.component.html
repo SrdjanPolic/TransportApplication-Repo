@@ -36,6 +36,7 @@
                 {{this.customer.name}}<br>
                 {{this.customer.address}}<br>
                 PIB {{this.customer.vatNumber}}<br>
+                MB {{this.customer.personalIdNumber}}<br>
               </div>
             </td>
           </tr>
@@ -45,21 +46,21 @@
 
     <tr class="information">
       <td >
-        <table class="custHeader">
+        <table class="custHeader2">
           <tr>
-            <td class="item-3col">
+            <td class="item-3col1">
 
               <p><strong><span>Datum utovara:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
               <p><strong><span>Datum istovara:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
               <p><strong><span>Broj ponude:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
             </td>
-            <td class="item-3col">
+            <td class="item-3col2">
               <p><strong><span>Broj koleta:</span> {{this.service.formData.numberOfPallets}}</strong></p>
               <p><strong><span>Težina:</span> {{this.service.formData.bruttoWeight}}</strong></p>
               <p><strong><span>Ref. za utovar:</span> {{this.service.formData.loadRepresentative}}</strong></p>
             </td>
 
-            <td class="item-3col">
+            <td class="item-3col3">
               <p><strong><span>Broj vozila:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
               <p><strong><span>Broj CMR-a:</span> {{this.service.formData.crmNumber}}</strong></p>
               <p><strong><span>Vrsta prevoza:</span> {{this.service.formData.remarks}}</strong></p>
@@ -112,7 +113,10 @@
           </tr>
           <tr class="no-border">
             <td colspan="5">
-              <p><strong>Slovima: {{this.convertNumberToWords(this.service.formData.totalAmount)}}</strong></p>
+              <div style="display: none;">
+                <p ><strong>Slovima: {{this.callconvertNumToWords(this.service.formData.totalAmount)}}</strong></p>
+              </div>
+              <p><strong>Slovima: {{this.numberToWordsString}}</strong></p>
             </td>
           </tr>
         </tbody>
@@ -138,7 +142,7 @@
       <p><strong>Beograd {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
     <div class="stamp-line">
-      <img src="/assets/img/Stamp.jpg" style="width:80%; max-width:200px; height: 80px;">
+      <img src="/assets/img/Stamp.jpg" style="width:100%; ">
     </div>
   </footer>
 </div>
