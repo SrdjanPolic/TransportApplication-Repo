@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBLayerPOC", "DBLayerPOC\DBLayerPOC.csproj", "{3B5DB060-0538-43B6-8521-AC73BF9C6555}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransportWebAPI", "TransportWebAPI\TransportWebAPI.csproj", "{43420F95-B1F3-4E9F-8D6A-3B695E077886}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "DomainModel\Repository.csproj", "{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularClientApp", "AngularClientApp\AngularClientApp.csproj", "{44D47F38-33DE-40D3-AE78-1544E52DCA9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED61AC96-BCC4-4F9F-A339-E50A3B3E9BC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44D47F38-33DE-40D3-AE78-1544E52DCA9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
