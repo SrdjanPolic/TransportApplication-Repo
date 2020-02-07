@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { Settings } from 'src/app/_interface/Settings.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import {CurrencyExchange} from '../../_interface/currencyExchange.model';
+import { MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-invoice',
@@ -239,6 +240,15 @@ export class InvoiceComponent implements OnInit {
     } else {
       this.service.formData.taxLawText = this.TaxLawLongTextEnglish;
     }
+  }
+  selectPaymentDataHandler(event: MatDatepickerInputEvent<Date>) {
+    const currid = '2';
+    const apiUrl2 = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
+    this.repoService.getData(apiUrl2).subscribe(res2 => {
+      this.currExchange = res2 as CurrencyExchange;
+      this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
+    });
+
   }
   onPrintInvoice() {
     // this.printService

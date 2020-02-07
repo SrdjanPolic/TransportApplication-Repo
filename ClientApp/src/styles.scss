@@ -35,6 +35,13 @@ html, body {
 @media print {
   /* invert the display (show/hide) properties of the main */
   /* aplication component and the printing component       */
+  .invoice-box {
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    left: 2vw;
+    z-index: 9999;
+  }
   html, body {
     width: 210mm;
     height: 297mm;

@@ -100,7 +100,7 @@
           <input type ="text" name="travelOrder" #travelOrder="ngModel" [(ngModel)]="service.formData.travelOrder" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerissuedate" placeholder="Datum izdavanja računa"  [(ngModel)]= "service.formData.checkIssueDate" name="checkIssueDate" [disabled]="this.isPosted()">
+          <input matInput [matDatepicker]="pickerissuedate" placeholder="Datum izdavanja računa" (dateChange)="selectPaymentDataHandler($event)" [(ngModel)]= "service.formData.checkIssueDate" name="checkIssueDate" [disabled]="this.isPosted()">
           <mat-datepicker-toggle matSuffix [for]="pickerissuedate"></mat-datepicker-toggle>
           <mat-datepicker #pickerissuedate></mat-datepicker>
         </mat-form-field>
