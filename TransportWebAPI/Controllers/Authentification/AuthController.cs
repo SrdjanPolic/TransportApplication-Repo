@@ -54,7 +54,7 @@ namespace TransportWebAPI.Controllers.Authentification
                     issuer: "http://localhost:56515",
                     audience: "http://localhost:56515",
                     claims: new List<Claim>(),
-                    expires: DateTime.Now.AddHours(12),
+                    expires: DateTime.Now.AddMinutes(15),
                     signingCredentials: signinCredentials
                 );
 
