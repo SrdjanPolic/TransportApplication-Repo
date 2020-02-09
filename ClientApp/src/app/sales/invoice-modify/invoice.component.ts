@@ -232,10 +232,10 @@ export class InvoiceComponent implements OnInit {
   }
 
   selectCurrencyChangeHandler(event: any) {
-    if (typeof (this.service.formData.calculatonExchangeRate) !== 'undefined') {
-    this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
-    }
-    if (this.service.formData.currencyId === 1) {
+    // if (typeof (this.service.formData.calculatonExchangeRate) !== 'undefined') {
+    // this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
+    // }
+    if (this.service.formData.currencyId == 1) {
       this.service.formData.taxLawText = this.TaxLawLongTextSerbian;
     } else {
       this.service.formData.taxLawText = this.TaxLawLongTextEnglish;

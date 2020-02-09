@@ -1,4 +1,4 @@
-<div class="invoice-box">
+<div class="invoice-box" *ngIf="customer">
   <table cellpadding="0" cellspacing="0" class="first-table">
     <tr class="top">
       <td colspan="2">
@@ -44,21 +44,21 @@
 
     <tr class="information">
       <td >
-        <table class="custHeader">
+        <table class="custHeader2">
           <tr>
-            <td class="item-3col">
+            <td class="item-3col1">
 
               <p><strong><span>Load date:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
               <p><strong><span>Unload date:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
               <p><strong><span>Offer no.:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
             </td>
-            <td class="item-3col">
+            <td class="item-3col2">
               <p><strong><span>Pallets number:</span> {{this.service.formData.numberOfPallets}}</strong></p>
               <p><strong><span>Weight:</span> {{this.service.formData.bruttoWeight}}</strong></p>
-              <p><strong><span>Load representative:</span> {{this.service.formData.loadRepresentative}}</strong></p>
+              <p><strong><span>Load rep.:</span> {{this.service.formData.loadRepresentative}}</strong></p>
             </td>
 
-            <td class="item-3col">
+            <td class="item-3col3">
               <p><strong><span>Plate number:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
               <p><strong><span>CRM number:</span> {{this.service.formData.crmNumber}}</strong></p>
               <p><strong><span>Type of transport:</span> {{this.service.formData.remarks}}</strong></p>
@@ -121,7 +121,7 @@
       <p><strong>Belgrad {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
     <div class="stamp-line">
-      <img src="/assets/img/Stamp.jpg" style="width:80%; max-width:200px; height: 80px;">
+      <img src="/assets/img/Stamp.jpg" style="width:100%; ">
     </div>
   </footer>
 </div>

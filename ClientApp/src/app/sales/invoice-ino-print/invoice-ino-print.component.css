@@ -1,6 +1,9 @@
-
+html,body {
+  display: block;
+  size: A4;
+}
 .invoice-box {
-  max-width: 1400px;
+  max-width: 2400px;
   margin: auto;
   padding: 25px;
   /* border: 1px solid #eee; */
@@ -30,12 +33,12 @@
 }
 
 .invoice-box table tr.top table td {
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 .invoice-box table tr.top table td.title {
   font-size: 45px;
-  line-height: 45px;
+  line-height: 25px;
   color: #333;
   text-align: left;
 }
@@ -45,7 +48,7 @@
 }
 
 .invoice-box table tr.information table td {
-  padding-bottom: 30px;
+  padding-bottom: 25px;
 }
 
 .invoice-box table tr.heading td {
@@ -55,7 +58,7 @@
 }
 
 .invoice-box table tr.details td {
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 .invoice-box table tr.item td{
@@ -71,7 +74,7 @@
   font-weight: bold;
 }
 .stamp {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 display:flex;
 }
 .stamp div {
@@ -87,16 +90,27 @@ flex: 1;
 flex: 1;
 width: 50%;
 }
-.custHeader .item-3col {
+.custHeader2 {
+  display: flex;
+}
+.custHeader2 .item-3col1 {
   flex: 1;
-  width: 33%;
+
+  }
+.custHeader2 .item-3col2 {
+  flex: 1;
+
+  }
+.custHeader2 .item-3col3 {
+  flex: 2;
+
   }
 
 .custHeader .item p {
   height: auto;
   margin:0;
   padding:0;
-  line-height: 25px;
+  line-height: 20px;
   text-align: left;
 }
 .custHeader .item span {
@@ -104,8 +118,7 @@ width: 50%;
   float: left;
 }
 .custHeader .item-3col span {
-  width: 130px;
-  float: left;
+  width: auto;
   text-align: left;
 }
 
