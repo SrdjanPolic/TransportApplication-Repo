@@ -232,18 +232,26 @@ export class InvoiceComponent implements OnInit {
   }
 
   selectCurrencyChangeHandler(event: any) {
-    // if (typeof (this.service.formData.calculatonExchangeRate) !== 'undefined') {
-    // this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
-    // }
+    const currid = '2';
+    let postingDate2 = new Date();
+    postingDate2 = this.setDate(postingDate2);
+    const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
+    this.repoService.getData(apiUrl2).subscribe(res2 => {
+      this.currExchange = res2 as CurrencyExchange;
+      this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
+    });
     if (this.service.formData.currencyId == 1) {
       this.service.formData.taxLawText = this.TaxLawLongTextSerbian;
     } else {
       this.service.formData.taxLawText = this.TaxLawLongTextEnglish;
     }
   }
-  selectPaymentDataHandler(event: MatDatepickerInputEvent<Date>) {
+  selectPaymentDataHandler(event: any) {
     const currid = '2';
-    const apiUrl2 = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
+    let postingDate2 = new Date();
+    postingDate2 = this.setDate(postingDate2);
+    //postingDate2 = postingDate2.toLocaleTimeString();
+    const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
     this.repoService.getData(apiUrl2).subscribe(res2 => {
       this.currExchange = res2 as CurrencyExchange;
       this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
