@@ -48,7 +48,7 @@ function number2Words(brojka) {
               {
              if (bro=="2"  || bro=="3" || bro=="4")
                 {slo="hiljade"+slo }
-                else if (bro == "1")
+                else if (bro == "1" || bro == "0"  || bro =="5" || bro =="6" || bro=="7" || bro=="8" || bro== "9")
                 {slo="hiljada"+slo }
               if (eval(brojk.substr(5,2))>=12 || eval(brojk.substr(5,2))<=14)
                  {slo=slo.replace("hiljade","hiljada")}
@@ -67,9 +67,6 @@ function number2Words(brojka) {
                }
 
           }
-
-
-
 
     if (k==1 || k==4 || k==7)
        {
@@ -158,7 +155,7 @@ function slo_b()
  if (bro=="2")
  {slo2="dvadeset"}
  if (bro=="3")
- {slo2="trideset"}
+ {slo2="tridesed"}
  if (bro=="4")
  {slo2="četrdeset"}
  if (bro=="5")
