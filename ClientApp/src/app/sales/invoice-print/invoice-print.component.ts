@@ -59,9 +59,6 @@ export class InvoicePrintComponent implements OnInit {
         this.invoiceIdForPrint = invoiceID;
         const customerByIdUrl = `api/Customers/${this.service.formData.customerId}`;
         this.repoService.getData(customerByIdUrl).subscribe(res2 => this.customer = res2 as Customer);
-        const currid = 2;  // eur
-        const apiUrl = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
-        this.repoService.getData(apiUrl).subscribe(res3 => this.currExchange = res3 as CurrencyExchange);
       });
 
     }

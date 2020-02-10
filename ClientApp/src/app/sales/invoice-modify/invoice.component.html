@@ -14,7 +14,8 @@
         <div class="form-group">
           <label>Kupac</label>
           <select name="customerId" #customerId="ngModel" [(ngModel)]="service.formData.customerId" class="form-control"
-          [class.is-invalid]="!isValid && service.formData.customerId==0" [disabled]="this.isPosted()">
+          [class.is-invalid]="!isValid && service.formData.customerId==0" [disabled]="this.isPosted()"
+          (ngModelChange)= "selectCustomerDataHandler($event)">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of customerList" value="{{item.id}}">{{item.name}}</option>
           </select>

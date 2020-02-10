@@ -18,6 +18,7 @@ import { Settings } from 'src/app/_interface/Settings.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import {CurrencyExchange} from '../../_interface/currencyExchange.model';
 import { MatDatepickerInputEvent } from '@angular/material';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-invoice',
@@ -75,16 +76,6 @@ export class InvoiceComponent implements OnInit {
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
         this.service.formData.lastChangeUserId = +this.userId;
-        const currid2 = 2;
-        // if (typeof currid === 'undefined') {
-        //   currid = 2;  //eur
-        // }
-        let postingDate2 = res.clienReceiptDocDate;
-        if (typeof postingDate2 === 'undefined') {
-          postingDate2 = new Date();
-        }
-        const apiUrl2 = `api/ExchangeRate/${currid2}/${postingDate2}`;
-        this.repoService.getData(apiUrl2).subscribe(res2 => this.currExchange = res2 as CurrencyExchange);
 
       });
     }
@@ -233,8 +224,7 @@ export class InvoiceComponent implements OnInit {
 
   selectCurrencyChangeHandler(event: any) {
     const currid = '2';
-    let postingDate2 = new Date();
-    postingDate2 = this.setDate(postingDate2);
+    const postingDate2 = moment(this.service.formData.checkIssueDate).format('YYYY.MM.DD');
     const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
     this.repoService.getData(apiUrl2).subscribe(res2 => {
       this.currExchange = res2 as CurrencyExchange;
@@ -248,14 +238,17 @@ export class InvoiceComponent implements OnInit {
   }
   selectPaymentDataHandler(event: any) {
     const currid = '2';
-    let postingDate2 = new Date();
-    postingDate2 = this.setDate(postingDate2);
-    //postingDate2 = postingDate2.toLocaleTimeString();
+    const postingDate2 = moment(this.service.formData.checkIssueDate).format('YYYY.MM.DD');
     const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
     this.repoService.getData(apiUrl2).subscribe(res2 => {
       this.currExchange = res2 as CurrencyExchange;
       this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
     });
+
+  }
+  selectCustomerDataHandler(event: any) {
+    console.log(this.customerList[0].name);
+    console.log(this.customerList[0].paymentCurrency);
 
   }
   onPrintInvoice() {

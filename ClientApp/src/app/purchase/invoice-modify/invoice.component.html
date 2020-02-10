@@ -22,7 +22,8 @@
       <div class="form-group">
         <label>Valuta</label>
         <select name="currencyId" #currencyId="ngModel" [(ngModel)]="service.formData.currencyId" class="form-control"
-        [class.is-invalid]="!isValid && service.formData.currencyId==0" [disabled] = "this.isPosted()" >
+        [class.is-invalid]="!isValid && service.formData.currencyId==0" [disabled] = "this.isPosted()"
+        (ngModelChange)= "selectCurrencyChangeHandler($event)" >
           <option value="0">-Izaberite-</option>
           <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.code}}</option>
         </select>
@@ -45,7 +46,7 @@
       </div> -->
       <mat-form-field>
         <input matInput [matDatepicker]="pickerposting" placeholder="Datum Knjizenja"  [(ngModel)]= "service.formData.postingDate"
-        name="postingDate" />
+        (ngModelChange)="selectPaymentDataHandler($event)" name="postingDate" />
         <mat-datepicker-toggle matSuffix [for]="pickerposting"></mat-datepicker-toggle>
         <mat-datepicker #pickerposting></mat-datepicker>
       </mat-form-field>

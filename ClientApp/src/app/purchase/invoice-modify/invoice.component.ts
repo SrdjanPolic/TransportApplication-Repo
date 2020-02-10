@@ -13,6 +13,7 @@ import {MaterialModule} from './../../material/material.module';
 import { Settings } from 'src/app/_interface/Settings.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import {CurrencyExchange} from '../../_interface/currencyExchange.model';
+import * as moment from 'moment';
 
 
 @Component({
@@ -53,17 +54,7 @@ export class InvoiceComponent implements OnInit {
         this.service.formData.deletedInvoiceLineIds = '';
         this.isPostedInvoice = res.invoiced;
         this.isCreditMemoInvoice = res.creditMemo;
-        let currid = 2;
-        if (typeof currid === 'undefined') {
-          currid = 2;  // eur
-        }
-        let postingDate = res.postingDate;
-        if (typeof postingDate === 'undefined') {
-          postingDate = new Date();
-        }
         this.service.formData.lastChangeUserId = +this.userId;
-        const apiUrl = `api/ExchangeRate/${currid}/${postingDate}`;
-        this.repoService.getData(apiUrl).subscribe(res => this.currExchange = res as CurrencyExchange);
       });
     }
   }
@@ -186,6 +177,24 @@ export class InvoiceComponent implements OnInit {
   adjustDateForTimeOffset(dateToAdjust: Date) {
     dateToAdjust.setHours(dateToAdjust.getHours() + 2);
     return dateToAdjust;
+    }
+
+    selectCurrencyChangeHandler(event: any) {
+      const currid = '2';
+      const postingDate2 = moment(this.service.formData.postingDate).format('YYYY.MM.DD');
+      const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
+      this.repoService.getData(apiUrl2).subscribe(res2 => {
+        this.currExchange = res2 as CurrencyExchange;
+      });
+    }
+    selectPaymentDataHandler(event: any) {
+      const currid = '2';
+      const postingDate2 = moment(this.service.formData.postingDate).format('YYYY.MM.DD');
+      const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
+      this.repoService.getData(apiUrl2).subscribe(res2 => {
+        this.currExchange = res2 as CurrencyExchange;
+      });
+
     }
 
 }
