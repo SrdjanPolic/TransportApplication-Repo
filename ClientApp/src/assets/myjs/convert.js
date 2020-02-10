@@ -158,7 +158,7 @@ function slo_b()
  if (bro=="2")
  {slo2="dvadeset"}
  if (bro=="3")
- {slo2="tridesed"}
+ {slo2="trideset"}
  if (bro=="4")
  {slo2="četrdeset"}
  if (bro=="5")
