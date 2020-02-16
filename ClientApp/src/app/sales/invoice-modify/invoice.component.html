@@ -14,7 +14,8 @@
         <div class="form-group">
           <label>Kupac</label>
           <select name="customerId" #customerId="ngModel" [(ngModel)]="service.formData.customerId" class="form-control"
-          [class.is-invalid]="!isValid && service.formData.customerId==0" [disabled]="this.isPosted()">
+          [class.is-invalid]="!isValid && service.formData.customerId==0" [disabled]="this.isPosted()"
+          (ngModelChange)= "selectCustomerDataHandler($event)">
             <option value="0">-Izaberite-</option>
             <option *ngFor="let item of customerList" value="{{item.id}}">{{item.name}}</option>
           </select>
@@ -100,7 +101,7 @@
           <input type ="text" name="travelOrder" #travelOrder="ngModel" [(ngModel)]="service.formData.travelOrder" class="form-control" [disabled]="this.isPosted()"/>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="pickerissuedate" placeholder="Datum izdavanja računa"  [(ngModel)]= "service.formData.checkIssueDate" name="checkIssueDate" [disabled]="this.isPosted()">
+          <input matInput [matDatepicker]="pickerissuedate" placeholder="Datum izdavanja računa" (ngModelChange)="selectPaymentDataHandler($event)" [(ngModel)]= "service.formData.checkIssueDate" name="checkIssueDate" [disabled]="this.isPosted()">
           <mat-datepicker-toggle matSuffix [for]="pickerissuedate"></mat-datepicker-toggle>
           <mat-datepicker #pickerissuedate></mat-datepicker>
         </mat-form-field>

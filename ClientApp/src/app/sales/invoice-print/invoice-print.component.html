@@ -1,11 +1,11 @@
-<div class="invoice-box">
+<div class="invoice-box" *ngIf="customer" >
   <table cellpadding="0" cellspacing="0" class="first-table">
     <tr class="top">
       <td colspan="2">
         <table>
           <tr>
             <td class="title">
-              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:50%; max-width:250px; height: 100px;">
+              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:300px; height: 75px;">
             </td>
             <td style="text-align: left;">
               <strong>Atomic-sped d.o.o</strong><br>
@@ -34,7 +34,8 @@
             <td class="item">
               <div class="customer-header-data">
                 {{this.customer.name}}<br>
-                {{this.customer.address}}<br>
+                {{this.customer.address}} <br>
+                {{this.customer.city}} , {{this.customer.country}}<br>
                 PIB {{this.customer.vatNumber}}<br>
                 MB {{this.customer.personalIdNumber}}<br>
               </div>

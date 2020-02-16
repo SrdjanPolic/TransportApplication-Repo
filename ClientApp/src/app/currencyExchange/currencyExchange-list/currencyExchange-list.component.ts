@@ -36,7 +36,7 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
     },
     (error) => {
       this.errorService.handleError(error);
-    })
+    });
   }
 
   public doFilter = (value: string) => {
@@ -44,12 +44,12 @@ export class CurrencyExchangeListComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    let url: string = `/ExchangeRate/${id}`;
+    const url = `/ExchangeRate/${id}`;
     this.router.navigate([url]);
   }
 
   public redirectToUpdate = (id: string) => {
-    const url: string = `/currencyExchange/update/${id}`;
+    const url = `/currencyExchange/update/${id}`;
     this.router.navigate([url]);
   }
 }

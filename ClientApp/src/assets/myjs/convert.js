@@ -1,6 +1,7 @@
 
 var brojka,slo1,slo2,slo3,brojk,ost,slo,l_brojk,bro,bro1
 var k
+var flag
 function number2Words(brojka) {
     slo =' '
     slo1 =' '
@@ -17,6 +18,7 @@ function number2Words(brojka) {
             {
             ost=Math.abs((brojk-brojka)*100)
             ost=100-ost
+            flag = true;
             }
 
         ost=Math.round(ost)
@@ -30,6 +32,7 @@ function number2Words(brojka) {
         else {
           slo = slo + "  i   0/100 Din."
         }
+        if (flag) {brojk -= 1}
        brojk=String(brojk)
        brojk="000000000" + brojk
        l_brojk=brojk.length
@@ -48,7 +51,7 @@ function number2Words(brojka) {
               {
              if (bro=="2"  || bro=="3" || bro=="4")
                 {slo="hiljade"+slo }
-                else if (bro == "1")
+                else if (bro == "1" || bro == "0"  || bro =="5"|| bro =="6" || bro=="7" || bro=="8" || bro== "9")
                 {slo="hiljada"+slo }
               if (eval(brojk.substr(5,2))>=12 || eval(brojk.substr(5,2))<=14)
                  {slo=slo.replace("hiljade","hiljada")}
@@ -67,9 +70,6 @@ function number2Words(brojka) {
                }
 
           }
-
-
-
 
     if (k==1 || k==4 || k==7)
        {

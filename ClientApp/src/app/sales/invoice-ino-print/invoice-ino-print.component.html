@@ -1,11 +1,11 @@
-<div class="invoice-box">
+<div class="invoice-box" *ngIf="customer">
   <table cellpadding="0" cellspacing="0" class="first-table">
     <tr class="top">
       <td colspan="2">
         <table>
           <tr>
             <td class="title">
-              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:50%; max-width:250px; height: 100px;">
+              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:300px; height: 75px;">
             </td>
             <td style="text-align: left;">
               <strong>Company for transport, freight forwarding and logistics</strong><br>
@@ -33,7 +33,7 @@
               <div class="customer-header-data">
                 {{this.customer.name}}<br>
                 {{this.customer.address}}<br>
-                {{this.customer.country}}<br>
+                {{this.customer.city}}, {{this.customer.country}}<br>
                 VAT: {{this.customer.vatNumber}}<br>
               </div>
             </td>
@@ -44,21 +44,21 @@
 
     <tr class="information">
       <td >
-        <table class="custHeader">
+        <table class="custHeader2">
           <tr>
-            <td class="item-3col">
+            <td class="item-3col1">
 
               <p><strong><span>Load date:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
               <p><strong><span>Unload date:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
               <p><strong><span>Offer no.:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
             </td>
-            <td class="item-3col">
+            <td class="item-3col2">
               <p><strong><span>Pallets number:</span> {{this.service.formData.numberOfPallets}}</strong></p>
               <p><strong><span>Weight:</span> {{this.service.formData.bruttoWeight}}</strong></p>
-              <p><strong><span>Load representative:</span> {{this.service.formData.loadRepresentative}}</strong></p>
+              <p><strong><span>Load rep.:</span> {{this.service.formData.loadRepresentative}}</strong></p>
             </td>
 
-            <td class="item-3col">
+            <td class="item-3col3">
               <p><strong><span>Plate number:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
               <p><strong><span>CRM number:</span> {{this.service.formData.crmNumber}}</strong></p>
               <p><strong><span>Type of transport:</span> {{this.service.formData.remarks}}</strong></p>
@@ -109,9 +109,9 @@
     <p><strong>{{this.service.formData.taxLawText}}</strong></p>
     <br>
     <p><strong>Payment instructions :</strong></p>
-    <p><strong>BANCA INTESA AD,BEOGRAD,REPUBLIKA SRBIJA</strong></p>
-    <p><strong>SWIFT CODE:DBDBRSBG</strong></p>
-    <p><strong>IBAN:RS3516 0005 3800 0432 9402</strong></p><br>
+    <p><strong>UNICREDIT BANK SERBIA JSC, BELGRADE, SERBIA</strong></p>
+    <p><strong>SWIFT CODE: BACXRSBG</strong></p>
+    <p><strong>IBAN: RS35170003004698500123</strong></p><br>
 
     <p><strong>BANKING PAYMENT TRANSACTION COST ARE ON YOUR ACCOUNT</strong></p>
     <br>
@@ -121,7 +121,7 @@
       <p><strong>Belgrad {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
     <div class="stamp-line">
-      <img src="/assets/img/Stamp.jpg" style="width:80%; max-width:200px; height: 80px;">
+      <img src="/assets/img/Stamp.jpg" style="width:100%; ">
     </div>
   </footer>
 </div>
