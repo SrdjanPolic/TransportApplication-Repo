@@ -19,6 +19,7 @@ namespace DBLayerPOC.Infrastructure.Vendor
         public string VatNumber { get; set; }
         public bool? IsInactive { get; set; }
         public DateTime LastChangeDate { get; set; }
+        public string Note { get; set; }
 
         public ICollection<PurchaseInvoiceHeader> PurchaseInvoiceHeaders { get; }
 

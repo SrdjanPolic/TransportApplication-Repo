@@ -23,6 +23,7 @@ namespace DBLayerPOC.Infrastructure
             builder.Property(x => x.PaymentCurrency).HasColumnName("PaymentCurrency").IsRequired();
             builder.Property(x => x.VatNumber).HasColumnName("VatNumber");
             builder.Property(x => x.IsInactive).HasColumnName("IsInactive").HasDefaultValue(false);
+            builder.Property(x => x.Note).HasColumnName("Note").HasMaxLength(500).HasDefaultValue(null);
 
             builder.Property(x => x.LastChangeDateTime).HasColumnName("LastChangeDateTime").HasDefaultValue(null);
             builder.Property(x => x.LastChangeUserId).HasColumnName("LastChangeUserId").HasDefaultValue(null);

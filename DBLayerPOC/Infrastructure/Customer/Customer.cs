@@ -16,6 +16,7 @@ namespace DBLayerPOC.Models
         public int PaymentCurrency { get; set; }
         public string VatNumber { get; set; }
         public bool IsInactive { get; set; }
+        public string Note { get; set; }
 
         public string PersonalIdNumber { get; set; }
       
