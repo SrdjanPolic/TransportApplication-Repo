@@ -65,6 +65,13 @@
             <mat-error *ngIf="hasError('personalIdNumber', 'required')">Matični Broj je neophodan</mat-error>
           </mat-form-field>
 
+          <mat-form-field>
+            <mat-label>Napomena</mat-label>
+            <textarea matInput type="text" placeholder="Napomena" formControlName="note"></textarea>
+            <mat-hint align="end">Max. 250 karaktera dužina.</mat-hint>
+            <mat-error *ngIf="hasError('note', 'maxlength')">Prekoračeno 250 karaktera</mat-error>
+          </mat-form-field>
+
 
         </mat-card-content>
         <mat-card-actions align="center">

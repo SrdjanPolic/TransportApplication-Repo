@@ -29,6 +29,7 @@ export class CustomerCreateComponent implements OnInit {
       paymentCurrency: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       personalIdNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      note: new FormControl('', Validators.maxLength(250)),
       isInactive: new FormControl(false)
     });
 
@@ -76,6 +77,7 @@ export class CustomerCreateComponent implements OnInit {
       vatNumber: customerFormValue.vatNumber,
       isInactive: customerFormValue.isInactive,
       personalIdNumber: customerFormValue.personalIdNumber,
+      note: customerFormValue.note,
       lastChangeDateTime: new Date(),
       lastChangeUserId: +this.userId,
     }

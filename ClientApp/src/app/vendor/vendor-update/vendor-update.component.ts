@@ -31,6 +31,7 @@ export class VendorUpdateComponent implements OnInit {
       phoneNo: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       paymentCurrency: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
+      note: new FormControl('', Validators.maxLength(250)),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       isInactive: new FormControl(false)
     });
@@ -90,6 +91,7 @@ export class VendorUpdateComponent implements OnInit {
     this.vendor.paymentCurrency = vendorFormValue.paymentCurrency;
     this.vendor.vatNumber = vendorFormValue.vatNumber;
     this.vendor.isInactive = vendorFormValue.isInactive;
+    this.vendor.note = vendorFormValue.note;
     this.vendor.lastChangeDateTime = vendorFormValue.lastChangeDateTime;
     this.vendor.lastChangeUserId = +this.userId;
 

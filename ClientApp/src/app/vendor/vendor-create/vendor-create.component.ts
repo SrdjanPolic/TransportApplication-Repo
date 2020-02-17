@@ -29,6 +29,7 @@ export class VendorCreateComponent implements OnInit {
       paymentTermsCode: new FormControl(''),
       paymentCurrency: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      note: new FormControl('', Validators.maxLength(250)),
       isInactive: new FormControl(false)
     });
 
@@ -70,6 +71,7 @@ export class VendorCreateComponent implements OnInit {
       paymentCurrency: vendorFormValue.paymentCurrency,
       vatNumber: vendorFormValue.vatNumber,
       isInactive: vendorFormValue.isInactive,
+      note: vendorFormValue.note,
       lastChangeDateTime: vendorFormValue.lastChangeDateTime,
       lastChangeUserId: +this.userId
     }
