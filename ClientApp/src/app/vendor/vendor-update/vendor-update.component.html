@@ -60,6 +60,13 @@
           <mat-error *ngIf="hasError('vatNumber', 'maxlength')">Prekoračeno 50 karaktera</mat-error>
         </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>Napomena</mat-label>
+          <textarea matInput type="text" placeholder="Napomena" formControlName="note"></textarea>
+          <mat-hint align="end">Max. 250 karaktera dužina.</mat-hint>
+          <mat-error *ngIf="hasError('note', 'maxlength')">Prekoračeno 250 karaktera</mat-error>
+        </mat-form-field>
+
         <mat-checkbox matInput type="text" formControlName="isInactive">Deaktiviraj dobavljača</mat-checkbox>
 
 

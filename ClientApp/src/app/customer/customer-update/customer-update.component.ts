@@ -33,6 +33,7 @@ export class CustomerUpdateComponent implements OnInit {
       paymentCurrency: new FormControl(0, [Validators.required, Validators.maxLength(40)]),
       vatNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       personalIdNumber: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      note: new FormControl('', Validators.maxLength(250)),
       isInactive: new FormControl(false)
     });
 
@@ -96,6 +97,7 @@ export class CustomerUpdateComponent implements OnInit {
     this.customer.paymentCurrency = customerFormValue.paymentCurrency;
     this.customer.vatNumber = customerFormValue.vatNumber;
     this.customer.isInactive = customerFormValue.isInactive;
+    this.customer.note = customerFormValue.note;
     this.customer.personalIdNumber = customerFormValue.personalIdNumber;
     this.customer.lastChangeUserId = +this.userId;
 

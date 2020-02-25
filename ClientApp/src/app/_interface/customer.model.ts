@@ -12,6 +12,7 @@ export interface Customer {
     isInactive: boolean;
     accounts?: Account;
     personalIdNumber: string;
+    note: string;
     lastChangeDateTime: Date;
     lastChangeUserId: number;
 }
