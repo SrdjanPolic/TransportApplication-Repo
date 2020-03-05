@@ -22,25 +22,43 @@ namespace TransportWebAPI.Controllers.Reports
         }
 
         // GET: api/5/Datum
-        [Route("[action]/{*travelOrder}")]
+        [Route("[action]")]
         [HttpGet]
-        public IActionResult GetTravelOrderProfitReport(string travelOrder)
+        public IActionResult GetTravelOrderProfitReport()
+        {
+            var reportItems = new List<TravelOrderProfitReportItem>();
+
+            var travelOrders = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => !header.CreditMemo && !string.IsNullOrEmpty(header.TravelOrder))
+                    .Items.Select(x => x.TravelOrder).Distinct().ToList();
+
+            travelOrders.ForEach(travelOrder =>
+            {
+                var reportProfitItem = GetTravelOrderProfitReportItem(travelOrder);
+                reportItems.Add(reportProfitItem);
+            });
+
+
+            return Ok(reportItems);
+        }
+
+        private TravelOrderProfitReportItem GetTravelOrderProfitReportItem(string travelOrder)
         {
             var salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                .GetList(header => header.TravelOrder.Equals(travelOrder))
-                .Items.ToList();
+                    .GetList(header => header.TravelOrder.Equals(travelOrder) && !header.CreditMemo)
+                    .Items.ToList();
 
             var revenue = salesList.Sum(sale => sale.TotalAmountLocal);
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
-                .GetList(line => line.TravelOrder.Equals(travelOrder))
+                .GetList(line => line.TravelOrder.Equals(travelOrder) && !line.Header.CreditMemo)
                 .Items.ToList();
 
-            
+
             var expences = purchaseList.Sum(purchase =>
             {
                 var exchangeRate = GetExchangeRateForPurchase(purchase);
-                return purchase.LineAmount* exchangeRate;
+                return purchase.LineAmount * exchangeRate;
             });
 
             var profit = revenue - expences;
@@ -53,8 +71,7 @@ namespace TransportWebAPI.Controllers.Reports
                 Profit = profit
             };
 
-
-            return Ok(reportItem);
+            return reportItem;
         }
 
         private float GetExchangeRateForPurchase(PurchaseInvoiceLine purchaseInvoiceLine)
