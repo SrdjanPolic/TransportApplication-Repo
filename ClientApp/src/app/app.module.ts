@@ -35,7 +35,7 @@ registerLocaleData(localeDe, 'de');
     NotFoundComponent,
     ServerErrorComponent,
     LoginComponent,
-    LoginLayoutComponent
+    LoginLayoutComponent,
   ],
   imports: [
     BrowserModule,
