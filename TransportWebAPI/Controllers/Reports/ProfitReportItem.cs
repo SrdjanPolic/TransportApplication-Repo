@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace TransportWebAPI.Controllers.Reports
 {
-    public class TravelOrderProfitReportItem
+    public class ProfitReportItem
     {
-        public string TravelOrder { get; set; }
+        public string Criteria { get; set; }
         public float Revenue { get; set; }
         public float Expences { get; set; }
         public float Profit { get; set; }
