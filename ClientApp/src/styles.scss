@@ -42,6 +42,13 @@ html, body {
     left: 8vw;
     z-index: 9999;
   }
+  .report-box {
+    position: fixed;
+    width: 110vw;
+    top: 3vw;
+    left: 8vw;
+    z-index: 9999;
+  }
   html, body {
     width: 210mm;
     height: 297mm;
@@ -65,6 +72,10 @@ html, body {
 
   app-header {
     display: none;
+  }
+  app-travel-order {
+    display: block;
+    overflow: hidden;
   }
   /* ##################################################### */
 }
