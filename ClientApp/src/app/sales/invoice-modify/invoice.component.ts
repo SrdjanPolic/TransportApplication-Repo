@@ -261,5 +261,9 @@ export class InvoiceComponent implements OnInit {
     const pathurl = `/sales/details/${this.invoiceIdForPrint}/inoprint`;
     this.router.navigate([pathurl]);
   }
+  onPrintRefundInvoice() {
+    const pathurl = `/sales/details/${this.invoiceIdForPrint}/inorefundprint`;
+    this.router.navigate([pathurl]);
+  }
 
 }
