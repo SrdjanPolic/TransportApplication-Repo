@@ -36,6 +36,8 @@ export class InvoiceRefundPrintComponent implements OnInit {
   private dialogConfig;
   invoiceIdForPrint: string;
   numberToWordsString: string;
+  VATAmount: number;
+  BaseAmount: number;
 
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
@@ -59,6 +61,12 @@ export class InvoiceRefundPrintComponent implements OnInit {
         this.invoiceIdForPrint = invoiceID;
         const customerByIdUrl = `api/Customers/${this.service.formData.customerId}`;
         this.repoService.getData(customerByIdUrl).subscribe(res2 => this.customer = res2 as Customer);
+        this.VATAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+          return prev + (curr.lineAmount - (curr.unitPrice * curr.quantity));
+        }, 0);
+        this.BaseAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+          return prev + (curr.unitPrice * curr.quantity);
+        }, 0);
       });
 
     }
@@ -125,89 +133,6 @@ export class InvoiceRefundPrintComponent implements OnInit {
   onPrintInvoice() {
     // this.printService
     //   .printDocument('invoice', this.invoiceIdForPrint);
-  }
-
-  convertNumberToWords_old(amount) {
-    const words = new Array();
-    words[0] = '';
-    words[1] = 'jedan';
-    words[2] = 'dva';
-    words[3] = 'tri';
-    words[4] = 'četiri';
-    words[5] = 'pet';
-    words[6] = 'šest';
-    words[7] = 'sedam';
-    words[8] = 'osam';
-    words[9] = 'devet';
-    words[10] = 'deset';
-    words[11] = 'jedanaest';
-    words[12] = 'dvanaest';
-    words[13] = 'trinaest';
-    words[14] = 'četrnaest';
-    words[15] = 'petnaest';
-    words[16] = 'šesnaest';
-    words[17] = 'sedamnaest';
-    words[18] = 'osamnaest';
-    words[19] = 'devetnaest';
-    words[20] = 'dvadeset';
-    words[30] = 'trideset';
-    words[40] = 'četrdeset';
-    words[50] = 'pedeset';
-    words[60] = 'šezdeset';
-    words[70] = 'sedamdeset';
-    words[80] = 'osamdeset';
-    words[90] = 'devedeset';
-    amount = amount.toString();
-    const atemp = amount.split('.');
-    const number = atemp[0].split(',').join('');
-    const n_length = number.length;
-    let words_string = '';
-    let value;
-    if (n_length <= 9) {
-        const n_array = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0);
-        const received_n_array = new Array();
-        for (let i = 0; i < n_length; i++) {
-            received_n_array[i] = number.substring(i, 1);
-        }
-        for (let i = 9 - n_length, j = 0; i < 9; i++, j++) {
-            n_array[i] = received_n_array[j];
-        }
-        for (let i = 0, j = 1; i < 9; i++, j++) {
-            if (i == 0 || i == 2 || i == 4 || i == 7) {
-                if (n_array[i] == 1) {
-                    n_array[j] = 10 + (n_array[j]);
-                    n_array[i] = 0;
-                }
-            }
-        }
-        value = '';
-        for (let i = 0; i < 9; i++) {
-            if (i == 0 || i == 2 || i == 4 || i == 7) {
-                value = n_array[i] * 10;
-            } else {
-                value = n_array[i];
-            }
-            if (value != 0) {
-                words_string += words[value];
-            }
-            if ((i == 1 && value != 0) || (i == 0 && value != 0 && n_array[i + 1] == 0)) {
-                words_string += 'Crores ';
-            }
-            if ((i == 3 && value != 0) || (i == 2 && value != 0 && n_array[i + 1] == 0)) {
-                words_string += 'Lakhs ';
-            }
-            if ((i == 5 && value != 0) || (i == 4 && value != 0 && n_array[i + 1] == 0)) {
-                words_string += 'hiljada';
-            }
-            if (i == 6 && value != 0 && (n_array[i + 1] != 0 && n_array[i + 2] != 0)) {
-                words_string += 'hiljadai';
-            } else if (i == 6 && value != 0) {
-                words_string += 'sto';
-            }
-        }
-        words_string = words_string.split('  ').join(' ');
-    }
-    return (words_string + 'dinara i 00/100');
   }
 
 }

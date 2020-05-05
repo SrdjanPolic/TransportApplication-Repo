@@ -161,7 +161,7 @@ width: 50%;
 .invoice-body table th, .invoice-body table td {
   border: 1px solid #000 ;
   border-collapse: collapse;
-  padding: 10px;
+  padding: 8px;
 }
 
 .invoice-body table .no-border *

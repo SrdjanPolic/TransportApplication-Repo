@@ -2,18 +2,18 @@
   <h4 class="display-4 text-center"><img src="/assets/img/AtomicSped.bmp" height="150" width="200">Izlazne fakture</h4>
 </div>
 <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
-  <!-- <mat-form-field>
-    <input matInput type="text" [(ngModel)]="Filter" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field> -->
+  <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
   <div>
     <a [routerLink]="['/sales/create']" mat-button color="primary">Kreiraj novu izlaznu fakturu</a>
   </div>
-  <div>
+  <!-- <div>
     <button mat-raised-button   (click) ="filterBy('paid')">Plaćeno</button>
     <button mat-raised-button   (click) ="filterBy('invoiced')">Proknjiženo</button>
     <button mat-raised-button   (click) ="filterBy('creditMemo')">Stornirano</button>
     <button mat-raised-button   (click) ="clearFilters()">Prikaži sve</button>
-  </div>
+  </div> -->
 </div>
 <table mat-table class="table" [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="invoiceNo">
@@ -87,5 +87,5 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [pageSize]="50" [pageSizeOptions]="[5, 10, 50, 100, 500]">
+<mat-paginator [pageSize]="500" [pageSizeOptions]="[5, 10, 50, 100, 500]">
 </mat-paginator>
