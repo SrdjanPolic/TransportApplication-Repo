@@ -24,6 +24,60 @@ namespace TransportWebAPI.Controllers.Reports
         // GET
         [Route("[action]")]
         [HttpGet]
+        public IActionResult GetSalesInvoicePaymentReport(bool paid)
+        {
+            var reportItems = new List<SalesInvoicePaymentReportItem>();
+            if(paid)
+            {
+                var salesInvoicesPaid = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => header.Paid)
+                    .Items.ToList();
+
+                salesInvoicesPaid.ForEach(
+                    x =>
+                    {
+                        var reportItem = new SalesInvoicePaymentReportItem
+                        {
+                            TotalAmount = x.TotalAmount,
+                            TotalAmountLocal = x.TotalAmountLocal,
+                            Paid = x.Paid,
+                            PaymentDate = x.PaymentDate,
+                            DueDate = x.DueDate,
+                            Delay = (x.PaymentDate - x.DueDate).TotalDays
+                        };
+
+                        reportItems.Add(reportItem);
+                    });
+            }
+            else
+            {
+                var salesInvoicesNotPaid = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => !header.Paid)
+                    .Items.ToList();
+
+                salesInvoicesNotPaid.ForEach(
+                    x =>
+                    {
+                        var reportItem = new SalesInvoicePaymentReportItem
+                        {
+                            TotalAmount = x.TotalAmount,
+                            TotalAmountLocal = x.TotalAmountLocal,
+                            Paid = x.Paid,
+                            PaymentDate = x.PaymentDate,
+                            DueDate = x.DueDate,
+                            Delay = (DateTime.Now - x.DueDate).TotalDays
+                        };
+
+                        reportItems.Add(reportItem);
+                    });
+
+            }
+            return Ok(reportItems);
+        }
+
+        // GET
+        [Route("[action]")]
+        [HttpGet]
         public IActionResult GetTravelOrderProfitReport()
         {
             var reportItems = new List<ProfitReportItem>();
