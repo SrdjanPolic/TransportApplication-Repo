@@ -8,7 +8,7 @@ import { Customer } from '../../_interface/customer.model';
 import { Currency } from '../../_interface/Currency.model';
 import { Driver } from '../../_interface/driver.model';
 import { Vehicle } from '../../_interface/vehicle.model';
-import {User} from '../../auth/user.model';
+import { User} from '../../auth/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';

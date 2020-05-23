@@ -1,5 +1,5 @@
 
-export interface TravelOrder {
+export interface TravelOrderProfit {
     travelOrder: string;
     revenue: number;
     expences: number;
