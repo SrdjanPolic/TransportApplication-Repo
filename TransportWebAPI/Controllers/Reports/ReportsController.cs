@@ -22,7 +22,7 @@ namespace TransportWebAPI.Controllers.Reports
         }
 
         // GET
-        [Route("[action]")]
+        [Route("[action]/{paid}")]
         [HttpGet]
         public IActionResult GetSalesInvoicePaymentReport(bool paid)
         {
@@ -43,7 +43,7 @@ namespace TransportWebAPI.Controllers.Reports
                             Paid = x.Paid,
                             PaymentDate = x.PaymentDate,
                             DueDate = x.DueDate,
-                            Delay = (x.PaymentDate - x.DueDate).TotalDays
+                            Delay = Math.Round((x.PaymentDate - x.DueDate).TotalDays)
                         };
 
                         reportItems.Add(reportItem);
@@ -65,7 +65,7 @@ namespace TransportWebAPI.Controllers.Reports
                             Paid = x.Paid,
                             PaymentDate = x.PaymentDate,
                             DueDate = x.DueDate,
-                            Delay = (DateTime.Now - x.DueDate).TotalDays
+                            Delay = Math.Round((DateTime.Now - x.DueDate).TotalDays)
                         };
 
                         reportItems.Add(reportItem);
