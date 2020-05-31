@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RepositoryService} from './../../shared/repository.service';
 import { SalesInvHeader} from './../../_interface/SalesInvHeader.model';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource} from '@angular/material/table';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Customer} from './../../_interface/customer.model';
 
@@ -14,7 +15,7 @@ import { Customer} from './../../_interface/customer.model';
   templateUrl: './invoices.component.html',
   styles: ['./invoices.component.css']
 })
-export class InvoicesComponent implements OnInit {
+export class InvoicesComponent implements OnInit, AfterViewInit {
   public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'currencyId',
    'paid', 'invoiced', 'creditMemo', 'update'];
   SalesList: Customer;
@@ -37,11 +38,9 @@ export class InvoicesComponent implements OnInit {
   ngOnInit() {
     this.refreshList();
   }
-
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.filterPredicate = this.createFilter();
+     this.dataSource.sort = this.sort;
+     this.dataSource.paginator = this.paginator;
   }
 
   public refreshList = () => {

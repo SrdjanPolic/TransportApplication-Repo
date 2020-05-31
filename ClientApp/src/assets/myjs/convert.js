@@ -17,8 +17,10 @@ function number2Words(brojka) {
             else
             {
             ost=Math.abs((brojk-brojka)*100)
-            ost=100-ost
-            flag = true;
+            ost=100-ost;
+            if (ost!=100)
+              {flag = true;}
+
             }
 
         ost=Math.round(ost)
@@ -158,7 +160,7 @@ function slo_b()
  if (bro=="2")
  {slo2="dvadeset"}
  if (bro=="3")
- {slo2="tridesed"}
+ {slo2="trideset"}
  if (bro=="4")
  {slo2="četrdeset"}
  if (bro=="5")

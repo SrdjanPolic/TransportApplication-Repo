@@ -13,17 +13,17 @@ import { SalesInvService } from '../../shared/SalesInv.service';
 })
 export class InvoiceLinesComponent implements OnInit {
   formData: SalesInvLine;
-  //itemList: Item[];
+  // itemList: Item[];
   isValid: boolean = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<InvoiceLinesComponent>,
-    //private itemService: ItemService,
+    // private itemService: ItemService,
     private invoiceService: SalesInvService) { }
 
   ngOnInit() {
-    //this.itemService.getItemList().then(res => this.itemList = res as Item[]);
+    // this.itemService.getItemList().then(res => this.itemList = res as Item[]);
     let newDt = new Date();
     if (this.data.invoiceLineIndex == null) {
       this.formData = {
@@ -43,9 +43,9 @@ export class InvoiceLinesComponent implements OnInit {
         vatPercent: 0,
         salesHeaderId: 0,
       }
-    }
-    else
+    } else {
       this.formData = Object.assign({}, this.invoiceService.SalesInvLines[this.data.invoiceLineIndex]);
+    }
   }
 
   // updatePrice(ctrl) {
@@ -68,8 +68,7 @@ export class InvoiceLinesComponent implements OnInit {
     if (this.validateForm(form.value)) {
       if (this.data.invoiceLineIndex == null) {
         this.invoiceService.SalesInvLines.push(form.value);
-      }
-      else {
+      } else {
       this.invoiceService.SalesInvLines[this.data.invoiceLineIndex] = form.value;
       }
       this.dialogRef.close();
@@ -78,10 +77,11 @@ export class InvoiceLinesComponent implements OnInit {
 
   validateForm(formData: SalesInvLine) {
     this.isValid = true;
-    if (formData.unitPrice == 0)
+    if (formData.unitPrice == 0) {
       this.isValid = false;
-    else if (formData.quantity == 0)
+    } else if (formData.quantity == 0) {
       this.isValid = false;
+         }
     return this.isValid;
   }
 

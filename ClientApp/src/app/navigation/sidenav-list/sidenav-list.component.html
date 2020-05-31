@@ -42,7 +42,8 @@
       <a matline>Izveštaji</a>
   </mat-list-item>
   <mat-menu #reports="matMenu">
-    <button mat-menu-item routerLink="/reports/TravelOrder"  (click)="onSidenavClose()">Izveštaj - putni nalog</button>
+    <button mat-menu-item routerLink="/reports/TravelReport"  (click)="onSidenavClose()">Izveštaj - putni nalog</button>
+    <button mat-menu-item routerLink="/reports/PositionReport"  (click)="onSidenavClose()">Izveštaj - po poziciji</button>
     <button mat-menu-item (click)="onSidenavClose()">Pregled izlaznih faktura</button>
     <button mat-menu-item (click)="onSidenavClose()">Pregled ulaznih faktura</button>
   </mat-menu>
