@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportsRoutingModule} from './reports-routing/reports-routing.module';
-import { TravelOrderComponent} from './travel-order/travel-order.component';
+import { SalesInvoicesReportComponent} from './sales-invoices/sales-invoices.component';
 import { PositionReportComponent} from './position-report/position-report.component';
 import { TravelReportComponent} from './travel-report/travel-report.component';
 import { FormsModule} from '@angular/forms';
@@ -18,7 +18,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     TransformModule
   ],
-  declarations: [TravelOrderComponent, PositionReportComponent, TravelReportComponent],
+  declarations: [SalesInvoicesReportComponent, PositionReportComponent, TravelReportComponent],
   entryComponents: [],
   providers: [],
 })
