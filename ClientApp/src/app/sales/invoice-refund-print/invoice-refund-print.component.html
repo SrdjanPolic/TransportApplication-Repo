@@ -99,7 +99,7 @@
             <td style="text-align:right">{{lines.lineAmount | number:'1.2-2':'de-DE' }}</td>
           </tr>
           <tr>
-            <td style="text-align: center;"><strong>UKUPNO ZA REFUNDACIJU(član 17,stav 3,tačka 2 Zakona o PDV-u) </strong></td>
+            <td style="text-align: center;background-color:#F0F0F0"><strong>UKUPNO ZA REFUNDACIJU(član 17,stav 3,tačka 2 Zakona o PDV-u) </strong></td>
             <td></td>
             <td></td>
             <td></td>
@@ -111,7 +111,7 @@
           </tr>
           <tr class="no-border" style="text-align:right">
             <td colspan="2"><strong>Troškovi bez PDV-a:</strong></td>
-            <td colspan="3">{{this.service.SalesInvLines[1].unitPrice + this.service.SalesInvLines[2].unitPrice | number:'1.2-2':'de-DE'}}</td>
+            <td colspan="3">{{this.service.SalesInvLines[1].unitPrice + this.service.SalesInvLines[2].unitPrice +this.service.SalesInvLines[3].unitPrice +this.service.SalesInvLines[4].unitPrice | number:'1.2-2':'de-DE'}}</td>
           </tr>
           <tr class="no-border" style="text-align:right">
             <td colspan="2"><strong>PDV:</strong></td>
