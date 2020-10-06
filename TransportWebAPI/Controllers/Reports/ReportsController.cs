@@ -99,12 +99,13 @@ namespace TransportWebAPI.Controllers.Reports
         // GET
         [Route("[action]")]
         [HttpGet]
-        public IActionResult GetExternalReferenceProfitReport()
+        public IActionResult GetExternalReferenceProfitReport() //staviti sopstveni = false;
         {
             var reportItems = new List<ProfitReportItem>();
 
             var externalReferences = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => !header.CreditMemo && !string.IsNullOrEmpty(header.ExternalReferenceNo))
+                    .GetList(header => !header.CreditMemo && !string.IsNullOrEmpty(header.ExternalReferenceNo) 
+                     && !header.OwnTransport)
                     .Items.Select(x => x.ExternalReferenceNo).Distinct().ToList();
 
             externalReferences.ForEach(externalReference =>
@@ -113,8 +114,56 @@ namespace TransportWebAPI.Controllers.Reports
                 reportItems.Add(reportProfitItem);
             });
 
-
             return Ok(reportItems);
+        }
+
+        // GET
+        [Route("[action]/{travelOrderNo}")]
+        [HttpGet]
+        public IActionResult GetExternalReferenceProfitReportItems(string travelOrderNo)
+        {
+            var externalReferenceProfilReportItems = new List<ExternalReferenceProfitReportItem>();
+
+            var salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => header.ExternalReferenceNo.Equals(travelOrderNo) && !header.CreditMemo)
+                    .Items.ToList();
+
+            salesList.ForEach(sale =>
+            {
+                var externalReportProfitItem = new ExternalReferenceProfitReportItem
+                {
+                    Sales = sale.SalesPerson,
+                    Input = sale.TotalAmountLocal,
+                    TravelOrderNo = sale.ExternalReferenceNo,
+                    DocumentNo = sale.InvoiceNo
+                };
+
+                externalReferenceProfilReportItems.Add(externalReportProfitItem);
+            });
+
+            var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
+                .GetList(line => line.Header.ExternalReferenceNo.Equals(travelOrderNo) && !line.Header.CreditMemo)
+                .Items.ToList();
+
+
+            purchaseList.ForEach(purchase =>
+            {
+                var exchangeRate = GetExchangeRateForPurchase(purchase);
+            
+                var externalReportProfitItem = new ExternalReferenceProfitReportItem
+                {
+                    Buyer = purchase.Header.Vendor.Name,
+                    Output = purchase.LineAmount * exchangeRate,
+                    TravelOrderNo = purchase.Header.ExternalReferenceNo,
+                    DocumentNo = purchase.Header.InvoiceNo
+                };
+
+                externalReferenceProfilReportItems.Add(externalReportProfitItem);
+            });
+
+
+
+            return Ok(externalReferenceProfilReportItems);
         }
 
         private ProfitReportItem GetExternalReferenceProfitReportItem(string externalReference)
