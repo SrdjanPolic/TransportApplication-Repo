@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px!important;
+}
+.table  {
+    width: 100%;
+}
+tr.mat-footer-row {
+  font-weight: bold;
+  font-size: large;
+}
