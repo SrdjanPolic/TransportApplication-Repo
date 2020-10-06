@@ -1,19 +1,19 @@
 import { RepositoryService } from './../../shared/repository.service';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { ProfitReport } from '../../_interface/profitReport.model';
+import { PositionReportDetail } from '../../_interface/positionReportDetail.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-travel-report',
-  templateUrl: './travel-report.component.html',
-  styleUrls: ['./travel-report.component.css']
+  selector: 'app-position-report-detail',
+  templateUrl: './position-report-detail.component.html',
+  styleUrls: ['./position-report-detail.component.css']
 })
-export class TravelReportComponent implements OnInit, AfterViewInit {
+export class PositionReportDetailComponent implements OnInit, AfterViewInit {
 
   public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'details'];
-  public dataSource = new MatTableDataSource<ProfitReport>();
+  public dataSource = new MatTableDataSource<PositionReportDetail>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,9 +30,9 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
   }
 
   public getAllDocs = () => {
-    this.repoService.getData('api/Reports/GetTravelOrderProfitReport')
+    this.repoService.getData('api/Reports/GetExternalReferenceProfitReport')
     .subscribe(res => {
-      this.dataSource.data = res as ProfitReport[];
+      this.dataSource.data = res as PositionReportDetail[];
     },
     (error) => {
       this.errorService.handleError(error);
@@ -41,12 +41,6 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
-  }
-
-  public redirectToDetails = (id: string) => {
-    //let url: string = `/reports/TravelReport/${id}`;
-    let url: string = `/reports/TravelReport/1`;
-    this.router.navigate([url]);
   }
 
   public getTotalRevenue() {

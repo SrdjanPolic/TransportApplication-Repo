@@ -44,12 +44,7 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    let url: string = `/Customers/${id}`;
-    this.router.navigate([url]);
-  }
-
-  public redirectToUpdate = (id: string) => {
-    let url: string = `/customer/update/${id}`;
+    let url: string = `/reports/PositionReport/${id}`;
     this.router.navigate([url]);
   }
   public getTotalRevenue() {
