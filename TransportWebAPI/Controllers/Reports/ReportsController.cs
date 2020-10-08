@@ -118,31 +118,32 @@ namespace TransportWebAPI.Controllers.Reports
         }
 
         // GET
-        [Route("[action]/{travelOrderNo}")]
+        [Route("[action]/{*travelOrderNo}")]
         [HttpGet]
         public IActionResult GetExternalReferenceProfitReportItems(string travelOrderNo)
         {
-            var externalReferenceProfilReportItems = new List<ExternalReferenceProfitReportItem>();
+            var externalReferenceProfilReportItems = new List<TravelOrderProfitReportItem>();
 
             var salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => header.ExternalReferenceNo.Equals(travelOrderNo) && !header.CreditMemo)
+                    .GetList(header => header.TravelOrder.Equals(travelOrderNo) && !header.CreditMemo)
                     .Items.ToList();
 
             salesList.ForEach(sale =>
             {
-                var externalReportProfitItem = new ExternalReferenceProfitReportItem
+                var externalReportProfitItem = new TravelOrderProfitReportItem
                 {
-                    Sales = sale.SalesPerson,
+                    Partner = sale.CustomerId.ToString(),
                     Input = sale.TotalAmountLocal,
-                    TravelOrderNo = sale.ExternalReferenceNo,
-                    DocumentNo = sale.InvoiceNo
+                    TravelOrderNo = sale.TravelOrder,
+                    DocumentNo = sale.InvoiceNo, 
+                    InvoiceDate = sale.PostingDate
                 };
 
                 externalReferenceProfilReportItems.Add(externalReportProfitItem);
             });
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
-                .GetList(line => line.Header.ExternalReferenceNo.Equals(travelOrderNo) && !line.Header.CreditMemo)
+                .GetList(line => line.TravelOrder.Equals(travelOrderNo) && !line.Header.CreditMemo)
                 .Items.ToList();
 
 
@@ -150,12 +151,13 @@ namespace TransportWebAPI.Controllers.Reports
             {
                 var exchangeRate = GetExchangeRateForPurchase(purchase);
             
-                var externalReportProfitItem = new ExternalReferenceProfitReportItem
+                var externalReportProfitItem = new TravelOrderProfitReportItem
                 {
-                    Buyer = purchase.Header.Vendor.Name,
+                    Partner = purchase.Header.VendorId.ToString(),
                     Output = purchase.LineAmount * exchangeRate,
                     TravelOrderNo = purchase.Header.ExternalReferenceNo,
-                    DocumentNo = purchase.Header.InvoiceNo
+                    DocumentNo = purchase.Header.InvoiceNo,
+                    InvoiceDate = purchase.Header.PostingDate
                 };
 
                 externalReferenceProfilReportItems.Add(externalReportProfitItem);
