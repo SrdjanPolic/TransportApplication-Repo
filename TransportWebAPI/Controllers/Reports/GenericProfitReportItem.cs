@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransportWebAPI.Controllers.Reports
 {
-    public class TravelOrderProfitReportItem
+    public class GenericProfitReportItem
     {
         public string TravelOrderNo { get; set; }
         public string Partner { get; set; }
