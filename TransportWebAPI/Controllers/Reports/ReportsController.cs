@@ -2,6 +2,7 @@
 using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using DBLayerPOC.Infrastructure.SalesInvoice;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Service.Data;
 using System;
 using System.Collections.Generic;
@@ -125,14 +126,15 @@ namespace TransportWebAPI.Controllers.Reports
             var externalReferenceProfilReportItems = new List<TravelOrderProfitReportItem>();
 
             var salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => header.TravelOrder.Equals(travelOrderNo) && !header.CreditMemo)
+                    .GetList(predicate: header => header.TravelOrder.Equals(travelOrderNo) && !header.CreditMemo, orderBy:null, 
+                     include: header => header.Include(x => x.Customer))
                     .Items.ToList();
 
             salesList.ForEach(sale =>
             {
                 var externalReportProfitItem = new TravelOrderProfitReportItem
                 {
-                    Partner = sale.CustomerId.ToString(),
+                    Partner = sale.Customer.Name,
                     Input = sale.TotalAmountLocal,
                     TravelOrderNo = sale.TravelOrder,
                     DocumentNo = sale.InvoiceNo, 
@@ -143,7 +145,8 @@ namespace TransportWebAPI.Controllers.Reports
             });
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
-                .GetList(line => line.TravelOrder.Equals(travelOrderNo) && !line.Header.CreditMemo)
+                .GetList(predicate: line => line.TravelOrder.Equals(travelOrderNo) && !line.Header.CreditMemo, orderBy: null,
+                 include: line => line.Include(x => x.Header.Vendor))
                 .Items.ToList();
 
 
@@ -153,7 +156,7 @@ namespace TransportWebAPI.Controllers.Reports
             
                 var externalReportProfitItem = new TravelOrderProfitReportItem
                 {
-                    Partner = purchase.Header.VendorId.ToString(),
+                    Partner = purchase.Header.Vendor.Name,
                     Output = purchase.LineAmount * exchangeRate,
                     TravelOrderNo = purchase.Header.ExternalReferenceNo,
                     DocumentNo = purchase.Header.InvoiceNo,
