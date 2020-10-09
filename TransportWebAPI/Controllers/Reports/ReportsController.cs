@@ -120,7 +120,7 @@ namespace TransportWebAPI.Controllers.Reports
         // GET
         [Route("[action]/{*travelOrderNo}")]
         [HttpGet]
-        public IActionResult GetExternalReferenceProfitReportItems(string travelOrderNo)
+        public IActionResult GetTravelOrderProfitReportItems(string travelOrderNo)
         {
             var externalReferenceProfilReportItems = new List<TravelOrderProfitReportItem>();
 
