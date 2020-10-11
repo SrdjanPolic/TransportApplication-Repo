@@ -1,7 +1,9 @@
 
 export interface PositionReportDetail {
-    criteria: string;
-    revenue: number;
-    expences: number;
-    profit: number;
+    travelOrderNo: string;
+    partner: string;
+    input: number;
+    output:number;
+    documentNo:string;
+    invoiceDate:Date;
 }
