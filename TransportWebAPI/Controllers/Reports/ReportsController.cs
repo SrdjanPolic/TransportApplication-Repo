@@ -172,7 +172,7 @@ namespace TransportWebAPI.Controllers.Reports
         }
 
         // GET
-        [Route("[action]/{*externalReferenceNo}")]
+        [Route("[action]/{*externalReference}")]
         [HttpGet]
         public IActionResult GetExternalReferenceReportItems(string externalReference)
         {
