@@ -44,8 +44,7 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    //let url: string = `/reports/TravelReport/${id}`;
-    let url: string = `/reports/TravelReport/1`;
+    let url: string = `/reports/TravelReport/${id}`;
     this.router.navigate([url]);
   }
 
