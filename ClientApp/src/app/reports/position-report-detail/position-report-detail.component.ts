@@ -20,7 +20,7 @@ export class PositionReportDetailComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private repository: RepositoryService, private errorService: ErrorHandlerService, 
+  constructor(private repository: RepositoryService, private errorService: ErrorHandlerService,
     private router: Router,private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -46,7 +46,6 @@ export class PositionReportDetailComponent implements OnInit, AfterViewInit {
     this.repository.getData(documentByIdUrl)
       .subscribe(res => {
         this.dataSource.data = res as PositionReportDetail[];
-        //this.customerForm.patchValue(this.customer);
       },
       (error) => {
         this.errorService.dialogConfig = this.dialogConfig;
