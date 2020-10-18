@@ -1,7 +1,7 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div id="loader">
-        <div class="dot"></div>
+      <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
@@ -12,7 +12,7 @@
       <div class="loading"></div>
     </div>
   </div>
-</div>
+</div> -->
 <div>
   <h4 class="display-4 text-center"><img src="/assets/img/AtomicSped.bmp" height="150" width="200">Izveštaj - po poziciji</h4>
 </div>
@@ -21,7 +21,18 @@
     <input matInput type="text"  (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
+<div fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around none">
+    <mat-form-field>
+      <input matInput type="date" (input)="onInputDateFrom($event)"  placeholder="Datum od">
+    </mat-form-field>
 
+    <mat-form-field>
+      <input matInput type="date" (input)="onInputDateTo($event)" placeholder="Datum do">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="doFilterByDate()">Filtriraj po datumu
+    </button>
+</div>
 <table mat-table class="table" [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="criteria">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Pozicija </th>
