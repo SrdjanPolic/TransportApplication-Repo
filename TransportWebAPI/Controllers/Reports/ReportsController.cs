@@ -7,7 +7,8 @@ using Service.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+
 
 namespace TransportWebAPI.Controllers.Reports
 {
@@ -100,7 +101,7 @@ namespace TransportWebAPI.Controllers.Reports
         // GET
         [Route("[action]")]
         [HttpGet]
-        public IActionResult GetExternalReferenceProfitReport() //staviti sopstveni = false;
+        public IActionResult GetExternalReferenceProfitReport([FromBody] DatumQueryItem datumQueryItem) //staviti sopstveni = false;
         {
             var reportItems = new List<ProfitReportItem>();
 
@@ -111,7 +112,7 @@ namespace TransportWebAPI.Controllers.Reports
 
             externalReferences.ForEach(externalReference =>
             {
-                var reportProfitItem = GetExternalReferenceProfitReportItem(externalReference);
+                var reportProfitItem = GetExternalReferenceProfitReportItem(externalReference, datumQueryItem);
                 reportItems.Add(reportProfitItem);
             });
 
@@ -224,11 +225,38 @@ namespace TransportWebAPI.Controllers.Reports
             return Ok(externalReferenceProfilReportItems);
         }
 
-        private ProfitReportItem GetExternalReferenceProfitReportItem(string externalReference)
+        private ProfitReportItem GetExternalReferenceProfitReportItem(string externalReference, DatumQueryItem datumQueryItem)
         {
-            var salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+            SalesInvoiceHeader oldestHeader;
+            List<SalesInvoiceHeader> salesList = new List<SalesInvoiceHeader>(); 
+            if (datumQueryItem.FromDate == null && datumQueryItem.ToDate == null)
+            {
+                salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
                     .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo)
                     .Items.ToList();
+            }
+            else if (datumQueryItem.FromDate != null && datumQueryItem.ToDate == null)
+            {
+                salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
+                            && header.PostingDate >= datumQueryItem.FromDate)
+                    .Items.ToList();
+            }
+            else if (datumQueryItem.FromDate == null && datumQueryItem.ToDate != null)
+            {
+                salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
+                            && header.PostingDate <= datumQueryItem.ToDate)
+                    .Items.ToList();
+            }
+            else if (datumQueryItem.FromDate != null && datumQueryItem.ToDate != null)
+            {
+                salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
+                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
+                            && header.PostingDate >= datumQueryItem.FromDate
+                            && header.PostingDate <= datumQueryItem.ToDate)
+                    .Items.ToList();
+            }
 
             var revenue = salesList.Sum(sale => sale.TotalAmountLocal);
 
