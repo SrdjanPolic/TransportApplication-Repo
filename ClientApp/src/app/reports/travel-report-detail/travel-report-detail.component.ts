@@ -3,7 +3,9 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ProfitReportDetail } from '../../_interface/profitReportDetail.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { SuccessDialogComponent } from '../../shared/dialogs/success-dialog/success-dialog.component';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-travel-report-detail',
@@ -12,16 +14,24 @@ import { Router } from '@angular/router';
 })
 export class TravelReportDetailComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'details'];
+  public displayedColumns = ['travelOrderNo', 'partner', 'input', 'output', 'documentNo', 'invoiceDate'];
   public dataSource = new MatTableDataSource<ProfitReportDetail>();
+  private dialogConfig;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
+  constructor(private repository: RepositoryService, private errorService: ErrorHandlerService, 
+    private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getAllDocs();
+    this.getDocumentById();
+    this.dialogConfig = {
+      height: '200px',
+      width: '400px',
+      disableClose: true,
+      data: {}
+    }
   }
 
   ngAfterViewInit(): void {
@@ -29,14 +39,20 @@ export class TravelReportDetailComponent implements OnInit, AfterViewInit {
      this.dataSource.paginator = this.paginator;
   }
 
-  public getAllDocs = () => {
-    this.repoService.getData('api/Reports/GetTravelOrderProfitReport')
-    .subscribe(res => {
-      this.dataSource.data = res as ProfitReportDetail[];
-    },
-    (error) => {
-      this.errorService.handleError(error);
-    })
+  private getDocumentById = () => {
+    let documentId: string = this.activeRoute.snapshot.params['id'] + '/' + this.activeRoute.snapshot.params['id2'];
+
+    let documentByIdUrl: string = `api/Reports/GetTravelOrderProfitReportItems/${documentId}`;
+
+    this.repository.getData(documentByIdUrl)
+      .subscribe(res => {
+        this.dataSource.data = res as ProfitReportDetail[];
+        //this.customerForm.patchValue(this.customer);
+      },
+      (error) => {
+        this.errorService.dialogConfig = this.dialogConfig;
+        this.errorService.handleError(error);
+      });
   }
 
   public doFilter = (value: string) => {
@@ -44,12 +60,12 @@ export class TravelReportDetailComponent implements OnInit, AfterViewInit {
   }
 
   public getTotalRevenue() {
-    return this.dataSource.data.map(t => t.revenue).reduce((acc, revenue) => acc + revenue, 0);
+    return this.dataSource.data.map(t => t.input).reduce((acc, input) => acc + input, 0);
   }
   public getTotalExpences() {
-    return this.dataSource.data.map(t => t.expences).reduce((acc, expences) => acc + expences, 0);
+    return this.dataSource.data.map(t => t.output).reduce((acc, output) => acc + output, 0);
   }
   public getTotalProfit() {
-    return this.dataSource.data.map(t => t.profit).reduce((acc, profit) => acc + profit, 0);
+    return this.dataSource.data.map(t => t.input).reduce((acc, input) => acc + input, 0);
   }
 }

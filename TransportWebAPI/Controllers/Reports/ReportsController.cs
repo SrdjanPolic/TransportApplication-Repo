@@ -173,7 +173,7 @@ namespace TransportWebAPI.Controllers.Reports
         }
 
         // GET
-        [Route("[action]/{*externalReferenceNo}")]
+        [Route("[action]/{*externalReference}")]
         [HttpGet]
         public IActionResult GetExternalReferenceReportItems(string externalReference)
         {
@@ -199,7 +199,7 @@ namespace TransportWebAPI.Controllers.Reports
             });
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
-                .GetList(predicate: line => line.TravelOrder.Equals(externalReference) && !line.Header.CreditMemo, orderBy: null,
+                .GetList(predicate: line => line.Header.ExternalReferenceNo.Equals(externalReference) && !line.Header.CreditMemo, orderBy: null,
                  include: line => line.Include(x => x.Header.Vendor))
                 .Items.ToList();
 

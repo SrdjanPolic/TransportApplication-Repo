@@ -6,34 +6,49 @@
     <input matInput type="text"  (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
+
 <table mat-table class="table" [dataSource]="dataSource" matSort>
-  <ng-container matColumnDef="criteria">
+  <ng-container matColumnDef="travelOrderNo">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Pozicija </th>
-    <td mat-cell *matCellDef="let element"> {{element.criteria}} </td>
-    <td mat-footer-cell *matFooterCellDef> Total </td>
+    <td mat-cell *matCellDef="let element"> {{element.travelOrderNo}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="revenue">
+  <ng-container matColumnDef="partner">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Kupac/Dobavljač </th>
+    <td mat-cell *matCellDef="let element"> {{element.partner}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="input">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Prihodi </th>
-    <td mat-cell *matCellDef="let element"> {{element.revenue |number: '1.2-2':'de-DE'}} </td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotalRevenue() |number: '1.2-2':'de-DE'}}</td>
+    <td mat-cell *matCellDef="let element"> {{element.input |number: '1.2-2':'de-DE'}} </td>
+    <!-- <td mat-footer-cell *matFooterCellDef>{{getTotalRevenue() |number: '1.2-2':'de-DE'}}</td> -->
   </ng-container>
 
-  <ng-container matColumnDef="expences">
+  <ng-container matColumnDef="output">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Troškovi </th>
-    <td mat-cell *matCellDef="let element"> {{element.expences |number: '1.2-2':'de-DE'}} </td>
-    <td mat-footer-cell *matFooterCellDef>{{getTotalExpences() |number: '1.2-2':'de-DE'}}</td>
+    <td mat-cell *matCellDef="let element"> {{element.output |number: '1.2-2':'de-DE'}} </td>
+    <!-- <td mat-footer-cell *matFooterCellDef>{{getTotalExpences() |number: '1.2-2':'de-DE'}}</td> -->
   </ng-container>
 
-  <ng-container matColumnDef="profit">
+  <ng-container matColumnDef="documentNo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Faktura </th>
+    <td mat-cell *matCellDef="let element"> {{element.documentNo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="invoiceDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum knjiženja </th>
+    <td mat-cell *matCellDef="let element"> {{element.invoiceDate.toString() |localTime}} </td>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="profit">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Dobit </th>
     <td mat-cell *matCellDef="let element"> {{element.profit |number: '1.2-2':'de-DE'}} </td>
     <td mat-footer-cell *matFooterCellDef>{{getTotalProfit() |number: '1.2-2':'de-DE'}}</td>
-  </ng-container>
+  </ng-container> -->
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  <!-- <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr> -->
 </table>
 
 <mat-paginator [pageSize]="500" [pageSizeOptions]="[5, 10, 50, 100, 500]">
