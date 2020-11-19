@@ -27,14 +27,6 @@ namespace DBLayerPOC.Infrastructure
 
             if(!_ctx.Currencies.Any())
             {
-                var currencuDinar = new Currency
-                {
-                    Code = "RSD",
-                    Name = "Dinar"
-                };
-
-                _ctx.Currencies.Add(currencuDinar);
-
                 var currencyEuro = new Currency
                 {
                     Code = "EUR",
@@ -119,7 +111,7 @@ namespace DBLayerPOC.Infrastructure
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.PurchaseInvoiceObjectName,
-                    Prefix = "UF-20",
+                    Prefix = "ER-20",
                     Year = 2020,
                     LastUsedNumber = PurchaseInvoiceNumber
                 };
@@ -135,7 +127,7 @@ namespace DBLayerPOC.Infrastructure
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.SalesInvoiceObjectName,
-                    Prefix = "IF-20",
+                    Prefix = "AR-20",
                     Year = 2020,
                     LastUsedNumber = SalesInvoiceNumber
                 };
