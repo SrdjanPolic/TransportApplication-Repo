@@ -22,6 +22,12 @@
     <ProjectReference Include="..\DBLayerPOC\DBLayerPOC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Reports\FilteringBase\" />
+    <Folder Include="Controllers\Reports\ReportControllers\" />
+    <Folder Include="Controllers\Reports\ReportItems\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
