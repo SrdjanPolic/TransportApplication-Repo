@@ -19,7 +19,7 @@ namespace DBLayerPOC.Infrastructure
 
             //var connectionString = Configuration.GetConnectionString("ConnectionString");
             //var connectionString = configuration.GetConnectionString("ConnectionString");
-            var connectionString = "server=.\\SQLEXPRESS;Database=Austrija;Integrated Security=true;MultipleActiveResultSets=true;";
+            var connectionString = "Data Source=mssql101.windows.loopia.com;Initial Catalog=E002271;Integrated Security=False;User ID=E002271a;Password=Axesys174500;Connect Timeout=15;Encrypt=False;Packet Size=4096";
 
             builder.UseSqlServer(connectionString);
 
