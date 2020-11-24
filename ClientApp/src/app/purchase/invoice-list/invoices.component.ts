@@ -15,7 +15,7 @@ import {Vendor} from './../../_interface/vendor.model';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'currencyId', 'paid', 'update'];
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'totalAmountLocal' , 'currencyId', 'paid', 'update'];
   vendorList: Vendor;
   public dataSource = new MatTableDataSource<PurchInvHeader>();
 
@@ -75,7 +75,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
     if (confirm('Želite li da obrišete ovaj zapis?')) {
       this.service.deleteInvoice(id).then(res => {
         this.refreshList();
-        this.toastr.warning("Uspešno obrisano.", "Atomic Sped.");
+        this.toastr.warning('Uspešno obrisano.', "Atomic Sped.");
       });
     }
   }
