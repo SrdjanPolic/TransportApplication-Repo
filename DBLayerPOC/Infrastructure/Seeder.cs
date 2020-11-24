@@ -25,7 +25,7 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            if(!_ctx.Currencies.Any())
+            if (!_ctx.Currencies.Any())
             {
                 var currencyEuro = new Currency
                 {
@@ -137,7 +137,7 @@ namespace DBLayerPOC.Infrastructure
                 _ctx.SaveChanges();
             }
 
-            
+
 
             //if (!_ctx.Drivers.Any())
             //{
@@ -418,35 +418,25 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
             //}
 
-            //if (!_ctx.Login.Any())
-            //{
-            //    var login = new LoginModel
-            //    {
-            //        Name = "admin",
-            //        Username = "admin",
-            //        Password = "admin",
-            //        IsAdmin = true,
-            //        IsInactive = false
-            //    };
+            if (!_ctx.Login.Any())
+            {
+                var login = new LoginModel
+                {
+                    Name = "admin",
+                    Username = "admin",
+                    Password = "admin",
+                    IsAdmin = true,
+                    IsInactive = false
+                };
 
-            //    _ctx.Login.Add(login);
+                _ctx.Login.Add(login);
 
-            //    var login1 = new LoginModel
-            //    {
-            //        Username = "user",
-            //        Password = "user",
-            //        Name = "user",
-            //        IsAdmin = false,
-            //        IsInactive = false  
-            //    };
+                ;
 
-            //    _ctx.Login.Add(login1);
+                _ctx.SaveChanges();
 
-            //    _ctx.SaveChanges();
+            }
 
-            //}
-
-         
         }
     }
 }
