@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
     "ConnectionStringProd": "server=mssql101.windows.loopia.com;Initial Catalog=e001800;Integrated Security=False;User ID=e001800a;Password=Axesys174500;Connect Timeout=15;Encrypt=False;Packet Size=4096",
-    "ConnectionStringDev": "server=DENUE-AXD4094N1\\NAVDEMO;Database=TransportDbNew;Integrated Security=true;MultipleActiveResultSets=true;"
+    "ConnectionStringDev": "server=.\\SQLEXPRESS;Database=Austrija;Integrated Security=true;MultipleActiveResultSets=true;"
   }
 }
