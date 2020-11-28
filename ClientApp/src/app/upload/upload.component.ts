@@ -10,7 +10,7 @@ import { environment } from './../../environments/environment';
 export class UploadComponent implements OnInit {
   public message: string;
   public progress: number;
-  @Output() public UploadFinished = new EventEmitter();
+  @Output() public onUploadFinished = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -30,8 +30,8 @@ export class UploadComponent implements OnInit {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
       } else if (event.type === HttpEventType.Response) {
-        this.message = 'Upload završen';
-        this.UploadFinished.emit(event.body);
+        this.message = 'Upload završen.';
+        this.onUploadFinished.emit(event.body);
       }
     });
   }
