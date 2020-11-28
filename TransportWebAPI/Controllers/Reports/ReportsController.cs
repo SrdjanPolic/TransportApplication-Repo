@@ -100,7 +100,7 @@ namespace TransportWebAPI.Controllers.Reports
 
         // GET
         [Route("[action]")]
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetExternalReferenceProfitReport([FromBody] DatumQueryItem datumQueryItem) //staviti sopstveni = false;
         {
             var reportItems = new List<ProfitReportItem>();

@@ -2,9 +2,13 @@ import { RepositoryService } from './../../shared/repository.service';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatFormField } from '@angular/material';
 import { ProfitReport } from '../../_interface/profitReport.model';
+import { DatumQuery} from '../../_interface/DatumQuery.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import * as XLSX from 'xlsx';
+import { now } from 'moment';
 
 @Component({
   selector: 'app-position-report',
@@ -15,14 +19,15 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
 
   public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'details'];
   public dataSource = new MatTableDataSource<ProfitReport>();
-  dateFrom: Date;
-  dateTo: Date;
+  FromDate: Date;
+  ToDate: Date;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('TABLE') table: ElementRef;
 
-  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
+  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router,
+    private http: HttpClient) { }
 
   ngOnInit() {
     this.getAllDocs();
@@ -33,45 +38,59 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
      this.dataSource.paginator = this.paginator;
   }
   onInputDateFrom(event: any) {
-    this.dateFrom = event.target.value;
+    this.FromDate = event.target.value;
   }
   onInputDateTo(event: any) {
-    this.dateTo = event.target.value;
+    this.ToDate = event.target.value;
   }
 
   public getAllDocs = () => {
-    const dates = JSON.stringify(this.dateFrom.toString() + this.dateTo.toString());
-    this.repoService.post('api/Reports/GetExternalReferenceProfitReport', dates)
-    .subscribe(res => {
-      this.dataSource.data = res as ProfitReport[];
-    },
-    (error) => {
-      this.errorService.handleError(error);
-    });
-  }
-
-  public doFilter = (value: string) => {
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
-  }
-  public doFilterByDate = () => {
-    // if ((!this.dateFrom) || (!this.dateTo)) {
-    //   window.alert('Datumi moraju biti uneti.');
-    // } else {
-      this.dataSource.data = [];
-      const dates = JSON.stringify(this.dateFrom.toString() + this.dateTo.toString());
-      this.repoService.post('api/Reports/GetExternalReferenceProfitReport', dates)
+   let DatumQueryItem: DatumQuery = {
+      FromDate: this.FromDate,
+      ToDate: this.ToDate
+   }
+    const datesToParse = JSON.stringify(DatumQueryItem);
+    const routeToLogin = 'api/' + 'Reports/GetExternalReferenceProfitReport';
+      this.repoService.post(routeToLogin, datesToParse)
       .subscribe(res => {
         this.dataSource.data = res as ProfitReport[];
       },
       (error) => {
         this.errorService.handleError(error);
       });
-    // }
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+  public doFilterByDate = () => {
+     if ((!this.FromDate) && (!this.ToDate)) {
+       window.alert('Datumi moraju biti uneti.');
+     } else {
+      const DatumQueryItem: DatumQuery = {
+        FromDate: this.FromDate,
+        ToDate: this.ToDate
+     };
+      const datesToParse = JSON.stringify(DatumQueryItem);
+      this.dataSource.data = [];
+      const routeToLogin = 'api/' + 'Reports/GetExternalReferenceProfitReport';
+      this.repoService.post(routeToLogin, datesToParse)
+      .subscribe(res => {
+        this.dataSource.data = res as ProfitReport[];
+      },
+      (error) => {
+        this.errorService.handleError(error);
+      });
+    }
   }
 
   public redirectToDetails = (id: string) => {
     let url: string = `/reports/PositionReport/${id}`;
-    this.router.navigate([url]);
+    this.goToLink(url);
+    // this.router.navigate([url]);
+  }
+  public goToLink(url: string) {
+    window.open(url, '_blank');
   }
   public getTotalRevenue() {
     return this.dataSource.data.map(t => t.revenue).reduce((acc, revenue) => acc + revenue, 0);
@@ -84,12 +103,12 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
   }
   exportAsExcel()
     {
-      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
       /* save to file */
-      XLSX.writeFile(wb, 'SheetJS.xlsx');
+      XLSX.writeFile(wb, 'PositionReport.xlsx');
 
     }
 }

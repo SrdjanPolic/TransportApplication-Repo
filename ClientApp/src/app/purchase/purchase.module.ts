@@ -6,8 +6,8 @@ import {InvoiceComponent} from './invoice-modify/invoice.component';
 import {InvoiceLinesComponent} from './invoice-lines/invoice-lines.component';
 import {FormsModule} from '@angular/forms';
 import {TransformModule} from './../shared/transform/transform.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
+import {ReactiveFormsModule } from '@angular/forms';
+import {SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
