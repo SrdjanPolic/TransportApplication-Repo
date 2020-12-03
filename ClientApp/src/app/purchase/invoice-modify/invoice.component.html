@@ -130,4 +130,10 @@
     <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Snimi Fakturu</button>
     <a class="btn btn-outline-dark ml-1" routerLink="/purchase/PurchInvoices"><i class="fa fa-table"></i> Pregled ulaznih faktura</a>
   </div>
+  <div style = 'border-top: 1px solid #8c8b8b; padding:10px'>
+    <app-upload (onUploadFinished)="uploadFinished($event)" ></app-upload>
+    <span class="upload">
+      {{this.imgPath}}
+    </span>
+  </div>
 </form>

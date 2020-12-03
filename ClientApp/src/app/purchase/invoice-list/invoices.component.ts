@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { PurchInvService } from '../../shared/PurchInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import {PurchInvHeader} from './../../_interface/PurchInvHeader.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import {Vendor} from './../../_interface/vendor.model';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('TABLE') table: ElementRef;
   constructor(private service: PurchInvService,
     private Reposervice: RepositoryService,
     private errorService: ErrorHandlerService,
@@ -75,9 +77,19 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
     if (confirm('Želite li da obrišete ovaj zapis?')) {
       this.service.deleteInvoice(id).then(res => {
         this.refreshList();
-        this.toastr.warning('Uspešno obrisano.', "Atomic Sped.");
+        this.toastr.warning('Uspešno obrisano.', 'Atomic Sped.');
       });
     }
   }
+  exportAsExcel()
+    {
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      /* save to file */
+      XLSX.writeFile(wb, 'PurchaseInvoices.xlsx');
+
+    }
 
 }

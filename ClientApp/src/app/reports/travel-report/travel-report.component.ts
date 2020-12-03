@@ -47,7 +47,11 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
 
   public redirectToDetails = (id: string) => {
     let url: string = `/reports/TravelReport/${id}`;
-    this.router.navigate([url]);
+    this.goToLink(url);
+    // this.router.navigate([url]);
+  }
+  public goToLink(url: string) {
+    window.open(url, '_blank');
   }
 
   public getTotalRevenue() {
@@ -60,14 +64,13 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
     return this.dataSource.data.map(t => t.profit).reduce((acc, profit) => acc + profit, 0);
   }
 
-  exportAsExcel()
-  {
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+  exportAsExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
     /* save to file */
-    XLSX.writeFile(wb, 'SheetJS.xlsx');
+    XLSX.writeFile(wb, 'TravelReport.xlsx');
 
   }
 }

@@ -13,15 +13,16 @@
     </div>
   </div>
 </div> -->
+
+<div>
+  <h4 class="display-4 text-center"><img src="/assets/img/AtomicSped.bmp" height="150" width="200">Izveštaj - po putnom nalogu</h4>
+</div>
+<div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
+  <mat-form-field>
+    <input matInput type="text"  (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
 <div class="div" #TABLE>
-  <div>
-    <h4 class="display-4 text-center"><img src="/assets/img/AtomicSped.bmp" height="150" width="200">Izveštaj - po putnom nalogu</h4>
-  </div>
-  <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px" fxLayoutGap.lt.md="20px">
-    <mat-form-field>
-      <input matInput type="text"  (keyup)="doFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </div>
   <table mat-table  #table class="table" [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="criteria">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Putni nalog </th>
@@ -70,11 +71,9 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
-
-  <mat-paginator [pageSize]="500" [pageSizeOptions]="[5, 10, 50, 100, 500]">
-  </mat-paginator>
 </div>
-
-<div class="div">
+<mat-paginator [pageSize]="500" [pageSizeOptions]="[5, 10, 50, 100, 500]">
+</mat-paginator>
+<div>
   <button mat-raised-button color="primary" (click)="exportAsExcel()">Export as Excel</button>
 </div>

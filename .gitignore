@@ -345,3 +345,4 @@ healthchecksdb
 MigrationBackup/
 /AngularClientApp/dist/out-tsc
 /TransportWebAPI/wwwroot
+/TransportWebAPI/Resources/PurchaseDocuments/Versicherungsbedingungen.pdf
