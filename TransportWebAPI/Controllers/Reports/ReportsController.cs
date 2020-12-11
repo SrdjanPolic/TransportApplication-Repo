@@ -235,36 +235,42 @@ namespace TransportWebAPI.Controllers.Reports
             if (datumQueryItem.FromDate == null && datumQueryItem.ToDate == null)
             {
                 salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo)
+                    .GetList(predicate: header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo, orderBy: null,
+                    include: header => header.Include(x => x.Lines))
                     .Items.ToList();
             }
             else if (datumQueryItem.FromDate != null && datumQueryItem.ToDate == null)
             {
                 salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
-                            && header.PostingDate.CompareTo(datumQueryItem.FromDate.Value) >= 0)
+                    .GetList(predicate: header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
+                            && header.PostingDate.CompareTo(datumQueryItem.FromDate.Value) >= 0, orderBy: null,
+                            include: header => header.Include(x => x.Lines))
                     .Items.ToList();
             }
             else if (datumQueryItem.FromDate == null && datumQueryItem.ToDate != null)
             {
                 salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
-                            && header.PostingDate.CompareTo(datumQueryItem.ToDate.Value) <= 0)
+                    .GetList(predicate: header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
+                            && header.PostingDate.CompareTo(datumQueryItem.ToDate.Value) <= 0, orderBy: null,
+                            include: header => header.Include(x => x.Lines))
                     .Items.ToList();
             }
             else if (datumQueryItem.FromDate != null && datumQueryItem.ToDate != null)
             {
                 salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
+                    .GetList(predicate: header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo
                             && (header.PostingDate.CompareTo(datumQueryItem.FromDate.Value) >= 0)
-                            && (header.PostingDate.CompareTo(datumQueryItem.ToDate.Value) <= 0))
+                            && (header.PostingDate.CompareTo(datumQueryItem.ToDate.Value) <= 0), orderBy:null,
+                            include: header => header.Include(x => x.Lines))
                     .Items.ToList();
             }
 
             if (!salesList.Any())
                 return null;
 
-            var revenue = salesList.Sum(sale => sale.TotalAmountLocal);
+
+            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount - (y.LineAmount * y.VatPercent / 100)));
+           
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
                 .GetList(line => line.Header.ExternalReferenceNo.Equals(externalReference) && !line.Header.CreditMemo)
