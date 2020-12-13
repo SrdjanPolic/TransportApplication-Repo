@@ -131,7 +131,6 @@ namespace TransportWebAPI
             app.ConfigureExceptionHandler(emailSendingClient);
 
             app.UseAuthentication();
-            app.UseAuthorization();
             
             
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -147,6 +146,9 @@ namespace TransportWebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
