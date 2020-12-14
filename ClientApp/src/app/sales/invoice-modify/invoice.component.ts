@@ -170,12 +170,12 @@ export class InvoiceComponent implements OnInit {
     }, 0);
     this.service.formData.totalAmount = parseFloat(this.service.formData.totalAmount.toFixed(2));
     this.service.formData.totalAmountLocal = this.service.formData.totalAmount;
-    this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
+    //this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
     if (this.service.formData.currencyId > 1) {
-      if (this.currExchange.exchangeRateAmount !== 0) {
+      if (this.service.formData.calculatonExchangeRate !== 0) {
       this.service.formData.totalAmountLocal =
-        parseFloat((this.service.formData.totalAmount * this.currExchange.exchangeRateAmount).toFixed(2));
-        this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
+        parseFloat((this.service.formData.totalAmount * this.service.formData.calculatonExchangeRate).toFixed(2));
+        //this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
       }
     }
   }
