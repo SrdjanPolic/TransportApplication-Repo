@@ -83,8 +83,13 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   }
   exportAsExcel()
     {
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      for (var i =0; i < 1000; i++) {
+        ws[`D${i+2}`].z = '0.00';
+        ws[`E${i+2}`].z = '0.00';
+
+      }
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
       /* save to file */
