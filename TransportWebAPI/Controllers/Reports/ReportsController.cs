@@ -280,7 +280,8 @@ namespace TransportWebAPI.Controllers.Reports
             var expences = purchaseList.Sum(purchase =>
             {
                 var exchangeRate = GetExchangeRateForPurchase(purchase);
-                return purchase.LineAmount * exchangeRate;
+                var purchaseLineAmountLocal = purchase.LineAmount * exchangeRate;
+                return purchaseLineAmountLocal - (purchaseLineAmountLocal * purchase.VatPercent / 100);
             });
 
             var profit = revenue - expences;
