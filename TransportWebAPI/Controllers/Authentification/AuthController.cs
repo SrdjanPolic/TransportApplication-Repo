@@ -59,7 +59,7 @@ namespace TransportWebAPI.Controllers.Authentification
                 );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                _emailSendingClient.SendLogEmail($"Logged user: {loggedUser.Name} {"  "} {loggedUser.Username} {"  "} {DateTime.UtcNow}");
+               // _emailSendingClient.SendLogEmail($"Logged user: {loggedUser.Name} {"  "} {loggedUser.Username} {"  "} {DateTime.UtcNow}");
                 return Ok(new { Token = tokenString, loggedUser.IsAdmin, loggedUser.Id });
             }
             else
