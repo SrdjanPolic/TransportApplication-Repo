@@ -7,7 +7,7 @@ import {PurchInvHeader} from './../../_interface/PurchInvHeader.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import {Vendor} from './../../_interface/vendor.model';
-import * as XLSX from 'xlsx';
+
 
 
 @Component({
@@ -83,17 +83,17 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
   }
   exportAsExcel()
     {
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
-      for (var i =0; i < 1000; i++) {
-        ws[`D${i+2}`].z = '0.00';
-        ws[`E${i+2}`].z = '0.00';
+      // const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      // const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      // for (var i =0; i < 1000; i++) {
+      //   ws[`D${i+2}`].z = '0.00';
+      //   ws[`E${i+2}`].z = '0.00';
 
-      }
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      // }
+      // XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-      /* save to file */
-      XLSX.writeFile(wb, 'PurchaseInvoices.xlsx');
+      // /* save to file */
+      // XLSX.writeFile(wb, 'PurchaseInvoices.xlsx');
 
     }
 

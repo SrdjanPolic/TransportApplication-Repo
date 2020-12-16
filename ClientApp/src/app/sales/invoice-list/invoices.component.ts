@@ -8,7 +8,7 @@ import { MatSort, MatPaginator } from '@angular/material';
 import { MatTableDataSource} from '@angular/material/table';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Customer} from './../../_interface/customer.model';
-import * as XLSX from 'xlsx';
+
 
 
 @Component({
@@ -126,12 +126,12 @@ openForEdit(invoiceID: number) {
   }
   exportAsExcel()
     {
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      /* const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1'); */
 
       /* save to file */
-      XLSX.writeFile(wb, 'SalesInvoice.xlsx');
+      /* XLSX.writeFile(wb, 'SalesInvoice.xlsx'); */
 
     }
 
