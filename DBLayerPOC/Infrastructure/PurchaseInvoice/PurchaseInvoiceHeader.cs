@@ -27,13 +27,7 @@ namespace DBLayerPOC.Infrastructure.PurchaseInvoice
         public string DeletedInvoiceLineIds { get; set; }
 
         [NotMapped]
-        public string VendorName
-        {
-            get
-            {
-                return Vendor.Name;
-            }
-        }
+        public string VendorName => Vendor != null ? Vendor.Name : string.Empty;
 
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
