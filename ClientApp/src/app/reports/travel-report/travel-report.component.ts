@@ -20,7 +20,8 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('TABLE') table: ElementRef;
 
-  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
+  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getAllDocs();
@@ -63,6 +64,12 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
   public getTotalProfit() {
     return this.dataSource.data.map(t => t.profit).reduce((acc, profit) => acc + profit, 0);
   }
+
+  // generateExcel() {
+    
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
+
 
   exportAsExcel() {
     // const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet

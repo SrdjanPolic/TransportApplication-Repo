@@ -2,13 +2,11 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { PurchInvService } from '../../shared/PurchInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {RepositoryService} from './../../shared/repository.service';
-import {PurchInvHeader} from './../../_interface/PurchInvHeader.model';
+import { RepositoryService} from './../../shared/repository.service';
+import { PurchInvHeader} from './../../_interface/PurchInvHeader.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
-import {Vendor} from './../../_interface/vendor.model';
-
-
+import { Vendor} from './../../_interface/vendor.model';
 
 @Component({
   selector: 'app-invoices',
@@ -81,6 +79,10 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
       });
     }
   }
+  // generateExcel() {
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
+
   exportAsExcel()
     {
       // const wb: XLSX.WorkBook = XLSX.utils.book_new();

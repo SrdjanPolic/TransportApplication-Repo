@@ -18,6 +18,7 @@ export class PurchInvHeader {
     vendorId: number;
     vendor?: Vendor;
     deletedInvoiceLineIds: string;
+    vendorName: string;
     lines?: PurchInvLine[];
     lastChangeDateTime: Date;
     lastChangeUserId: number;

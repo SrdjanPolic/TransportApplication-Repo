@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { InvoicePrintComponent } from './invoice-print/invoice-print.component';
 import { InvoiceInoPrintComponent} from './invoice-ino-print/invoice-ino-print.component';
 import { InvoiceRefundPrintComponent} from './invoice-refund-print/invoice-refund-print.component';
+import { MatTableExporterModule} from 'mat-table-exporter';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { InvoiceRefundPrintComponent} from './invoice-refund-print/invoice-refun
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    MatTableExporterModule,
     TransformModule
   ],
   declarations: [InvoicesComponent, InvoiceComponent, InvoiceLinesComponent, InvoicePrintComponent,

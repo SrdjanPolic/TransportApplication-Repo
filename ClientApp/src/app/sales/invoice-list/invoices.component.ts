@@ -10,7 +10,6 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Customer} from './../../_interface/customer.model';
 
 
-
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
@@ -124,6 +123,12 @@ openForEdit(invoiceID: number) {
       });
     }
   }
+
+  // generateExcel() {
+    
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
+
   exportAsExcel()
     {
       /* const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
