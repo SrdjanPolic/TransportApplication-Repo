@@ -26,6 +26,7 @@
     "@angular/router": "^7.2.14",
     "angular2-jwt": "^0.2.3",
     "core-js": "^2.5.4",
+    "fs": "0.0.1-security",
     "hammerjs": "^2.0.8",
     "mat-table-exporter": "^1.2.5",
     "moment": "^2.24.0",
