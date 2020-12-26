@@ -182,20 +182,21 @@ namespace TransportWebAPI.Controllers.Reports
         {
             var externalReferenceProfilReportItems = new List<GenericProfitReportItem>();
 
-            var salesList = _unitOfWork.GetRepository<SalesInvoiceHeader>()
-                    .GetList(predicate: header => header.ExternalReferenceNo.Equals(externalReference) && !header.CreditMemo, orderBy: null,
-                     include: header => header.Include(x => x.Customer))
+            var salesLinesList = _unitOfWork.GetRepository<SalesInvoiceLine>()
+                    .GetList(predicate: line => line.Header.ExternalReferenceNo.Equals(externalReference) && !line.Header.CreditMemo, orderBy: null,
+                     include: line => line.Include(x => x.Header.Customer))
                     .Items.ToList();
 
-            salesList.ForEach(sale =>
+            salesLinesList.ForEach(line =>
             {
+                var exchangeRate = line.Header.CurrencyId == 2 ? line.Header.CalculatonExchangeRate : 1;
                 var externalReportProfitItem = new GenericProfitReportItem
                 {
-                    Partner = sale.Customer.Name,
-                    Input = sale.TotalAmountLocal,
-                    TravelOrderNo = sale.ExternalReferenceNo,
-                    DocumentNo = sale.InvoiceNo,
-                    InvoiceDate = sale.PostingDate
+                    Partner = line.Header.Customer.Name,
+                    Input = (float)Math.Round(line.LineAmount * exchangeRate / (1 + line.VatPercent / 100), 2, MidpointRounding.ToEven),
+                    TravelOrderNo = line.Header.ExternalReferenceNo,
+                    DocumentNo = line.Header.InvoiceNo,
+                    InvoiceDate = line.Header.PostingDate
                 };
 
                 externalReferenceProfilReportItems.Add(externalReportProfitItem);
@@ -214,7 +215,7 @@ namespace TransportWebAPI.Controllers.Reports
                 var externalReportProfitItem = new GenericProfitReportItem
                 {
                     Partner = purchase.Header.Vendor.Name,
-                    Output = purchase.LineAmount * exchangeRate,
+                    Output = (float)Math.Round(purchase.LineAmount * exchangeRate/(1 + purchase.VatPercent/100), 2, MidpointRounding.ToEven),
                     TravelOrderNo = purchase.Header.ExternalReferenceNo,
                     DocumentNo = purchase.Header.InvoiceNo,
                     InvoiceDate = purchase.Header.PostingDate
@@ -269,7 +270,7 @@ namespace TransportWebAPI.Controllers.Reports
                 return null;
 
 
-            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount - (y.LineAmount * y.VatPercent / 100)));
+            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount/(1 + y.VatPercent/100)));
            
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
@@ -281,10 +282,10 @@ namespace TransportWebAPI.Controllers.Reports
             {
                 var exchangeRate = GetExchangeRateForPurchase(purchase);
                 var purchaseLineAmountLocal = purchase.LineAmount * exchangeRate;
-                return purchaseLineAmountLocal - (purchaseLineAmountLocal * purchase.VatPercent / 100);
+                return purchaseLineAmountLocal/(1 + purchase.VatPercent / 100);
             });
 
-            var profit = revenue - expences;
+            var profit = (float)Math.Round(revenue - expences, 2, MidpointRounding.ToEven);
 
             var reportItem = new ProfitReportItem
             {
