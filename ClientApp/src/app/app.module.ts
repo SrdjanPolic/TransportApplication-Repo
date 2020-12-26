@@ -1,8 +1,8 @@
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ToastrModule} from 'ngx-toastr';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ToastrModule} from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
@@ -15,10 +15,10 @@ import { ServerErrorComponent } from './error-pages/server-error/server-error.co
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { LoginLayoutComponent } from './layout/login-layout.component';
-import {AuthService} from './auth/auth.service';
-import {AuthGuard} from './auth/auth.guard';
-import {FormsModule} from '@angular/forms';
-import {ReactiveFormsModule } from '@angular/forms';
+import { AuthService} from './auth/auth.service';
+import { AuthGuard} from './auth/auth.guard';
+import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';

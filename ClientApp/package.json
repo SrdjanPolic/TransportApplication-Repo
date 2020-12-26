@@ -27,6 +27,7 @@
     "angular2-jwt": "^0.2.3",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "mat-table-exporter": "^1.2.5",
     "moment": "^2.24.0",
     "ngx-toastr": "^10.0.4",
     "node-sass": "^4.13.1",
@@ -34,7 +35,6 @@
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.5.3",
     "tslib": "^1.9.0",
-    "xlsx": "^0.16.9",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

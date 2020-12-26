@@ -2,13 +2,11 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { PurchInvService } from '../../shared/PurchInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {RepositoryService} from './../../shared/repository.service';
-import {PurchInvHeader} from './../../_interface/PurchInvHeader.model';
+import { RepositoryService} from './../../shared/repository.service';
+import { PurchInvHeader} from './../../_interface/PurchInvHeader.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
-import {Vendor} from './../../_interface/vendor.model';
-import * as XLSX from 'xlsx';
-
+import { Vendor} from './../../_interface/vendor.model';
 
 @Component({
   selector: 'app-invoices',
@@ -81,14 +79,23 @@ export class InvoicesComponent implements OnInit, AfterViewInit {
       });
     }
   }
+  // generateExcel() {
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
+
   exportAsExcel()
     {
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      // const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      // const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      // for (var i =0; i < 1000; i++) {
+      //   ws[`D${i+2}`].z = '0.00';
+      //   ws[`E${i+2}`].z = '0.00';
 
-      /* save to file */
-      XLSX.writeFile(wb, 'PurchaseInvoices.xlsx');
+      // }
+      // XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      // /* save to file */
+      // XLSX.writeFile(wb, 'PurchaseInvoices.xlsx');
 
     }
 

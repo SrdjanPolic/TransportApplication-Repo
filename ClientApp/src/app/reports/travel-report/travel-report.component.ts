@@ -4,7 +4,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ProfitReport } from '../../_interface/profitReport.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Router } from '@angular/router';
-import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-travel-report',
@@ -20,7 +20,8 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('TABLE') table: ElementRef;
 
-  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
+  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getAllDocs();
@@ -64,13 +65,19 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
     return this.dataSource.data.map(t => t.profit).reduce((acc, profit) => acc + profit, 0);
   }
 
-  exportAsExcel() {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  // generateExcel() {
+    
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
 
-    /* save to file */
-    XLSX.writeFile(wb, 'TravelReport.xlsx');
+
+  exportAsExcel() {
+    // const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+    // const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    // XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // /* save to file */
+    // XLSX.writeFile(wb, 'TravelReport.xlsx');
 
   }
 }

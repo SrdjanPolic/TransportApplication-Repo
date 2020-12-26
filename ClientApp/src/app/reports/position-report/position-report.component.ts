@@ -7,7 +7,6 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import * as XLSX from 'xlsx';
 import { now } from 'moment';
 
 @Component({
@@ -26,7 +25,8 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('TABLE') table: ElementRef;
 
-  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router,
+  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService,
+    private router: Router,
     private http: HttpClient) { }
 
   ngOnInit() {
@@ -101,14 +101,20 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
   public getTotalProfit() {
     return this.dataSource.data.map(t => t.profit).reduce((acc, profit) => acc + profit, 0);
   }
+
+  // generateExcel() {
+    
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
+
   exportAsExcel()
     {
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      // const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      // const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      // XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-      /* save to file */
-      XLSX.writeFile(wb, 'PositionReport.xlsx');
+      // /* save to file */
+      // XLSX.writeFile(wb, 'PositionReport.xlsx');
 
     }
 }
