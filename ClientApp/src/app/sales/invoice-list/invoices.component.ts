@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { SalesInvService } from '../../shared/SalesInv.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -16,12 +16,13 @@ import { Customer} from './../../_interface/customer.model';
   styles: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'currencyId',
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'totalAmountLocal', 'currencyId',
    'paid', 'invoiced', 'creditMemo', 'update'];
   SalesList: Customer;
   public dataSource = new MatTableDataSource<SalesInvHeader>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('TABLE') table: ElementRef;
   Filter: string;
   filterValues = {
     paid: 'false',
@@ -118,9 +119,25 @@ openForEdit(invoiceID: number) {
     if (confirm('Želite li da obrišete ovaj zapis?')) {
       this.service.deleteInvoice(id).then(res => {
         this.refreshList();
-        this.toastr.warning("Uspešno obrisano.", "Atomic Sped.");
+        this.toastr.warning('Uspešno obrisano.', 'Atomic Sped.');
       });
     }
   }
+
+  // generateExcel() {
+    
+  //   this.excelService.generateExcel(this.dataSource.data);
+  // }
+
+  exportAsExcel()
+    {
+      /* const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement); // convert DOM TABLE element to a worksheet
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1'); */
+
+      /* save to file */
+      /* XLSX.writeFile(wb, 'SalesInvoice.xlsx'); */
+
+    }
 
 }

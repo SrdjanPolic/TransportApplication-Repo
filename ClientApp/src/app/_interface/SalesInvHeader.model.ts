@@ -42,6 +42,7 @@ export class SalesInvHeader {
     unloadDate: Date;
     loadAddress: string;
     unloadAddress: string;
+    customerName: string;
     calculatonExchangeRate: number;
     lastChangeDateTime: Date;
     lastChangeUserId: number;

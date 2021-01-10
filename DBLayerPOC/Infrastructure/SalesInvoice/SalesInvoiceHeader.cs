@@ -55,6 +55,9 @@ namespace DBLayerPOC.Infrastructure.SalesInvoice
         public string LoadAddress { get; set; }
         public string UnloadAddress { get; set; }
 
+        [NotMapped]
+        public string CustomerName => Customer != null ? Customer.Name : string.Empty;
+
         public float CalculatonExchangeRate { get; set; }
 
         public SalesInvoiceHeader()

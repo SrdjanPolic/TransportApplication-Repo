@@ -97,6 +97,7 @@ export class InvoiceComponent implements OnInit {
     deletedInvoiceLineIds: '',
     lastChangeDateTime: new Date(),
     totalAmountLocal: 0,
+    vendorName : '',
     lastChangeUserId: +this.userId,
   };
   this.service.PurchInvLines = [];

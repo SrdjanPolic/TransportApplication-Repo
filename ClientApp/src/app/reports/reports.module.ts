@@ -10,6 +10,7 @@ import { FormsModule} from '@angular/forms';
 import { TransformModule} from '../shared/transform/transform.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { MatTableExporterModule} from 'mat-table-exporter';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    MatTableExporterModule,
     TransformModule
   ],
   declarations: [SalesInvoicesReportComponent, PositionReportComponent, TravelReportComponent,TravelReportDetailComponent,PositionReportDetailComponent],

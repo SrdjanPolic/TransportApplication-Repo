@@ -112,6 +112,7 @@ export class InvoicePrintComponent implements OnInit {
       ownTransport: false,
       loadDate: new Date(),
       unloadDate: new Date(),
+      customerName: '',
       calculatonExchangeRate: 0,
       lastChangeDateTime: new Date(),
       lastChangeUserId: 0
