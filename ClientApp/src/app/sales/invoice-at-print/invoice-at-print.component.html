@@ -8,11 +8,13 @@
               <img src="/assets/img/AtomicSpedPrint.jpg" style="width:300px; height: 75px;">
             </td>
             <td style="text-align: left;">
-              <strong>Company for transport, freight forwarding and logistics</strong><br>
-              <strong>Prvomajska 52, RS-15000 Šabac</strong><br>
-              <strong>Identification number 21417408</strong><br>
-              <strong>VAT 111040511</strong><br>
-              <strong>www.atomic-sped.rs ; office@atomic-sped.rs</strong>
+              <strong>ATOMIC SPED e.U.</strong><br>
+              <strong>Floridusgasse 2-10/1/1, 1210 Wien</strong><br>
+              <strong>Telefon: +43 665 656 090 59</strong><br>
+              <strong>Firmenbuchnummer: 540788b</strong><br>
+              <strong>UID-Nr.: ATU75968623</strong><br>
+              <strong>Handelsgericht: Wien</strong><br>
+              <strong>www.atomic-sped.at ; office@atomic-sped.at</strong>
             </td>
           </tr>
         </table>
@@ -24,12 +26,6 @@
         <table class="custHeader">
           <tr>
             <td class="item">
-              <p class="invoice-number"><span>Rechnung:</span> {{this.service.formData.invoiceNo}}</p>
-              <p><strong><span>Date of invoice:</span> {{this.service.formData.postingDate.toString()  | localTime}}</strong></p>
-              <p><strong><span>Date of payment value:</span> {{this.service.formData.dueDate.toString() | localTime}}</strong></p>
-            </td>
-
-            <td class="item">
               <div class="customer-header-data">
                 {{this.customer.name}}<br>
                 {{this.customer.address}}<br>
@@ -37,6 +33,14 @@
                 VAT: {{this.customer.vatNumber}}<br>
               </div>
             </td>
+
+            <td class="item">
+              <p class="invoice-number"><span>Rechnung:</span> {{this.service.formData.invoiceNo}}</p>
+              <p><strong><span>Rechnungsdatum:</span> {{this.service.formData.postingDate.toString()  | localTime}}</strong></p>
+              <p><strong><span>Fälligkeitsdatum:</span> {{this.service.formData.dueDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Datum des Umsatzes:</span> {{this.service.formData.checkIssueDate.toString() | localTime}}</strong></p>
+            </td>
+
           </tr>
         </table>
       </td>
@@ -48,20 +52,20 @@
           <tr>
             <td class="item-3col1">
 
-              <p><strong><span>Load date:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
-              <p><strong><span>Unload date:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
-              <p><strong><span>Offer no.:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
+              <p><strong><span>Ladedatum:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Entladedatum:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Angebotsnummer:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
             </td>
             <td class="item-3col2">
-              <p><strong><span>Pallets number:</span> {{this.service.formData.numberOfPallets}}</strong></p>
-              <p><strong><span>Weight:</span> {{this.service.formData.bruttoWeight}}</strong></p>
-              <p><strong><span>Load rep.:</span> {{this.service.formData.loadRepresentative}}</strong></p>
+              <p><strong><span>Palettennummer:</span> {{this.service.formData.numberOfPallets}}</strong></p>
+              <p><strong><span>Gewicht:</span> {{this.service.formData.bruttoWeight}}</strong></p>
+              <p><strong><span>Lastvertreter:</span> {{this.service.formData.loadRepresentative}}</strong></p>
             </td>
 
             <td class="item-3col3">
-              <p><strong><span>Plate number:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
-              <p><strong><span>CRM number:</span> {{this.service.formData.crmNumber}}</strong></p>
-              <p><strong><span>Type of transport:</span> {{this.service.formData.remarks}}</strong></p>
+              <p><strong><span>Kennzeichen:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
+              <p><strong><span>CRM Nummer:</span> {{this.service.formData.crmNumber}}</strong></p>
+              <p><strong><span>Transportart:</span> {{this.service.formData.remarks}}</strong></p>
             </td>
 
           </tr>
@@ -80,8 +84,8 @@
         </colgroup>
         <thead>
           <tr style="text-align:center">
-            <th><strong>Description of charges</strong></th>
-            <th>Price</th>
+            <th><strong>Beziehung</strong></th>
+            <th>Preis</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -91,12 +95,12 @@
             <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
             <td style="text-align:right">{{lines.lineAmount | number:'1.2-2':'de-DE' }}</td>
           </tr>
-          <tr class="no-border" style="text-align:right">
+          <!-- <tr class="no-border" style="text-align:right">
             <td colspan="2">TOTAL (euro)</td>
             <td colspan="3">{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</td>
-          </tr>
+          </tr> -->
           <tr class="no-border" style="text-align:right">
-            <td colspan="2"><strong>TOTAL FOR PAYMENT</strong></td>
+            <td colspan="2"><strong>Gesamtbetrag</strong></td>
             <td colspan="3"><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</strong></td>
           </tr>
         </tbody>
@@ -108,21 +112,25 @@
   <div>
     <p><strong>{{this.service.formData.taxLawText}}</strong></p>
     <br>
-    <p><strong>Payment instructions :</strong></p>
-    <p><strong>UNICREDIT BANK SERBIA JSC, BELGRADE, SERBIA</strong></p>
-    <p><strong>SWIFT CODE: BACXRSBG</strong></p>
-    <p><strong>IBAN: RS35170003004698500123</strong></p><br>
+    <p><strong>Bitte zahlen Sie die Rechnung auf dem Währungskonto auf das Girokonto:</strong></p>
+    <p><strong>Erste Bank und Sparkassen AG</strong></p>
+    <p><strong>BIC: GIBAATWWXXX</strong></p>
+    <p><strong>IBAN:AT75201118434358 8000</strong></p>
+    <p><strong>Ihre Referenz bei Zahlung: </strong>{{this.service.formData.externalReferenceNo}}</p><br>
 
-    <p><strong>BANKING PAYMENT TRANSACTION COST ARE ON YOUR ACCOUNT</strong></p>
+    <p>Wir arbeiten ausschließlich auf Grundlage der Allgemeinen Österreichischen Spediteurbedingungen, in der nach der jeweiligen Kundmachung in der "Wiener Zeitung"
+      geltenden und bei uns zur Einsicht aufliegenden Fassung. Erfüllungsort: Wien (Zentrale).
+      Es gilt österreichisches Recht. Bei Zahlungsverzug verrechnen wir 1,5 % p. M. Verzugszinsen.
+      Zahlungen werden zunächst auf Frachten und Spesen, zuletzt auf Zölle angerechnet. </p>
     <br>
   </div>
   <footer class="stamp">
     <div>
-      <p><strong>Belgrad {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
+      <p><strong>Wien {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
-    <div class="stamp-line">
+    <!-- <div class="stamp-line">
       <img src="/assets/img/Stamp.jpg" style="width:100%; ">
-    </div>
+    </div> -->
   </footer>
 </div>
 
