@@ -37,7 +37,7 @@ export class InvoiceRefundPrintComponent implements OnInit {
   invoiceIdForPrint: string;
   numberToWordsString: string;
   VATAmount: number;
-  BaseAmount: number;
+  NetAmount: number;
 
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
@@ -64,7 +64,7 @@ export class InvoiceRefundPrintComponent implements OnInit {
         this.VATAmount = this.service.SalesInvLines.reduce((prev, curr) => {
           return prev + (curr.lineAmount - (curr.unitPrice * curr.quantity));
         }, 0);
-        this.BaseAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+        this.NetAmount = this.service.SalesInvLines.reduce((prev, curr) => {
           return prev + (curr.unitPrice * curr.quantity);
         }, 0);
       });
