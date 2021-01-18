@@ -78,30 +78,44 @@
     <div class="span8 well invoice-body">
       <table class="table-bordered fixed" cellspacing="0">
         <colgroup>
-          <col class="width60">
-          <col class="width20">
-          <col class="width20">
+          <col class="width50">
+          <col class="width15">
+          <col class="width10">
+          <col class="width10">
+          <col class="width15">
         </colgroup>
         <thead>
           <tr style="text-align:center">
             <th><strong>Beziehung</strong></th>
             <th>Preis</th>
-            <th>Total</th>
+            <th>MwSt. %</th>
+            <th>MwSt.-Betrag</th>
+            <th>Betrag</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let lines of this.service.SalesInvLines" style="text-align:center">
             <td><strong>{{lines.description}}</strong></td>
             <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
-            <td style="text-align:right">{{lines.lineAmount | number:'1.2-2':'de-DE' }}</td>
+            <td>{{lines.vatPercent | number:'1.2-2' :'de-DE'}}</td>
+            <td>{{lines.lineAmount - (lines.unitPrice * lines.quantity) | number:'1.2-2' :'de-DE'}}</td>
+            <td style="text-align:right; white-space: nowrap;">{{lines.lineAmount | number:'1.2-2':'de-DE' }} EUR <div style="display: inline-block;" *ngIf="lines.vatPercent > 0">*</div></td>
           </tr>
           <!-- <tr class="no-border" style="text-align:right">
             <td colspan="2">TOTAL (euro)</td>
             <td colspan="3">{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</td>
           </tr> -->
           <tr class="no-border" style="text-align:right">
+            <td colspan="2"><strong>Nettobetrag</strong></td>
+            <td colspan="3"><strong>{{this.NetAmount |number: '1.2-2':'de-DE'}} EUR</strong></td>
+          </tr>
+          <tr class="no-border" style="text-align:right">
+            <td colspan="2"><strong>MwSt.-Betrag</strong></td>
+            <td colspan="3"><strong>{{this.VATAmount |number: '1.2-2':'de-DE'}} EUR</strong></td>
+          </tr>
+          <tr class="no-border" style="text-align:right">
             <td colspan="2"><strong>Gesamtbetrag</strong></td>
-            <td colspan="3"><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</strong></td>
+            <td colspan="3"><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}} EUR</strong></td>
           </tr>
         </tbody>
       </table>
@@ -110,23 +124,22 @@
 
   <br>
   <div>
-    <p><strong>{{this.service.formData.taxLawText}}</strong></p>
+    <p><strong>* {{this.service.formData.taxLawText}}</strong></p>
     <br>
     <p><strong>Bitte zahlen Sie die Rechnung auf dem Währungskonto auf das Girokonto:</strong></p>
     <p><strong>Erste Bank und Sparkassen AG</strong></p>
     <p><strong>BIC: GIBAATWWXXX</strong></p>
     <p><strong>IBAN:AT75201118434358 8000</strong></p>
-    <p><strong>Ihre Referenz bei Zahlung: </strong>{{this.service.formData.externalReferenceNo}}</p><br>
+    <p><strong>Ihre Referenz bei Zahlung: </strong>{{this.service.formData.externalReferenceNo}}</p>
 
     <p>Wir arbeiten ausschließlich auf Grundlage der Allgemeinen Österreichischen Spediteurbedingungen, in der nach der jeweiligen Kundmachung in der "Wiener Zeitung"
       geltenden und bei uns zur Einsicht aufliegenden Fassung. Erfüllungsort: Wien (Zentrale).
       Es gilt österreichisches Recht. Bei Zahlungsverzug verrechnen wir 1,5 % p. M. Verzugszinsen.
       Zahlungen werden zunächst auf Frachten und Spesen, zuletzt auf Zölle angerechnet. </p>
-    <br>
   </div>
   <footer class="stamp">
     <div>
-      <p><strong>Wien {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
+      <p><strong>Wien, {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
     </div>
     <!-- <div class="stamp-line">
       <img src="/assets/img/Stamp.jpg" style="width:100%; ">

@@ -33,6 +33,8 @@ export class InvoiceATPrintComponent implements OnInit {
   settings: Settings;
   private dialogConfig;
   invoiceIdForPrint: string;
+  VATAmount: number;
+  NetAmount: number;
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
     private repoService: RepositoryService,
@@ -58,6 +60,12 @@ export class InvoiceATPrintComponent implements OnInit {
         const currid = 2;  // eur
         const apiUrl = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
         this.repoService.getData(apiUrl).subscribe(res3 => this.currExchange = res3 as CurrencyExchange);
+        this.VATAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+          return prev + (curr.lineAmount - (curr.unitPrice * curr.quantity));
+        }, 0);
+        this.NetAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+          return prev + ( curr.unitPrice * curr.quantity);
+        }, 0);
       });
 
     }
