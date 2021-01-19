@@ -64,7 +64,7 @@
 
             <td class="item-3col3">
               <p><strong><span>Kennzeichen:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
-              <p><strong><span>CRM Nummer:</span> {{this.service.formData.crmNumber}}</strong></p>
+              <p><strong><span>CMR Nummer:</span> {{this.service.formData.crmNumber}}</strong></p>
               <p><strong><span>Transportart:</span> {{this.service.formData.remarks}}</strong></p>
             </td>
 
@@ -99,7 +99,7 @@
             <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
             <td>{{lines.vatPercent | number:'1.2-2' :'de-DE'}}</td>
             <td>{{lines.lineAmount - (lines.unitPrice * lines.quantity) | number:'1.2-2' :'de-DE'}}</td>
-            <td style="text-align:right; white-space: nowrap;">{{lines.lineAmount | number:'1.2-2':'de-DE' }} EUR <div style="display: inline-block;" *ngIf="lines.vatPercent > 0">*</div></td>
+            <td style="text-align:right; white-space: nowrap;">{{lines.lineAmount | number:'1.2-2':'de-DE' }} EUR<div style="display:inline-block" *ngIf="lines.vatPercent == 0">*</div></td>
           </tr>
           <!-- <tr class="no-border" style="text-align:right">
             <td colspan="2">TOTAL (euro)</td>
@@ -124,7 +124,7 @@
 
   <br>
   <div>
-    <p><strong>* {{this.service.formData.taxLawText}}</strong></p>
+    <p><strong>*{{this.service.formData.taxLawText}}</strong></p>
     <br>
     <p><strong>Bitte zahlen Sie die Rechnung auf dem Währungskonto auf das Girokonto:</strong></p>
     <p><strong>Erste Bank und Sparkassen AG</strong></p>
