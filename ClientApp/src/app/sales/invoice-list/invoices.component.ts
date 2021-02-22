@@ -16,7 +16,7 @@ import { Customer} from './../../_interface/customer.model';
   styles: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'totalAmountLocal', 'currencyId',
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'dueDate' ,'currencyId',
    'paid', 'invoiced', 'creditMemo', 'update'];
   SalesList: Customer;
   public dataSource = new MatTableDataSource<SalesInvHeader>();
@@ -125,7 +125,7 @@ openForEdit(invoiceID: number) {
   }
 
   // generateExcel() {
-    
+
   //   this.excelService.generateExcel(this.dataSource.data);
   // }
 

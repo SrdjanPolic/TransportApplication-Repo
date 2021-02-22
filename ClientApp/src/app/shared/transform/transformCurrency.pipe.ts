@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TransformCurrencyPipe implements PipeTransform {
 
   transform(value: null): string {
-    return value === 1 ? 'DIN' : 'EUR';
+    return value === 1 ? 'EUR' : 'EUR';
   }
 
 }

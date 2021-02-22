@@ -21,6 +21,10 @@ export class RepositoryService {
     return this.http.put(this.createCompleteRoute(route, environment.urlAddress), body, this.generateHeaders());
   }
 
+  public post(route: string, body){
+    return this.http.post(this.createCompleteRoute(route, environment.urlAddress), body, this.generateHeaders());
+  }
+
   public delete(route: string){
     return this.http.delete(this.createCompleteRoute(route, environment.urlAddress));
   }

@@ -39,7 +39,7 @@ export class InvoiceComponent implements OnInit {
   isPostedInvoice: boolean;
   isCreditMemoInvoice: boolean;
   exchangeRateValue: number;
-  TaxLawLongTextSerbian: string;
+  TaxLawLongTextAustria: string;
   TaxLawLongTextEnglish: string;
 
   constructor(public service: SalesInvService,
@@ -62,8 +62,8 @@ export class InvoiceComponent implements OnInit {
     this.TaxLawLongTextEnglish = `Original CMR is enclosed, as well as EX document. In case of payment delay, the
     interest rate is 0,4% per day of above amount  till the day of actual payment.
     All claims are beeing accepted until the moment when the truck is discharged.` ;
-    this.TaxLawLongTextSerbian = `Oslobođenje PDV-a po članu 24 stav 1 tačka 1 Zakona o pdv
-    (Sl. glasnik 84/2004, 86/2004, ispravka 14/2014, 83/2015, 108/2016).`;
+    this.TaxLawLongTextAustria = `"Steuerschuldnerschaft des Leistungsempfänger"
+    (Reverse Charge Art.) 196 MwStSystRL / VAT-Directive`;
     if (invoiceID == null) {
       this.resetForm();
     } else {
@@ -126,7 +126,7 @@ export class InvoiceComponent implements OnInit {
       travelOrder: '',
       partiallyPayed : 0,
       checkIssueDate: new Date(),
-      taxLawText : this.TaxLawLongTextSerbian,
+      taxLawText : this.TaxLawLongTextAustria,
       loadAddress: '',
       unloadAddress: '',
       clienReceiptDocDate: new Date(),
@@ -232,7 +232,7 @@ export class InvoiceComponent implements OnInit {
       this.service.formData.calculatonExchangeRate = this.currExchange.exchangeRateAmount;
     });
     if (this.service.formData.currencyId == 1) {
-      this.service.formData.taxLawText = this.TaxLawLongTextSerbian;
+      this.service.formData.taxLawText = this.TaxLawLongTextAustria;
     } else {
       this.service.formData.taxLawText = this.TaxLawLongTextEnglish;
     }
@@ -264,6 +264,10 @@ export class InvoiceComponent implements OnInit {
   }
   onPrintRefundInvoice() {
     const pathurl = `/sales/details/${this.invoiceIdForPrint}/inorefundprint`;
+    this.router.navigate([pathurl]);
+  }
+  onPrintATInvoice() {
+    const pathurl = `/sales/details/${this.invoiceIdForPrint}/atprint`;
     this.router.navigate([pathurl]);
   }
 

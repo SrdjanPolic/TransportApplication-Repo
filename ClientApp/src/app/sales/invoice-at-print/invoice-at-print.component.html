@@ -1,0 +1,149 @@
+<div class="invoice-box" *ngIf="customer">
+  <table cellpadding="0" cellspacing="0" class="first-table">
+    <tr class="top">
+      <td colspan="2">
+        <table>
+          <tr>
+            <td class="title">
+              <img src="/assets/img/AtomicSpedPrint.jpg" style="width:300px; height: 75px;">
+            </td>
+            <td style="text-align: left;">
+              <strong>ATOMIC SPED e.U.</strong><br>
+              <strong>Floridusgasse 2-10/1/1, 1210 Wien</strong><br>
+              <strong>Telefon: +43 665 656 090 59</strong><br>
+              <strong>Firmenbuchnummer: 540788b</strong><br>
+              <strong>UID-Nr.: ATU75968623</strong><br>
+              <strong>Handelsgericht: Wien</strong><br>
+              <strong>www.atomic-sped.at ; office@atomic-sped.at</strong>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="information">
+      <td colspan="2">
+        <table class="custHeader">
+          <tr>
+            <td class="item">
+              <div class="customer-header-data">
+                {{this.customer.name}}<br>
+                {{this.customer.address}}<br>
+                {{this.customer.city}}, {{this.customer.country}}<br>
+                VAT: {{this.customer.vatNumber}}<br>
+              </div>
+            </td>
+
+            <td class="item">
+              <p class="invoice-number"><span>Rechnung:</span> {{this.service.formData.invoiceNo}}</p>
+              <p><strong><span>Rechnungsdatum:</span> {{this.service.formData.postingDate.toString()  | localTime}}</strong></p>
+              <p><strong><span>Fälligkeitsdatum:</span> {{this.service.formData.dueDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Datum des Umsatzes:</span> {{this.service.formData.checkIssueDate.toString() | localTime}}</strong></p>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="information">
+      <td >
+        <table class="custHeader2">
+          <tr>
+            <td class="item-3col1">
+
+              <p><strong><span>Ladedatum:</span> {{this.service.formData.loadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Entladedatum:</span> {{this.service.formData.unloadDate.toString() | localTime}}</strong></p>
+              <p><strong><span>Angebotsnummer:</span> {{this.service.formData.externalReferenceNo}}</strong></p>
+            </td>
+            <td class="item-3col2">
+              <p><strong><span>Palettennummer:</span> {{this.service.formData.numberOfPallets}}</strong></p>
+              <p><strong><span>Gewicht:</span> {{this.service.formData.bruttoWeight}}</strong></p>
+              <p><strong><span>Lastvertreter:</span> {{this.service.formData.loadRepresentative}}</strong></p>
+            </td>
+
+            <td class="item-3col3">
+              <p><strong><span>Kennzeichen:</span> {{this.service.formData.vechicleRegistration}}</strong></p>
+              <p><strong><span>CMR Nummer:</span> {{this.service.formData.crmNumber}}</strong></p>
+              <p><strong><span>Transportart:</span> {{this.service.formData.remarks}}</strong></p>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+  </table>
+  <div>
+    <div class="span8 well invoice-body">
+      <table class="table-bordered fixed" cellspacing="0">
+        <colgroup>
+          <col class="width50">
+          <col class="width15">
+          <col class="width10">
+          <col class="width10">
+          <col class="width15">
+        </colgroup>
+        <thead>
+          <tr style="text-align:center">
+            <th><strong>Beziehung</strong></th>
+            <th>Preis</th>
+            <th>MwSt. %</th>
+            <th>MwSt.-Betrag</th>
+            <th>Betrag</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lines of this.service.SalesInvLines" style="text-align:center">
+            <td><strong>{{lines.description}}</strong></td>
+            <td>{{lines.unitPrice | number:'1.2-2' :'de-DE'}}</td>
+            <td>{{lines.vatPercent | number:'1.2-2' :'de-DE'}}</td>
+            <td>{{lines.lineAmount - (lines.unitPrice * lines.quantity) | number:'1.2-2' :'de-DE'}}</td>
+            <td style="text-align:right; white-space: nowrap;">{{lines.lineAmount | number:'1.2-2':'de-DE' }} EUR<div style="display:inline-block" *ngIf="lines.vatPercent == 0">*</div></td>
+          </tr>
+          <!-- <tr class="no-border" style="text-align:right">
+            <td colspan="2">TOTAL (euro)</td>
+            <td colspan="3">{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}}</td>
+          </tr> -->
+          <tr class="no-border" style="text-align:right">
+            <td colspan="2"><strong>Nettobetrag</strong></td>
+            <td colspan="3"><strong>{{this.NetAmount |number: '1.2-2':'de-DE'}} EUR</strong></td>
+          </tr>
+          <tr class="no-border" style="text-align:right">
+            <td colspan="2"><strong>MwSt.-Betrag</strong></td>
+            <td colspan="3"><strong>{{this.VATAmount |number: '1.2-2':'de-DE'}} EUR</strong></td>
+          </tr>
+          <tr class="no-border" style="text-align:right">
+            <td colspan="2"><strong>Gesamtbetrag</strong></td>
+            <td colspan="3"><strong>{{this.service.formData.totalAmount |number: '1.2-2':'de-DE'}} EUR</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <div>
+    <p><strong>*{{this.service.formData.taxLawText}}</strong></p>
+    <br>
+    <p><strong>Bitte zahlen Sie die Rechnung auf dem Währungskonto auf das Girokonto:</strong></p>
+    <p><strong>Erste Bank und Sparkassen AG</strong></p>
+    <p><strong>BIC: GIBAATWWXXX</strong></p>
+    <p><strong>IBAN:AT75201118434358 8000</strong></p>
+    <p><strong>Ihre Referenz bei Zahlung: </strong>{{this.service.formData.externalReferenceNo}}</p>
+
+    <p>Wir arbeiten ausschließlich auf Grundlage der Allgemeinen Österreichischen Spediteurbedingungen, in der nach der jeweiligen Kundmachung in der "Wiener Zeitung"
+      geltenden und bei uns zur Einsicht aufliegenden Fassung. Erfüllungsort: Wien (Zentrale).
+      Es gilt österreichisches Recht. Bei Zahlungsverzug verrechnen wir 1,5 % p. M. Verzugszinsen.
+      Zahlungen werden zunächst auf Frachten und Spesen, zuletzt auf Zölle angerechnet. </p>
+  </div>
+  <footer class="stamp">
+    <div>
+      <p><strong>Wien, {{this.service.formData.postingDate.toString() | localTime}}</strong></p>
+    </div>
+    <!-- <div class="stamp-line">
+      <img src="/assets/img/Stamp.jpg" style="width:100%; ">
+    </div> -->
+  </footer>
+</div>
+
