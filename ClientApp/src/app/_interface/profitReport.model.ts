@@ -4,4 +4,5 @@ export interface ProfitReport {
     revenue: number;
     expences: number;
     profit: number;
+    salesPerson: string;
 }

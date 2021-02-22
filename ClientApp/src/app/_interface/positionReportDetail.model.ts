@@ -6,4 +6,5 @@ export interface PositionReportDetail {
     output:number;
     documentNo:string;
     invoiceDate:Date;
+    salesPerson: string;
 }
