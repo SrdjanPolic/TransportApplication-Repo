@@ -21,8 +21,6 @@ namespace TransportWebAPI.Controllers.Authentification
     {
         private IUnitOfWork<AppDbContext> _unitOfWork;
 
-        private readonly ILogger _logger;
-
         private IEmailSendingClient _emailSendingClient;
 
         public AuthController(IUnitOfWork<AppDbContext> unitOfWork, EmailSendingClient emailSendingClient)

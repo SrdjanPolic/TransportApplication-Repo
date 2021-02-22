@@ -139,6 +139,7 @@ namespace TransportWebAPI.Controllers.Reports
                 var externalReportProfitItem = new GenericProfitReportItem
                 {
                     Partner = sale.Customer.Name,
+                    SalesPerson = sale.SalesPerson,
                     Input = sale.TotalAmountLocal,
                     TravelOrderNo = sale.TravelOrder,
                     DocumentNo = sale.InvoiceNo, 
@@ -157,8 +158,8 @@ namespace TransportWebAPI.Controllers.Reports
             purchaseList.ForEach(purchase =>
             {
                 var exchangeRate = GetExchangeRateForPurchase(purchase);
-            
                 var externalReportProfitItem = new GenericProfitReportItem
+            
                 {
                     Partner = purchase.Header.Vendor.Name,
                     Output = purchase.LineAmount * exchangeRate,
@@ -193,6 +194,7 @@ namespace TransportWebAPI.Controllers.Reports
                 var externalReportProfitItem = new GenericProfitReportItem
                 {
                     Partner = line.Header.Customer.Name,
+                    SalesPerson = line.Header.SalesPerson,
                     Input = (float)Math.Round(line.LineAmount * exchangeRate / (1 + line.VatPercent / 100), 2, MidpointRounding.ToEven),
                     TravelOrderNo = line.Header.ExternalReferenceNo,
                     DocumentNo = line.Header.InvoiceNo,
