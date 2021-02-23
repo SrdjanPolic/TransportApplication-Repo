@@ -273,7 +273,6 @@ namespace TransportWebAPI.Controllers.Reports
 
 
             var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount/(1 + y.VatPercent/100)));
-           
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
                 .GetList(line => line.Header.ExternalReferenceNo.Equals(externalReference) && !line.Header.CreditMemo)
@@ -294,10 +293,19 @@ namespace TransportWebAPI.Controllers.Reports
                 Criteria = externalReference,
                 Revenue = revenue,
                 Expences = expences,
-                Profit = profit
+                Profit = profit,
+                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList)
             };
 
             return reportItem;
+        }
+
+        //Take sales invoice header if any, and take Sales Person
+        //reason: Sales Person is same for all Sales Invoice Headers that share same Position
+        private string GetSalesPersonFromListOfSalesInvoiceHeaders(IList<SalesInvoiceHeader> salesInvoiceHeaders)
+        {
+            var salesInvoiceHeader = salesInvoiceHeaders.FirstOrDefault();
+            return salesInvoiceHeader != null ? salesInvoiceHeader.SalesPerson : string.Empty;          
         }
 
         private ProfitReportItem GetTravelOrderProfitReportItem(string travelOrder)
@@ -326,7 +334,8 @@ namespace TransportWebAPI.Controllers.Reports
                 Criteria = travelOrder,
                 Revenue = revenue,
                 Expences = expences,
-                Profit = profit
+                Profit = profit,
+                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList)
             };
 
             return reportItem;
