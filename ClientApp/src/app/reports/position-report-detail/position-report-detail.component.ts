@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PositionReportDetailComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['travelOrderNo', 'partner', 'input', 'output', 'documentNo', 'invoiceDate'];
+  public displayedColumns = ['travelOrderNo', 'partner', 'input', 'output', 'documentNo', 'salesPerson' , 'invoiceDate'];
   public dataSource = new MatTableDataSource<PositionReportDetail>();
   private dialogConfig;
 

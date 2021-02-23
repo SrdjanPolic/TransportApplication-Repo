@@ -14,14 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TravelReportDetailComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['travelOrderNo', 'partner', 'input', 'output', 'documentNo', 'invoiceDate'];
+  public displayedColumns = ['travelOrderNo', 'partner', 'input', 'output', 'documentNo', 'salesPerson' , 'invoiceDate'];
   public dataSource = new MatTableDataSource<ProfitReportDetail>();
   private dialogConfig;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private repository: RepositoryService, private errorService: ErrorHandlerService, 
+  constructor(private repository: RepositoryService, private errorService: ErrorHandlerService,
     private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {

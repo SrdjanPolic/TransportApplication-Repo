@@ -6,4 +6,5 @@ export interface ProfitReportDetail {
     output:number;
     documentNo:string;
     invoiceDate:Date;
+    salesPerson: string;
 }
