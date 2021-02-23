@@ -16,7 +16,7 @@ import { now } from 'moment';
 })
 export class PositionReportComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'details'];
+  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'salesPerson', 'details'];
   public dataSource = new MatTableDataSource<ProfitReport>();
   FromDate: Date;
   ToDate: Date;
@@ -103,7 +103,7 @@ export class PositionReportComponent implements OnInit, AfterViewInit {
   }
 
   // generateExcel() {
-    
+
   //   this.excelService.generateExcel(this.dataSource.data);
   // }
 

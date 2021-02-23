@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class TravelReportComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'details'];
+  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'salesPerson', 'details'];
   public dataSource = new MatTableDataSource<ProfitReport>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -66,7 +66,7 @@ export class TravelReportComponent implements OnInit, AfterViewInit {
   }
 
   // generateExcel() {
-    
+
   //   this.excelService.generateExcel(this.dataSource.data);
   // }
 
