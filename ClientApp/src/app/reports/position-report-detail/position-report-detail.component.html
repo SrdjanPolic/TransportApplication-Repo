@@ -35,6 +35,11 @@
     <td mat-cell *matCellDef="let element"> {{element.documentNo}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="salesPerson">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prodavac </th>
+    <td mat-cell *matCellDef="let element"> {{element.salesPerson}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="invoiceDate">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum knjiženja </th>
     <td mat-cell *matCellDef="let element"> {{element.invoiceDate.toString() |localTime}} </td>
