@@ -11,12 +11,14 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomerUpdateComponent } from './customer-update/customer-update.component';
 import { CustomerDeleteComponent } from './customer-delete/customer-delete.component';
 import {TransformModule} from './../shared/transform/transform.module';
+import { MatTableExporterModule} from 'mat-table-exporter';
 
 @NgModule({
   imports: [
     CommonModule,
     CustomerRoutingModule,
     ReactiveFormsModule,
+    MatTableExporterModule,
     SharedModule,
     TransformModule
   ],
