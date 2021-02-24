@@ -190,7 +190,7 @@ namespace TransportWebAPI.Controllers.Reports
 
             salesLinesList.ForEach(line =>
             {
-                var exchangeRate = line.Header.CurrencyId == 2 ? line.Header.CalculatonExchangeRate : 1;
+                var exchangeRate = GetExchangeRateForSalesInvoiceLine(line);
                 var externalReportProfitItem = new GenericProfitReportItem
                 {
                     Partner = line.Header.Customer.Name,
@@ -271,8 +271,7 @@ namespace TransportWebAPI.Controllers.Reports
             if (!salesList.Any())
                 return null;
 
-
-            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount/(1 + y.VatPercent/100)));
+            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount * GetExchangeRateForSalesInvoiceLine(y)/(1 + y.VatPercent/100)));
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
                 .GetList(line => line.Header.ExternalReferenceNo.Equals(externalReference) && !line.Header.CreditMemo)
@@ -351,6 +350,11 @@ namespace TransportWebAPI.Controllers.Reports
             }
 
             return 0;
+        }
+
+        private float GetExchangeRateForSalesInvoiceLine(SalesInvoiceLine line)
+        {
+            return line.Header.CurrencyId == 2 ? line.Header.CalculatonExchangeRate : 1;
         }
     }
 }
