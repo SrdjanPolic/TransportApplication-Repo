@@ -15,5 +15,6 @@ namespace TransportWebAPI.Controllers.Reports
         public string DocumentNo { get; set; }
         public DateTime InvoiceDate { get; set; }
         public string SalesPerson { get; set; }
+        public string VechicleRegistration { get; set; }
     }
 }
