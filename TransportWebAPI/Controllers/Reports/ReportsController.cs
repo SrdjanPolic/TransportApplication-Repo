@@ -143,7 +143,8 @@ namespace TransportWebAPI.Controllers.Reports
                     Input = sale.TotalAmountLocal,
                     TravelOrderNo = sale.TravelOrder,
                     DocumentNo = sale.InvoiceNo, 
-                    InvoiceDate = sale.PostingDate
+                    InvoiceDate = sale.PostingDate,
+                    VechicleRegistration = sale.VechicleRegistration
                 };
 
                 travelOrderProfilReportItems.Add(externalReportProfitItem);
@@ -198,7 +199,8 @@ namespace TransportWebAPI.Controllers.Reports
                     Input = (float)Math.Round(line.LineAmount * exchangeRate / (1 + line.VatPercent / 100), 2, MidpointRounding.ToEven),
                     TravelOrderNo = line.Header.ExternalReferenceNo,
                     DocumentNo = line.Header.InvoiceNo,
-                    InvoiceDate = line.Header.PostingDate
+                    InvoiceDate = line.Header.PostingDate,
+                    VechicleRegistration = line.Header.VechicleRegistration
                 };
 
                 externalReferenceProfilReportItems.Add(externalReportProfitItem);
