@@ -12,5 +12,6 @@ namespace TransportWebAPI.Controllers.Reports
         public float Expences { get; set; }
         public float Profit { get; set; }
         public string SalesPerson { get; set; }
+        public string VechicleRegistration { get; set; }
     }
 }
