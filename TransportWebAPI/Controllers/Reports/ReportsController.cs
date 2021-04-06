@@ -344,7 +344,8 @@ namespace TransportWebAPI.Controllers.Reports
                 Revenue = revenue,
                 Expences = expences,
                 Profit = profit,
-                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList)
+                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList),
+                VechicleRegistration = GetVehicleRegistrationFromListOfSalesInvoiceHeaders(salesList)
             };
 
             return reportItem;
