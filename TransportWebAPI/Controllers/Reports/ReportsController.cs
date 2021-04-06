@@ -289,13 +289,15 @@ namespace TransportWebAPI.Controllers.Reports
 
             var profit = (float)Math.Round(revenue - expences, 2, MidpointRounding.ToEven);
 
+
             var reportItem = new ProfitReportItem
             {
                 Criteria = externalReference,
                 Revenue = revenue,
                 Expences = expences,
                 Profit = profit,
-                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList)
+                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList),
+                VechicleRegistration = GetVehicleRegistrationFromListOfSalesInvoiceHeaders(salesList)
             };
 
             return reportItem;
@@ -307,6 +309,12 @@ namespace TransportWebAPI.Controllers.Reports
         {
             var salesInvoiceHeader = salesInvoiceHeaders.FirstOrDefault();
             return salesInvoiceHeader != null ? salesInvoiceHeader.SalesPerson : string.Empty;          
+        }
+
+        private string GetVehicleRegistrationFromListOfSalesInvoiceHeaders(IList<SalesInvoiceHeader> salesInvoiceHeaders)
+        {
+            var salesInvoiceHeader = salesInvoiceHeaders.FirstOrDefault();
+            return salesInvoiceHeader != null ? salesInvoiceHeader.VechicleRegistration : string.Empty;
         }
 
         private ProfitReportItem GetTravelOrderProfitReportItem(string travelOrder)

@@ -52,6 +52,12 @@
       <td mat-cell *matCellDef="let element"> {{element.currencyId |transformcurrency}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="vechicleRegistration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vozilo </th>
+      <td mat-cell *matCellDef="let element"> {{element.vechicleRegistration}} </td>
+    </ng-container>
+
+
     <ng-container matColumnDef="paid">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Plaćeno </th>
       <td mat-cell input *matCellDef="let element"> {{element.paid |transformboolean}} </td>
