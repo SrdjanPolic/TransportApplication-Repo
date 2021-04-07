@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class TravelReportComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'salesPerson', 'details'];
+  public displayedColumns = ['criteria', 'revenue', 'expences', 'profit', 'salesPerson', 'vechicleRegistration', 'details'];
   public dataSource = new MatTableDataSource<ProfitReport>();
 
   @ViewChild(MatSort) sort: MatSort;

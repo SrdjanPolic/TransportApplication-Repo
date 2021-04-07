@@ -31,6 +31,8 @@ export class InvoiceComponent implements OnInit {
   private dialogConfig;
   isPostedInvoice: boolean;
   isCreditMemoInvoice: boolean;
+  public response: { dbPath: ''};
+  imgPath: string;
 
   constructor(public service: PurchInvService,
     private dialog: MatDialog,
@@ -180,22 +182,31 @@ export class InvoiceComponent implements OnInit {
     return dateToAdjust;
     }
 
-    selectCurrencyChangeHandler(event: any) {
-      const currid = '2';
-      const postingDate2 = moment(this.service.formData.postingDate).format('YYYY.MM.DD');
-      const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
-      this.repoService.getData(apiUrl2).subscribe(res2 => {
-        this.currExchange = res2 as CurrencyExchange;
-      });
+  selectCurrencyChangeHandler(event: any) {
+    const currid = '2';
+    const postingDate2 = moment(this.service.formData.postingDate).format('YYYY.MM.DD');
+    const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
+    this.repoService.getData(apiUrl2).subscribe(res2 => {
+      this.currExchange = res2 as CurrencyExchange;
+    });
+  }
+  selectPaymentDataHandler(event: any) {
+    const currid = '2';
+    const postingDate2 = moment(this.service.formData.postingDate).format('YYYY.MM.DD');
+    const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
+    this.repoService.getData(apiUrl2).subscribe(res2 => {
+      this.currExchange = res2 as CurrencyExchange;
+    });
     }
-    selectPaymentDataHandler(event: any) {
-      const currid = '2';
-      const postingDate2 = moment(this.service.formData.postingDate).format('YYYY.MM.DD');
-      const apiUrl2 = `api/ExchangeRate/${currid}/${postingDate2}`;
-      this.repoService.getData(apiUrl2).subscribe(res2 => {
-        this.currExchange = res2 as CurrencyExchange;
-      });
 
+    public uploadFinished = (event) => {
+      this.response = event;
+      this.imgPath = this.response.dbPath;
     }
+    public createImgPath = (serverPath: string) => {
+      const apiUrl = ``;
+      return this.repoService.getData(serverPath);
+    }
+
 
 }

@@ -142,8 +142,9 @@ namespace TransportWebAPI.Controllers.Reports
                     SalesPerson = sale.SalesPerson,
                     Input = sale.TotalAmountLocal,
                     TravelOrderNo = sale.TravelOrder,
-                    DocumentNo = sale.InvoiceNo,
-                    InvoiceDate = sale.PostingDate
+                    DocumentNo = sale.InvoiceNo, 
+                    InvoiceDate = sale.PostingDate,
+                    VechicleRegistration = sale.VechicleRegistration
                 };
 
                 travelOrderProfilReportItems.Add(externalReportProfitItem);
@@ -190,7 +191,7 @@ namespace TransportWebAPI.Controllers.Reports
 
             salesLinesList.ForEach(line =>
             {
-                var exchangeRate = line.Header.CurrencyId == 2 ? line.Header.CalculatonExchangeRate : 1;
+                var exchangeRate = GetExchangeRateForSalesInvoiceLine(line);
                 var externalReportProfitItem = new GenericProfitReportItem
                 {
                     Partner = line.Header.Customer.Name,
@@ -198,7 +199,8 @@ namespace TransportWebAPI.Controllers.Reports
                     Input = (float)Math.Round(line.LineAmount * exchangeRate / (1 + line.VatPercent / 100), 2, MidpointRounding.ToEven),
                     TravelOrderNo = line.Header.ExternalReferenceNo,
                     DocumentNo = line.Header.InvoiceNo,
-                    InvoiceDate = line.Header.PostingDate
+                    InvoiceDate = line.Header.PostingDate,
+                    VechicleRegistration = line.Header.VechicleRegistration
                 };
 
                 externalReferenceProfilReportItems.Add(externalReportProfitItem);
@@ -271,8 +273,7 @@ namespace TransportWebAPI.Controllers.Reports
             if (!salesList.Any())
                 return null;
 
-
-            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount / (1 + y.VatPercent / 100)));
+            var revenue = salesList.Sum(x => x.Lines.Sum(y => y.LineAmount * GetExchangeRateForSalesInvoiceLine(y)/(1 + y.VatPercent/100)));
 
             var purchaseList = _unitOfWork.GetRepository<PurchaseInvoiceLine>()
                 .GetList(line => line.Header.ExternalReferenceNo.Equals(externalReference) && !line.Header.CreditMemo)
@@ -288,13 +289,15 @@ namespace TransportWebAPI.Controllers.Reports
 
             var profit = (float)Math.Round(revenue - expences, 2, MidpointRounding.ToEven);
 
+
             var reportItem = new ProfitReportItem
             {
                 Criteria = externalReference,
                 Revenue = revenue,
                 Expences = expences,
                 Profit = profit,
-                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList)
+                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList),
+                VechicleRegistration = GetVehicleRegistrationFromListOfSalesInvoiceHeaders(salesList)
             };
 
             return reportItem;
@@ -305,7 +308,13 @@ namespace TransportWebAPI.Controllers.Reports
         private string GetSalesPersonFromListOfSalesInvoiceHeaders(IList<SalesInvoiceHeader> salesInvoiceHeaders)
         {
             var salesInvoiceHeader = salesInvoiceHeaders.FirstOrDefault();
-            return salesInvoiceHeader != null ? salesInvoiceHeader.SalesPerson : string.Empty;
+            return salesInvoiceHeader != null ? salesInvoiceHeader.SalesPerson : string.Empty;          
+        }
+
+        private string GetVehicleRegistrationFromListOfSalesInvoiceHeaders(IList<SalesInvoiceHeader> salesInvoiceHeaders)
+        {
+            var salesInvoiceHeader = salesInvoiceHeaders.FirstOrDefault();
+            return salesInvoiceHeader != null ? salesInvoiceHeader.VechicleRegistration : string.Empty;
         }
 
         private ProfitReportItem GetTravelOrderProfitReportItem(string travelOrder)
@@ -335,7 +344,8 @@ namespace TransportWebAPI.Controllers.Reports
                 Revenue = revenue,
                 Expences = expences,
                 Profit = profit,
-                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList)
+                SalesPerson = GetSalesPersonFromListOfSalesInvoiceHeaders(salesList),
+                VechicleRegistration = GetVehicleRegistrationFromListOfSalesInvoiceHeaders(salesList)
             };
 
             return reportItem;
@@ -351,6 +361,11 @@ namespace TransportWebAPI.Controllers.Reports
             }
 
             return 0;
+        }
+
+        private float GetExchangeRateForSalesInvoiceLine(SalesInvoiceLine line)
+        {
+            return line.Header.CurrencyId == 2 ? line.Header.CalculatonExchangeRate : 1;
         }
     }
 }

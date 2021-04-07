@@ -49,10 +49,17 @@
     </ng-container>
 
     <ng-container matColumnDef="salesPerson">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prodavac </th>
-      <td mat-cell *matCellDef="let element"> {{element.salesPerson}} </td>
-      <td mat-footer-cell *matFooterCellDef> </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Prodavac</th>
+      <td mat-cell *matCellDef="let element">{{element.salesPerson}}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
+
+    <ng-container matColumnDef="vechicleRegistration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vozilo</th>
+      <td mat-cell *matCellDef="let element">{{element.vechicleRegistration}}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
 
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef> Detalji </th>

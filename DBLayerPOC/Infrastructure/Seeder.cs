@@ -25,8 +25,16 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            if (!_ctx.Currencies.Any())
+            if(!_ctx.Currencies.Any())
             {
+                var currencuDinar = new Currency
+                {
+                    Code = "RSD",
+                    Name = "Dinar"
+                };
+
+                _ctx.Currencies.Add(currencuDinar);
+
                 var currencyEuro = new Currency
                 {
                     Code = "EUR",
@@ -111,7 +119,7 @@ namespace DBLayerPOC.Infrastructure
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.PurchaseInvoiceObjectName,
-                    Prefix = "ER-20",
+                    Prefix = "UF-20",
                     Year = 2020,
                     LastUsedNumber = PurchaseInvoiceNumber
                 };
@@ -127,7 +135,7 @@ namespace DBLayerPOC.Infrastructure
                 var settings = new Settings.Settings
                 {
                     ObjectName = Constants.SalesInvoiceObjectName,
-                    Prefix = "AR-20",
+                    Prefix = "IF-20",
                     Year = 2020,
                     LastUsedNumber = SalesInvoiceNumber
                 };
@@ -137,7 +145,7 @@ namespace DBLayerPOC.Infrastructure
                 _ctx.SaveChanges();
             }
 
-
+            
 
             //if (!_ctx.Drivers.Any())
             //{
@@ -418,25 +426,35 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
             //}
 
-            if (!_ctx.Login.Any())
-            {
-                var login = new LoginModel
-                {
-                    Name = "admin",
-                    Username = "admin",
-                    Password = "admin",
-                    IsAdmin = true,
-                    IsInactive = false
-                };
+            //if (!_ctx.Login.Any())
+            //{
+            //    var login = new LoginModel
+            //    {
+            //        Name = "admin",
+            //        Username = "admin",
+            //        Password = "admin",
+            //        IsAdmin = true,
+            //        IsInactive = false
+            //    };
 
-                _ctx.Login.Add(login);
+            //    _ctx.Login.Add(login);
 
-                ;
+            //    var login1 = new LoginModel
+            //    {
+            //        Username = "user",
+            //        Password = "user",
+            //        Name = "user",
+            //        IsAdmin = false,
+            //        IsInactive = false  
+            //    };
 
-                _ctx.SaveChanges();
+            //    _ctx.Login.Add(login1);
 
-            }
+            //    _ctx.SaveChanges();
 
+            //}
+
+         
         }
     }
 }
