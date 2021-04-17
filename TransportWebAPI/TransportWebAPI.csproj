@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Reports\FilteringBase\**" />
+    <Compile Remove="Controllers\Reports\ReportControllers\**" />
+    <Compile Remove="Controllers\Reports\ReportItems\**" />
+    <Content Remove="Controllers\Reports\FilteringBase\**" />
+    <Content Remove="Controllers\Reports\ReportControllers\**" />
+    <Content Remove="Controllers\Reports\ReportItems\**" />
+    <EmbeddedResource Remove="Controllers\Reports\FilteringBase\**" />
+    <EmbeddedResource Remove="Controllers\Reports\ReportControllers\**" />
+    <EmbeddedResource Remove="Controllers\Reports\ReportItems\**" />
+    <None Remove="Controllers\Reports\FilteringBase\**" />
+    <None Remove="Controllers\Reports\ReportControllers\**" />
+    <None Remove="Controllers\Reports\ReportItems\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
@@ -28,12 +43,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Reports\FilteringBase\" />
-    <Folder Include="Controllers\Reports\ReportControllers\" />
-    <Folder Include="Controllers\Reports\ReportItems\" />
     <Folder Include="Resources\Docs\" />
-    <Folder Include="Resources\PurchaseDocuments\" />
     <Folder Include="Resources\SalesDocuments\" />
+    <Folder Include="Resources\PurchaseDocuments\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
