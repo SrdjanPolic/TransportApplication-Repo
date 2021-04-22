@@ -14,7 +14,7 @@ import { Vendor} from './../../_interface/vendor.model';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'totalAmountLocal' , 'currencyId', 'paid', 'update'];
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'vendorId', 'totalAmount', 'totalAmountLocal' , 'dueDate', 'currencyId', 'paid', 'update'];
   vendorList: Vendor;
   public dataSource = new MatTableDataSource<PurchInvHeader>();
 
