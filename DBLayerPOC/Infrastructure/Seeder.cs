@@ -1,11 +1,5 @@
-﻿using DBLayerPOC.Infrastructure.Login;
-using DBLayerPOC.Infrastructure.PurchaseInvoice;
-using DBLayerPOC.Infrastructure.SalesInvoice;
-using DBLayerPOC.Infrastructure.Settings;
+﻿using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,7 +19,9 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            if(!_ctx.Currencies.Any())
+            CreateFolderForFileUpload();
+
+            if (!_ctx.Currencies.Any())
             {
                 var currencuDinar = new Currency
                 {
@@ -453,8 +449,27 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
 
             //}
+        }
 
-         
+        private void CreateFolderForFileUpload()
+        {
+            string uploadFolderName = "Documents";
+            //First save Upload Folder Name in Settings table if not exist
+            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.FileUploadFolderName)))
+            {
+                var settings = new Settings.Settings
+                {
+                    ObjectName = Constants.FileUploadFolderName,
+                    Prefix = uploadFolderName
+                };
+
+                _ctx.SettingsTable.Add(settings);
+
+                _ctx.SaveChanges();
+            }
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
+            Directory.CreateDirectory(pathToSave);
         }
     }
 }
