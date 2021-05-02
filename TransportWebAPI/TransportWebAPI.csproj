@@ -42,12 +42,6 @@
     <ProjectReference Include="..\DBLayerPOC\DBLayerPOC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\Docs\" />
-    <Folder Include="Resources\SalesDocuments\" />
-    <Folder Include="Resources\PurchaseDocuments\" />
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
