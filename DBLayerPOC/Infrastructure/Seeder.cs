@@ -19,8 +19,6 @@ namespace DBLayerPOC.Infrastructure
         {
             _ctx.Database.EnsureCreated();
 
-            CreateFolderForFileUpload();
-
             if (!_ctx.Currencies.Any())
             {
                 var currencuDinar = new Currency
@@ -449,27 +447,6 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
 
             //}
-        }
-
-        private void CreateFolderForFileUpload()
-        {
-            string uploadFolderName = "Documents";
-            //First save Upload Folder Name in Settings table if not exist
-            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.FileUploadFolderName)))
-            {
-                var settings = new Settings.Settings
-                {
-                    ObjectName = Constants.FileUploadFolderName,
-                    Prefix = uploadFolderName
-                };
-
-                _ctx.SettingsTable.Add(settings);
-
-                _ctx.SaveChanges();
-            }
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
-            Directory.CreateDirectory(pathToSave);
         }
     }
 }

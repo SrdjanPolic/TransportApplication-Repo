@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TransportWebAPI.Controllers.Upload;
 
 namespace TransportWebAPI
 {
@@ -29,6 +30,7 @@ namespace TransportWebAPI
                       .UseIISIntegration();
                 }).Build().MigrateDatabase();
             RunSeeding(host);
+            RunCreateUploadFolder(host);
 
             host.Run();
         }
@@ -37,6 +39,12 @@ namespace TransportWebAPI
         {
             var seeder = host.Services.GetService<Seeder>();
             seeder.Seed();
+        }
+
+        private static void RunCreateUploadFolder(IHost host)
+        {
+            var directoryCreator = host.Services.GetService<DirectoryCreator>();
+            directoryCreator.CreateFolderForFileUpload();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -235,7 +235,6 @@ namespace TransportWebAPI.Controllers.Reports
 
         private ProfitReportItem GetExternalReferenceProfitReportItem(string externalReference, DatumQueryItem datumQueryItem)
         {
-            SalesInvoiceHeader oldestHeader;
             IList<SalesInvoiceHeader> salesList = new List<SalesInvoiceHeader>(); 
             if (datumQueryItem.FromDate == null && datumQueryItem.ToDate == null)
             {

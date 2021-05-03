@@ -24,8 +24,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Http;
+using TransportWebAPI.Controllers.Upload;
 
 namespace TransportWebAPI
 {
@@ -109,7 +108,8 @@ namespace TransportWebAPI
 
             services.AddControllers(options => options.EnableEndpointRouting = false);
 
-            services.AddTransient<Seeder>();
+            services.AddSingleton<Seeder>();
+            services.AddSingleton<DirectoryCreator>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
