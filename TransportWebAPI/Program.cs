@@ -30,7 +30,7 @@ namespace TransportWebAPI
                       .UseIISIntegration();
                 }).Build().MigrateDatabase();
             RunSeeding(host);
-           // RunCreateUploadFolder(host);
+            RunCreateUploadFolder(host);
 
             host.Run();
         }
