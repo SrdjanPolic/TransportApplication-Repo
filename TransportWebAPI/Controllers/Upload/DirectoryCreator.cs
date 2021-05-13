@@ -10,10 +10,13 @@ namespace TransportWebAPI.Controllers.Upload
     public class DirectoryCreator
     {
         private readonly AppDbContext _ctx;
- 
-        public DirectoryCreator(AppDbContext ctx)
+        private EmailSendingClient _emailSendingClient;
+
+
+        public DirectoryCreator(AppDbContext ctx, EmailSendingClient emailSendingClient)
         {
             _ctx = ctx;
+            _emailSendingClient = emailSendingClient;
            
         }
         public void CreateFolderForFileUpload()
@@ -29,7 +32,7 @@ namespace TransportWebAPI.Controllers.Upload
             }
             catch
             {
-                
+                _emailSendingClient.SendLogEmail("Create Directory error");
             }
             
             //AddDirectorySecurity(pathToSave, userId, FileSystemRights.Write, AccessControlType.Allow);
