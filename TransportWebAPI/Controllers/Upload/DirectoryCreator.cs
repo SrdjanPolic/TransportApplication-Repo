@@ -1,5 +1,6 @@
 ﻿using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Infrastructure.Settings;
+using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -30,9 +31,9 @@ namespace TransportWebAPI.Controllers.Upload
                 var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
                 Directory.CreateDirectory(pathToSave);
             }
-            catch
+            catch(Exception ex)
             {
-                _emailSendingClient.SendLogEmail("Create Directory error");
+                _emailSendingClient.SendLogEmail(ex.Message);
             }
             
             //AddDirectorySecurity(pathToSave, userId, FileSystemRights.Write, AccessControlType.Allow);
