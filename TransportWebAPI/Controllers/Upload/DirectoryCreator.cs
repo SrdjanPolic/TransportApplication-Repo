@@ -29,6 +29,7 @@ namespace TransportWebAPI.Controllers.Upload
                 var uploadFolderName = ReadFolderNameFromSettingsDatatable();
                 var currentDirectory = Directory.GetCurrentDirectory();
                 var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
+                _emailSendingClient.SendLogEmail(pathToSave);
                 Directory.CreateDirectory(pathToSave);
             }
             catch(Exception ex)
