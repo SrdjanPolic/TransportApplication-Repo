@@ -1,34 +1,60 @@
 ﻿using DBLayerPOC.Infrastructure;
 using DBLayerPOC.Infrastructure.Settings;
-using Service.Data;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using System.Threading.Tasks;
+
 
 namespace TransportWebAPI.Controllers.Upload
 {
     public class DirectoryCreator
     {
         private readonly AppDbContext _ctx;
-
+ 
         public DirectoryCreator(AppDbContext ctx)
         {
             _ctx = ctx;
+           
         }
         public void CreateFolderForFileUpload()
         {
-            CreateSettingsDatabaseEntryForFolderNameIfNotExists();
-            var uploadFolderName = ReadFolderNameFromSettingsDatatable();
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
-            Directory.CreateDirectory(pathToSave);
+            //var userId = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            try
+            {
+                CreateSettingsDatabaseEntryForFolderNameIfNotExists();
+                var uploadFolderName = ReadFolderNameFromSettingsDatatable();
+                var currentDirectory = Directory.GetCurrentDirectory();
+                var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
+                Directory.CreateDirectory(pathToSave);
+            }
+            catch
+            {
+                
+            }
             
+            //AddDirectorySecurity(pathToSave, userId, FileSystemRights.Write, AccessControlType.Allow);
+            //AddDirectorySecurity(pathToSave, userId, FileSystemRights.Read, AccessControlType.Allow);
+            //AddDirectorySecurity(pathToSave, userId, FileSystemRights.Modify, AccessControlType.Allow);
+            //AddDirectorySecurity(pathToSave, userId, FileSystemRights.ExecuteFile, AccessControlType.Deny);
         }
 
+        private void AddDirectorySecurity(string FileName, string Account, FileSystemRights Rights, AccessControlType ControlType)
+        {
+            // Create a new DirectoryInfo object.
+            DirectoryInfo dInfo = new DirectoryInfo(FileName);
 
+            // Get a DirectorySecurity object that represents the
+            // current security settings.
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+
+            // Add the FileSystemAccessRule to the security settings.
+            dSecurity.AddAccessRule(new FileSystemAccessRule(Account,
+                                                            Rights,
+                                                            ControlType));
+
+            // Set the new access settings.
+            dInfo.SetAccessControl(dSecurity);
+        }
 
         private string ReadFolderNameFromSettingsDatatable()
         {
@@ -43,7 +69,7 @@ namespace TransportWebAPI.Controllers.Upload
 
         private void CreateSettingsDatabaseEntryForFolderNameIfNotExists()
         {
-            string uploadFolderName = "Documents";
+            string uploadFolderName = "Trtmrt";
             //First save Upload Folder Name in Settings table if not exist
             if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.FileUploadFolderName)))
             {
