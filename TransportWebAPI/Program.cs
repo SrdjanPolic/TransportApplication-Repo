@@ -30,7 +30,7 @@ namespace TransportWebAPI
                       .UseIISIntegration();
                 }).Build().MigrateDatabase();
             RunSeeding(host);
-            //RunCreateUploadFolder(host);
+            RunCreateUploadFolderPathAandStoreToDatabase(host);
 
             host.Run();
         }
@@ -41,10 +41,10 @@ namespace TransportWebAPI
             seeder.Seed();
         }
 
-        private static void RunCreateUploadFolder(IHost host)
+        private static void RunCreateUploadFolderPathAandStoreToDatabase(IHost host)
         {
-            var directoryCreator = host.Services.GetService<DirectoryCreator>();
-            directoryCreator.CreateFolderForFileUpload();
+            var directoryCreator = host.Services.GetService<UploadDirectoryService>();
+            directoryCreator.CreateSettingsDatabaseEntryForFolderPathIfNotExists();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

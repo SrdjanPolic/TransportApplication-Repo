@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net.Http.Headers;
+using TransportWebAPI.Controllers.Upload;
 
 namespace TransportWebAPI.Controllers
 {
@@ -13,13 +14,20 @@ namespace TransportWebAPI.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
+        private UploadDirectoryService _uploadDirectoryService;
+
+        public UploadController(UploadDirectoryService uploadDirectoryService)
+        {
+            _uploadDirectoryService = uploadDirectoryService;
+        }
+
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload()
-        {
+        { 
             try
             {
                 var file = Request.Form.Files[0];
-                var folderName = Path.Combine("Resources", "Docs");
+                var folderName = _uploadDirectoryService.ReadFolderPathFromSettingsDatatable();
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 if (file.Length > 0)

@@ -109,7 +109,7 @@ namespace TransportWebAPI
             services.AddControllers(options => options.EnableEndpointRouting = false);
 
             services.AddSingleton<Seeder>();
-            services.AddSingleton<DirectoryCreator>();
+            services.AddSingleton<UploadDirectoryService>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

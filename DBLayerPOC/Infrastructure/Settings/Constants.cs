@@ -10,6 +10,6 @@ namespace DBLayerPOC.Infrastructure.Settings
 
         public const string SalesInvoiceObjectName = "SalesInvoice";
 
-        public const string FileUploadFolderName = "FileUpload";
+        public const string FileUploadFolderPath = "FileUpload";
     }
 }
