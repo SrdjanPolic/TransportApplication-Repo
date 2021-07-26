@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net.Http.Headers;
 using TransportWebAPI.Controllers.Upload;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace TransportWebAPI.Controllers
 {
@@ -15,32 +16,35 @@ namespace TransportWebAPI.Controllers
     public class UploadController : ControllerBase
     {
         private UploadDirectoryService _uploadDirectoryService;
+        private IEmailSendingClient _emailSendingClient;
+        private string _pathToSave;
 
-        public UploadController(UploadDirectoryService uploadDirectoryService)
+        public UploadController(UploadDirectoryService uploadDirectoryService, EmailSendingClient emailSendingClient)
         {
             _uploadDirectoryService = uploadDirectoryService;
+            _pathToSave = _uploadDirectoryService.ReadFolderPathFromSettingsDatatable();
+            _emailSendingClient = emailSendingClient;
         }
 
+        //POST - Upload
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload()
-        { 
+        {
             try
             {
+                
                 var file = Request.Form.Files[0];
-                var folderName = _uploadDirectoryService.ReadFolderPathFromSettingsDatatable();
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 if (file.Length > 0)
                 {
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
+                    var fullPath = Path.Combine(_pathToSave, fileName);
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
-                    return Ok(new { dbPath });
+                    return Ok(new { fullPath });
 
                 }
                 else
@@ -50,9 +54,25 @@ namespace TransportWebAPI.Controllers
             }
             catch (Exception ex)
             {
+                _emailSendingClient.SendLogEmail(ex.Message);
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+
+        //GET - Download
+        [HttpGet]
+        public IActionResult Download()
+        {
+            var filePath = Path.Combine(_pathToSave, "ausmalbild-hase-mit-m-re-aiquruguay.pdf");
+            var bytes = System.IO.File.ReadAllBytes(filePath);
+            var provider = new FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(filePath, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+            return File(bytes, contentType, Path.GetFileName(filePath));
+        }
+
         //// GET: api/Upload
         //[HttpGet]
         //public IEnumerable<string> Get()
