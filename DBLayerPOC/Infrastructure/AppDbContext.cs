@@ -3,6 +3,7 @@ using DBLayerPOC.Infrastructure.Login;
 using DBLayerPOC.Infrastructure.PurchaseInvoice;
 using DBLayerPOC.Infrastructure.SalesInvoice;
 using DBLayerPOC.Infrastructure.Settings;
+using DBLayerPOC.Infrastructure.UploadDownload;
 using DBLayerPOC.Infrastructure.Vehicle;
 using DBLayerPOC.Infrastructure.Vendor;
 using DBLayerPOC.Models;
@@ -38,6 +39,8 @@ namespace DBLayerPOC.Infrastructure
 
         public virtual DbSet<LoginModel> Login { get; set; }
 
+        public virtual DbSet<UploadDownload.UploadDownload> UploadsDownloads { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -72,6 +75,9 @@ namespace DBLayerPOC.Infrastructure
 
             //Login
             modelBuilder.ApplyConfiguration(new LoginModelEntityTypeConfiguration());
+
+            //UploadDownload
+            modelBuilder.ApplyConfiguration(new UploadDownloadEntityTypeConfiguration());
         }
     }
 }
