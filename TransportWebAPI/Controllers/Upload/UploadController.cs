@@ -17,33 +17,32 @@ namespace TransportWebAPI.Controllers
     {
         private UploadDirectoryService _uploadDirectoryService;
         private IEmailSendingClient _emailSendingClient;
-        private string _pathToSave;
 
         public UploadController(UploadDirectoryService uploadDirectoryService, EmailSendingClient emailSendingClient)
         {
             _uploadDirectoryService = uploadDirectoryService;
-            _pathToSave = _uploadDirectoryService.ReadFolderPathFromSettingsDatatable();
+            
             _emailSendingClient = emailSendingClient;
         }
 
         //POST - Upload
-        [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload()
+        [HttpPost]
+        public IActionResult Upload(int? documentId, string fileName, string fileExtension, string discriminator, bool overwriteExiting)
         {
             try
-            {
-                
+            {    
                 var file = Request.Form.Files[0];
-
                 if (file.Length > 0)
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var fullPath = Path.Combine(_pathToSave, fileName);
-
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    if(!overwriteExiting)
                     {
-                        file.CopyTo(stream);
+                       var fileAlreadyUploaded = _uploadDirectoryService.ExistFileWithSameFileNameForTheDocument(discriminator, documentId, fileName);
+                        if(fileAlreadyUploaded)
+                        {
+                            return StatusCode(StatusCodes.Status302Found);
+                        }    
                     }
+                    var fullPath = _uploadDirectoryService.FileUpload(file);
                     return Ok(new { fullPath });
 
                 }
