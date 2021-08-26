@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DBLayerPOC.Infrastructure.UploadDownload
 {
-    public class UploadDownloadEntityTypeConfiguration : IEntityTypeConfiguration<UploadDownload>
+    public class UploadDownloadEntityTypeConfiguration : IEntityTypeConfiguration<FileMetadata>
     {
-        public void Configure(EntityTypeBuilder<UploadDownload> builder)
+        public void Configure(EntityTypeBuilder<FileMetadata> builder)
         {
             builder.ToTable("UploadDownload");
             builder.HasKey(x => x.Id);

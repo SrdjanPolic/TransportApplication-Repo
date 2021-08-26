@@ -8,6 +8,7 @@ using System.IO;
 using System.Net.Http.Headers;
 using TransportWebAPI.Controllers.Upload;
 using Microsoft.AspNetCore.StaticFiles;
+using DBLayerPOC.Infrastructure.UploadDownload;
 
 namespace TransportWebAPI.Controllers
 {
@@ -27,22 +28,29 @@ namespace TransportWebAPI.Controllers
 
         //POST - Upload
         [HttpPost]
-        public IActionResult Upload(int? documentId, string fileName, string fileExtension, string discriminator, bool overwriteExiting)
+        public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting)
         {
             try
-            {    
+            {
                 var file = Request.Form.Files[0];
                 if (file.Length > 0)
                 {
-                    if(!overwriteExiting)
+                    if (!overwriteExiting)
                     {
-                       var fileAlreadyUploaded = _uploadDirectoryService.ExistFileWithSameFileNameForTheDocument(discriminator, documentId, fileName);
-                        if(fileAlreadyUploaded)
+                        var fileAlreadyUploaded = _uploadDirectoryService.ExistFileWithSameFileNameForTheDocument(discriminator, documentId, fileName, fileExtension);
+                        if (fileAlreadyUploaded)
                         {
                             return StatusCode(StatusCodes.Status302Found);
-                        }    
+                        }
                     }
-                    var fullPath = _uploadDirectoryService.FileUpload(file);
+                    var fileMetadata = new FileMetadata
+                    {
+                        FileName = fileName,
+                        Discriminator = discriminator, 
+                        DocumentId = documentId,
+                        Extension = fileExtension
+                    };
+                    var fullPath = _uploadDirectoryService.FileUpload(file, fileMetadata);
                     return Ok(new { fullPath });
 
                 }
@@ -58,19 +66,19 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        //GET - Download
-        [HttpGet]
-        public IActionResult Download()
-        {
-            var filePath = Path.Combine(_pathToSave, "ausmalbild-hase-mit-m-re-aiquruguay.pdf");
-            var bytes = System.IO.File.ReadAllBytes(filePath);
-            var provider = new FileExtensionContentTypeProvider();
-            if (!provider.TryGetContentType(filePath, out var contentType))
-            {
-                contentType = "application/octet-stream";
-            }
-            return File(bytes, contentType, Path.GetFileName(filePath));
-        }
+        ////GET - Download
+        //[HttpGet]
+        //public IActionResult Download()
+        //{
+        //    var filePath = Path.Combine(_pathToSave, "ausmalbild-hase-mit-m-re-aiquruguay.pdf");
+        //    var bytes = System.IO.File.ReadAllBytes(filePath);
+        //    var provider = new FileExtensionContentTypeProvider();
+        //    if (!provider.TryGetContentType(filePath, out var contentType))
+        //    {
+        //        contentType = "application/octet-stream";
+        //    }
+        //    return File(bytes, contentType, Path.GetFileName(filePath));
+        //}
 
         //// GET: api/Upload
         //[HttpGet]

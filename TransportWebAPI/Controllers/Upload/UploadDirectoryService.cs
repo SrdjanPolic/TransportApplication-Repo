@@ -26,39 +26,69 @@ namespace TransportWebAPI.Controllers.Upload
             _emailSendingClient = emailSendingClient;           
         }
 
-        public string FileUpload(IFormFile file)
+        public string FileUpload(IFormFile file, FileMetadata fileMetadata)
         {
             string nameOfUploadedFile = string.Empty;
-            var pathToSave = ReadFolderPathFromSettingsDatatable();
-            if (file.Length > 0)
+            string fileName = string.Empty;
+            try
             {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                nameOfUploadedFile = Path.Combine(pathToSave, fileName);
-
-                using (var stream = new FileStream(nameOfUploadedFile, FileMode.Create))
+                var pathToSave = ReadFolderPathFromSettingsDatatable();
+                if (file.Length > 0)
                 {
-                    file.CopyTo(stream);
+                    fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var generatedFileName = GenerateRandomFileName(fileName);
+                    nameOfUploadedFile = Path.Combine(pathToSave, generatedFileName);
+
+                    using (var stream = new FileStream(nameOfUploadedFile, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    //Save database entry for file metadata
+                    fileMetadata.GeneratedFileName = generatedFileName;
+                    fileMetadata.FileName = fileName;
+                    InsertUploadedFileMetadataToDatabase(fileMetadata);
                 }
+            }
+            catch (Exception ex)
+            {
+                _emailSendingClient.SendLogEmail(ex.Message);
+                _emailSendingClient.SendLogEmail(string.Format("File upload of file {0} failed.", fileName));
+                DeleteUploadedFileMetadataFromDatabase(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
             }
 
             return nameOfUploadedFile;
         }
 
-        private void SaveFileUploadEntryToTheDatabase()
-        {
 
+        public bool ExistFileWithSameFileNameForTheDocument(string discriminator, int? documentId, string fileName, string extension)
+        {
+            return _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
+            && x.FileName.Equals(fileName) && x.Extension.Equals(extension)) != default(FileMetadata);
         }
 
-        public bool ExistFileWithSameFileNameForTheDocument(string discriminator, int? documentId, string fileName)
+        private void InsertUploadedFileMetadataToDatabase(FileMetadata fileMetadata)
         {
-            return _unitOfWork.GetRepository<UploadDownload>().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
-            && x.FileName.Equals(fileName)) != default(UploadDownload);
-        }
-
-        private void InsertUploadedFileMetadataToDatabase(UploadDownload fileMetadata)
-        {
-            _unitOfWork.GetRepository<UploadDownload>().Add(fileMetadata);
+            _unitOfWork.GetRepository<FileMetadata>().Add(fileMetadata);
             _unitOfWork.SaveChanges();
+        }
+
+        private bool DeleteUploadedFileMetadataFromDatabase(string discriminator, int? documentId, string fileName, string extension)
+        {
+            var fileMetadataToDelete = SelectFileMetadataFromDatabase(discriminator, documentId, fileName, extension);
+            if(fileMetadataToDelete != default(FileMetadata))
+            {
+                _unitOfWork.GetRepository<FileMetadata>().Delete();
+                return true;
+            }
+
+            return false;
+        }
+
+        private FileMetadata SelectFileMetadataFromDatabase(string discriminator, int? documentId, string fileName, string extension)
+        {
+            return _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
+            && x.FileName.Equals(fileName) && x.Extension.Equals(extension));
         }
 
         private string GenerateRandomFileName(string fileName)

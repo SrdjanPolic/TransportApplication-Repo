@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DBLayerPOC.Infrastructure.UploadDownload
 {
-    public class UploadDownload : Entity
+    public class FileMetadata : Entity
     {
         public string Discriminator { get; set; }
         public string Extension { get; set; }
