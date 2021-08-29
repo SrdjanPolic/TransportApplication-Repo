@@ -23,30 +23,32 @@ namespace TransportWebAPI.Controllers.Upload
         public UploadDirectoryService(AppDbContext ctx, EmailSendingClient emailSendingClient, IUnitOfWork<AppDbContext> unitOfWork)
         {
             _ctx = ctx;
-            _emailSendingClient = emailSendingClient;           
+            _emailSendingClient = emailSendingClient;
+            _unitOfWork = unitOfWork;
         }
 
         public string FileUpload(IFormFile file, FileMetadata fileMetadata)
         {
-            string nameOfUploadedFile = string.Empty;
+            string fileNameAndPath = string.Empty;
             string fileName = string.Empty;
+            var randomFileName = Path.GetRandomFileName();
             try
             {
                 var pathToSave = ReadFolderPathFromSettingsDatatable();
                 if (file.Length > 0)
                 {
                     fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var generatedFileName = GenerateRandomFileName(fileName);
-                    nameOfUploadedFile = Path.Combine(pathToSave, generatedFileName);
+                    fileNameAndPath = Path.Combine(pathToSave, randomFileName);
 
-                    using (var stream = new FileStream(nameOfUploadedFile, FileMode.Create))
+                    using (var stream = new FileStream(fileNameAndPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                     }
 
                     //Save database entry for file metadata
-                    fileMetadata.GeneratedFileName = generatedFileName;
+                    fileMetadata.GeneratedFileName = randomFileName;
                     fileMetadata.FileName = fileName;
+                    fileMetadata.FilePath = fileNameAndPath;
                     InsertUploadedFileMetadataToDatabase(fileMetadata);
                 }
             }
@@ -54,11 +56,25 @@ namespace TransportWebAPI.Controllers.Upload
             {
                 _emailSendingClient.SendLogEmail(ex.Message);
                 _emailSendingClient.SendLogEmail(string.Format("File upload of file {0} failed.", fileName));
+                DeleteUploadedFileFromTheHarddrive(randomFileName);
                 DeleteUploadedFileMetadataFromDatabase(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
             }
 
-            return nameOfUploadedFile;
+            return fileNameAndPath;
         }
+
+        public void DeleteUploadedFileFromTheHarddrive(string generatedRandomFilename)
+        {
+            var filePath = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.GeneratedFileName.Equals(generatedRandomFilename)).FilePath;
+            File.Delete(filePath);   
+        }
+
+        //public void DeleteUploadedFileFromTheHarddrive(string discriminator, string fileName, string extension, int? docuentId)
+        //{
+        //    var filePath = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.FileName.Equals(fileName)
+        //    && x.DocumentI ).FilePath;
+        //    File.Delete(filePath);
+        //}
 
 
         public bool ExistFileWithSameFileNameForTheDocument(string discriminator, int? documentId, string fileName, string extension)
@@ -89,11 +105,6 @@ namespace TransportWebAPI.Controllers.Upload
         {
             return _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
             && x.FileName.Equals(fileName) && x.Extension.Equals(extension));
-        }
-
-        private string GenerateRandomFileName(string fileName)
-        {
-            return new Guid(fileName).ToString();
         }
 
         public string ReadFolderPathFromSettingsDatatable()

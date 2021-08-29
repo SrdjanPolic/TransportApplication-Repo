@@ -27,8 +27,8 @@ namespace TransportWebAPI.Controllers
         }
 
         //POST - Upload
-        [HttpPost]
-        public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting)
+        [HttpPost, DisableRequestSizeLimit]
+        public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting, string fileName)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace TransportWebAPI.Controllers
                         Extension = fileExtension
                     };
                     var fullPath = _uploadDirectoryService.FileUpload(file, fileMetadata);
-                    return Ok(new { fullPath });
+                    return Ok(fullPath);
 
                 }
                 else

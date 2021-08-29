@@ -77,7 +77,7 @@ namespace DBLayerPOC.Infrastructure
             modelBuilder.ApplyConfiguration(new LoginModelEntityTypeConfiguration());
 
             //UploadDownload
-            modelBuilder.ApplyConfiguration(new UploadDownloadEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FileMetadataEntityTypeConfiguration());
         }
     }
 }
