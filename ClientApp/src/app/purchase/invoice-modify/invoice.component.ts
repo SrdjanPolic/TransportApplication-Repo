@@ -156,9 +156,9 @@ export class InvoiceComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
       this.service.saveOrUpdateInvoice().subscribe(res => {
-        // this.resetForm();
+        this.resetForm();
         this.toastr.success('Uspešno snimljeno.', 'Atomic Sped.');
-        // this.router.navigate(['/purchase/PurchInvoices']);
+        this.router.navigate(['/purchase/PurchInvoices']);
       },
       (error => {
         this.errorService.dialogConfig = { ...this.dialogConfig};
