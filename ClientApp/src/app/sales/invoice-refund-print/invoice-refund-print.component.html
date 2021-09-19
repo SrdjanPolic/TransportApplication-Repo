@@ -111,7 +111,7 @@
           </tr>
           <tr class="no-border" style="text-align:right">
             <td colspan="2"><strong>Troškovi bez PDV-a:</strong></td>
-            <td colspan="3">{{this.NetAmount | number:'1.2-2':'de-DE'}}</td>
+            <td colspan="3">{{this.service.SalesInvLines[1].unitPrice + this.service.SalesInvLines[2].unitPrice +this.service.SalesInvLines[3].unitPrice +this.service.SalesInvLines[4].unitPrice | number:'1.2-2':'de-DE'}}</td>
           </tr>
           <tr class="no-border" style="text-align:right">
             <td colspan="2"><strong>PDV:</strong></td>

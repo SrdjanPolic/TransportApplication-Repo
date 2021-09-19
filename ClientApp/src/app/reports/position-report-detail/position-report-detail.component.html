@@ -45,11 +45,6 @@
     <td mat-cell *matCellDef="let element"> {{element.invoiceDate.toString() |localTime}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="salesPerson">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prodavac </th>
-    <td mat-cell *matCellDef="let element"> {{element.salesPerson}} </td>
-  </ng-container>
-
   <!-- <ng-container matColumnDef="profit">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Dobit </th>
     <td mat-cell *matCellDef="let element"> {{element.profit |number: '1.2-2':'de-DE'}} </td>
