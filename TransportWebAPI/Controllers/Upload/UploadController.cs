@@ -61,24 +61,45 @@ namespace TransportWebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _emailSendingClient.SendLogEmail(ex.Message);
+                _emailSendingClient.SendLogEmail("Upload error" + " - " + ex.Message);
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
 
-        ////GET - Download
-        //[HttpGet]
-        //public IActionResult Download()
-        //{
-        //    var filePath = Path.Combine(_pathToSave, "ausmalbild-hase-mit-m-re-aiquruguay.pdf");
-        //    var bytes = System.IO.File.ReadAllBytes(filePath);
-        //    var provider = new FileExtensionContentTypeProvider();
-        //    if (!provider.TryGetContentType(filePath, out var contentType))
-        //    {
-        //        contentType = "application/octet-stream";
-        //    }
-        //    return File(bytes, contentType, Path.GetFileName(filePath));
-        //}
+        //GET - Download
+        [HttpGet, DisableRequestSizeLimit]
+        public IActionResult Download(int? documentId, string fileExtension, string discriminator, string fileName)
+        {
+            var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
+            var filePath = fileMetadata.FilePath;
+            var bytes = System.IO.File.ReadAllBytes(filePath);
+            var provider = new FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(filePath, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            return File(bytes, contentType, Path.GetFileName(fileMetadata.FileName));
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{documentId, fileExtension, discriminator, fileName}")]
+        public IActionResult Delete(int? documentId, string fileExtension, string discriminator, string fileName)
+        {
+            var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
+            var filePath = fileMetadata.FilePath;
+            try
+            {
+                _uploadDirectoryService.DeleteUploadedFileFromTheHardDrive(filePath);
+                _uploadDirectoryService.DeleteUploadedFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
+                return Ok(filePath);
+            }
+            catch(Exception ex)
+            {
+                _emailSendingClient.SendLogEmail("Delete error" + " - " + ex.Message);
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
 
         //// GET: api/Upload
         //[HttpGet]
@@ -103,12 +124,6 @@ namespace TransportWebAPI.Controllers
         //// PUT: api/Upload/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
         //{
         //}
     }
