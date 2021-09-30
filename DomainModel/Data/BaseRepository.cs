@@ -3,11 +3,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Repository.ModelBase;
 using Service.Data.Paging;
 
 namespace Service.Data
 {
-    public abstract class BaseRepository<T> : IReadRepository<T> where T : class
+    public abstract class BaseRepository<T> : IReadRepository<T> where T : Entity
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;

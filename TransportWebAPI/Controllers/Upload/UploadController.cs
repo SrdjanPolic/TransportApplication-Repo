@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net.Http.Headers;
 using TransportWebAPI.Controllers.Upload;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.StaticFiles;
 using DBLayerPOC.Infrastructure.UploadDownload;
 
@@ -27,34 +29,33 @@ namespace TransportWebAPI.Controllers
         }
 
         //POST - Upload
-        [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting, string fileName)
+        [HttpPost]
+       // public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting, string fileName)
+        public IActionResult Upload([FromForm] FileMetadata fileMetadataParam)
         {
             try
             {
+                
                 var file = Request.Form.Files[0];
+                var fileMetadataJson = Request.Form["metadata"][0];
+                var fileMetadata = JsonSerializer.Deserialize<FileMetadata>(fileMetadataJson);
                 if (file.Length > 0)
                 {
-                    if (!overwriteExiting)
+                    if (!fileMetadata.OverwriteExisting)
                     {
-                        var fileAlreadyUploaded = _uploadDirectoryService.ExistFileWithSameFileNameForTheDocument(discriminator, documentId, fileName, fileExtension);
+                        var fileAlreadyUploaded = _uploadDirectoryService
+                            .ExistFileWithSameFileNameForTheDocument(file, fileMetadata);
                         if (fileAlreadyUploaded)
                         {
                             return StatusCode(StatusCodes.Status302Found);
                         }
                     }
-                    var fileMetadata = new FileMetadata
-                    {
-                        FileName = fileName,
-                        Discriminator = discriminator, 
-                        DocumentId = documentId,
-                        Extension = fileExtension
-                    };
+
                     var fullPath = _uploadDirectoryService.FileUpload(file, fileMetadata);
                     return Ok(fullPath);
 
                 }
-                else
+                //else
                 {
                     return BadRequest();
                 }
@@ -83,14 +84,14 @@ namespace TransportWebAPI.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{documentId, fileExtension, discriminator, fileName}")]
+        [HttpDelete]
         public IActionResult Delete(int? documentId, string fileExtension, string discriminator, string fileName)
         {
             var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
             var filePath = fileMetadata.FilePath;
             try
             {
-                _uploadDirectoryService.DeleteUploadedFileFromTheHardDrive(filePath);
+                _uploadDirectoryService.DeleteUploadedFileFromTheHardDrive(fileMetadata.GeneratedFileName);
                 _uploadDirectoryService.DeleteUploadedFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
                 return Ok(filePath);
             }

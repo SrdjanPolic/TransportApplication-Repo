@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Repository.ModelBase;
 
 namespace Service.Data
 {
-    public class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
+    public class Repository<T> : BaseRepository<T>, IRepository<T> where T : Entity
     {
         public Repository(DbContext context) : base(context)
         {
@@ -32,7 +33,7 @@ namespace Service.Data
 
         public void Delete(T entity)
         {
-            var existing = _dbSet.Find(entity);
+            var existing = _dbSet.Find(entity.Id);
             if (existing != null) _dbSet.Remove(existing);
         }
 

@@ -1,9 +1,10 @@
+using Repository.ModelBase;
 using System;
 using System.Collections.Generic;
 
 namespace Service.Data
 {
-    public interface IRepository<T> : IReadRepository<T>, IDisposable where T : class
+    public interface IRepository<T> : IReadRepository<T>, IDisposable where T : Entity
     {
         void Add(T entity);
         void Add(params T[] entities);

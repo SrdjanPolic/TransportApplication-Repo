@@ -1,7 +1,6 @@
-﻿using DBLayerPOC.ModelBase;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+
+using Repository.ModelBase;
 
 namespace DBLayerPOC.Infrastructure.PurchaseInvoice
 {

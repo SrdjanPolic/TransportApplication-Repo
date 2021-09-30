@@ -2,11 +2,12 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
+using Repository.ModelBase;
 using Service.Data.Paging;
 
 namespace Service.Data
 {
-    public interface IReadRepository<T> where T : class
+    public interface IReadRepository<T> where T : Entity
     {
         
         IQueryable<T> Query(string sql, params object[] parameters);

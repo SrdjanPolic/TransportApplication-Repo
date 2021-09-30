@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DBLayerPOC.Migrations
 {
-    public partial class FilePath : Migration
+    public partial class FileMetadata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,168 +12,180 @@ namespace DBLayerPOC.Migrations
                 schema: "TransportDbNew",
                 table: "Vendor",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 560, DateTimeKind.Local).AddTicks(9846),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 932, DateTimeKind.Local).AddTicks(6286),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 719, DateTimeKind.Local).AddTicks(6126));
-
-            migrationBuilder.AddColumn<string>(
-                name: "FilePath",
-                schema: "TransportDbNew",
-                table: "UploadDownload",
-                maxLength: 50,
-                nullable: false,
-                defaultValue: "");
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 488, DateTimeKind.Local).AddTicks(7948));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UnloadDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: true,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(4910),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(9978),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(4150));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(7521));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PostingDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 587, DateTimeKind.Local).AddTicks(3202),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(5326),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 766, DateTimeKind.Local).AddTicks(1321));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 515, DateTimeKind.Local).AddTicks(6863));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PaymentDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 588, DateTimeKind.Local).AddTicks(151),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 962, DateTimeKind.Local).AddTicks(7689),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 767, DateTimeKind.Local).AddTicks(2242));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 516, DateTimeKind.Local).AddTicks(3057));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "OrderDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 587, DateTimeKind.Local).AddTicks(4603),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(7734),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 766, DateTimeKind.Local).AddTicks(3516));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 515, DateTimeKind.Local).AddTicks(8034));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LoadDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: true,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(3300),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(7714),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(1727));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(5997));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DueDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 587, DateTimeKind.Local).AddTicks(4074),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(6888),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 766, DateTimeKind.Local).AddTicks(2752));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 515, DateTimeKind.Local).AddTicks(7633));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "ClienReceiptDocDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(7143),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2883),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(6729));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(9510));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CheckIssueDate",
                 schema: "TransportDbNew",
                 table: "SalesInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(6674),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2417),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(6273));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(9142));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PostingDate",
                 schema: "TransportDbNew",
                 table: "PurchaseInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 570, DateTimeKind.Local).AddTicks(2210),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 942, DateTimeKind.Local).AddTicks(9408),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 734, DateTimeKind.Local).AddTicks(6628));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 497, DateTimeKind.Local).AddTicks(8210));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PaymentDate",
                 schema: "TransportDbNew",
                 table: "PurchaseInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 570, DateTimeKind.Local).AddTicks(8429),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(5021),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 735, DateTimeKind.Local).AddTicks(7425));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 498, DateTimeKind.Local).AddTicks(7266));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DueDate",
                 schema: "TransportDbNew",
                 table: "PurchaseInvoiceHeader",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 570, DateTimeKind.Local).AddTicks(3091),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(105),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 734, DateTimeKind.Local).AddTicks(8026));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 497, DateTimeKind.Local).AddTicks(8948));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PersonalIdExpDate",
                 schema: "TransportDbNew",
                 table: "Driver",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 601, DateTimeKind.Local).AddTicks(3973),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(9661),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 790, DateTimeKind.Local).AddTicks(6121));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 530, DateTimeKind.Local).AddTicks(931));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PassExpDate",
                 schema: "TransportDbNew",
                 table: "Driver",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 601, DateTimeKind.Local).AddTicks(4597),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 983, DateTimeKind.Local).AddTicks(991),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 790, DateTimeKind.Local).AddTicks(7237));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 530, DateTimeKind.Local).AddTicks(1540));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DriversLicenceExpDate",
                 schema: "TransportDbNew",
                 table: "Driver",
                 nullable: false,
-                defaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 601, DateTimeKind.Local).AddTicks(2856),
+                defaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(7842),
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 790, DateTimeKind.Local).AddTicks(4141));
+                oldDefaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 530, DateTimeKind.Local).AddTicks(7));
+
+            migrationBuilder.CreateTable(
+                name: "UploadDownload",
+                schema: "TransportDbNew",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LastChangeDateTime = table.Column<DateTime>(nullable: true),
+                    LastChangeUserId = table.Column<int>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Extension = table.Column<string>(nullable: false),
+                    Filename = table.Column<string>(nullable: false),
+                    FilePath = table.Column<string>(nullable: false),
+                    GeneratedFileName = table.Column<string>(nullable: false),
+                    DocumentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadDownload", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "FilePath",
-                schema: "TransportDbNew",
-                table: "UploadDownload");
+            migrationBuilder.DropTable(
+                name: "UploadDownload",
+                schema: "TransportDbNew");
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LastChangeDate",
@@ -181,9 +193,9 @@ namespace DBLayerPOC.Migrations
                 table: "Vendor",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 719, DateTimeKind.Local).AddTicks(6126),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 488, DateTimeKind.Local).AddTicks(7948),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 560, DateTimeKind.Local).AddTicks(9846));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 932, DateTimeKind.Local).AddTicks(6286));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UnloadDate",
@@ -191,10 +203,10 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: true,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(4150),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(7521),
                 oldClrType: typeof(DateTime),
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(4910));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(9978));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PostingDate",
@@ -202,9 +214,9 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 766, DateTimeKind.Local).AddTicks(1321),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 515, DateTimeKind.Local).AddTicks(6863),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 587, DateTimeKind.Local).AddTicks(3202));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(5326));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PaymentDate",
@@ -212,9 +224,9 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 767, DateTimeKind.Local).AddTicks(2242),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 516, DateTimeKind.Local).AddTicks(3057),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 588, DateTimeKind.Local).AddTicks(151));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 962, DateTimeKind.Local).AddTicks(7689));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "OrderDate",
@@ -222,9 +234,9 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 766, DateTimeKind.Local).AddTicks(3516),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 515, DateTimeKind.Local).AddTicks(8034),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 587, DateTimeKind.Local).AddTicks(4603));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(7734));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LoadDate",
@@ -232,10 +244,10 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: true,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(1727),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(5997),
                 oldClrType: typeof(DateTime),
                 oldNullable: true,
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(3300));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(7714));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DueDate",
@@ -243,9 +255,9 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 766, DateTimeKind.Local).AddTicks(2752),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 515, DateTimeKind.Local).AddTicks(7633),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 587, DateTimeKind.Local).AddTicks(4074));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(6888));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "ClienReceiptDocDate",
@@ -253,9 +265,9 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(6729),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(9510),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(7143));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2883));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CheckIssueDate",
@@ -263,9 +275,9 @@ namespace DBLayerPOC.Migrations
                 table: "SalesInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 769, DateTimeKind.Local).AddTicks(6273),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 517, DateTimeKind.Local).AddTicks(9142),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 589, DateTimeKind.Local).AddTicks(6674));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2417));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PostingDate",
@@ -273,9 +285,9 @@ namespace DBLayerPOC.Migrations
                 table: "PurchaseInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 734, DateTimeKind.Local).AddTicks(6628),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 497, DateTimeKind.Local).AddTicks(8210),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 570, DateTimeKind.Local).AddTicks(2210));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 942, DateTimeKind.Local).AddTicks(9408));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PaymentDate",
@@ -283,9 +295,9 @@ namespace DBLayerPOC.Migrations
                 table: "PurchaseInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 735, DateTimeKind.Local).AddTicks(7425),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 498, DateTimeKind.Local).AddTicks(7266),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 570, DateTimeKind.Local).AddTicks(8429));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(5021));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DueDate",
@@ -293,9 +305,9 @@ namespace DBLayerPOC.Migrations
                 table: "PurchaseInvoiceHeader",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 734, DateTimeKind.Local).AddTicks(8026),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 497, DateTimeKind.Local).AddTicks(8948),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 570, DateTimeKind.Local).AddTicks(3091));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(105));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PersonalIdExpDate",
@@ -303,9 +315,9 @@ namespace DBLayerPOC.Migrations
                 table: "Driver",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 790, DateTimeKind.Local).AddTicks(6121),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 530, DateTimeKind.Local).AddTicks(931),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 601, DateTimeKind.Local).AddTicks(3973));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(9661));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "PassExpDate",
@@ -313,9 +325,9 @@ namespace DBLayerPOC.Migrations
                 table: "Driver",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 790, DateTimeKind.Local).AddTicks(7237),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 530, DateTimeKind.Local).AddTicks(1540),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 601, DateTimeKind.Local).AddTicks(4597));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 983, DateTimeKind.Local).AddTicks(991));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DriversLicenceExpDate",
@@ -323,9 +335,9 @@ namespace DBLayerPOC.Migrations
                 table: "Driver",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 26, 22, 57, 21, 790, DateTimeKind.Local).AddTicks(4141),
+                defaultValue: new DateTime(2021, 9, 30, 21, 58, 23, 530, DateTimeKind.Local).AddTicks(7),
                 oldClrType: typeof(DateTime),
-                oldDefaultValue: new DateTime(2021, 8, 29, 21, 51, 56, 601, DateTimeKind.Local).AddTicks(2856));
+                oldDefaultValue: new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(7842));
         }
     }
 }

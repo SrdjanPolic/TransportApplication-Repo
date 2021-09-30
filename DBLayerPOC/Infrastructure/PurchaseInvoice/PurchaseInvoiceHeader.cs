@@ -1,5 +1,6 @@
-﻿using DBLayerPOC.ModelBase;
+﻿
 using DBLayerPOC.Models;
+using Repository.ModelBase;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

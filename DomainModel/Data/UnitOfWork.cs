@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Repository.ModelBase;
 
 namespace Service.Data
 {
@@ -14,7 +15,7 @@ namespace Service.Data
             Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : Entity
         {
             if (_repositories == null) _repositories = new Dictionary<Type, object>();
 
@@ -32,7 +33,7 @@ namespace Service.Data
         //    return (IRepositoryAsync<TEntity>) _repositories[type];
         //}
 
-        public IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class
+        public IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : Entity
         {
             if (_repositories == null) _repositories = new Dictionary<Type, object>();
 

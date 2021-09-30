@@ -1,4 +1,5 @@
-﻿using DBLayerPOC.ModelBase;
+﻿
+using Repository.ModelBase;
 using System;
 using System.Collections.Generic;
 using System.Text;

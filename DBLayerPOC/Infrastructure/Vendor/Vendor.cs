@@ -1,6 +1,5 @@
 ﻿using DBLayerPOC.Infrastructure.PurchaseInvoice;
-using DBLayerPOC.ModelBase;
-using DBLayerPOC.Models;
+using Repository.ModelBase;
 using System;
 using System.Collections.Generic;
 

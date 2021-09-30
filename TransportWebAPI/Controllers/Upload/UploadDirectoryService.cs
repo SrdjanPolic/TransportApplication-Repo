@@ -31,6 +31,7 @@ namespace TransportWebAPI.Controllers.Upload
         {
             string fileNameAndPath = string.Empty;
             string fileName = string.Empty;
+            string fileExtension = string.Empty;
             var randomFileName = Path.GetRandomFileName();
             try
             {
@@ -38,7 +39,8 @@ namespace TransportWebAPI.Controllers.Upload
                 if (file.Length > 0)
                 {
                     fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    fileNameAndPath = Path.Combine(pathToSave, randomFileName, fileMetadata.Extension);
+                    fileExtension = Path.GetExtension(fileName);
+                    fileNameAndPath = Path.Combine(pathToSave, randomFileName + fileExtension);
 
                     using (var stream = new FileStream(fileNameAndPath, FileMode.Create))
                     {
@@ -49,6 +51,7 @@ namespace TransportWebAPI.Controllers.Upload
                     fileMetadata.GeneratedFileName = randomFileName;
                     fileMetadata.FileName = fileName;
                     fileMetadata.FilePath = fileNameAndPath;
+                    fileMetadata.Extension = fileExtension;
                     InsertUploadedFileMetadataToDatabase(fileMetadata);
                 }
             }
@@ -57,7 +60,7 @@ namespace TransportWebAPI.Controllers.Upload
                 _emailSendingClient.SendLogEmail(ex.Message);
                 _emailSendingClient.SendLogEmail(string.Format("File upload of file {0} failed.", fileName));
                 DeleteUploadedFileFromTheHardDrive(randomFileName);
-                DeleteUploadedFileMetadataFromDatabase(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
+                DeleteUploadedFileMetadataFromDatabase(fileMetadata.Discriminator, fileMetadata.DocumentId, fileName, fileExtension);
             }
 
             return fileNameAndPath;
@@ -77,10 +80,17 @@ namespace TransportWebAPI.Controllers.Upload
         //}
 
 
-        public bool ExistFileWithSameFileNameForTheDocument(string discriminator, int? documentId, string fileName, string extension)
+        public bool ExistFileWithSameFileNameForTheDocument(IFormFile file, FileMetadata fileMetadata)
         {
-            return _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
-            && x.FileName.Equals(fileName) && x.Extension.Equals(extension)) != default(FileMetadata);
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fileExtension = Path.GetExtension(fileName);
+                return _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
+            && x.FileName.Equals(fileName) && x.Extension.Equals(fileExtension)) != default(FileMetadata);
+            }
+
+            return false;
         }
 
         private void InsertUploadedFileMetadataToDatabase(FileMetadata fileMetadata)
@@ -94,7 +104,8 @@ namespace TransportWebAPI.Controllers.Upload
             var fileMetadataToDelete = SelectFileMetadataFromDatabase(discriminator, documentId, fileName, extension);
             if(fileMetadataToDelete != default(FileMetadata))
             {
-                _unitOfWork.GetRepository<FileMetadata>().Delete();
+                _unitOfWork.GetRepository<FileMetadata>().Delete(fileMetadataToDelete);
+                _unitOfWork.SaveChanges();
                 return true;
             }
 

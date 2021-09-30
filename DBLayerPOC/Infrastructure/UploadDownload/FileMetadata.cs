@@ -1,6 +1,8 @@
-﻿using DBLayerPOC.ModelBase;
+﻿
+using Repository.ModelBase;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DBLayerPOC.Infrastructure.UploadDownload
@@ -13,5 +15,8 @@ namespace DBLayerPOC.Infrastructure.UploadDownload
         public string FilePath { get; set; }
         public string GeneratedFileName { get; set; }
         public int? DocumentId { get; set; }
+        
+        [NotMapped]
+        public bool OverwriteExisting { get; set; }
     }
 }

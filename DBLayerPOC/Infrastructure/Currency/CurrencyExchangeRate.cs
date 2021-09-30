@@ -1,5 +1,5 @@
-﻿using DBLayerPOC.Infrastructure.Vendor;
-using DBLayerPOC.ModelBase;
+﻿
+using Repository.ModelBase;
 using System;
 using System.Collections.Generic;
 
