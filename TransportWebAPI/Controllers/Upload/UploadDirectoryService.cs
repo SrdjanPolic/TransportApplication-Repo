@@ -59,26 +59,37 @@ namespace TransportWebAPI.Controllers.Upload
             {
                 _emailSendingClient.SendLogEmail(ex.Message);
                 _emailSendingClient.SendLogEmail(string.Format("File upload of file {0} failed.", fileName));
-                DeleteUploadedFileFromTheHardDrive(randomFileName);
-                DeleteUploadedFileMetadataFromDatabase(fileMetadata.Discriminator, fileMetadata.DocumentId, fileName, fileExtension);
+                DeleteUploadedFileFromDatabaseAndHardDrive(fileMetadata.Discriminator, fileMetadata.DocumentId, fileName, fileExtension);
             }
 
             return fileNameAndPath;
         }
 
-        public void DeleteUploadedFileFromTheHardDrive(string generatedRandomFilename)
+        public void DeleteUploadedFileFromDatabaseAndHardDrive(string discriminator, int? documentId, string fileName, string extension)
         {
-            var filePath = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.GeneratedFileName.Equals(generatedRandomFilename)).FilePath;
-            File.Delete(filePath);   
+            string filePath;
+            if (DeleteUploadedFileMetadataFromDatabase(discriminator, documentId, fileName, extension, out filePath))
+            {
+                File.Delete(filePath);
+            }
         }
 
-        //public void DeleteUploadedFileFromTheHarddrive(string discriminator, string fileName, string extension, int? docuentId)
-        //{
-        //    var filePath = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.FileName.Equals(fileName)
-        //    && x.DocumentI ).FilePath;
-        //    File.Delete(filePath);
-        //}
+        private bool DeleteUploadedFileMetadataFromDatabase(string discriminator, int? documentId, string fileName, string extension, out string filePath)
+        {
+            var fileMetadataToDelete = SelectFileMetadataFromDatabase(discriminator, documentId, fileName, extension);
+            
+            if (fileMetadataToDelete != default(FileMetadata))
+            {
+                filePath = fileMetadataToDelete.FilePath;
+                _unitOfWork.GetRepository<FileMetadata>().Delete(fileMetadataToDelete);
+                _unitOfWork.SaveChanges();
+                fileMetadataToDelete = SelectFileMetadataFromDatabase(discriminator, documentId, fileName, extension);
+                return fileMetadataToDelete == default(FileMetadata);
+            }
 
+            filePath = string.Empty;
+            return false;
+        }
 
         public bool ExistFileWithSameFileNameForTheDocument(IFormFile file, FileMetadata fileMetadata)
         {
@@ -99,18 +110,7 @@ namespace TransportWebAPI.Controllers.Upload
             _unitOfWork.SaveChanges();
         }
 
-        public bool DeleteUploadedFileMetadataFromDatabase(string discriminator, int? documentId, string fileName, string extension)
-        {
-            var fileMetadataToDelete = SelectFileMetadataFromDatabase(discriminator, documentId, fileName, extension);
-            if(fileMetadataToDelete != default(FileMetadata))
-            {
-                _unitOfWork.GetRepository<FileMetadata>().Delete(fileMetadataToDelete);
-                _unitOfWork.SaveChanges();
-                return true;
-            }
-
-            return false;
-        }
+       
 
         public List<FileMetadata> ReturnListOfMetadataForDocument(string discriminator, int? documentId)
         {

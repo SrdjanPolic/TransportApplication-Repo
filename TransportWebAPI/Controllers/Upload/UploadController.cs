@@ -71,29 +71,34 @@ namespace TransportWebAPI.Controllers
         [HttpGet, DisableRequestSizeLimit]
         public IActionResult Download(int? documentId, string fileExtension, string discriminator, string fileName)
         {
-            var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
-            var filePath = fileMetadata.FilePath;
-            var bytes = System.IO.File.ReadAllBytes(filePath);
-            var provider = new FileExtensionContentTypeProvider();
-            if (!provider.TryGetContentType(filePath, out var contentType))
+            try
             {
-                contentType = "application/octet-stream";
-            }
+                var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
+                var filePath = fileMetadata.FilePath;
+                var bytes = System.IO.File.ReadAllBytes(filePath);
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(filePath, out var contentType))
+                {
+                    contentType = "application/octet-stream";
+                }
 
-            return File(bytes, contentType, Path.GetFileName(fileMetadata.FileName));
+                return File(bytes, contentType, Path.GetFileName(fileMetadata.FileName));
+            }
+            catch(Exception ex)
+            {
+                _emailSendingClient.SendLogEmail("Upload error" + " - " + ex.Message);
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete]
         public IActionResult Delete(int? documentId, string fileExtension, string discriminator, string fileName)
         {
-            var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
-            var filePath = fileMetadata.FilePath;
             try
             {
-                _uploadDirectoryService.DeleteUploadedFileFromTheHardDrive(fileMetadata.GeneratedFileName);
-                _uploadDirectoryService.DeleteUploadedFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
-                return Ok(filePath);
+                _uploadDirectoryService.DeleteUploadedFileFromDatabaseAndHardDrive(discriminator, documentId, fileName, fileExtension);
+                return Ok(fileName);
             }
             catch(Exception ex)
             {
