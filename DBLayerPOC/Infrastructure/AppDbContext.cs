@@ -39,7 +39,7 @@ namespace DBLayerPOC.Infrastructure
 
         public virtual DbSet<LoginModel> Login { get; set; }
 
-        public virtual DbSet<UploadDownload.FileMetadata> UploadsDownloads { get; set; }
+        public virtual DbSet<FileMetadata> UploadsDownloads { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

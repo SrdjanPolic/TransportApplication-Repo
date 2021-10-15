@@ -3,6 +3,7 @@ using DBLayerPOC.Infrastructure.Settings;
 using DBLayerPOC.Infrastructure.UploadDownload;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Service.Data;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace TransportWebAPI.Controllers.Upload
             _ctx = ctx;
             _emailSendingClient = emailSendingClient;
             _unitOfWork = unitOfWork;
+            _unitOfWork.Context.ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public string FileUpload(IFormFile file, FileMetadata fileMetadata)
@@ -38,10 +40,10 @@ namespace TransportWebAPI.Controllers.Upload
                 var pathToSave = ReadFolderPathFromSettingsDatatable();
                 if (file.Length > 0)
                 {
+                    
                     fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     fileExtension = Path.GetExtension(fileName);
                     fileNameAndPath = Path.Combine(pathToSave, randomFileName + fileExtension);
-
                     using (var stream = new FileStream(fileNameAndPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
@@ -52,7 +54,16 @@ namespace TransportWebAPI.Controllers.Upload
                     fileMetadata.FileName = fileName;
                     fileMetadata.FilePath = fileNameAndPath;
                     fileMetadata.Extension = fileExtension;
-                    InsertUploadedFileMetadataToDatabase(fileMetadata);
+
+                    if (ExistFileWithSameFileNameForTheDocument(file, fileMetadata))
+                    {
+                        UpdateGeneratedFilenameInDatabaseAndRemoveOldFileFromHarddrive(fileMetadata.Discriminator, 
+                            fileMetadata.DocumentId, fileName, fileExtension, randomFileName, fileNameAndPath);
+                    }
+                    else
+                    {
+                        InsertUploadedFileMetadataToDatabase(fileMetadata);
+                    }
                 }
             }
             catch (Exception ex)
@@ -63,6 +74,20 @@ namespace TransportWebAPI.Controllers.Upload
             }
 
             return fileNameAndPath;
+        }
+
+        private void UpdateGeneratedFilenameInDatabaseAndRemoveOldFileFromHarddrive(string discriminator, int? documentId, string fileName, string extension, string generatedFilename, string filePathToSave)
+        {
+            var fileMetadataInDatabase = _unitOfWork.Context.UploadsDownloads.AsNoTracking().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
+            && x.FileName.Equals(fileName) && x.Extension.Equals(extension));
+            if(fileMetadataInDatabase != default(FileMetadata))
+            { 
+                File.Delete(fileMetadataInDatabase.FilePath);
+                fileMetadataInDatabase.GeneratedFileName = generatedFilename;
+                fileMetadataInDatabase.FilePath = filePathToSave;
+                _unitOfWork.GetRepository<FileMetadata>().Update(fileMetadataInDatabase);
+                _unitOfWork.SaveChanges();
+            }
         }
 
         public void DeleteUploadedFileFromDatabaseAndHardDrive(string discriminator, int? documentId, string fileName, string extension)
@@ -97,8 +122,14 @@ namespace TransportWebAPI.Controllers.Upload
             {
                 var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                 var fileExtension = Path.GetExtension(fileName);
-                return _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
-            && x.FileName.Equals(fileName) && x.Extension.Equals(fileExtension)) != default(FileMetadata);
+                if(_unitOfWork.Context.UploadsDownloads.Any())
+                {
+                    var fileMetadataFromDb = _unitOfWork.Context.UploadsDownloads.AsNoTracking().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
+                        && x.FileName.Equals(fileName) && x.Extension.Equals(fileExtension));
+                    return fileMetadataFromDb != default(FileMetadata); ;
+
+                }
+                //
             }
 
             return false;
