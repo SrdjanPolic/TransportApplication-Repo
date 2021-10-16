@@ -11,6 +11,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.StaticFiles;
 using DBLayerPOC.Infrastructure.UploadDownload;
+using Service.Data;
+using DBLayerPOC.Infrastructure;
 
 namespace TransportWebAPI.Controllers
 {
@@ -21,9 +23,9 @@ namespace TransportWebAPI.Controllers
         private UploadDirectoryService _uploadDirectoryService;
         private IEmailSendingClient _emailSendingClient;
 
-        public UploadController(UploadDirectoryService uploadDirectoryService, EmailSendingClient emailSendingClient)
+        public UploadController(EmailSendingClient emailSendingClient, IUnitOfWork<AppDbContext> unitOfWork)
         {
-            _uploadDirectoryService = uploadDirectoryService;
+            _uploadDirectoryService = new UploadDirectoryService(emailSendingClient, unitOfWork);
             
             _emailSendingClient = emailSendingClient;
         }

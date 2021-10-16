@@ -17,13 +17,11 @@ namespace TransportWebAPI.Controllers.Upload
 {
     public class UploadDirectoryService
     {
-        private readonly AppDbContext _ctx;
         private EmailSendingClient _emailSendingClient;
         private IUnitOfWork<AppDbContext> _unitOfWork;
 
-        public UploadDirectoryService(AppDbContext ctx, EmailSendingClient emailSendingClient, IUnitOfWork<AppDbContext> unitOfWork)
+        public UploadDirectoryService(EmailSendingClient emailSendingClient, IUnitOfWork<AppDbContext> unitOfWork)
         {
-            _ctx = ctx;
             _emailSendingClient = emailSendingClient;
             _unitOfWork = unitOfWork;
             _unitOfWork.Context.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -78,9 +76,9 @@ namespace TransportWebAPI.Controllers.Upload
 
         private void UpdateGeneratedFilenameInDatabaseAndRemoveOldFileFromHarddrive(string discriminator, int? documentId, string fileName, string extension, string generatedFilename, string filePathToSave)
         {
-            var fileMetadataInDatabase = _unitOfWork.Context.UploadsDownloads.AsNoTracking().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
+            var fileMetadataInDatabase = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(discriminator) && x.DocumentId == documentId
             && x.FileName.Equals(fileName) && x.Extension.Equals(extension));
-            if(fileMetadataInDatabase != default(FileMetadata))
+            if (fileMetadataInDatabase != default(FileMetadata))
             { 
                 File.Delete(fileMetadataInDatabase.FilePath);
                 fileMetadataInDatabase.GeneratedFileName = generatedFilename;
@@ -124,7 +122,7 @@ namespace TransportWebAPI.Controllers.Upload
                 var fileExtension = Path.GetExtension(fileName);
                 if(_unitOfWork.Context.UploadsDownloads.Any())
                 {
-                    var fileMetadataFromDb = _unitOfWork.Context.UploadsDownloads.AsNoTracking().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
+                    var fileMetadataFromDb = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
                         && x.FileName.Equals(fileName) && x.Extension.Equals(fileExtension));
                     return fileMetadataFromDb != default(FileMetadata); ;
 
@@ -158,9 +156,9 @@ namespace TransportWebAPI.Controllers.Upload
         public string ReadFolderPathFromSettingsDatatable()
         {
             string folderName = string.Empty;
-            if (_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)))
+            if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)) != null)
             {
-                folderName = _ctx.SettingsTable.Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)).Prefix;
+                folderName = _unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)).Prefix;
             }
 
             return folderName;
@@ -171,7 +169,7 @@ namespace TransportWebAPI.Controllers.Upload
             try
             {
                 //First save Upload Folder Path in Settings table if not exist
-                if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)))
+                if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)) != null)
                 {
                     string uploadFolderName = "Upload";
                     var currentDirectory = Directory.GetCurrentDirectory();
@@ -182,9 +180,9 @@ namespace TransportWebAPI.Controllers.Upload
                         Prefix = pathToSave
                     };
 
-                    _ctx.SettingsTable.Add(settings);
+                    _unitOfWork.GetRepository<Settings>().Add(settings);
 
-                    _ctx.SaveChanges();
+                    _unitOfWork.SaveChanges();
                 }
             }
             catch (Exception ex)
