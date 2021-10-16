@@ -109,12 +109,22 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        //// GET: api/Upload
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // GET: api/Upload
+        [Route("[action]")]
+        [HttpGet]
+        public IActionResult GetUploadedFiles([FromBody] FileMetadata fileMetadata)
+        {
+            try
+            {
+                var metadataList = _uploadDirectoryService.ReturnListOfMetadataForDocument(fileMetadata.Discriminator, fileMetadata.DocumentId);
+                return Ok(metadataList);
+            }
+            catch (Exception ex)
+            {
+                _emailSendingClient.SendLogEmail("GetUploadedFiles error" + " - " + ex.Message);
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
 
         //// GET: api/Upload/5
         //[HttpGet("{id}", Name = "Get")]
