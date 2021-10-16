@@ -94,12 +94,13 @@ namespace TransportWebAPI.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete]
-        public IActionResult Delete(int? documentId, string fileExtension, string discriminator, string fileName)
+        //public IActionResult Delete(int? documentId, string fileExtension, string discriminator, string fileName)
+        public IActionResult Delete([FromBody]FileMetadata fileMetadata)
         {
             try
             {
-                _uploadDirectoryService.DeleteUploadedFileFromDatabaseAndHardDrive(discriminator, documentId, fileName, fileExtension);
-                return Ok(fileName);
+                _uploadDirectoryService.DeleteUploadedFileFromDatabaseAndHardDrive(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
+                return Ok(fileMetadata.FileName);
             }
             catch(Exception ex)
             {
