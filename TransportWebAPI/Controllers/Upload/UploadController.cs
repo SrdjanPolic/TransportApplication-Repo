@@ -125,24 +125,5 @@ namespace TransportWebAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
-
-        //// GET: api/Upload/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST: api/Upload
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT: api/Upload/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
     }
 }
