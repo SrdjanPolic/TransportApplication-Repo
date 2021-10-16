@@ -33,11 +33,10 @@ namespace TransportWebAPI.Controllers
         //POST - Upload
         [HttpPost]
        // public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting, string fileName)
-        public IActionResult Upload([FromForm] FileMetadata fileMetadataParam)
+        public IActionResult Upload()
         {
             try
             {
-                
                 var file = Request.Form.Files[0];
                 var fileMetadataJson = Request.Form["metadata"][0];
                 var fileMetadata = JsonSerializer.Deserialize<FileMetadata>(fileMetadataJson);
