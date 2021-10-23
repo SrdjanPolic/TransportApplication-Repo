@@ -51,7 +51,7 @@ namespace TransportWebAPI
                     Configuration.GetSection("Authentication:Google");
 
                 options.ClientId = "atomicspedlog@gmail.com";
-                options.ClientSecret = "atomic1234";
+                options.ClientSecret = "AtomicNovi2021";
             }).AddJwtBearer(options =>
                             {
                                 options.TokenValidationParameters = new TokenValidationParameters
