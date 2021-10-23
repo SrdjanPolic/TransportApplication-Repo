@@ -169,7 +169,7 @@ namespace TransportWebAPI.Controllers.Upload
             try
             {
                 //First save Upload Folder Path in Settings table if not exist
-                if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)) != null)
+                if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)) == default(Settings))
                 {
                     string uploadFolderName = "Upload";
                     var currentDirectory = Directory.GetCurrentDirectory();
