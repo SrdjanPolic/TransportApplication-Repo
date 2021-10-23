@@ -40,6 +40,11 @@ namespace TransportWebAPI.Controllers
                 var file = Request.Form.Files[0];
                 var fileMetadataJson = Request.Form["metadata"][0];
                 var fileMetadata = JsonSerializer.Deserialize<FileMetadata>(fileMetadataJson);
+                var fileExtension = Path.GetExtension(file.FileName);
+                if(!_uploadDirectoryService.IsFileExtensionAllowedForUpload(fileExtension))
+                {
+                    return StatusCode(501, $"File extension not supported: {fileExtension}");
+                }
                 if (file.Length > 0)
                 {
                     if (!fileMetadata.OverwriteExisting)

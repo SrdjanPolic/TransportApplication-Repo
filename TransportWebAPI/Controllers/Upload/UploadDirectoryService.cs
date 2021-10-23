@@ -156,28 +156,54 @@ namespace TransportWebAPI.Controllers.Upload
         public string ReadFolderPathFromSettingsDatatable()
         {
             string folderName = string.Empty;
-            if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)) != null)
+            if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(SettingsConstants.FileUploadFolderPath)) != null)
             {
-                folderName = _unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)).Prefix;
+                folderName = _unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(SettingsConstants.FileUploadFolderPath)).Prefix;
             }
 
             return folderName;
         }
 
-        public void CreateSettingsDatabaseEntryForFolderPathIfNotExists()
+        public bool IsFileExtensionAllowedForUpload(string extension)
+        {
+            var allowedExtensionsSettings = _unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(SettingsConstants.AllowedExtensions));
+            if(allowedExtensionsSettings != null)
+            {
+                return allowedExtensionsSettings.Prefix.Contains(extension);
+            }
+
+            _emailSendingClient.SendLogEmail("UploadDirectoryService: no allowed extensions settings in database");
+
+            return false;
+        }
+
+        public void CreateSettingsDatabaseEntriesForUploadDownloadIfNotExists()
         {
             try
             {
                 //First save Upload Folder Path in Settings table if not exist
-                if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(Constants.FileUploadFolderPath)) == default(Settings))
+                if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(SettingsConstants.FileUploadFolderPath)) == null)
                 {
                     string uploadFolderName = "Upload";
                     var currentDirectory = Directory.GetCurrentDirectory();
                     var pathToSave = Path.Combine(Directory.GetParent(currentDirectory).FullName, uploadFolderName);
                     var settings = new Settings
                     {
-                        ObjectName = Constants.FileUploadFolderPath,
+                        ObjectName = SettingsConstants.FileUploadFolderPath,
                         Prefix = pathToSave
+                    };
+
+                    _unitOfWork.GetRepository<Settings>().Add(settings);
+
+                    _unitOfWork.SaveChanges();
+                }
+                //First save Upload Folder Path in Settings table if not exist
+                if (_unitOfWork.GetRepository<Settings>().Single(x => x.ObjectName.Equals(SettingsConstants.AllowedExtensions)) == null)
+                {
+                    var settings = new Settings
+                    {
+                        ObjectName = SettingsConstants.AllowedExtensions,
+                        Prefix = ".pdf, .doc, .docx, .xls, .xlsx, .csv, .dotm, .txt, .rtf, .pptx, .mpg, .jpg, .jpeg, .bmp"
                     };
 
                     _unitOfWork.GetRepository<Settings>().Add(settings);

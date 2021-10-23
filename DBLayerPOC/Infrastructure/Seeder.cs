@@ -107,12 +107,12 @@ namespace DBLayerPOC.Infrastructure
             //    _ctx.SaveChanges();
             //}
 
-            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.PurchaseInvoiceObjectName)))
+            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(SettingsConstants.PurchaseInvoiceObjectName)))
             {
                 var PurchaseInvoiceNumber = _ctx.PurchaseInvoiceHeaders.Count();
                 var settings = new Settings.Settings
                 {
-                    ObjectName = Constants.PurchaseInvoiceObjectName,
+                    ObjectName = SettingsConstants.PurchaseInvoiceObjectName,
                     Prefix = "UF-20",
                     Year = 2020,
                     LastUsedNumber = PurchaseInvoiceNumber
@@ -123,12 +123,12 @@ namespace DBLayerPOC.Infrastructure
                 _ctx.SaveChanges();
             }
 
-            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(Constants.SalesInvoiceObjectName)))
+            if (!_ctx.SettingsTable.Any(x => x.ObjectName.Equals(SettingsConstants.SalesInvoiceObjectName)))
             {
                 var SalesInvoiceNumber = _ctx.SalesInvoiceHeaders.Count();
                 var settings = new Settings.Settings
                 {
-                    ObjectName = Constants.SalesInvoiceObjectName,
+                    ObjectName = SettingsConstants.SalesInvoiceObjectName,
                     Prefix = "IF-20",
                     Year = 2020,
                     LastUsedNumber = SalesInvoiceNumber

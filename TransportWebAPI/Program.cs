@@ -44,7 +44,7 @@ namespace TransportWebAPI
         private static void RunCreateUploadFolderPathAandStoreToDatabase(IHost host)
         {
             var directoryCreator = host.Services.GetService<UploadDirectoryService>();
-            directoryCreator.CreateSettingsDatabaseEntryForFolderPathIfNotExists();
+            directoryCreator.CreateSettingsDatabaseEntriesForUploadDownloadIfNotExists();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
