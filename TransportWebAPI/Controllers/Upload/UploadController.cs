@@ -30,9 +30,7 @@ namespace TransportWebAPI.Controllers
             _emailSendingClient = emailSendingClient;
         }
 
-        //POST - Upload
         [HttpPost]
-       // public IActionResult Upload(int? documentId, string fileExtension, string discriminator, bool overwriteExiting, string fileName)
         public IActionResult Upload()
         {
             try
@@ -40,8 +38,11 @@ namespace TransportWebAPI.Controllers
                 var file = Request.Form.Files[0];
                 var fileMetadataJson = Request.Form["metadata"][0];
                 var fileMetadata = JsonSerializer.Deserialize<FileMetadata>(fileMetadataJson);
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                fileMetadata.FileName = fileName;
                 var fileExtension = Path.GetExtension(file.FileName);
-                if(!_uploadDirectoryService.IsFileExtensionAllowedForUpload(fileExtension))
+                fileMetadata.Extension = fileExtension;
+                if (!_uploadDirectoryService.IsFileExtensionAllowedForUpload(fileExtension))
                 {
                     return StatusCode(501, $"File extension not supported: {fileExtension}");
                 }
@@ -50,7 +51,7 @@ namespace TransportWebAPI.Controllers
                     if (!fileMetadata.OverwriteExisting)
                     {
                         var fileAlreadyUploaded = _uploadDirectoryService
-                            .ExistFileWithSameFileNameForTheDocument(file, fileMetadata);
+                            .ExistFileWithSameFileNameAndExtensionForTheDocument(fileMetadata);
                         if (fileAlreadyUploaded)
                         {
                             return StatusCode(StatusCodes.Status302Found);
@@ -73,14 +74,18 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        //GET - Download
         [HttpGet, DisableRequestSizeLimit]
-        public IActionResult Download(int? documentId, string fileExtension, string discriminator, string fileName)
+        public IActionResult Download([FromBody] FileMetadata fileMetadata)
         {
             try
             {
-                var fileMetadata = _uploadDirectoryService.SelectFileMetadataFromDatabase(discriminator, documentId, fileName, fileExtension);
-                var filePath = fileMetadata.FilePath;
+                var fileMetadataFromDb = _uploadDirectoryService.SelectFileMetadataFromDatabase(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
+                //if File is not found in the database
+                if(fileMetadataFromDb == null)
+                {
+                    return StatusCode(404, $"File not found: {fileMetadata.FileName}");
+                }
+                var filePath = fileMetadataFromDb.FilePath;
                 var bytes = System.IO.File.ReadAllBytes(filePath);
                 var provider = new FileExtensionContentTypeProvider();
                 if (!provider.TryGetContentType(filePath, out var contentType))
@@ -88,7 +93,7 @@ namespace TransportWebAPI.Controllers
                     contentType = "application/octet-stream";
                 }
 
-                return File(bytes, contentType, Path.GetFileName(fileMetadata.FileName));
+                return File(bytes, contentType, Path.GetFileName(fileMetadataFromDb.FileName));
             }
             catch(Exception ex)
             {
@@ -96,16 +101,19 @@ namespace TransportWebAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
-
-        // DELETE: api/ApiWithActions/5
+      
         [HttpDelete]
-        //public IActionResult Delete(int? documentId, string fileExtension, string discriminator, string fileName)
         public IActionResult Delete([FromBody]FileMetadata fileMetadata)
         {
             try
             {
-                _uploadDirectoryService.DeleteUploadedFileFromDatabaseAndHardDrive(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
-                return Ok(fileMetadata.FileName);
+                if (_uploadDirectoryService.ExistFileWithSameFileNameAndExtensionForTheDocument(fileMetadata))
+                {
+                    _uploadDirectoryService.DeleteUploadedFileFromDatabaseAndHardDrive(fileMetadata.Discriminator, fileMetadata.DocumentId, fileMetadata.FileName, fileMetadata.Extension);
+                    return Ok(fileMetadata.FileName);
+                }
+                else return StatusCode(404, $"File not found: {fileMetadata.FileName}");
+
             }
             catch(Exception ex)
             {
@@ -114,7 +122,6 @@ namespace TransportWebAPI.Controllers
             }
         }
 
-        // GET: api/Upload
         [Route("[action]")]
         [HttpGet]
         public IActionResult GetUploadedFiles([FromBody] FileMetadata fileMetadata)

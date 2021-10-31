@@ -53,7 +53,7 @@ namespace TransportWebAPI.Controllers.Upload
                     fileMetadata.FilePath = fileNameAndPath;
                     fileMetadata.Extension = fileExtension;
 
-                    if (ExistFileWithSameFileNameForTheDocument(file, fileMetadata))
+                    if (ExistFileWithSameFileNameAndExtensionForTheDocument(fileMetadata))
                     {
                         UpdateGeneratedFilenameInDatabaseAndRemoveOldFileFromHarddrive(fileMetadata.Discriminator, 
                             fileMetadata.DocumentId, fileName, fileExtension, randomFileName, fileNameAndPath);
@@ -114,22 +114,16 @@ namespace TransportWebAPI.Controllers.Upload
             return false;
         }
 
-        public bool ExistFileWithSameFileNameForTheDocument(IFormFile file, FileMetadata fileMetadata)
+        public bool ExistFileWithSameFileNameAndExtensionForTheDocument(FileMetadata fileMetadata)
         {
-            if (file.Length > 0)
+            if (_unitOfWork.Context.UploadsDownloads.Any())
             {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fileExtension = Path.GetExtension(fileName);
-                if(_unitOfWork.Context.UploadsDownloads.Any())
-                {
-                    var fileMetadataFromDb = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
-                        && x.FileName.Equals(fileName) && x.Extension.Equals(fileExtension));
-                    return fileMetadataFromDb != default(FileMetadata); ;
+                var fileMetadataFromDb = _unitOfWork.GetRepository<FileMetadata>().Single(x => x.Discriminator.Equals(fileMetadata.Discriminator) && x.DocumentId == fileMetadata.DocumentId
+                    && x.FileName.Equals(fileMetadata.FileName) && x.Extension.Equals(fileMetadata.Extension));
+                return fileMetadataFromDb != default(FileMetadata); ;
 
-                }
-                //
             }
-
+ 
             return false;
         }
 
