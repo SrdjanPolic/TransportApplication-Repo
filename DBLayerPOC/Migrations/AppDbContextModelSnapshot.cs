@@ -16,89 +16,87 @@ namespace DBLayerPOC.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("TransportDbNew")
-                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DBLayerPOC.Infrastructure.Driver.Driver", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnName("Address")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Address");
 
                     b.Property<DateTime>("DriversLicenceExpDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("DriversLicenceExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(7842));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(7842))
+                        .HasColumnName("DriversLicenceExpDate");
 
                     b.Property<string>("DriversLicenceNumber")
                         .IsRequired()
-                        .HasColumnName("DriversLicenceNumber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("DriversLicenceNumber");
 
                     b.Property<bool>("IsInactive")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsInactive")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsInactive");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("Name")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Name");
 
                     b.Property<DateTime>("PassExpDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PassExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 983, DateTimeKind.Local).AddTicks(991));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 983, DateTimeKind.Local).AddTicks(991))
+                        .HasColumnName("PassExpDate");
 
                     b.Property<string>("PassNumber")
                         .IsRequired()
-                        .HasColumnName("PassNumber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("PassNumber");
 
                     b.Property<DateTime>("PersonalIdExpDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PersonalIdExpDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(9661));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 982, DateTimeKind.Local).AddTicks(9661))
+                        .HasColumnName("PersonalIdExpDate");
 
                     b.Property<string>("PersonalIdNummber")
                         .IsRequired()
-                        .HasColumnName("PersonalIdNummber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("PersonalIdNummber");
 
                     b.Property<string>("Remark")
                         .IsRequired()
-                        .HasColumnName("Remark")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("Remark");
 
                     b.HasKey("Id");
 
@@ -114,43 +112,41 @@ namespace DBLayerPOC.Migrations
 
                     b.Property<bool>("IsAdmin")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsAdmin")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsAdmin");
 
                     b.Property<bool>("IsInactive")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsInactive")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsInactive");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("Name")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Name");
 
                     b.Property<string>("Password")
-                        .HasColumnName("Password")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Password");
 
                     b.Property<string>("Username")
-                        .HasColumnName("Username")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Username");
 
                     b.HasKey("Id");
 
@@ -161,100 +157,98 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("CreditMemo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CreditMemo")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("CreditMemo");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DueDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("DueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(105));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(105))
+                        .HasColumnName("DueDate");
 
                     b.Property<string>("ExternalReferenceNo")
-                        .HasColumnName("ExternalReferenceNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("ExternalReferenceNo");
 
                     b.Property<string>("InvoiceNo")
                         .IsRequired()
-                        .HasColumnName("InvoiceNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("InvoiceNo");
 
                     b.Property<bool>("Invoiced")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Invoiced")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("Invoiced");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<bool>("Paid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Paid")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("Paid");
 
                     b.Property<bool>("PartiallyPayed")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PartiallyPayed")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("PartiallyPayed");
 
                     b.Property<DateTime>("PaymentDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PaymentDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(5021));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 943, DateTimeKind.Local).AddTicks(5021))
+                        .HasColumnName("PaymentDate");
 
                     b.Property<DateTime>("PostingDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PostingDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 942, DateTimeKind.Local).AddTicks(9408));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 942, DateTimeKind.Local).AddTicks(9408))
+                        .HasColumnName("PostingDate");
 
                     b.Property<string>("PurchaseSupplierNumber")
-                        .HasColumnName("PurchaseSupplierNumber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("PurchaseSupplierNumber");
 
                     b.Property<string>("SupplierInvoiceNo")
                         .IsRequired()
-                        .HasColumnName("SupplierInvoiceNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("SupplierInvoiceNo");
 
                     b.Property<float>("TotalAmount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("TotalAmount")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("TotalAmount");
 
                     b.Property<float>("TotalAmountLocal")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("TotalAmountLocal")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("TotalAmountLocal");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
@@ -272,74 +266,72 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnName("Description")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("Description");
 
                     b.Property<float>("DiscountPercent")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("DiscountPercent")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("DiscountPercent");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<float>("LineAmount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LineAmount")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("LineAmount");
 
                     b.Property<int>("PurchaseHeaderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Quantity")
                         .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasDefaultValue(0)
+                        .HasColumnName("Quantity");
 
                     b.Property<string>("Remark")
-                        .HasColumnName("Remark")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("Remark");
 
                     b.Property<string>("TravelOrder")
-                        .HasColumnName("TravelOrder")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("TravelOrder");
 
                     b.Property<float>("UnitPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("UnitPrice")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("UnitPrice");
 
                     b.Property<float>("VatPercent")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("VatPercent")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("VatPercent");
 
                     b.Property<int?>("VehicleId")
-                        .HasColumnName("VehicleId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("VehicleId");
 
                     b.HasKey("Id");
 
@@ -352,55 +344,55 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("AdrNeeded")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("AdrNeeded")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("AdrNeeded");
 
                     b.Property<float>("BruttoWeight")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("BruttoWeight")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("BruttoWeight");
 
                     b.Property<float>("CalculatonExchangeRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CalculatonExchangeRate")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("CalculatonExchangeRate");
 
                     b.Property<DateTime>("CheckIssueDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CheckIssueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2417));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2417))
+                        .HasColumnName("CheckIssueDate");
 
                     b.Property<DateTime>("ClienReceiptDocDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ClienReceiptDocDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2883));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 965, DateTimeKind.Local).AddTicks(2883))
+                        .HasColumnName("ClienReceiptDocDate");
 
                     b.Property<string>("CommodityType")
-                        .HasColumnName("CommodityType")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("CommodityType");
 
                     b.Property<bool>("CreditMemo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CreditMemo")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("CreditMemo");
 
                     b.Property<string>("CrmNumber")
-                        .HasColumnName("CrmNumber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("CrmNumber");
 
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
@@ -409,166 +401,164 @@ namespace DBLayerPOC.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DriverName")
-                        .HasColumnName("DriverName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("DriverName");
 
                     b.Property<DateTime>("DueDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("DueDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(6888));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(6888))
+                        .HasColumnName("DueDate");
 
                     b.Property<string>("ExternalReferenceNo")
-                        .HasColumnName("ExternalReferenceNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("ExternalReferenceNo");
 
                     b.Property<string>("InvoiceNo")
                         .IsRequired()
-                        .HasColumnName("InvoiceNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("InvoiceNo");
 
                     b.Property<bool>("Invoiced")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Invoiced")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("Invoiced");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<string>("LoadAddress")
-                        .HasColumnName("LoadAddress")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("LoadAddress");
 
                     b.Property<DateTime?>("LoadDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LoadDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(7714));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(7714))
+                        .HasColumnName("LoadDate");
 
                     b.Property<string>("LoadRepresentative")
-                        .HasColumnName("LoadRepresentative")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("LoadRepresentative");
 
                     b.Property<double>("NumberOfPallets")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("NumberOfPallets")
                         .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasDefaultValue(0.0)
+                        .HasColumnName("NumberOfPallets");
 
                     b.Property<double>("NumberOfPalletsPlaces")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("NumberOfPalletsPlaces")
                         .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasDefaultValue(0.0)
+                        .HasColumnName("NumberOfPalletsPlaces");
 
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("OrderDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(7734));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(7734))
+                        .HasColumnName("OrderDate");
 
                     b.Property<bool>("OwnTransport")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("OwnTransport")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("OwnTransport");
 
                     b.Property<bool>("Paid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Paid")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("Paid");
 
                     b.Property<float>("PartiallyPayed")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PartiallyPayed")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("PartiallyPayed");
 
                     b.Property<DateTime>("PaymentDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PaymentDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 962, DateTimeKind.Local).AddTicks(7689));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 962, DateTimeKind.Local).AddTicks(7689))
+                        .HasColumnName("PaymentDate");
 
                     b.Property<DateTime>("PostingDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PostingDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(5326));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 961, DateTimeKind.Local).AddTicks(5326))
+                        .HasColumnName("PostingDate");
 
                     b.Property<float>("PricePerKm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PricePerKm")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("PricePerKm");
 
                     b.Property<string>("Remarks")
-                        .HasColumnName("Remarks")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Remarks");
 
                     b.Property<float>("RouteDistance")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("RouteDistance")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("RouteDistance");
 
                     b.Property<string>("SalesPerson")
-                        .HasColumnName("SalesPerson")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("SalesPerson");
 
                     b.Property<string>("TaxLawText")
-                        .HasColumnName("TaxLawText")
+                        .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(5000);
+                        .HasColumnName("TaxLawText");
 
                     b.Property<float>("TotalAmount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("TotalAmount")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("TotalAmount");
 
                     b.Property<float>("TotalAmountLocal")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("TotalAmountLocal")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("TotalAmountLocal");
 
                     b.Property<string>("TravelOrder")
-                        .HasColumnName("TravelOrder")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("TravelOrder");
 
                     b.Property<string>("UnloadAddress")
-                        .HasColumnName("UnloadAddress")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("UnloadAddress");
 
                     b.Property<DateTime?>("UnloadDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("UnloadDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(9978));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 964, DateTimeKind.Local).AddTicks(9978))
+                        .HasColumnName("UnloadDate");
 
                     b.Property<string>("VechicleRegistration")
-                        .HasColumnName("VechicleRegistration")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("VechicleRegistration");
 
                     b.HasKey("Id");
 
@@ -583,65 +573,63 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnName("Description")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("Description");
 
                     b.Property<float>("DiscountPercent")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("DiscountPercent")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("DiscountPercent");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<float>("LineAmount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LineAmount")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("LineAmount");
 
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Quantity")
                         .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasDefaultValue(0)
+                        .HasColumnName("Quantity");
 
                     b.Property<string>("Remark")
-                        .HasColumnName("Remark")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("Remark");
 
                     b.Property<int>("SalesHeaderId")
                         .HasColumnType("int");
 
                     b.Property<float>("UnitPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("UnitPrice")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("UnitPrice");
 
                     b.Property<float>("VatPercent")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("VatPercent")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("VatPercent");
 
                     b.HasKey("Id");
 
@@ -654,39 +642,37 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<int>("LastUsedNumber")
-                        .HasColumnName("LastUsedNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("LastUsedNumber");
 
                     b.Property<string>("ObjectName")
                         .IsRequired()
-                        .HasColumnName("ObjectName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ObjectName");
 
                     b.Property<string>("Prefix")
                         .IsRequired()
-                        .HasColumnName("Prefix")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Prefix");
 
                     b.Property<int>("Year")
-                        .HasColumnName("Year")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
 
                     b.HasKey("Id");
 
@@ -697,40 +683,39 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnName("Discriminator")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Discriminator");
 
                     b.Property<int?>("DocumentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("DocumentId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("DocumentId");
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnName("Extension")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Extension");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnName("Filename")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Filename");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnName("FilePath")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("FilePath");
 
                     b.Property<string>("GeneratedFileName")
                         .IsRequired()
-                        .HasColumnName("GeneratedFileName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("GeneratedFileName");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .HasColumnType("datetime2");
@@ -747,61 +732,59 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ChassisNumber")
                         .IsRequired()
-                        .HasColumnName("ChassisNumber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("ChassisNumber");
 
                     b.Property<bool>("IsInactive")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsInactive")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsInactive");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<float>("MaxWeight")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("MaxWeight")
                         .HasColumnType("real")
-                        .HasDefaultValue(0f);
+                        .HasDefaultValue(0f)
+                        .HasColumnName("MaxWeight");
 
                     b.Property<DateTime>("RegistrationDate")
-                        .HasColumnName("RegistrationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("RegistrationDate");
 
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
-                        .HasColumnName("RegistrationNumber")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("RegistrationNumber");
 
                     b.Property<string>("Remark")
                         .IsRequired()
-                        .HasColumnName("Remark")
+                        .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnName("Remark");
 
                     b.Property<string>("VechicleType")
                         .IsRequired()
-                        .HasColumnName("VechicleType")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("VechicleType");
 
                     b.HasKey("Id");
 
@@ -812,45 +795,45 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnName("Address")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Address");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnName("City")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("City");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnName("Country")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Country");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("Email")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Email");
 
                     b.Property<bool?>("IsInactive")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsInactive")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsInactive");
 
                     b.Property<DateTime>("LastChangeDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDate")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 932, DateTimeKind.Local).AddTicks(6286));
+                        .HasDefaultValue(new DateTime(2021, 9, 30, 22, 11, 42, 932, DateTimeKind.Local).AddTicks(6286))
+                        .HasColumnName("LastChangeDate");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .HasColumnType("datetime2");
@@ -860,36 +843,35 @@ namespace DBLayerPOC.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("Name")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Name");
 
                     b.Property<string>("Note")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Note")
-                        .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500)
-                        .HasDefaultValue(null);
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Note");
 
                     b.Property<int>("PaymentCurrency")
-                        .HasColumnName("PaymentCurrency")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("PaymentCurrency");
 
                     b.Property<string>("PaymentTermsCode")
                         .IsRequired()
-                        .HasColumnName("PaymentTermsCode")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("PaymentTermsCode");
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
-                        .HasColumnName("PhoneNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("PhoneNo");
 
                     b.Property<string>("VatNumber")
-                        .HasColumnName("VatNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("VatNumber");
 
                     b.HasKey("Id");
 
@@ -900,33 +882,31 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnName("Code")
+                        .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnName("Code");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("Name")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Name");
 
                     b.HasKey("Id");
 
@@ -937,35 +917,33 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CurrencyId")
-                        .HasColumnName("CurrencyId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CurrencyId");
 
                     b.Property<float>("ExchangeRateAmount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ExchangeRateAmount")
                         .HasColumnType("real")
-                        .HasDefaultValue(1f);
+                        .HasDefaultValue(1f)
+                        .HasColumnName("ExchangeRateAmount");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<DateTime>("StartingDate")
-                        .HasColumnName("StartingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("StartingDate");
 
                     b.HasKey("Id");
 
@@ -978,85 +956,81 @@ namespace DBLayerPOC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnName("Address")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Address");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnName("City")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("City");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnName("Country")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Country");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("Email")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Email");
 
                     b.Property<bool>("IsInactive")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("IsInactive")
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsInactive");
 
                     b.Property<DateTime?>("LastChangeDateTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeDateTime")
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeDateTime");
 
                     b.Property<int?>("LastChangeUserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("LastChangeUserId")
                         .HasColumnType("int")
-                        .HasDefaultValue(null);
+                        .HasColumnName("LastChangeUserId");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("Name")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("Name");
 
                     b.Property<string>("Note")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Note")
-                        .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500)
-                        .HasDefaultValue(null);
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("Note");
 
                     b.Property<int>("PaymentCurrency")
-                        .HasColumnName("PaymentCurrency")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("PaymentCurrency");
 
                     b.Property<string>("PersonalIdNumber")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("PersonalIdNumber")
-                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50)
-                        .HasDefaultValue(null);
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("PersonalIdNumber");
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
-                        .HasColumnName("PhoneNo")
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnName("PhoneNo");
 
                     b.Property<string>("VatNumber")
-                        .HasColumnName("VatNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("VatNumber");
 
                     b.HasKey("Id");
 
@@ -1076,6 +1050,10 @@ namespace DBLayerPOC.Migrations
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("Vendor");
                 });
 
             modelBuilder.Entity("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceLine", b =>
@@ -1085,6 +1063,8 @@ namespace DBLayerPOC.Migrations
                         .HasForeignKey("PurchaseHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Header");
                 });
 
             modelBuilder.Entity("DBLayerPOC.Infrastructure.SalesInvoice.SalesInvoiceHeader", b =>
@@ -1100,6 +1080,10 @@ namespace DBLayerPOC.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("DBLayerPOC.Infrastructure.SalesInvoice.SalesInvoiceLine", b =>
@@ -1109,6 +1093,8 @@ namespace DBLayerPOC.Migrations
                         .HasForeignKey("SalesHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Header");
                 });
 
             modelBuilder.Entity("DBLayerPOC.Models.CurrencyExchangeRate", b =>
@@ -1118,6 +1104,37 @@ namespace DBLayerPOC.Migrations
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Currency");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.PurchaseInvoice.PurchaseInvoiceHeader", b =>
+                {
+                    b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.SalesInvoice.SalesInvoiceHeader", b =>
+                {
+                    b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Infrastructure.Vendor.Vendor", b =>
+                {
+                    b.Navigation("PurchaseInvoiceHeaders");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Models.Currency", b =>
+                {
+                    b.Navigation("CurrencyExchangeRates");
+
+                    b.Navigation("PurchaseInvoiceHeaders");
+
+                    b.Navigation("SalesInvoiceHeaders");
+                });
+
+            modelBuilder.Entity("DBLayerPOC.Models.Customer", b =>
+                {
+                    b.Navigation("SalesInvoiceHeaders");
                 });
 #pragma warning restore 612, 618
         }

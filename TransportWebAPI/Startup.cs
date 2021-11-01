@@ -25,6 +25,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Hosting;
 using TransportWebAPI.Controllers.Upload;
+using DBLayerPOC.Infrastructure.Authentication;
+using Microsoft.AspNetCore.Identity;
 
 namespace TransportWebAPI
 {
@@ -105,6 +107,9 @@ namespace TransportWebAPI
                                        sqlOptions => sqlOptions.MigrationsAssembly("DBLayerPOC"));
               }
              );
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddControllers(options => options.EnableEndpointRouting = false);
 
