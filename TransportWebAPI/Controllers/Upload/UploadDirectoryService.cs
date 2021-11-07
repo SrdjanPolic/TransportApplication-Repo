@@ -129,6 +129,12 @@ namespace TransportWebAPI.Controllers.Upload
 
         private void InsertUploadedFileMetadataToDatabase(FileMetadata fileMetadata)
         {
+            //If general document is uploaded, make sure that document ID is null and discriminator is empty string
+            if(fileMetadata.Discriminator.Equals(string.Empty) || fileMetadata.DocumentId == null)
+            {
+                fileMetadata.DocumentId = null;
+                fileMetadata.Discriminator = string.Empty;
+            }
             _unitOfWork.GetRepository<FileMetadata>().Add(fileMetadata);
             _unitOfWork.SaveChanges();
         }
