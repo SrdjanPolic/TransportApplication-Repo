@@ -115,22 +115,6 @@ namespace DBLayerPOC.Migrations.AuthenticationDb
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5e997f0f-6146-4319-86cc-67234d8f674e",
-                            ConcurrencyStamp = "627be373-19fe-4270-918b-38af9878e189",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "6a84326d-99fe-4f93-94c9-4b57e9cf68c4",
-                            ConcurrencyStamp = "4811a6b7-c51a-4f42-b3f4-6195c60cd82c",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
