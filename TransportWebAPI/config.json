@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
     "ConnectionStringProd": "bla",
-    "ConnectionStringDev": "server=.\\SQLEXPRESS;Database=e001800;Integrated Security=true;MultipleActiveResultSets=true;"
+    "ConnectionStringDev": "server=localhost; port=3306; database=test; user=atomic; password=Jasammalislon1234!; Persist Security Info=False; Connect Timeout=300"
   }
 }

@@ -8,14 +8,23 @@ using DBLayerPOC.Infrastructure.Vehicle;
 using DBLayerPOC.Infrastructure.Vendor;
 using DBLayerPOC.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Configuration;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace DBLayerPOC.Infrastructure
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        protected readonly IConfiguration Configuration;
+
+        public AppDbContext()
         {
+           
+        }
+
+        public AppDbContext(IConfiguration configuration)
+        {
+            Configuration = configuration;
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
@@ -78,6 +87,24 @@ namespace DBLayerPOC.Infrastructure
 
             //UploadDownload
             modelBuilder.ApplyConfiguration(new FileMetadataEntityTypeConfiguration());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            // connect to mysql with connection string from app settings
+            var connectionString = Configuration.GetConnectionString("ConnectionStringDev");
+            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
+            // Throw an exception, if a schema is being used. This is the default.
+            options.UseMySql(ServerVersion.AutoDetect(connectionString), b => b.SchemaBehavior(MySqlSchemaBehavior.Throw));
+
+            // Silently ignore any schema definitions.
+            options.UseMySql(ServerVersion.AutoDetect(connectionString), b => b.SchemaBehavior(MySqlSchemaBehavior.Ignore));
+
+            // Use the specified translator delegate to translate from an input schema and object name to
+            // an output object name whenever a schema is being used.
+            options.UseMySql(ServerVersion.AutoDetect(connectionString), b => b.SchemaBehavior(MySqlSchemaBehavior.Translate,
+            (schema, entity) => $"{schema ?? "dbo"}_{entity}"));
         }
     }
 }

@@ -100,13 +100,18 @@ namespace TransportWebAPI
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            services.AddEntityFrameworkSqlServer()
-              .AddDbContext<AppDbContext>(options =>
-              {
-                  options.UseSqlServer(databaseConnectionString,
-                                       sqlOptions => sqlOptions.MigrationsAssembly("DBLayerPOC"));
-              }
-             );
+            //services.AddEntityFrameworkSqlServer()
+            //  .AddDbContext<AppDbContext>(options =>
+            //  {
+            //      options.UseSqlServer(databaseConnectionString,
+            //                           sqlOptions => sqlOptions.MigrationsAssembly("DBLayerPOC"));
+            //  }
+            // );
+
+            string mySqlConnectionStr = Configuration.GetConnectionString("ConnectionStringDev");
+            services.AddDbContext<AppDbContext>(options => 
+            options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
