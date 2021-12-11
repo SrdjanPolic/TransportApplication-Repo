@@ -31,7 +31,7 @@ namespace DBLayerPOC.Infrastructure
 
             //var connectionString = Configuration.GetConnectionString("ConnectionString");
             //var connectionString = configuration.GetConnectionString("ConnectionString");
-             var connectionString = "server=localhost; port=3306; database=test; user=atomic; password=Jasammalislon1234!; Persist Security Info=False; Connect Timeout=300";
+             var connectionString = "server=localhost; port=3306; database=TransportDbNew; user=atomic; password=Jasammalislon1234!; Persist Security Info=False; Connect Timeout=300";
 
             //var connectionString = "server=localhost; database=test;Integrated Security=true;MultipleActiveResultSets=true;";
             var serverVersion = ServerVersion.FromString("8.0.27");
