@@ -1,6 +1,5 @@
 import { SalesInvService } from './../../shared/SalesInv.service';
 import { RepositoryService } from './../../shared/repository.service';
-import { CountryService} from './../../shared/country.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -34,6 +33,8 @@ export class InvoiceATPrintComponent implements OnInit {
   settings: Settings;
   private dialogConfig;
   invoiceIdForPrint: string;
+  VATAmount: number;
+  NetAmount: number;
   constructor(public service: SalesInvService,
     private dialog: MatDialog,
     private repoService: RepositoryService,
@@ -41,7 +42,6 @@ export class InvoiceATPrintComponent implements OnInit {
     private router: Router,
     private errorService: ErrorHandlerService,
     private location: Location,
-    private countryService: CountryService,
     private currentRoute: ActivatedRoute) { }
 
     ngOnInit() {
@@ -60,6 +60,12 @@ export class InvoiceATPrintComponent implements OnInit {
         const currid = 2;  // eur
         const apiUrl = `api/ExchangeRate/${currid}/${this.service.formData.checkIssueDate}`;
         this.repoService.getData(apiUrl).subscribe(res3 => this.currExchange = res3 as CurrencyExchange);
+        this.VATAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+          return prev + (curr.lineAmount - (curr.unitPrice * curr.quantity));
+        }, 0);
+        this.NetAmount = this.service.SalesInvLines.reduce((prev, curr) => {
+          return prev + ( curr.unitPrice * curr.quantity);
+        }, 0);
       });
 
     }

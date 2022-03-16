@@ -4,7 +4,7 @@ import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SuccessDialogComponent } from './dialogs/success-dialog/success-dialog.component';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
-import { UploadComponent} from './../upload/upload.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,13 +15,11 @@ import { UploadComponent} from './../upload/upload.component';
     MaterialModule,
     FlexLayoutModule,
     SuccessDialogComponent,
-    ErrorDialogComponent,
-    UploadComponent
+    ErrorDialogComponent
   ],
   declarations: [
-    SuccessDialogComponent,
-    ErrorDialogComponent,
-    UploadComponent
+    SuccessDialogComponent, 
+    ErrorDialogComponent
   ],
   entryComponents: [
     SuccessDialogComponent,

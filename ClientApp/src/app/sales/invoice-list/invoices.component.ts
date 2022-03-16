@@ -16,8 +16,8 @@ import { Customer} from './../../_interface/customer.model';
   styles: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'totalAmountLocal', 'dueDate' ,'currencyId',
-   'paid', 'invoiced', 'creditMemo', 'vechicleRegistration', 'update'];
+  public displayedColumns = ['invoiceNo', 'postingDate' , 'customerId', 'totalAmount', 'dueDate' ,'currencyId',
+   'paid', 'invoiced', 'creditMemo', 'update'];
   SalesList: Customer;
   public dataSource = new MatTableDataSource<SalesInvHeader>();
   @ViewChild(MatSort) sort: MatSort;

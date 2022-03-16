@@ -1,6 +1,7 @@
 {
-  "ConnectionStrings": {
-    "ConnectionStringProd": "bla",
-    "ConnectionStringDev": "server=localhost; port=3306; database=TransportDbNew; user=atomic; password=Jasammalislon1234!; Persist Security Info=False; Connect Timeout=300"
+  {
+    "ConnectionStrings": {
+      "ConnectionStringProd": "bla",
+      "ConnectionStringDev": "server=DENUE-AXD4094N1\\NAVDEMO;Database=Austrija;Integrated Security=true;MultipleActiveResultSets=true;"
+    }
   }
-}
